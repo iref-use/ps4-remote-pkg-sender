@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>PS4 Remote PKG Sender</title>
+  </head>
+  <body>
+    <label>LOCAL IP:</label>
+    <input type="text" placeholder="192.168.1.1" value="192.168.1.1" id="localIP" />
+    <br>
+    <label>PS4 IP:</label>
+    <input type="text" placeholder="192.168.1.100" value="192.168.1.100" id="PS4IP" />
+    <br>
+    <label>PKG Files:</label>
+    <div class="files"></div>
+    <input type="file" multiple accept=".pkg" />
+    <br>
+    <input type="button" value="SEND" disabled />
+    <script>
+      require('./renderer.js')
+    </script>
+  </body>
+</html>
