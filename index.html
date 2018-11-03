@@ -6,18 +6,29 @@
   </head>
   <body>
     <label>LOCAL IP:</label>
-    <input type="text" placeholder="192.168.1.1" value="192.168.1.1" id="localIP" />
-    <br>
+    <select id="localIP">
+    </select>
+    <label>PORT: </label>
+    <input type="text" id="portNumber" value="9999">
+    <input type="button" id="changePort" value="CHANGE PORT"/>
+    <br><br>
     <label>PS4 IP:</label>
     <input type="text" placeholder="192.168.1.100" value="192.168.1.100" id="PS4IP" />
-    <br>
+    <br><br>
     <label>PKG Files:</label>
     <div class="files"></div>
-    <input type="file" multiple accept=".pkg" />
+    <input type="file" id="filePicker" multiple accept=".pkg" />
     <br>
-    <input type="button" value="SEND" disabled />
+    <input type="button" value="SEND" id="send" disabled />
+    <br><br>
+    <label>Tasks:</label>
+    <div class="tasks"></div>
+    <br><br>
+    <label>Log:</label><br>
+    <textarea id="log" rows="12" cols="100"></textarea>
+    <script>window.$ = window.jQuery = require('jquery');</script>
     <script>
-      require('./renderer.js')
+      require('./renderer.js');
     </script>
   </body>
 </html>

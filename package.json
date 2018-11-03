@@ -11,6 +11,8 @@
     "electron-packager": "^12.2.0"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "electron-config": "^1.0.0",
+    "express": "^4.16.4",
+    "jquery": "^3.3.1"
   }
 }
