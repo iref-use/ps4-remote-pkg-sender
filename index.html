@@ -21,12 +21,22 @@
     <br>
     <input type="button" value="SEND" id="send" disabled />
     <br><br>
+    <label>Torrent magnet link</label>
+    <input type="text" id="magnetLink" />
+    <label> PORT: </label>
+    <input type="text" id="torrentPortNumber" value="8888">
+    <br>
+    <input type="button" value="START TORRENT SERVER AND SEND" id="sendTorrent" />
+    <br><br>
     <label>Tasks:</label>
     <div class="tasks"></div>
     <br><br>
     <label>Log:</label><br>
     <textarea id="log" rows="12" cols="100"></textarea>
     <script>window.$ = window.jQuery = require('jquery');</script>
+    <script>
+      window.WebTorrent = require('webtorrent');
+    </script>
     <script>
       require('./renderer.js');
     </script>

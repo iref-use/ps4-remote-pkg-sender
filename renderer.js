@@ -3,6 +3,8 @@ const app = express();
 const server = require('http').createServer(app);
 server.listen(jQuery('#portNumber').val());
 var shell = require('electron').shell;
+const torrentClient = new WebTorrent();
+
 var files = [];
 var queue = [];
 const Config = require('electron-config');
@@ -120,6 +122,48 @@ jQuery('#send').on('click', function (ev) {
       jQuery('#send').removeAttr('disabled');
     }
   })(queue);
+});
+
+jQuery('#sendTorrent').on('click', function () {
+  let torrentId = jQuery('#magnetLink').val();
+  torrentClient.add(torrentId, function (torrent) {
+    var torrentServ = torrent.createServer();
+    torrentServ.listen(jQuery('#torrentPortNumber').val());
+    torrent.files.forEach(function (file, index) {
+      queue.push({
+        "type": "direct",
+        "packages": [`http://${document.querySelector('#localIP').value}:${jQuery('#torrentPortNumber').val()}/${index}/${file.name}`]
+      });
+    });
+    (function worker(queue) {
+      if (queue.length) {
+        let req = queue.shift();
+        fetch(`http://${document.querySelector('#PS4IP').value}:12800/api/install`, {
+          method: 'post',
+          body: JSON.stringify(req)
+        }).then(function(res) {
+          return res.text();
+        }).then(function (data) {
+          if (data.indexOf('fail') > -1) {
+            alert('FAILED JSON: ' + JSON.stringify(req));
+            queue = [];
+            jQuery('#send').removeAttribute('disabled');
+            return;
+          }
+          data = JSON.parse(data);
+          if (data.status === 'success') {
+            jQuery('.tasks').append(`<div data-task-id="${data.task_id}">${data.task_id}: ${data.title} <a href="#" class="check_task">Check</a> <a href="#" class="pause_task">Pause</a> <a href="#" class="resume_task">Resume</a> <a href="#" class="remove_task">Remove</a></div>`);
+            jQuery('#log').val(function(i, text) {
+              return text + JSON.stringify(data) + "\n";
+            });
+            setTimeout(function () {
+              worker(queue);
+            }, 2500);
+          }
+        });
+      }
+    })(queue);
+  });
 });
 
 jQuery(document).on('click', '.check_task', function () {
