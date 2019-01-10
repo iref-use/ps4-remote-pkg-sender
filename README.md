@@ -20,3 +20,5 @@ select your local PC IP address
 insert IP from your PS4  
 paste Magnet Link to magnet link input  
 click to START TORRENT SERVER AND SEND button  
+
+Credits: Thanks to flatz, Specter, xvortex
