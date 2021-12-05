@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-server.listen(jQuery('#portNumber').val());
 var shell = require('electron').shell;
+
+// load and map
+window.$ = window.jQuery = require('jquery')
+window.WebTorrent = require('webtorrent');
+
+// setup
+server.listen(jQuery('#portNumber').val());
 const torrentClient = new WebTorrent();
 
 var files = [];
