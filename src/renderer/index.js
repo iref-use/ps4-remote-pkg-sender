@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 import './plugins'
+import './components'
 import './scripts'
 
 const styles=document.createElement('style');
