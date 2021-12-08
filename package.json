@@ -22,16 +22,18 @@
     "webpack": "~4.42.1"
   },
   "dependencies": {
-    "source-map-support": "^0.5.16",
+    "axios": "^0.24.0",
     "electron-config": "^1.0.0",
+    "element-ui": "^2.15.6",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
+    "source-map-support": "^0.5.16",
     "webtorrent": "^0.102.4"
   },
   "build": {
     "appId": "com.ps4remotepkgsender",
     "directories": {
-        "output" : "release"
+      "output": "release"
     }
   }
 }
