@@ -1,11 +1,13 @@
-import { app } from 'electron'
+import { app, shell, Menu } from 'electron'
+import windows from './index'
+import links from './../config/links'
 
 const application = {
   label: "Application",
   submenu: [{
     label: "Quit",
     accelerator: "Command+Q",
-    click: () => {app.quit()}
+    click: () => { app.quit() }
   }]
 }
 
@@ -52,7 +54,8 @@ const help = {
   label: "Info",
   submenu: [
       {
-        label: "Version",
+        label: "Info",
+        click: () => { windows.info.show() }
       },
       {
         label: 'Separator',
@@ -60,9 +63,11 @@ const help = {
       },
       {
         label: "GitHub",
+        click: () => { shell.openExternal(links.github_repo) }
       },
       {
         label: "Report an Issue",
+        click: () => { shell.openExternal(links.report_issue) }
       }
   ]
 }
@@ -73,4 +78,11 @@ const template = [
   help,
 ];
 
-export default template
+
+
+export default {
+  template,
+  createMenu(){
+      Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+  }
+}

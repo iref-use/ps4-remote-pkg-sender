@@ -1,10 +1,8 @@
-import { BrowserWindow, Menu, Tray, app, nativeImage } from 'electron'
+import { BrowserWindow, Menu, app, nativeImage } from 'electron'
 import path from 'path'
 import { format as formatUrl } from 'url'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
-import menuTemplate from './menu'
 
 export default {
     installDevtools(window){
@@ -27,63 +25,44 @@ export default {
         }
     },
 
-    setWindowLoadURL(window){
+    setWindowLoadURL(window, to='/'){
         if (isDevelopment) {
-          window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+          window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` + '#' + to)
         }
         else {
-          window.loadURL(formatUrl({
-            pathname: path.join(__dirname, 'index.html'),
-            protocol: 'file',
-            slashes: true
-          }))
+          window.loadURL('file://' + path.join(__dirname, 'index.html' + '#' + to))
+          // window.loadURL(formatUrl({
+          //   pathname: path.join(__dirname, 'index.html'+ '#' + to),
+          //   protocol: 'file',
+          //   slashes: true
+          // }))
         }
     },
 
-    createBaseWindow(){
-        return new BrowserWindow({
+    createBaseWindow(args={}){
+        let params = {
             height: 600,
             width: 900,
+            title: 'PS4 Remote Package Sender',
             icon: nativeImage.createFromDataURL(this.getAppIconPath()),
             // titleBarStyle: 'hiddenInset',
             webPreferences: {
+                allowRunningInsecureContent: true,
                 nodeIntegration: true
             }
-        })
+        }
+        return new BrowserWindow({...params, ...args})
     },
 
-    createWindowInstance(){
-        const window = this.createBaseWindow()
+    createWindowInstance(to='/', args={}, debug=false){
+        const window = this.createBaseWindow(args)
 
+        if(debug)
         this.setDevtools(window)
-        this.setWindowLoadURL(window)
+
+        this.setWindowLoadURL(window, to)
+
         return window
-    },
-
-    createMenu(){
-        Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
-    },
-
-    createTray(){
-        let tray;
-
-        // use https://svgtopng.com/ to convert svg to png
-        const iconURL = this.getIconPath()
-        const icon = nativeImage.createFromPath(iconURL)
-
-        tray = new Tray(iconURL)
-
-        const contextMenu = Menu.buildFromTemplate([
-          { label: 'Open PS4 Remote PKG Installer' },
-          { label: 'Install new PKG' },
-          { label: 'Show Tasks' },
-          { label: 'Show Server listed PKGs', type: 'radio', checked: false },
-          { label: 'Separator', type: 'separator'},
-          { label: 'Info' }
-        ])
-
-        tray.setContextMenu(contextMenu)
-        // tray.setTitle("PS4 RPI")
     },
 
     getIconPath(){

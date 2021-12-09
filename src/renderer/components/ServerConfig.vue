@@ -1,17 +1,20 @@
 <template>
 <div id='server_config'>
 
+  <el-divider content-position="left">Local Server Configuration</el-divider>
+
+  <div class="q-pl-md">
   <el-form :inline="true" label-width="150px" size="mini" label-position="left">
-      <el-row :gutter="20">
+      <el-row :gutter="10">
           <el-col :span="10">
-              <el-form-item label="Local Server IP">
+              <el-form-item label="Server IP">
                   <el-select v-model="server.ip" placeholder="Networkinterface" default-first-option>
-                    <el-option :label="i.title" :value="i.ip" v-for="i in ifaces"></el-option>
+                      <el-option :label="i.title" :value="i.ip" v-for="i in ifaces" :key="i.ip"></el-option>
                   </el-select>
               </el-form-item>
           </el-col>
           <el-col :span="10">
-              <el-form-item label="Local Server Port">
+              <el-form-item label="Port">
                 <el-input v-model="server.port"></el-input>
               </el-form-item>
           </el-col>
@@ -19,7 +22,33 @@
               <el-button size="mini">Change Port </el-button>
           </el-col>
       </el-row>
+
+      <el-row :gutter="10">
+          <el-col :span="10">
+              <el-form-item label="Server App">
+                  <el-select v-model="server.app" placeholder="Application" default-first-option>
+                      <el-option :label="i.title" :value="i.app" :disabled="i.disabled" v-for="i in apps" :key="i.app"></el-option>
+                  </el-select>
+              </el-form-item>
+          </el-col>
+          <el-col :span="10">
+              <el-form-item label="Status">
+                  n/a
+              </el-form-item>
+          </el-col>
+          <el-col :span="4">
+              <el-button size="mini" icon="el-icon-refresh"></el-button>
+              <el-button size="mini" icon="el-icon-switch-button"></el-button>
+          </el-col>
+      </el-row>
+
+      <el-form-item label="PKG Base Path">
+        <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path">
+            <el-button slot="append" icon="el-icon-folder"></el-button>
+        </el-input>
+      </el-form-item>
   </el-form>
+  </div>
 
   <template v-if="debug">
     <pre>Server {{ server }}</pre>
@@ -35,13 +64,23 @@ export default {
 
     data(){ return {
         debug: false,
-        
+
         server: {
             ip: '',
-            port: '1337',
+            port: '8337',
+            app: 'express',
+            base_path: '',
         },
 
-        ifaces: []
+        ifaces: [],
+        apps: [
+          { title: "express", app: "express", disabled: false },
+          { title: "apache", app: "apache", disabled: true },
+          { title: "nginx", app: "nginx", disabled: true },
+          { title: "proxy", app: "proxy", disabled: true },
+          { title: "remote", app: "remote", disabled: true },
+          { title: "custom", app: "custom", disabled: true },
+        ]
     }},
 
     mounted(){
@@ -62,5 +101,8 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss">
+.input_base_path .el-form-item__content {
+  width: calc(100% - 175px);
+}
 </style>

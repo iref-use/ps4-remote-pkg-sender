@@ -1,6 +1,7 @@
 <template>
 <div>
 
+    <template v-if="0">
     <label>LOCAL IP:</label>
     <select id="localIP">
         <template v-for="e in ifaces">
@@ -18,6 +19,7 @@
     <label>PS4 IP:</label>
     <input type="text" placeholder="192.168.1.100" value="192.168.1.100" id="PS4IP" />
     <br><br>
+    </template>
 
     <label>PKG Files:</label>
     <div class="files"></div>
