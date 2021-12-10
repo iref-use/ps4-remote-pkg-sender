@@ -87,7 +87,7 @@ export default {
             return fs.readdirSync(path, { withFileTypes: true })
                      .map( item => this.createItem(item) )
                      .filter( item => item.isFile )
-                     .filter( item => item.ext == '.pkg')
+                     .filter( item => item.ext.includes('pkg'))
         },
 
         isFile(pathItem) {
