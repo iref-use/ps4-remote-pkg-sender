@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import pathify from './pathify'
 
+import { createPersistedState, createSharedMutations } from "vuex-electron"
+
 Vue.use(Vuex)
 
 // Load store modules dynamically.
@@ -20,6 +22,12 @@ const modules = requireContext.keys()
   }, {})
 
 export default new Vuex.Store({
-  plugins: [ pathify.plugin ],
+  plugins: [
+    pathify.plugin,
+    createPersistedState({
+      whitelist: (mutation) => true,
+    }),
+    createSharedMutations()
+  ],
   modules
 })

@@ -6,6 +6,8 @@ import helper from './helper'
 import menu from './menu'
 import tray from './tray'
 
+import store from './../renderer/store/index.js'
+
 // set vars
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -47,6 +49,12 @@ function createInfoWindow(){
   windows.info = info
 }
 
+// hearthbeat
+function hearthbeat(){
+  setInterval( () => {
+    store.dispatch('app/addTime')
+  }, 1000)
+}
 
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
@@ -80,6 +88,8 @@ app.on('ready', () => {
   tray.createTray()
 
   new Notification({ title: 'PS4 Remote PKG Sender', body: 'Welcome to PS4 Remote PKG Installer. \nStart your Remote Package Installer App on your PS4 and add your PKG files here. \nHave fun.' }).show()
+  hearthbeat()
 })
+
 
 export default windows

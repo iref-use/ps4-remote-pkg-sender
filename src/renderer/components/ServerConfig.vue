@@ -59,18 +59,14 @@
 </template>
 
 <script>
+import { get, sync } from 'vuex-pathify'
+import { throttle } from 'lodash'
+
 export default {
     name: 'ServerConfig',
 
     data(){ return {
         debug: false,
-
-        server: {
-            ip: '',
-            port: '8337',
-            app: 'express',
-            base_path: '',
-        },
 
         ifaces: [],
         apps: [
@@ -87,6 +83,17 @@ export default {
         this.loadNetworkInterfaces()
     },
 
+    computed: {
+        server: sync('app/server'),
+    },
+
+    // watch: {
+    //     server: {
+    //         deep: true,
+    //         handler: throttle(this.save(), 2000)
+    //     }
+    // },
+
     methods: {
         loadNetworkInterfaces(){
             this.ifaces = this.$helper.getNetWorkInterfaces()
@@ -96,6 +103,10 @@ export default {
             }
         },
 
+        save(){
+            console.log("Saving Local Server Configuration")
+            this.$store.dispatch('app/setServer', this.server)
+        }
 
     }
 }

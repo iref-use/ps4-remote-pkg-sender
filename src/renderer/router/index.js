@@ -16,7 +16,7 @@ Vue.use(Router)
 
 const router = createRouter()
 
-sync(store, router)
+// sync(store, router)
 
 export default router
 
