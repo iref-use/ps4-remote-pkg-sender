@@ -48,7 +48,8 @@ export default {
             // titleBarStyle: 'hiddenInset',
             webPreferences: {
                 allowRunningInsecureContent: true,
-                nodeIntegration: true
+                nodeIntegration: true,
+                enableRemoteModule: true,
             }
         }
         return new BrowserWindow({...params, ...args})

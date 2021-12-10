@@ -9,6 +9,8 @@
 
   <el-button size="mini" @click="save">Save Configuration </el-button>
 
+  <el-button size="mini" @click="reset">Reset</el-button>
+
 </div>
 </template>
 
@@ -26,7 +28,13 @@ export default {
     methods: {
         save(){
             console.log("Saving Local Server Configuration")
-            this.$store.dispatch('app/setServer', this.server)
+            // this.$store.dispatch('app/setServer', this.server)
+            this.$store.dispatch('app/save')
+        },
+
+        reset(){
+            console.log("Reset Local Server Configuration")
+            this.$store.dispatch('app/reset')
         }
     }
 }

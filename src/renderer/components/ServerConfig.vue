@@ -44,7 +44,7 @@
 
       <el-form-item label="PKG Base Path">
         <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path">
-            <el-button slot="append" icon="el-icon-folder"></el-button>
+            <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
         </el-input>
       </el-form-item>
   </el-form>
@@ -61,6 +61,7 @@
 <script>
 import { get, sync } from 'vuex-pathify'
 import { throttle } from 'lodash'
+import { remote } from 'electron'
 
 export default {
     name: 'ServerConfig',
@@ -87,12 +88,16 @@ export default {
         server: sync('app/server'),
     },
 
-    // watch: {
-    //     server: {
-    //         deep: true,
-    //         handler: throttle(this.save(), 2000)
-    //     }
-    // },
+    watch: {
+        // server: {
+        //     deep: true,
+        //     handler: throttle(this.save(), 2000)
+        // },
+        'server.ip'(){ this.save() },
+        'server.base_path'(){ this.save() },
+        'server.port'(){ this.save() },
+        'server.app'(){ this.save() },
+    },
 
     methods: {
         loadNetworkInterfaces(){
@@ -101,6 +106,11 @@ export default {
             if(this.ifaces.length){
                 // this.server.iface = this.ifaces[0]
             }
+        },
+
+        selectBasePath(){
+            let path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+            this.server.base_path = path[0]
         },
 
         save(){

@@ -19,6 +19,19 @@ export const mutations = {
     setTime(state){
         state.time++
     },
+
+    resetServer(state){
+        state.server =  {
+            ip: '',
+            port: '8337',
+            app: 'express',
+            base_path: '',
+        }
+    },
+
+    saveServer(state){
+        state.server = state.server
+    },
 }
 
 // actions
@@ -27,6 +40,14 @@ export const actions = {
 
     addTime( { state, commit }){
       commit('setTime')
+    },
+
+    reset({ commit }){
+      commit('resetServer')
+    },
+
+    save({ commit }){
+      commit('saveServer')
     },
 
     // addFiles({ commit, dispatch, state}, payload){
