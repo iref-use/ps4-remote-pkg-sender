@@ -6,6 +6,7 @@
     electron: {{ $root.versions.electron }} <br>
     electron-webpack: {{ $root.versions.electronWebpack }} <br>
     runtime: {{ time }} sec's since start <br>
+    started: {{ started }} times started <br> 
     <br>
     <br>
     Thanks to everyone that makes this community great. <br>
@@ -32,6 +33,7 @@ export default {
   }},
 
   computed: {
+      started: get('app/started'),
       time: get('app/time'),
       server: get('app/server'),
       ps4: get('app/ps4'),

@@ -22,8 +22,12 @@ export const state = {
 export const mutations = {
     ...make.mutations(state),
 
-    setTime(state){
+    addTime(state){
         state.time++
+    },
+
+    addStarted(state){
+        state.started++
     },
 
     resetServer(state){
@@ -50,7 +54,11 @@ export const actions = {
     ...make.actions(state),
 
     addTime( { state, commit }){
-      commit('setTime')
+      commit('addTime')
+    },
+
+    started({commit}){
+      commit('addStarted')
     },
 
     reset({ commit }){

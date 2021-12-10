@@ -21,11 +21,11 @@ export default [
   {
       path: '/', redirect: 'home', component: loadLayout('DefaultLayout'),
       children: [
-          { path: '/home', name: 'home', component: loadPage('Index') },
-          { path: '/config', name: 'config', component: loadPage('Config') },
-          { path: '/server', name: 'server', component: loadPage('Server') },
-          { path: '/settings', name: 'settings', component: loadPage('Settings') },
-          { path: '/changelog', name: 'changelog', component: loadPage('Changelog') },
+          { path: 'home', name: 'home', component: loadPage('Index') },
+          { path: 'config', name: 'config', component: loadPage('Config') },
+          { path: 'server', name: 'server', component: loadPage('Server') },
+          { path: 'settings', name: 'settings', component: loadPage('Settings') },
+          { path: 'changelog', name: 'changelog', component: loadPage('Changelog') },
       ]
   },
 
@@ -33,9 +33,8 @@ export default [
   {
       path: '/', component: loadLayout('FullLayout'),
       children: [
-          {
-              path: 'info', name: 'info', component: loadPage('Info')
-          },
+          { path: 'info', name: 'info', component: loadPage('Info') },
+          { path: 'app/server', name: 'server.app', component: loadPage('app/Server') },
       ]
   },
 

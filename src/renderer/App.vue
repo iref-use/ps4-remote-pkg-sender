@@ -16,6 +16,10 @@ export default {
     }
   }},
 
+  mounted(){
+      this.$store.dispatch('app/started')
+  },
+
   methods:{
       open(b){
           require('electron').shell.openExternal(b)

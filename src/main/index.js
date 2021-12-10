@@ -5,7 +5,6 @@ import { format as formatUrl } from 'url'
 import helper from './helper'
 import menu from './menu'
 import tray from './tray'
-
 import store from './../renderer/store/index.js'
 
 // set vars
@@ -15,6 +14,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 let windows = {
   info: null,
   main: null,
+  server: null,
 }
 
 // Create Windows
@@ -36,17 +36,30 @@ function createMainWindow() {
   // mainWindow.webContents.openDevTools()
 }
 
+// function create Server Window
+function createServerWindow(){
+  const window = helper.createWindowInstance('/app/Server', {
+    width: 800, height: 500, title: 'Server', show: true,
+  }, true)
+  window.on('close', (event) => {
+    event.preventDefault()
+    window.hide()
+  })
+  window.on('closed', (event) => { windows.server = null })
+  windows.server = window
+}
+
 // function create Info Window
 function createInfoWindow(){
-  const info = helper.createWindowInstance('/info', {
+  const window = helper.createWindowInstance('/info', {
     width: 300, height: 400, title: 'Info', show: false,
   })
-  info.on('close', (event) => {
+  window.on('close', (event) => {
     event.preventDefault()
-    info.hide()
+    window.hide()
   })
-  info.on('closed', (event) => {windows.info = null })
-  windows.info = info
+  window.on('closed', (event) => { windows.info = null })
+  windows.info = window
 }
 
 // hearthbeat
@@ -73,6 +86,7 @@ app.on('before-quit', () => {
   })
 })
 
+//  activate hook
 app.on('activate', () => {
   // on macOS it is common to re-create a window even after all windows have been closed
   if (windows.main === null) {
@@ -83,6 +97,7 @@ app.on('activate', () => {
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
   createMainWindow()
+  createServerWindow()
   createInfoWindow()
   menu.createMenu()
   tray.createTray()

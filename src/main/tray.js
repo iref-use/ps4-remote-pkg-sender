@@ -16,9 +16,11 @@ export default {
 
       const contextMenu = Menu.buildFromTemplate([
         { label: 'Open PS4 Remote PKG Installer', click: () =>  windows.main.show() },
+        { label: 'Open Server', click: () => windows.server.show() },
+        { label: 'Separator', type: 'separator'},
         { label: 'Install new PKG' },
         { label: 'Show Tasks' },
-        { label: 'Show Server listed PKGs' },
+        { label: 'Show Server listed PKGs', click: () => windows.server.show() },
         { label: 'Separator', type: 'separator'},
         { label: 'Info', click: () => windows.info.show() }
       ])

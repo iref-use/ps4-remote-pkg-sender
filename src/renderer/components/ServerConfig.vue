@@ -33,7 +33,7 @@
           </el-col>
           <el-col :span="10">
               <el-form-item label="Status">
-                  n/a
+                  <el-tag size="small" style="width:100%;">{{ status }}</el-tag>
               </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -85,7 +85,8 @@ export default {
     },
 
     computed: {
-        server: sync('app/server'),
+        server: get('app/server'),
+        status: get('server/status'),
     },
 
     watch: {

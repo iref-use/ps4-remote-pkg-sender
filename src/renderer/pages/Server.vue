@@ -2,8 +2,8 @@
 <div>
 
     <div style="display: flex; flex-direction: row;">
-      <el-button @click="load" size="mini" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
-      <el-tag size="size" effect="light">{{ server.base_path }}</el-tag>
+      <el-button @click="reload" size="mini" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
+      <el-tag size="size" effect="light" style='margin-right: 10px'>{{ server.base_path }}</el-tag>
     </div>
 
     <el-table :data="files" style="width: 100%">
@@ -52,11 +52,13 @@
 <script>
 import fs from 'fs'
 import path from 'path'
-
 import { get, sync } from 'vuex-pathify'
 
+import express from 'express'
+import http from 'http'
+
 export default {
-    name: 'Server',
+    name: 'ServerList',
 
     data(){ return {
         // files: [],
@@ -64,52 +66,24 @@ export default {
         showExtension: false,
         showCUSA: false,
         showVersion: false,
+
+        app: null,
+        http: null,
     }},
 
     mounted(){
-        this.load()
+
     },
 
     computed: {
         server: get('app/server'),
-        files: sync('server/files'),
+        files: sync('server/serverFiles'),
     },
 
     methods: {
-        load(){
-            console.log("Loading Directory files")
-            let path = this.server.base_path
-
-            this.files = this.readDirSync(path)
-        },
-
-        readDirSync(path=''){
-            return fs.readdirSync(path, { withFileTypes: true })
-                     .map( item => this.createItem(item) )
-                     .filter( item => item.isFile )
-                     .filter( item => item.ext.includes('pkg'))
-        },
-
-        isFile(pathItem) {
-            return !!path.extname(pathItem)
-        },
-
-        createItem(item){
-            let isFile = this.isFile(item)
-            // let stats = isFile ? fs.statSync(item) : null
-
-            return {
-                name: item,
-                cusa: '',
-                status: 'init',
-                percentage: 0,
-                task: '',
-                ext: path.extname(item),
-                isFile,
-                // stats,
-            }
-        },
-
+        reload(){
+            this.$store.dispatch('server/loadFiles')
+        }
     }
 }
 </script>
