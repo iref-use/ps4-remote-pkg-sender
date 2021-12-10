@@ -9,6 +9,12 @@ export const state = {
         app: 'express',
         base_path: '',
     },
+
+    ps4: {
+        ip: '',
+        name: '',
+    },
+
 }
 
 
@@ -26,6 +32,11 @@ export const mutations = {
             port: '8337',
             app: 'express',
             base_path: '',
+        }
+
+        state.ps4 = {
+            ip: '',
+            name: ''
         }
     },
 

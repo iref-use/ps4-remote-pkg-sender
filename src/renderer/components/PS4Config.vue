@@ -9,7 +9,7 @@
       <el-row :gutter="20">
           <el-col :span="10">
               <el-form-item label="PS4 IP">
-                <el-input v-model="server.ip"></el-input>
+                <el-input v-model="ps4.ip"></el-input>
               </el-form-item>
           </el-col>
 
@@ -24,15 +24,29 @@
 </template>
 
 <script>
+import { get, sync } from 'vuex-pathify'
+
 export default {
     name: 'PS4Config',
 
     data(){ return {
-        server: {
-            ip: 'n/a',
-            port: 'n/a',
-        }
-    }}
+
+    }},
+
+    computed: {
+        ps4: sync('app/ps4'),
+    },
+
+    watch: {
+        'ps4.ip'(){ this.save() },
+    },
+
+    methods: {
+        save(){
+            console.log("Save PS4 Configuration")
+            this.$store.dispatch('app/setPs4', this.ps4)
+        },
+    }
 }
 </script>
 

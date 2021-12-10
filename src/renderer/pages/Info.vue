@@ -14,7 +14,10 @@
 
     <el-divider />
 
-    <pre>{{ server }}</pre>
+    <template v-if="debug">
+      <pre>{{ ps4 }}</pre>
+      <pre>{{ server }}</pre>
+    </template>
 </div>
 </template>
 
@@ -24,9 +27,14 @@ import { get } from 'vuex-pathify'
 export default {
   name: 'Info',
 
+  data(){ return {
+      debug: false,
+  }},
+
   computed: {
       time: get('app/time'),
       server: get('app/server'),
+      ps4: get('app/ps4'),
   }
 
 }
