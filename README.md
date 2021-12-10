@@ -7,7 +7,7 @@ dependencies. With this we can createa a cross platform application that works o
 and provides a nice GUI.  
 
 
-## v2.*
+## New features in v2.*
 The refactored Version provides a better GUI and technicall more ordered features.  
 *NEW Configure your server with your base path  
 *NEW Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
