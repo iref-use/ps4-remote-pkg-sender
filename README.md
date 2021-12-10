@@ -33,7 +33,7 @@ Insert the IP Addresss of your PS4
 Switch to Processing Center and add or select your PKG's, press send  
 Follow the Tasks Process  
 
-### on Trouble
+## Troubleshooting
 Your PS4 and PC have to be on the same Network.  
 If you have connection issues, check your Router or Firewall.  
 If you think there is an issue, please report it.  
