@@ -16,7 +16,7 @@ The refactored Version provides a better GUI and technicall more ordered feature
 *NEW Show a list of all Server side listed PKG's  
 *NEW Search your PS4 automatically in the current network (WIP)  
 *NEW Miscs download link to flatZ PS4 Remote Package Installer homebrew  
-
+*NEW Extended Menu and Tray Icon  
 
 ## How To
 So there you have it. How can you use it?  
