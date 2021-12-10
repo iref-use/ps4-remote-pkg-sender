@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.0.1",
+  "version": "2.1.0",
   "name": "PS4RemotePKGSender",
   "author": "Gkiokan <support@gkiokan.net>",
   "description": "Send PKG files to your ps4",

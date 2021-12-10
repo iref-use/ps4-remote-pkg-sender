@@ -4,6 +4,27 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.1.0" placement="top">
+        <h4>All about http Server</h4>
+        <p>
+          Creating seperate Server Window for the http stuff. <br>
+          Adding heathbeat endpoint to verify base checkup. <br>
+          Adding server handling methods for start, stop and restarting. <br>
+          Outsourcing base path file scan from app to server. <br>
+          Filtering files by .pkg extension. <br>
+        </p>
+    </el-timeline-item>
+
+    <el-timeline-item timestamp="2.0.2" placement="top">
+        <h4>Storage sync</h4>
+        <p>
+          Fixing vuex-store handling across all windows. <br>
+          Make the storage persistent. <br>
+          Make the settings value sync to the storage (no seperate save required). <br>
+          Loading vuex on application start. <br>
+        </p>
+    </el-timeline-item>
+
     <el-timeline-item timestamp="2.0.1" placement="top">
         <h4>Creation time</h4>
         <p>
