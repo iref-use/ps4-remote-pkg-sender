@@ -8,6 +8,7 @@ export default {
     installDevtools(window){
         window.webContents.on('did-frame-finish-load', () => {
           require('vue-devtools').install()
+          // BrowserWindow.addDevToolsExtension('node_modules/vue-devtools/vender')
           window.webContents.openDevTools()
         })
 
