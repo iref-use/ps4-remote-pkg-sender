@@ -14,18 +14,20 @@ let o = {
         return fs.readdirSync(folder, { withFileTypes: true })
                  // .filter( item => item.isFile )
                  // .filter( item => item.ext.includes('pkg'))
-                 .filter( item => item.includes('.pkg') )
+                 // .filter( item => item.includes('.pkg') )
+                 .filter( item => this.isFile(item) )
                  .map( item => this.createItem(item, folder) )
     },
 
-    isFile(pathItem) {
-        return !!path.extname(pathItem)
+    isFile(item) {
+        return !!path.extname(item)
     },
 
     createItem(item, folder=''){
-        console.log(":: fs | Create File Item", folder, item)
+        console.log(":: fs | Create File Item", item)
         let isFile = this.isFile(item)
         let fullPath = path.resolve(folder, item)
+        let patchedFilename = item.replace(/[^a-zA-Z0-9-_.]/g, '');
         // let stats = isFile ? fs.statSync(item) : null
 
         if(!isFile) return false
@@ -37,8 +39,9 @@ let o = {
             percentage: 0,
             task: '',
             ext: path.extname(item),
-            isFile,
             path: fullPath,
+            isFile,
+            patchedFilename,
             // stats,
         }
     },

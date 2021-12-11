@@ -6,7 +6,7 @@
       <el-tag size="size" effect="light" style='margin-right: 10px'>{{ server.base_path }}</el-tag>
     </div>
 
-    <el-table :data="files" style="width: 100%">
+    <el-table :data="servingFiles" style="width: 100%">
         <el-table-column prop="name" label="Name"></el-table-column>
 
         <el-table-column label="Ext" width="100" v-if="showExtension">
@@ -20,17 +20,18 @@
         <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
         <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
 
+        <el-table-column prop="status" label="Status" width="100"></el-table-column>
+
         <el-table-column label="Status" width="100px">
             <template slot-scope="scope">
                 <el-tag size="mini" v-if="0">n/a</el-tag>
                 <el-progress :stroke-width="15" :percentage="scope.row.percentage" :text-inside="true" stroke-linecap="square"></el-progress>
-                {{ scope.row.stats }}
             </template>
         </el-table-column>
 
         <el-table-column label="Operation" width="100" align="right">
             <template slot-scope="scope">
-                <el-button circle size="small" icon="el-icon-search" />
+                <el-button circle size="small" icon="el-icon-search" @click="check(scope.row.url)" />
 
                 <el-button circle size="small" icon="el-icon-caret-right" v-if="scope.row.status == 'init'"/>
                 <el-button circle size="small" icon="el-icon-video-play" v-if="scope.row.status == 'pause'"/>
@@ -77,14 +78,21 @@ export default {
 
     computed: {
         server: get('app/server'),
-        files: sync('server/serverFiles'),
+        serverFiles: get('server/serverFiles'),
+        servingFiles: get('server/servingFiles'),
+        files(){ return this.servingFiles },
     },
 
     methods: {
         reload(){
             console.log("Reload file at path. Triggered though Server-List")
             this.$store.dispatch('server/loadFiles', this.server.base_path)
-        }
+        },
+
+        check(url){
+            window.open(url)
+        },
+        
     }
 }
 </script>

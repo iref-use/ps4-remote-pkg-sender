@@ -12,7 +12,7 @@
     <el-button size="mini" @click="stopServer"> Stop Server </el-button>
     <el-button size="mini" @click="restartServer"> Restart Server </el-button>
 
-    <pre>{{ serverFiles }}</pre>
+    <pre>{{ servingFiles }}</pre>
 </div>
 </template>
 
@@ -38,7 +38,6 @@ export default {
     mounted(){
         this.loadBasePathFiles()
         this.createServer()
-        this.createPaths()
         this.startServer()
     },
 
@@ -77,6 +76,7 @@ export default {
             this.host.server = await this.host.app.listen(this.port, () => {
                 console.log('Server is running on port ' + this.ip + ' at port ' + this.port)
                 this.$store.dispatch('server/setStatus', 'running')
+                this.createPaths()
             })
             .on('error', () => {
                 console.log('Error in listening on ' + this.ip + ' at port ' + this.port)
@@ -93,7 +93,7 @@ export default {
         },
 
         createPaths(){
-            console.log("Creating hearthbeat")
+            console.log("::server | Creating hearthbeat")
             this.host.app.get('/hb', function(request, response){
                 response.status(200).json({
                     remoteAddress: request.connection.remoteAddress,
@@ -104,9 +104,22 @@ export default {
                 })
             })
 
+            console.log("::server | reset serving files list ")
+            let servingFiles = []
+
+            console.log("::server | Loop though serverFiles ")
             this.serverFiles.map( file => {
-                console.log(file)
+                console.log("::server | create endpoint ", file.patchedFilename)
+                this.host.app.get(`/${file.patchedFilename}`, function(request, response){
+                    response.status(200).download(file.path, file.name)
+                })
+                file.url = 'http://' + this.ip + ':' + this.port + '/' + file.patchedFilename
+                file.status = 'serving'
+                servingFiles.push(file)
             })
+
+            console.log("::server | update serving file list", servingFiles)
+            this.$store.dispatch('server/setServingFiles', servingFiles)
         },
 
         open(path){
