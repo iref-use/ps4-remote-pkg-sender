@@ -5,6 +5,7 @@ export const state = {
     tasks: [],
     files: [],
     serverFiles: [],
+    servingFiles: [],
     queue: [],
     status: 'stopped',
     app: null,
@@ -24,7 +25,7 @@ export const actions = {
     loadFiles({ commit, state }, path){
         console.log("Read files at base path ", path);
         let files = fs.readDirSync(path)
-        commit('setServerFiles', files)
+        commit('serverFiles', files)
     },
     // addFiles({ commit, dispatch, state}, payload){
     //     commit('addFiles', payload)

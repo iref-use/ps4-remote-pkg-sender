@@ -96,7 +96,8 @@ export default {
         // },
         'server.ip'(){ this.save() },
         'server.base_path'(){
-          this.save()
+            this.loadFiles()
+            this.save()
         },
         'server.port'(){ this.save() },
         'server.app'(){ this.save() },
@@ -117,7 +118,7 @@ export default {
         },
 
         loadFiles(){
-            this.$store.dispatch('server/loadFiles')
+            this.$store.dispatch('server/loadFiles', this.server.base_path)
         },
 
         save(){

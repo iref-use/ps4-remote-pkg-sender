@@ -2,7 +2,8 @@
 <div>
     <h2>Server Application </h2>
 
-    {{ files.length }} files found <br>
+    {{ serverFiles.length }} files found <br>
+    {{ servingFiles.length }} files serving <br>
     Server is {{ running }} on {{ ip }}:{{ port }}<br>
     <br>
     <el-button size="mini" @click="open(hb)"> check hearthbeat </el-button> {{ hb }} <br>
@@ -43,7 +44,8 @@ export default {
         config: get('app'),
         ip: get('app/server.ip'),
         port: get('app/server.port'),
-        files: sync('server/serverFiles'),
+        serverFiles: get('server/serverFiles'),
+        servingFiles: get('server/servingFiles'),
         running: sync('server/status'),
         app: get('server/app'),
         hb(){

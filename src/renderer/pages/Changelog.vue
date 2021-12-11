@@ -12,6 +12,8 @@
           Adding server handling methods for start, stop and restarting. <br>
           Outsourcing base path file scan from app to server. <br>
           Filtering files by .pkg extension. <br>
+          Load Files at base path and sync with store . <br>
+
         </p>
     </el-timeline-item>
 
