@@ -11,6 +11,8 @@
     <el-button size="mini" @click="startServer">Start Server </el-button>
     <el-button size="mini" @click="stopServer"> Stop Server </el-button>
     <el-button size="mini" @click="restartServer"> Restart Server </el-button>
+
+    <pre>{{ serverFiles }}</pre>
 </div>
 </template>
 
@@ -100,6 +102,10 @@ export default {
                     localPort: request.connection.localPort,
                     message: "Congratz. Hearthbeat is working"
                 })
+            })
+
+            this.serverFiles.map( file => {
+                console.log(file)
             })
         },
 

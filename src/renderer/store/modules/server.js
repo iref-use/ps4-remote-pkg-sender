@@ -23,7 +23,7 @@ export const actions = {
     ...make.actions(state),
 
     loadFiles({ commit, state }, path){
-        console.log("Read files at base path ", path);
+        console.log("::store | Read files at base path ", path);
         let files = fs.readDirSync(path)
         commit('serverFiles', files)
     },
