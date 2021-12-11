@@ -95,7 +95,9 @@ export default {
         //     handler: throttle(this.save(), 2000)
         // },
         'server.ip'(){ this.save() },
-        'server.base_path'(){ this.save() },
+        'server.base_path'(){
+          this.save()
+        },
         'server.port'(){ this.save() },
         'server.app'(){ this.save() },
     },
@@ -112,6 +114,10 @@ export default {
         selectBasePath(){
             let path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
             this.server.base_path = path[0]
+        },
+
+        loadFiles(){
+            this.$store.dispatch('server/loadFiles')
         },
 
         save(){
