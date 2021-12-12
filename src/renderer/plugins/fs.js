@@ -32,6 +32,9 @@ let o = {
 
         if(!isFile) return false
 
+        // title location 0x40 to 0x63
+        // cusa location 0x47 to 0x4F
+
         return {
             name: item,
             cusa: '',

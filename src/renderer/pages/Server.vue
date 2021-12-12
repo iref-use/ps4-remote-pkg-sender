@@ -22,7 +22,7 @@
 
         <el-table-column prop="status" label="Status" width="100"></el-table-column>
 
-        <el-table-column label="Status" width="100px">
+        <el-table-column label="Progress" width="100px" v-if="showPercentage">
             <template slot-scope="scope">
                 <el-tag size="mini" v-if="0">n/a</el-tag>
                 <el-progress :stroke-width="15" :percentage="scope.row.percentage" :text-inside="true" stroke-linecap="square"></el-progress>
@@ -67,32 +67,45 @@ export default {
         showExtension: false,
         showCUSA: false,
         showVersion: false,
+        showPercentage: false,
 
         app: null,
         http: null,
     }},
 
     mounted(){
-
+        // this.run()
     },
 
     computed: {
         server: get('app/server'),
         serverFiles: get('server/serverFiles'),
-        servingFiles: get('server/servingFiles'),
+        servingFiles: sync('server/servingFiles'),
         files(){ return this.servingFiles },
     },
 
     methods: {
         reload(){
-            console.log("Reload file at path. Triggered though Server-List")
+            console.log("Reload files at base path. Triggered though Server-List")
             this.$store.dispatch('server/loadFiles', this.server.base_path)
         },
 
         check(url){
             window.open(url)
         },
-        
+
+        run(){
+            this.$store.dispatch('server/resetLogs')
+
+            setInterval( () => {
+                let x = this.servingFiles[0]
+                console.log("run test", x)
+                x.percentage++
+
+                this.$store.dispatch('server/addLog', 'just a test')
+            }, 1000)
+        }
+
     }
 }
 </script>
