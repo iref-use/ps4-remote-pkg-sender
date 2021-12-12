@@ -6,6 +6,7 @@ export const state = {
     files: [],
     serverFiles: [],
     servingFiles: [],
+    routes: [],
     queue: [],
     logs: [],
     status: 'stopped',

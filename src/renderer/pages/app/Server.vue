@@ -9,6 +9,9 @@
       <el-tab-pane label="Serving Files" name="files">
           <Files />
       </el-tab-pane>
+      <el-tab-pane label="Routes" name="routes">
+          <Routes />
+      </el-tab-pane>
       <el-tab-pane label="Debug" name="debug">
           <Debug @startServer="startServer" @stopServer="stopServer" @restartServer="restartServer" @hearthbeat="checkHeathbeat" />
       </el-tab-pane>
@@ -29,6 +32,7 @@ import http from 'http'
 import Logs from './components/Logs'
 import Files from './components/Files'
 import Debug from './components/Debug'
+import Routes from './components/Routes'
 
 export default {
     name: 'Server',
@@ -37,6 +41,7 @@ export default {
         Logs,
         Files,
         Debug,
+        Routes,
     },
 
     data(){ return {
@@ -108,6 +113,15 @@ export default {
         },
 
         createPaths(){
+            this.addHearthbeatEndpoint()
+            this.addFilesFromBasePath()
+        },
+
+        getRegisteredRoutes(){
+            return this.host.app._router.stack.filter(r => r.route).map(r => r.route.path)
+        },
+
+        addHearthbeatEndpoint(){
             this.$store.dispatch('server/addLog', "Create Hearthbeat endpoint")
             this.host.app.get('/hb', function(request, response){
                 response.status(200).json({
@@ -118,25 +132,33 @@ export default {
                     message: "Congratz. Hearthbeat is working"
                 })
             })
+        },
 
+        addFilesFromBasePath(){
             this.$store.dispatch('server/addLog', "Reset serving files list")
             let servingFiles = []
 
             this.$store.dispatch('server/addLog', "Loading " + this.serverFiles.length + " files at base path")
 
             this.serverFiles.map( file => {
-                // console.log("::server | create endpoint ", file.patchedFilename)
-                this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
-                this.host.app.get(`/${file.patchedFilename}`, function(request, response){
-                    response.status(200).download(file.path, file.name)
-                })
-                file.url = 'http://' + this.ip + ':' + this.port + '/' + file.patchedFilename
-                file.status = 'serving'
-                servingFiles.push(file)
+                servingFiles.push(this.addFileEndpoint(file))
             })
 
-            this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files")
+            this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files from base path")
             this.$store.dispatch('server/setServingFiles', servingFiles)
+            this.$store.dispatch('server/setRoutes', this.getRegisteredRoutes())
+        },
+
+        addFileEndpoint(file){
+            // console.log("::server | create endpoint ", file.patchedFilename)
+            this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
+            this.host.app.get(`/${file.patchedFilename}`, function(request, response){
+                response.status(200).download(file.path, file.name)
+            })
+            file.url = 'http://' + this.ip + ':' + this.port + '/' + file.patchedFilename
+            file.status = 'serving'
+
+            return file
         },
 
         checkHeathbeat(){

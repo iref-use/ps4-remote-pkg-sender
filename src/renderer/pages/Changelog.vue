@@ -12,9 +12,10 @@
           Adding server handling methods for start, stop and restarting. <br>
           Outsourcing base path file scan from app to server. <br>
           Filtering files by .pkg extension. <br>
-          Load Files at base path and sync with store . <br>
-          Optimize file search and create file item objects with full path .<br>
-          
+          Load Files at base path and sync with store. <br>
+          Optimize file search and create file item objects with full path.<br>
+          Add proper Server logging of server events. <br>
+          Add Routes View to list all registered routes by the server. <br>
         </p>
     </el-timeline-item>
 
