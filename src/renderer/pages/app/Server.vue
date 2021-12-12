@@ -108,7 +108,6 @@ export default {
         },
 
         createPaths(){
-            console.log("::server | Creating hearthbeat")
             this.$store.dispatch('server/addLog', "Create Hearthbeat endpoint")
             this.host.app.get('/hb', function(request, response){
                 response.status(200).json({
@@ -120,14 +119,14 @@ export default {
                 })
             })
 
-            console.log("::server | reset serving files list ")
+            this.$store.dispatch('server/addLog', "Reset serving files list")
             let servingFiles = []
 
-            console.log("::server | Loop though serverFiles (" + this.serverFiles.length + ")")
-            this.$store.dispatch('server/addLog', "Loading (" + this.serverFiles.length + ") files at base path")
+            this.$store.dispatch('server/addLog', "Loading " + this.serverFiles.length + " files at base path")
 
             this.serverFiles.map( file => {
-                console.log("::server | create endpoint ", file.patchedFilename)
+                // console.log("::server | create endpoint ", file.patchedFilename)
+                this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
                 this.host.app.get(`/${file.patchedFilename}`, function(request, response){
                     response.status(200).download(file.path, file.name)
                 })
@@ -136,7 +135,6 @@ export default {
                 servingFiles.push(file)
             })
 
-            console.log("::server | update serving file list", servingFiles)
             this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files")
             this.$store.dispatch('server/setServingFiles', servingFiles)
         },
