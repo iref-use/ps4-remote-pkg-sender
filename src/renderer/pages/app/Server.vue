@@ -46,6 +46,7 @@ export default {
 
     data(){ return {
         tab: 'logs',
+        run: false,
         host: {
             app: null,
             server: null
@@ -61,6 +62,7 @@ export default {
 
     computed: {
         config: get('app'),
+        base_path: get('app/server.baes_path'),
         ip: get('app/server.ip'),
         port: get('app/server.port'),
         serverFiles: get('server/serverFiles'),
@@ -70,6 +72,20 @@ export default {
         hb(){
             return 'http://' + this.ip + ':' + this.port + '/hb'
         }
+    },
+
+    watch: {
+        // 'base_path'(){
+        //     this.addFilesFromBasePath()
+        // },
+        'serverFiles'(){
+            if(!this.run){
+                this.run = true
+                return
+            }
+            this.$store.dispatch('server/addLog', "Server base path has been changed. Reload files.")
+            this.addFilesFromBasePath()
+        },
     },
 
     methods: {
@@ -118,7 +134,9 @@ export default {
         },
 
         getRegisteredRoutes(){
-            return this.host.app._router.stack.filter(r => r.route).map(r => r.route.path)
+            let routes = this.host.app._router.stack.filter(r => r.route).map(r => r.route.path)
+            console.log("check routes", routes)
+            return routes
         },
 
         addHearthbeatEndpoint(){
@@ -138,7 +156,7 @@ export default {
             this.$store.dispatch('server/addLog', "Reset serving files list")
             let servingFiles = []
 
-            this.$store.dispatch('server/addLog', "Loading " + this.serverFiles.length + " files at base path")
+            this.$store.dispatch('server/addLog', "Found " + this.serverFiles.length + " files at base path")
 
             this.serverFiles.map( file => {
                 servingFiles.push(this.addFileEndpoint(file))
