@@ -11,6 +11,9 @@
           Add sub directory search with custom walk method. <br>
           Fix createItem to work with deep folder structure. <br>
           Add a more detailed error logging on server listen errors. <br>
+          Create dedicated Router for express. <br>
+          Apply Router to express as middleware.<br>
+          Reset Router serving files after reloading server files. <br>        
         </p>
     </el-timeline-item>
 
