@@ -10,6 +10,7 @@
           Create Sub directory search option. <br>
           Add sub directory search with custom walk method. <br>
           Fix createItem to work with deep folder structure. <br>
+          Add a more detailed error logging on server listen errors. <br>
         </p>
     </el-timeline-item>
 

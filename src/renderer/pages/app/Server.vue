@@ -49,7 +49,8 @@ export default {
         run: false,
         host: {
             app: null,
-            server: null
+            server: null,
+            router: null,
         }
     }},
 
@@ -98,7 +99,9 @@ export default {
             // const server = http.createServer(app);
 
             this.host.app = app
+            this.host.router = express.Router()
             // this.host.server = server
+            this.$store.dispatch('server/addLog', "Created Server and Router")
         },
 
         restartServer(){
@@ -112,8 +115,13 @@ export default {
                 this.$store.dispatch('server/setStatus', 'running')
                 this.createPaths()
             })
-            .on('error', () => {
-                this.$store.dispatch('server/addLog', 'Error in listening on ' + this.ip + ' at port ' + this.port)
+            .on('error', (e) => {
+                // console.log({ ...e })
+                if(e.errno === 'EADDRINUSE')
+                  this.$store.dispatch('server/addLog', "Port " + this.port + " is already in use. Choose another one and restart the Server")
+                else
+                  this.$store.dispatch('server/addLog', 'Error in listening on ' + this.ip + ' at port ' + this.port + ". Error: " + e.errno)
+
                 this.$store.dispatch('server/setStatus', 'error')
             })
         },
@@ -162,7 +170,7 @@ export default {
                 servingFiles.push(this.addFileEndpoint(file))
             })
 
-            // this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files from base path")
+            this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files from base path")
             this.$store.dispatch('server/setServingFiles', servingFiles)
             this.$store.dispatch('server/setRoutes', this.getRegisteredRoutes())
         },
