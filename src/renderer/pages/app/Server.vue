@@ -63,7 +63,7 @@ export default {
 
     computed: {
         config: get('app'),
-        base_path: get('app/server.baes_path'),
+        base_path: get('app/server.base_path'),
         ip: get('app/server.ip'),
         port: get('app/server.port'),
         serverFiles: get('server/serverFiles'),
@@ -85,7 +85,7 @@ export default {
                 return
             }
             this.$store.dispatch('server/addLog', "Server base path has been changed. Reload files.")
-            this.addFilesFromBasePath()
+            this.createPaths()
         },
     },
 

@@ -81,6 +81,7 @@ export default {
         server: get('app/server'),
         serverFiles: get('server/serverFiles'),
         servingFiles: sync('server/servingFiles'),
+        routes: get('server/routes'),
         files(){ return this.servingFiles },
     },
 
@@ -88,7 +89,7 @@ export default {
         reload(){
             console.log("Reload files at base path. Triggered though Server-List")
             this.$store.dispatch('server/loadFiles', this.server.base_path)
-            console.log(this.serverFiles)
+            console.log(this.routes)
         },
 
         check(url){

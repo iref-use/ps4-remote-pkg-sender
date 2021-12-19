@@ -13,7 +13,8 @@
           Add a more detailed error logging on server listen errors. <br>
           Create dedicated Router for express. <br>
           Apply Router to express as middleware.<br>
-          Reset Router serving files after reloading server files. <br>        
+          Reset Router serving files after reloading server files. <br>
+          Fix getter of current active routes in Server Routes view. <br>
         </p>
     </el-timeline-item>
 
