@@ -107,14 +107,14 @@ export default {
         // },
         'server.ip'(){ this.save() },
         'server.base_path'(){
-            this.loadFiles()
             this.save()
+            this.loadFiles()
         },
         'server.port'(){ this.save() },
         'server.app'(){ this.save() },
         'server.scan_subdir'(){
-            this.loadFiles()
             this.save()
+            this.loadFiles()
         },
     },
 

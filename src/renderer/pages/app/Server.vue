@@ -113,6 +113,7 @@ export default {
             this.host.server = await this.host.app.listen(this.port, () => {
                 this.$store.dispatch('server/addLog', 'Server is running on port ' + this.ip + ' at port ' + this.port)
                 this.$store.dispatch('server/setStatus', 'running')
+                this.addRouterMiddleware()
                 this.createPaths()
             })
             .on('error', (e) => {
@@ -136,20 +137,26 @@ export default {
             })
         },
 
+        addRouterMiddleware(){
+            this.host.app.use((req, res, next) => {
+                this.host.router(req, res, next)
+            })
+        },
+
         createPaths(){
+            this.host.router = new express.Router()
+            this.$store.dispatch('server/setRoutes', [])
             this.addHearthbeatEndpoint()
             this.addFilesFromBasePath()
         },
 
         getRegisteredRoutes(){
-            let routes = this.host.app._router.stack.filter(r => r.route).map(r => r.route.path)
-            console.log("check routes", routes)
-            return routes
+            return this.host.router.stack.filter(r => r.route).map(r => r.route.path)
         },
 
         addHearthbeatEndpoint(){
             this.$store.dispatch('server/addLog', "Create Hearthbeat endpoint")
-            this.host.app.get('/hb', function(request, response){
+            this.host.router.get('/hb', function(request, response){
                 response.status(200).json({
                     remoteAddress: request.connection.remoteAddress,
                     remotePort: request.connection.remotePort,
@@ -176,11 +183,11 @@ export default {
         },
 
         addFileEndpoint(file){
-            // console.log("::server | create endpoint ", file.patchedFilename)
-            // this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
-            this.host.app.get(`/${file.patchedFilename}`, function(request, response){
+            this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
+            this.host.router.get(`/${file.patchedFilename}`, function(request, response){
                 response.status(200).download(file.path, file.name)
             })
+
             file.url = 'http://' + this.ip + ':' + this.port + '/' + file.patchedFilename
             file.status = 'serving'
 
