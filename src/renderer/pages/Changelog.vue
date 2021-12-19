@@ -4,6 +4,15 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.1.1" placement="top">
+        <h4>Handling of serving server files</h4>
+        <p>
+          Create Sub directory search option. <br>
+          Add sub directory search with custom walk method. <br>
+          Fix createItem to work with deep folder structure. <br>
+        </p>
+    </el-timeline-item>
+
     <el-timeline-item timestamp="2.1.0" placement="top">
         <h4>All about http Server</h4>
         <p>
