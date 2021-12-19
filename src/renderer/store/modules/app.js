@@ -8,6 +8,7 @@ export const state = {
         port: '8337',
         app: 'express',
         base_path: '',
+        scan_subdir: false,
     },
 
     ps4: {

@@ -162,14 +162,14 @@ export default {
                 servingFiles.push(this.addFileEndpoint(file))
             })
 
-            this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files from base path")
+            // this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files from base path")
             this.$store.dispatch('server/setServingFiles', servingFiles)
             this.$store.dispatch('server/setRoutes', this.getRegisteredRoutes())
         },
 
         addFileEndpoint(file){
             // console.log("::server | create endpoint ", file.patchedFilename)
-            this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
+            // this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
             this.host.app.get(`/${file.patchedFilename}`, function(request, response){
                 response.status(200).download(file.path, file.name)
             })

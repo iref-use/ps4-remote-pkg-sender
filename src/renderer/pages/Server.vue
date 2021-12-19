@@ -88,6 +88,7 @@ export default {
         reload(){
             console.log("Reload files at base path. Triggered though Server-List")
             this.$store.dispatch('server/loadFiles', this.server.base_path)
+            console.log(this.serverFiles)
         },
 
         check(url){

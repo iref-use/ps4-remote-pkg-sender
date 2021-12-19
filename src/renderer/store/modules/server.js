@@ -31,10 +31,11 @@ export const mutations = {
 export const actions = {
     ...make.actions(state),
 
-    loadFiles({ commit, state }, path){
+    loadFiles({ commit, state, rootState, rootGetters }, path){
         console.log("::store | Read files at base path ", path);
-        let files = fs.readDirSync(path)
-        console.log("::store | patched files", files)
+        let scan_subdir = rootGetters['app/server'].scan_subdir
+        let files = fs.readDirSync(path, scan_subdir)
+        // console.log("::store | patched files", files)
         commit('serverFiles', files)
     },
 

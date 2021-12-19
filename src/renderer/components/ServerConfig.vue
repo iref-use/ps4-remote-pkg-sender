@@ -42,11 +42,22 @@
           </el-col>
       </el-row>
 
-      <el-form-item label="PKG Base Path">
-        <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path">
-            <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
-        </el-input>
-      </el-form-item>
+
+      <el-row>
+          <el-col :span="12">
+              <el-form-item label="PKG Base Path">
+                <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path">
+                    <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
+                </el-input>
+              </el-form-item>
+          </el-col>
+          <el-col :span="12">
+              <el-form-item label="">
+                  <el-checkbox v-model="server.scan_subdir">Scan sub directories</el-checkbox>
+              </el-form-item>
+          </el-col>
+      </el-row>
+
   </el-form>
   </div>
 
@@ -101,6 +112,10 @@ export default {
         },
         'server.port'(){ this.save() },
         'server.app'(){ this.save() },
+        'server.scan_subdir'(){
+            this.loadFiles()
+            this.save()
+        },
     },
 
     methods: {
