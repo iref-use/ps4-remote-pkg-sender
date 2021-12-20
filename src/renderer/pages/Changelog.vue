@@ -15,6 +15,9 @@
           Apply Router to express as middleware.<br>
           Reset Router serving files after reloading server files. <br>
           Fix getter of current active routes in Server Routes view. <br>
+          Refactor getFiles method handle search in base path and sub directories. <br>
+          Update Server Config fields to make them look prettier. <br>
+          Add file size of to the server files in readable format. <br>
         </p>
     </el-timeline-item>
 
