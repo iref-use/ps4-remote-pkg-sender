@@ -4,7 +4,6 @@
     <div style="display: flex; flex-direction: row;">
       <el-button @click="reload" size="mini" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
       <el-tag size="size" effect="light" style='margin-right: 10px'>{{ server.base_path }}</el-tag>
-      {{ loading }}
     </div>
 
     <el-table :data="servingFiles" v-loading="loading"
@@ -25,9 +24,9 @@
         <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
         <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
 
-        <el-table-column prop="status" label="Status" width="100"></el-table-column>
+        <el-table-column prop="status" label="Status" width="100" />
 
-        <el-table-column prop="size" label="Size" width="100px" align="right" />
+        <el-table-column prop="size" label="Size" width="120px" align="right" />
 
         <el-table-column label="Progress" width="100px" v-if="showPercentage">
             <template slot-scope="scope">

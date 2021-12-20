@@ -52,11 +52,20 @@
               </el-form-item>
           </el-col>
           <el-col :span="12">
-              <el-form-item label="">
-                  <el-checkbox v-model="server.scan_subdir">Scan sub directories</el-checkbox>
-              </el-form-item>
+
           </el-col>
       </el-row>
+
+      <div>
+          <el-form-item label=" ">
+              <el-checkbox v-model="server.auto_scan_on_startup" disabled>Auto scan base path on Startup</el-checkbox>
+          </el-form-item>
+      </div>
+      <div>
+          <el-form-item label=" ">
+              <el-checkbox v-model="server.scan_subdir">Scan sub directories</el-checkbox>
+          </el-form-item>
+      </div>
 
   </el-form>
   </div>
@@ -112,6 +121,7 @@ export default {
         },
         'server.port'(){ this.save() },
         'server.app'(){ this.save() },
+        'server.auto_scan_on_startup'(){ this.save() },
         'server.scan_subdir'(){
             this.save()
             this.loadFiles()

@@ -56,6 +56,8 @@ export default {
 
     mounted(){
         this.$store.dispatch('server/resetLogs')
+        this.$store.dispatch('server/setServerFiles', [])
+
         this.loadBasePathFiles()
         this.createServer()
         this.startServer()
@@ -91,7 +93,8 @@ export default {
 
     methods: {
         loadBasePathFiles(){
-            this.$store.dispatch('server/loadFiles', this.config.server.base_path)
+            if(this.config.server.auto_scan_on_startup)
+              this.$store.dispatch('server/loadFiles', this.config.server.base_path)
         },
 
         createServer(){
