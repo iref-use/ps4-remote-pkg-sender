@@ -44,15 +44,12 @@
 
 
       <el-row>
-          <el-col :span="12">
-              <el-form-item label="PKG Base Path">
+          <el-col :span="24">
+              <el-form-item label="PKG Base Path" style="width: 100%;" class="base_path">
                 <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path">
                     <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
                 </el-input>
               </el-form-item>
-          </el-col>
-          <el-col :span="12">
-
           </el-col>
       </el-row>
 
@@ -158,5 +155,9 @@ export default {
 <style lang="scss">
 .input_base_path .el-form-item__content {
   width: calc(100% - 175px);
+}
+
+.base_path .el-form-item__content {
+  width: calc(100% - 190px);
 }
 </style>
