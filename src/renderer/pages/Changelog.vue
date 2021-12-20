@@ -18,6 +18,7 @@
           Refactor getFiles method handle search in base path and sub directories. <br>
           Update Server Config fields to make them look prettier. <br>
           Add file size of to the server files in readable format. <br>
+          Add channel communication between main and server. <br>
         </p>
     </el-timeline-item>
 
