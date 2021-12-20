@@ -19,7 +19,7 @@
               </el-form-item>
           </el-col>
           <el-col :span="4">
-              <el-button size="mini">Change Port </el-button>
+              <el-button size="mini" style="width: calc(100% - 40px)" @click="sendServer('refresh')"> Apply </el-button>
           </el-col>
       </el-row>
 
@@ -37,8 +37,8 @@
               </el-form-item>
           </el-col>
           <el-col :span="4">
-              <el-button size="mini" icon="el-icon-refresh"></el-button>
-              <el-button size="mini" icon="el-icon-switch-button"></el-button>
+              <el-button size="mini" icon="el-icon-refresh" @click="sendServer('refresh')"></el-button>
+              <el-button size="mini" icon="el-icon-switch-button" @click="sendServer('toggle')"></el-button>
           </el-col>
       </el-row>
 
@@ -78,7 +78,7 @@
 <script>
 import { get, sync } from 'vuex-pathify'
 import { throttle } from 'lodash'
-import { remote } from 'electron'
+import { remote, ipcRenderer } from 'electron'
 
 export default {
     name: 'ServerConfig',
@@ -146,7 +146,11 @@ export default {
         save(){
             console.log("Saving Local Server Configuration")
             this.$store.dispatch('app/setServer', this.server)
-        }
+        },
+
+        sendServer(msg){
+            ipcRenderer.send('server', msg)
+        },
 
     }
 }

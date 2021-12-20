@@ -24,7 +24,7 @@
 import fs from 'fs'
 import path from 'path'
 import { get, sync } from 'vuex-pathify'
-import { shell } from 'electron'
+import { shell, ipcRenderer } from 'electron'
 
 import express from 'express'
 import http from 'http'
@@ -55,6 +55,8 @@ export default {
     }},
 
     mounted(){
+        this.registerChannel()
+
         this.$store.dispatch('server/resetLogs')
         this.$store.dispatch('server/setServerFiles', [])
 
@@ -92,6 +94,21 @@ export default {
     },
 
     methods: {
+        registerChannel(){
+            ipcRenderer.on('server', (event, data) => {
+                console.log("ipc channel | server ", data)
+                if(data == 'refresh')
+                  this.restartServer()
+
+                if(data == 'toggle'){
+                    if(this.running)
+                      this.stopServer()
+                    else
+                      this.startServer()
+                }
+            })
+        },
+
         loadBasePathFiles(){
             if(this.config.server.auto_scan_on_startup)
               this.$store.dispatch('server/loadFiles', this.config.server.base_path)

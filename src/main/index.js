@@ -1,4 +1,4 @@
-import { app, session, BrowserWindow, Notification } from 'electron'
+import { app, session, BrowserWindow, Notification, ipcMain } from 'electron'
 import path from 'path'
 import { format as formatUrl } from 'url'
 
@@ -69,6 +69,13 @@ function hearthbeat(){
   }, 1000)
 }
 
+// registerChannel
+function registerChannel(){
+    ipcMain.on('server', (event, data) => {
+        windows.server.webContents.send('server', data)
+    })
+}
+
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
@@ -103,6 +110,7 @@ app.on('ready', () => {
   tray.createTray()
 
   new Notification({ title: 'PS4 Remote PKG Sender', body: 'Welcome to PS4 Remote PKG Installer. \nStart your Remote Package Installer App on your PS4 and add your PKG files here. \nHave fun.' }).show()
+  registerChannel()
   // hearthbeat()
 })
 
