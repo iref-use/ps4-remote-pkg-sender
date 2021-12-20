@@ -183,7 +183,7 @@ export default {
         },
 
         addFileEndpoint(file){
-            this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
+            // this.$store.dispatch('server/addLog', "Create endpoint " + file.patchedFilename)
             this.host.router.get(`/${file.patchedFilename}`, function(request, response){
                 response.status(200).download(file.path, file.name)
             })

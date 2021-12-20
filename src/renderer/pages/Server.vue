@@ -4,9 +4,14 @@
     <div style="display: flex; flex-direction: row;">
       <el-button @click="reload" size="mini" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
       <el-tag size="size" effect="light" style='margin-right: 10px'>{{ server.base_path }}</el-tag>
+      {{ loading }}
     </div>
 
-    <el-table :data="servingFiles" style="width: 100%">
+    <el-table :data="servingFiles" v-loading="loading"
+        element-loading-text="Loading Server files"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(255, 255, 255, 0.8)"
+        style="width: 100%">
         <el-table-column prop="name" label="Name"></el-table-column>
 
         <el-table-column label="Ext" width="100" v-if="showExtension">
@@ -21,6 +26,8 @@
         <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
 
         <el-table-column prop="status" label="Status" width="100"></el-table-column>
+
+        <el-table-column prop="size" label="Size" width="100px" align="right" />
 
         <el-table-column label="Progress" width="100px" v-if="showPercentage">
             <template slot-scope="scope">
@@ -82,14 +89,18 @@ export default {
         serverFiles: get('server/serverFiles'),
         servingFiles: sync('server/servingFiles'),
         routes: get('server/routes'),
+        loading: get('server/loading'),
         files(){ return this.servingFiles },
     },
 
     methods: {
         reload(){
             console.log("Reload files at base path. Triggered though Server-List")
+            // this.$store.dispatch('server/startLoading')
             this.$store.dispatch('server/loadFiles', this.server.base_path)
-            console.log(this.routes)
+            // this.$store.dispatch('server/stopLoading')
+            // setTimeout( () => this.$store.dispatch('server/stopLoading'), 2000)
+            // console.log(this.routes)
         },
 
         check(url){

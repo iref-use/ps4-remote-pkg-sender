@@ -20,8 +20,8 @@ let windows = {
 // Create Windows
 function createMainWindow() {
   const window = helper.createWindowInstance('/', {
-    minWidth: 900,
-    minHeight: 600,
+    minWidth: 1200,
+    minHeight: 700,
   }, true)
 
   window.on('close', (event) => {
@@ -103,7 +103,7 @@ app.on('ready', () => {
   tray.createTray()
 
   new Notification({ title: 'PS4 Remote PKG Sender', body: 'Welcome to PS4 Remote PKG Installer. \nStart your Remote Package Installer App on your PS4 and add your PKG files here. \nHave fun.' }).show()
-  hearthbeat()
+  // hearthbeat()
 })
 
 

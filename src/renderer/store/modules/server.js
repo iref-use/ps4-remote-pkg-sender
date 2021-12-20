@@ -10,6 +10,7 @@ export const state = {
     queue: [],
     logs: [],
     status: 'stopped',
+    loading: false,
     app: null,
 }
 
@@ -32,17 +33,20 @@ export const actions = {
     ...make.actions(state),
 
     loadFiles({ commit, state, rootState, rootGetters }, path){
+        // commit('loading', true)
         console.log("::store | Read files at base path ", path);
         let scan_subdir = rootGetters['app/server'].scan_subdir
-        let files = fs.readDirSync(path, scan_subdir)
+        let files = fs.getFilesFromBasePath(path, scan_subdir)
+
         // console.log("::store | patched files", files)
         commit('serverFiles', files)
+        // commit('loading', false)
     },
 
     addLog({ commit, state }, message){
-        console.log(message)
+        // console.log(message)
         commit('addLog', {
-            time: Date.now(),
+            time:  Date.now(),
             message,
         })
     },
@@ -50,6 +54,13 @@ export const actions = {
     resetLogs({ commit}){
         commit('resetLogs')
     },
+
+    startLoading({ commit }){
+        commit('loading', true)
+    },
+    stopLoading({ commit }){
+        commit('loading', false)
+    }
 
     // addFiles({ commit, dispatch, state}, payload){
     //     commit('addFiles', payload)
