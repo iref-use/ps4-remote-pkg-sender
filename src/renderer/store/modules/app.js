@@ -38,6 +38,8 @@ export const mutations = {
             port: '8337',
             app: 'express',
             base_path: '',
+            auto_scan_on_startup: true,
+            scan_subdir: false,
         }
 
         state.ps4 = {

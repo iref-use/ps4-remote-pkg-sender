@@ -60,7 +60,21 @@ export const actions = {
     },
     stopLoading({ commit }){
         commit('loading', false)
-    }
+    },
+
+    // prepare to handle the actions through vuex
+    // startServer({ commit }, msg){
+    //     ipcRenderer.send('server', 'start')
+    // },
+    // stopServer({ commit }, msg){
+    //     ipcRenderer.send('server', 'stop')
+    // },
+    // toggleServer({ commit }, msg){
+    //     ipcRenderer.send('server', 'toggle')
+    // },
+    // refreshServer({ commit }, msg){
+    //     ipcRenderer.send('server', 'refresh')
+    // },
 
     // addFiles({ commit, dispatch, state}, payload){
     //     commit('addFiles', payload)

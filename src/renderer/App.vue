@@ -5,6 +5,8 @@
 <script>
 import './scss/app.scss';
 
+import { remote, ipcRenderer } from 'electron'
+
 export default {
   name: 'App',
 
@@ -23,7 +25,11 @@ export default {
   methods:{
       open(b){
           require('electron').shell.openExternal(b)
-      }
+      },
+
+      sendServer(msg){
+          ipcRenderer.send('server', msg)
+      },
   },
 }
 </script>

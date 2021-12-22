@@ -7,9 +7,9 @@
 
   <el-divider />
 
-  <el-button size="mini" @click="save">Save Configuration </el-button>
+  <el-button size="mini" @click="save" v-if="false">Save Configuration </el-button>
 
-  <el-button size="mini" @click="reset">Reset</el-button>
+  <el-button size="mini" @click="reset">Reset Configuration</el-button>
 
 </div>
 </template>
@@ -33,8 +33,28 @@ export default {
         },
 
         reset(){
-            console.log("Reset Local Server Configuration")
-            this.$store.dispatch('app/reset')
+          this.$confirm('This will set all config values to their initial values. Server will be stopped.', 'Reset Configuration',
+                {
+                  confirmButtonText: 'OK',
+                  cancelButtonText: 'Cancel',
+                  type: 'warning',
+                  center: true,
+                })
+                .then(() => {
+                    console.log("Reset Local Server Configuration")
+                    this.$store.dispatch('app/reset')
+                    this.$root.sendServer('stop')
+                    this.$message({
+                      type: 'success',
+                      message: 'Configuration has been resetted'
+                    });
+                })
+                .catch(() => {
+                    // this.$message({
+                    //   type: 'info',
+                    //   message: 'Reset action canceled'
+                    // });
+                });
         }
     }
 }

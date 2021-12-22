@@ -100,6 +100,12 @@ export default {
                 if(data == 'refresh')
                   this.restartServer()
 
+                if(data == 'start')
+                  this.startServer()
+
+                if(data == 'stop')
+                  this.stopServer()
+
                 if(data == 'toggle'){
                     if(this.status == 'running')
                       this.stopServer()
