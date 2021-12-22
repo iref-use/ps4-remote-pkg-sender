@@ -33,7 +33,7 @@
           </el-col>
           <el-col :span="10">
               <el-form-item label="Status">
-                  <el-tag size="small" style="width:100%;">{{ status }}</el-tag>
+                  <el-tag size="small" style="width:100%;" :type="status != 'running' ? 'danger' : ''">{{ status }}</el-tag>
               </el-form-item>
           </el-col>
           <el-col :span="4">

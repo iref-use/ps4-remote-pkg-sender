@@ -72,7 +72,7 @@ export default {
         port: get('app/server.port'),
         serverFiles: get('server/serverFiles'),
         servingFiles: get('server/servingFiles'),
-        running: sync('server/status'),
+        status: sync('server/status'),
         app: get('server/app'),
         hb(){
             return 'http://' + this.ip + ':' + this.port + '/hb'
@@ -88,7 +88,7 @@ export default {
                 this.run = true
                 return
             }
-            this.$store.dispatch('server/addLog', "Server base path has been changed. Reload files.")
+            this.$store.dispatch('server/addLog', "Server files has been changed. Reload files.")
             this.createPaths()
         },
     },
@@ -101,7 +101,7 @@ export default {
                   this.restartServer()
 
                 if(data == 'toggle'){
-                    if(this.running)
+                    if(this.status == 'running')
                       this.stopServer()
                     else
                       this.startServer()
