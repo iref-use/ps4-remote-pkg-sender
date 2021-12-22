@@ -1,9 +1,15 @@
 <template>
 <div>
 
-  <mainComponents />
+  <el-button size="mini" @click="$store.dispatch('queue/reset')"> Reset Queue and Tasks </el-button>
 
-  <pre>{{ server }}</pre>
+  <Queue />
+
+  <Tasks />
+
+  <mainComponents v-if="false" />
+
+  <pre>{{ queue }}</pre>
 </div>
 </template>
 
@@ -15,6 +21,7 @@ export default {
 
   computed: {
       server: get('app/server'),
+      queue: get('queue'),      
   }
 }
 </script>

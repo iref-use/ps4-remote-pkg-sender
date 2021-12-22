@@ -4,6 +4,14 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.2.0" placement="top">
+        <h4>Queue and Tasks</h4>
+        <p>
+          Prepare Queue and Tasks storage module. <br>
+
+        </p>
+    </el-timeline-item>
+
     <el-timeline-item timestamp="2.1.1" placement="top">
         <h4>Handling of serving server files</h4>
         <p>
@@ -19,6 +27,8 @@
           Update Server Config fields to make them look prettier. <br>
           Add file size of to the server files in readable format. <br>
           Add channel communication between main and server. <br>
+          Add send method globaly to and reducing duplicated code. <br>
+          Optiimzing start up and quick fix double reload of files on start. <br>
         </p>
     </el-timeline-item>
 

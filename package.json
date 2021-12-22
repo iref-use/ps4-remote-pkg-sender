@@ -1,9 +1,9 @@
 {
   "private": true,
-  "version": "2.1.1",
+  "version": "2.2.0",
   "name": "PS4RemotePKGSender",
   "author": "Gkiokan <support@gkiokan.net>",
-  "description": "Send PKG files to your ps4",
+  "description": "Manage and send PKG files to your ps4",
   "scripts": {
     "build--": "electron-webpack && electron-packager ./ --platform=darwin --out ./release --overwrite --DEPCREATED_NOT_WORKING_WITH_THE_REFACTORED_VERSION",
     "build": "electron-webpack && electron-builder --dir",

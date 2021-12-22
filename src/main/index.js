@@ -9,6 +9,8 @@ import store from './../renderer/store/index.js'
 
 // set vars
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const showServerWindowOnStartUp = false
+const showServerDevtools = false
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let windows = {
@@ -39,8 +41,8 @@ function createMainWindow() {
 // function create Server Window
 function createServerWindow(){
   const window = helper.createWindowInstance('/app/Server', {
-    width: 800, height: 500, title: 'Server', show: true,
-  }, true)
+    width: 800, height: 500, title: 'Server', show: showServerWindowOnStartUp,
+  }, showServerDevtools)
   window.on('close', (event) => {
     event.preventDefault()
     window.hide()
