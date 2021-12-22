@@ -60,6 +60,7 @@
 import fs from 'fs'
 import path from 'path'
 import { get, sync } from 'vuex-pathify'
+import { ipcRenderer } from 'electron'
 
 import express from 'express'
 import http from 'http'

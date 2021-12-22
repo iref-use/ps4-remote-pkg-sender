@@ -9,8 +9,8 @@ import store from './../renderer/store/index.js'
 
 // set vars
 const isDevelopment = process.env.NODE_ENV !== 'production'
-const showServerWindowOnStartUp = false
-const showServerDevtools = false
+const showServerWindowOnStartUp = true
+const showServerDevtools = true
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let windows = {
@@ -75,6 +75,10 @@ function hearthbeat(){
 function registerChannel(){
     ipcMain.on('server', (event, data) => {
         windows.server.webContents.send('server', data)
+    })
+
+    ipcMain.on('main', (event, data) =>{
+        windows.main.webContents.send('main', data)
     })
 }
 

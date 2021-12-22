@@ -8,7 +8,9 @@
         <h4>Queue and Tasks</h4>
         <p>
           Prepare Queue and Tasks storage module. <br>
-
+          Adding main channel for communication across windows. <br>
+          Adding Error Message Push Notification when trying to start Server with inccorect params. <br>
+          Handling server start and stop with response in case of error. <br>
         </p>
     </el-timeline-item>
 

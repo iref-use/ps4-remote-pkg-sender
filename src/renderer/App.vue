@@ -20,15 +20,28 @@ export default {
 
   mounted(){
       this.$store.dispatch('app/started')
+      this.registerChannel()
   },
 
   methods:{
+      registerChannel(){
+          ipcRenderer.on('main', (event, data) => {
+              console.log(event, data)
+              this.$message({ type: 'info', message: data });
+          })
+      },
+
       open(b){
           require('electron').shell.openExternal(b)
       },
 
       sendServer(msg){
           ipcRenderer.send('server', msg)
+      },
+
+      sendMain(msg){
+          console.log('sending to main', msg)
+          ipcRenderer.send('main', msg)
       },
   },
 }

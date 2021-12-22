@@ -138,6 +138,15 @@ export default {
         },
 
         async startServer(){
+            // console.log(this.ip, this.ip.length, this.port, this.port.length)
+            if(this.ip.length == 0 || this.port.length == 0){
+                let error = "Server cannot start. Please configure IP and Port"
+                this.$store.dispatch('server/addLog', error)
+                this.$root.sendMain(error)
+                // this.$message({ type: 'warning', message: error });
+                return
+            }
+
             this.host.server = await this.host.app.listen(this.port, () => {
                 this.$store.dispatch('server/addLog', 'Server is running on port ' + this.ip + ' at port ' + this.port)
                 this.$store.dispatch('server/setStatus', 'running')
