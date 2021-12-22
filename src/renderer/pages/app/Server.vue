@@ -46,7 +46,7 @@ export default {
 
     data(){ return {
         tab: 'logs',
-        run: false,
+        run: 0,
         host: {
             app: null,
             server: null,
@@ -83,9 +83,11 @@ export default {
         // 'base_path'(){
         //     this.addFilesFromBasePath()
         // },
-        'serverFiles'(){
-            if(!this.run){
-                this.run = true
+
+        'serverFiles'(o, n){
+            console.log("::server | serverFiles changed", this.run, o, n)
+            this.run++
+            if(this.run <=2){
                 return
             }
             this.$store.dispatch('server/addLog', "Server files has been changed. Reload files.")

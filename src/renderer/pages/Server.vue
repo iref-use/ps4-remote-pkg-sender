@@ -94,6 +94,14 @@ export default {
 
     methods: {
         reload(){
+            if(!this.server.base_path){
+                this.$message({
+                  type: 'warning',
+                  message: 'No server base path given. Please Configure first.'
+                });
+                return
+            }
+
             console.log("Reload files at base path. Triggered though Server-List")
             // this.$store.dispatch('server/startLoading')
             this.$store.dispatch('server/loadFiles', this.server.base_path)

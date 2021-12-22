@@ -33,6 +33,11 @@ export const actions = {
     ...make.actions(state),
 
     loadFiles({ commit, state, rootState, rootGetters }, path){
+        if(!path){
+            console.log("::store | no path given for base_path")
+            return
+        }
+
         // commit('loading', true)
         console.log("::store | Read files at base path ", path);
         let scan_subdir = rootGetters['app/server'].scan_subdir
