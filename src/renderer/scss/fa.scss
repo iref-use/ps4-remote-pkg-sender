@@ -1,0 +1,49 @@
+// Import Font Awesome 5 Free
+// $fa-css-prefix: 'el-icon-fa';
+// $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+$fa-font-path: './webfonts';
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+// @import './fa/fontawesome.scss';
+// @import './fa/regular.scss';
+// @import './fa/solid.scss';
+// @import './fa/brands.scss';
+
+// Override Element UI's icon font
+.fal,
+.far,
+.fas {
+  font-family: 'Font Awesome 5 Free' !important;
+}
+
+.fab {
+  font-family: 'Font Awesome 5 Brands' !important;
+}
+
+.fa {
+  width: 12px;
+  height: 12px;
+  font-size: 9px;
+  line-height: 12px;
+}
+
+// Use Font Awesome icons without a prefix
+i[class^="el-icon-fa"],
+i[class*=" el-icon-fa"] {
+  font-family: 'Font Awesome 5 Free' !important; // Change this to 'Font Awesome 5 Pro' for pro
+  // font-style: normal;
+  // font-variant: normal;
+  // font-weight: normal;
+  // font-size: inherit;
+  // text-rendering: auto;
+  // display: inline-block;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+
+  &:before {
+      font-size: 10px;
+  }
+};

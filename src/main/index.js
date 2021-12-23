@@ -9,8 +9,8 @@ import store from './../renderer/store/index.js'
 
 // set vars
 const isDevelopment = process.env.NODE_ENV !== 'production'
-const showServerWindowOnStartUp = true
-const showServerDevtools = true
+const showServerWindowOnStartUp = false
+const showServerDevtools = false
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let windows = {

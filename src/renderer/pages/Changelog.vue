@@ -11,6 +11,9 @@
           Adding main channel for communication across windows. <br>
           Adding Error Message Push Notification when trying to start Server with inccorect params. <br>
           Handling server start and stop with response in case of error. <br>
+          Adding file search filter for serving files and queued files. <br>
+          Create queue table and test process handler. <br>
+          
         </p>
     </el-timeline-item>
 

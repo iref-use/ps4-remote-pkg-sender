@@ -2,11 +2,21 @@
 <div>
 
     <div style="display: flex; flex-direction: row;">
-      <el-button @click="reload" size="mini" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
-      <el-tag size="size" effect="light" style='margin-right: 10px'>{{ server.base_path }}</el-tag>
+
     </div>
 
-    <el-table :data="servingFiles" v-loading="loading"
+    <el-row>
+      <el-col :span="20" style="display: flex">
+          <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
+          <el-tag size="size" effect="light" class="path_input_tag">{{ server.base_path }}</el-tag>
+      </el-col>
+      <el-col :span="4">
+          <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
+      </el-col>
+    </el-row>
+
+
+    <el-table :data="files" v-loading="loading"
         element-loading-text="Loading Server files"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(255, 255, 255, 0.8)"
@@ -24,9 +34,17 @@
         <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
         <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
 
-        <el-table-column prop="status" label="Status" width="100" />
+        <el-table-column prop="status" label="Status" width="120" align="center">
+          <template slot-scope="scope">
+              <el-tag size="small" plain type="info">{{ scope.row.status }}</el-tag>
+          </template>
+        </el-table-column>
 
-        <el-table-column prop="size" label="Size" width="120px" align="right" />
+        <el-table-column prop="size" label="Size" width="120" align="right">
+          <template slot-scope="scope">
+              <el-tag size="small" plain :type="getStatusType(scope.row.size)">{{ scope.row.size }}</el-tag>
+          </template>
+        </el-table-column>
 
         <el-table-column label="Progress" width="100px" v-if="showPercentage">
             <template slot-scope="scope">
@@ -76,21 +94,35 @@ export default {
         showVersion: false,
         showPercentage: false,
 
+        search: '',
+
         app: null,
         http: null,
     }},
 
     mounted(){
         // this.run()
+        this.search = ''
     },
 
     computed: {
         server: get('app/server'),
         serverFiles: get('server/serverFiles'),
-        servingFiles: sync('server/servingFiles'),
+        servingFiles: get('server/servingFiles'),
         routes: get('server/routes'),
         loading: get('server/loading'),
-        files(){ return this.servingFiles },
+        files(){ 
+            let search = this.search.toLowerCase()
+
+            if(search.length != 0)
+              return this.servingFiles.filter( file =>
+                  file.name.toLowerCase().includes(search) || 
+                  file.cusa.toLowerCase().includes(search) ||
+                  file.status.toLowerCase().includes(search)
+                )
+
+            return this.servingFiles
+        },
     },
 
     methods: {
@@ -125,11 +157,27 @@ export default {
 
                 this.$store.dispatch('server/addLog', 'just a test')
             }, 1000)
-        }
+        },
+
+        getStatusType(type){
+            if(type.includes('Bytes'))
+              return 'info'
+
+            if(type.includes('MB'))
+              return 'success'
+
+            if(type.includes('GB'))
+              return 'primary'
+        },
 
     }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+.path_input_tag {
+  margin-right: 10px;
+  max-width: 100%;
+  overflow: hidden;
+}
 </style>

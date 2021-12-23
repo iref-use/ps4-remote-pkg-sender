@@ -2,7 +2,9 @@
 <div class='queue'>
     <el-divider content-position="left">Files in Queue</el-divider>
 
-
+    <div v-for="i in 10" :key="i">
+        Queue item {{ i }}
+    </div>
 </div>
 </template>
 
@@ -13,7 +15,7 @@ export default {
     name: 'Queue',
 
     data(){ return {
-
+        
     }},
 
     computed: {

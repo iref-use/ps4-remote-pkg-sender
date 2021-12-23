@@ -5,6 +5,13 @@ import path from 'path'
 const getFiles = (folder, deep=false) => {
     const files = []
     for (const file of fs.readdirSync(folder, { widthFileTypes: true }) ) {
+        // fix permission error on external drives for darwin
+        let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes'].includes(file)
+
+        if(forbidden){
+            continue
+        }
+
         const fullPath = path.join(folder, file)
         if(fs.lstatSync(fullPath).isDirectory() && deep){
             getFiles(fullPath, deep).forEach( x => files.push(x) )

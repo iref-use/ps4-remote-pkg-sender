@@ -4,6 +4,7 @@
 
 <script>
 import './scss/app.scss';
+// import "@fortawesome/fontawesome-free/js/all";
 
 import { remote, ipcRenderer } from 'electron'
 
