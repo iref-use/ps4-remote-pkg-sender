@@ -122,23 +122,22 @@ export default {
           file.status = 'installing'
 
           this.ints[i] = setInterval( () => {
-              let x = file
-
-              let value = x.percentage + this.getRandomInt(78)
+              // console.log(file.name + ' ' + file.percentage)
+              let value = file.percentage + this.getRandomInt(5)
 
               if(value < 100){
-                x.percentage = value
-                x.status = 'installing'
+                file.percentage = value
+                file.status = 'installing'
               }
               else {
                 clearInterval(this.ints[i])
-                x.percentage = 100
-                x.status = 'finish'
+                file.percentage = 100
+                file.status = 'finish'
 
                 let servingFile = this.$store.getters['server/findFile'](file)
                 if(servingFile){
                   servingFile.status = 'installed'
-                  console.log("serving file?", servingFile)
+                  console.log("File Done", servingFile)
                 }
 
                 this.$store.dispatch('queue/installed', file)
@@ -160,8 +159,28 @@ export default {
       },
 
       resetAll(){
-          this.servingFiles.map( file => file.status = 'serving')
-          this.$store.dispatch('queue/resetAll')
+          this.$confirm('This will clear your Queue, Tasks and Installed states.', 'Reset Queue, Tasks and Installed',
+                {
+                  confirmButtonText: 'OK',
+                  cancelButtonText: 'Cancel',
+                  type: 'warning',
+                  center: true,
+                })
+                .then(() => {
+                    this.ints.map( i => clearInterval(i) )
+                    this.servingFiles.map( file => file.status = 'serving')
+                    this.$store.dispatch('queue/resetAll')
+                    this.$message({
+                      type: 'success',
+                      message: 'Queue, Tasks and Installed state has been resetted'
+                    });
+                })
+                .catch(() => {
+                    // this.$message({
+                    //   type: 'info',
+                    //   message: 'Reset action canceled'
+                    // });
+                });
       },
 
       resetInstalled(){
