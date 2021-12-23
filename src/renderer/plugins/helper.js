@@ -42,7 +42,7 @@ let helper = {
         if(type == 'serving' || type == 'pause')
           return 'info'
 
-        if(type == 'finish')
+        if(type == 'finish' || type == 'installed')
           return 'success'
 
         if(type == 'installing')

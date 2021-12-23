@@ -91,6 +91,9 @@ export const getters = {
   // make all getters (optional)
   ...make.getters(state),
 
+  findFile: (state) => (file) => {
+    return state.servingFiles.find( x => x.name == file.name)
+  }
   // overwrite default `items` getter
   // allFiles: state => {
   //     return state.images

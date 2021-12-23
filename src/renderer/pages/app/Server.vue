@@ -230,8 +230,17 @@ export default {
                 response.status(200).download(file.path, file.name)
             })
 
+            let inQueue = this.$store.getters['queue/isInQueue'](file)
+            let isInstalled = this.$store.getters['queue/isInstalled'](file)
+
             file.url = 'http://' + this.ip + ':' + this.port + '/' + file.patchedFilename
             file.status = 'serving'
+
+            if(inQueue)
+              file.status = 'in queue'
+
+            if(isInstalled)
+              file.status = 'installed'            
 
             return file
         },

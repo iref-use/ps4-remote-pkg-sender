@@ -66,7 +66,7 @@
 
   <mainComponents v-if="false" />
 
-  <pre v-if="debug">{{ queue }}</pre>
+  <pre v-if="true">{{ queue }}</pre>
 </div>
 </template>
 
@@ -97,6 +97,7 @@ export default {
       queue: get('queue'),
       servingFiles: get('server/servingFiles'),
       queueFiles: get('queue/queue'),
+      installedFiles: get('queue/installed'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -114,14 +115,15 @@ export default {
   methods: {
       run(i=0){
           clearInterval(this.ints[i])
-          this.files[i].percentage = 0
-          this.files[i].status = 'installing'
+
+          let file = this.files[i]
+          file.percentage = 0
+          file.status = 'installing'
 
           this.ints[i] = setInterval( () => {
-              let x = this.files[i]
-              console.log("run test", x)
+              let x = file
 
-              let value = x.percentage + this.getRandomInt(15)
+              let value = x.percentage + this.getRandomInt(78)
 
               if(value < 100){
                 x.percentage = value
@@ -131,6 +133,14 @@ export default {
                 clearInterval(this.ints[i])
                 x.percentage = 100
                 x.status = 'finish'
+
+                let servingFile = this.$store.getters['server/findFile'](file)
+                if(servingFile){
+                  servingFile.status = 'installed'
+                  console.log("serving file?", servingFile)
+                }
+
+                this.$store.dispatch('queue/installed', file)
               }
           }, 1000)
       },
