@@ -42,7 +42,7 @@
 
         <el-table-column prop="size" label="Size" width="120" align="right">
           <template slot-scope="scope">
-              <el-tag size="small" plain :type="getStatusType(scope.row.size)">{{ scope.row.size }}</el-tag>
+              <el-tag size="small" plain :type="$helper.getFileSizeType(scope.row.size)">{{ scope.row.size }}</el-tag>
           </template>
         </el-table-column>
 
@@ -55,13 +55,8 @@
 
         <el-table-column label="Operation" width="100" align="right">
             <template slot-scope="scope">
+                <el-button circle size="small" icon="el-icon-plus" @click="addToQueue(scope.row)" />
                 <el-button circle size="small" icon="el-icon-search" @click="check(scope.row.url)" />
-
-                <el-button circle size="small" icon="el-icon-caret-right" v-if="scope.row.status == 'init'"/>
-                <el-button circle size="small" icon="el-icon-video-play" v-if="scope.row.status == 'pause'"/>
-                <el-button circle size="small" icon="el-icon-video-pause" v-if="scope.row.status == 'play'"/>
-
-                <el-button circle size="small" icon="el-icon-delete" v-if="scope.row.status == 'finished'" />
             </template>
         </el-table-column>
     </el-table>
@@ -159,15 +154,8 @@ export default {
             }, 1000)
         },
 
-        getStatusType(type){
-            if(type.includes('Bytes'))
-              return 'info'
+        addToQueue(item){
 
-            if(type.includes('MB'))
-              return 'success'
-
-            if(type.includes('GB'))
-              return 'primary'
         },
 
     }

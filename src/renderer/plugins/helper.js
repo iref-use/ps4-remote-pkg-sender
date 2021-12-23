@@ -27,6 +27,43 @@ let helper = {
         });
         return ifaces;
     },
+
+    getServerStatusType(i){
+        if(i == 'error')
+          return 'danger'
+
+        if(i == 'running')
+          return 'success'
+
+        return ''
+    },
+
+    getFileStatus(type){
+        if(type == 'serving' || type == 'pause')
+          return 'info'
+
+        if(type == 'finish')
+          return 'success'
+
+        if(type == 'installing')
+          return 'primary'
+
+        return ''
+    },
+
+    getFileSizeType(size){
+        if(size.includes('Bytes'))
+          return 'info'
+
+        if(size.includes('MB'))
+          return 'success'
+
+        if(size.includes('GB'))
+          return 'primary'
+
+        return ''
+    },
+
 }
 
 Vue.prototype.$helper = helper

@@ -155,10 +155,15 @@ export default {
             })
             .on('error', (e) => {
                 // console.log({ ...e })
-                if(e.errno === 'EADDRINUSE')
-                  this.$store.dispatch('server/addLog', "Port " + this.port + " is already in use. Choose another one and restart the Server")
-                else
+                if(e.errno === 'EADDRINUSE'){
+                  let error = "Port " + this.port + " is already in use. Choose another one and restart the Server"
+                  this.$root.sendMain(error)
+                  this.$store.dispatch('server/addLog', error)
+                }
+                else {
+                  this.$root.sendMain(error)
                   this.$store.dispatch('server/addLog', 'Error in listening on ' + this.ip + ' at port ' + this.port + ". Error: " + e.errno)
+                }
 
                 this.$store.dispatch('server/setStatus', 'error')
             })

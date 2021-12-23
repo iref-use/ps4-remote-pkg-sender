@@ -33,13 +33,15 @@
 
       <el-table-column prop="status" label="Status" width="120" align="center">
         <template slot-scope="scope">
-            <el-button size="mini" plain
-                :type="getStatusType(scope.row.status)"
-                :loading="scope.row.status == 'installing'">{{ scope.row.status }}</el-button>
+            <el-tag size="small" plain :type="$helper.getFileStatus(scope.row.status)"> <i class="el-icon-loading" v-if="scope.row.status == 'installing'" /> {{ scope.row.status }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column prop="size" label="Size" width="120px" align="right" />
+      <el-table-column prop="size" label="Size" width="120" align="right">
+        <template slot-scope="scope">
+            <el-tag size="small" plain :type="$helper.getFileSizeType(scope.row.size)">{{ scope.row.size }}</el-tag>
+        </template>
+      </el-table-column>
 
       <el-table-column label="Progress" width="100px" v-if="showPercentage">
           <template slot-scope="scope">
@@ -141,17 +143,6 @@ export default {
 
       getRandomInt(max) {
           return Math.floor(Math.random() * max);
-      },
-
-      getStatusType(type){
-          if(type == 'serving' || type == 'pause')
-            return 'info'
-
-          if(type == 'finish')
-            return 'success'
-
-          if(type == 'installing')
-            return 'primary'
       },
 
       check(url){

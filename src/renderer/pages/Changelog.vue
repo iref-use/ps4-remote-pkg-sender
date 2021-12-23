@@ -13,7 +13,8 @@
           Handling server start and stop with response in case of error. <br>
           Adding file search filter for serving files and queued files. <br>
           Create queue table and test process handler. <br>
-          
+          Added fontawesome Icons to the build. <br>
+          Refactor status, size and type methods to helper class. <br>
         </p>
     </el-timeline-item>
 
