@@ -3,7 +3,8 @@
 
   <el-row>
     <el-col :span="20">
-        <el-button size="small" icon="el-icon-refresh-left" @click="$store.dispatch('queue/reset')"> Reset Queue and Tasks </el-button>
+        <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
+        <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
     </el-col>
     <el-col :span="0">
 
@@ -71,7 +72,7 @@
 </template>
 
 <script>
-import { get } from 'vuex-pathify'
+import { get, sync } from 'vuex-pathify'
 
 export default {
   name: 'Index',
@@ -95,9 +96,9 @@ export default {
   computed: {
       server: get('app/server'),
       queue: get('queue'),
-      servingFiles: get('server/servingFiles'),
+      servingFiles: sync('server/servingFiles'),
       queueFiles: get('queue/queue'),
-      installedFiles: get('queue/installed'),
+      installedFiles: sync('queue/installed'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -156,6 +157,18 @@ export default {
 
       check(url){
           window.open(url)
+      },
+
+      resetAll(){
+          this.servingFiles.map( file => file.status = 'serving')
+          this.$store.dispatch('queue/resetAll')
+      },
+
+      resetInstalled(){
+          this.servingFiles
+                .filter( file => file.status == 'installed')
+                .map( file => file.status = 'serving')
+          this.$store.dispatch('queue/setInstalled', [])
       },
 
   }

@@ -12,7 +12,7 @@ export const state = {
 export const mutations = {
     ...make.mutations(state),
 
-    reset(state){
+    resetAll(state){
         state.queue = []
         state.tasks = []
         state.installed = []
@@ -36,8 +36,8 @@ export const mutations = {
 export const actions = {
     ...make.actions(state),
 
-    reset({ commit }){
-        commit('reset')
+    resetAll({ commit }){
+        commit('resetAll')
     },
 
     addToQueue({ commit }, file){

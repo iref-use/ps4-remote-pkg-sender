@@ -159,8 +159,8 @@ export default {
             let find = this.$store.getters['queue/isInQueue'](file)
 
             if(!find){
-                this.$store.dispatch('queue/addToQueue', file)
                 file.status = 'in queue'
+                this.$store.dispatch('queue/addToQueue', file)
             }
             else{
                 this.$message({

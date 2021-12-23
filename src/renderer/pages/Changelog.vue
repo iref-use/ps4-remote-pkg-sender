@@ -19,6 +19,7 @@
           Handling files to queue and simulated install process. <br>
           Handling post install process, mark files as installed. <br>
           Mark files in queue or installed on reload serving files. <br>
+          Update file status on queue, installed and serving when updating file. <br>
         </p>
     </el-timeline-item>
 
