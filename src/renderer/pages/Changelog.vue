@@ -16,6 +16,9 @@
           Added fontawesome Icons to the build. <br>
           Refactor status, size and type methods to helper class. <br>
           Check files if they are already in the queue and add them if not. <br>
+          Handling files to queue and simulated install process. <br>
+          Handling post install process, mark files as installed. <br>
+          Mark files in queue or installed on reload serving files. <br>
         </p>
     </el-timeline-item>
 
