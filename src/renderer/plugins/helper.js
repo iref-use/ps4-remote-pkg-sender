@@ -48,6 +48,9 @@ let helper = {
         if(type == 'installing')
           return 'primary'
 
+        if(type == 'in queue')
+          return 'warning'
+
         return ''
     },
 

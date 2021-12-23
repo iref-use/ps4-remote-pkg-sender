@@ -9,7 +9,9 @@
       That could be usefull if someone adds secured CDN / Server configurations that you may import. <br>
     </p>
     <br>
-    
+
+    <el-divider content-position="left">Your current settings object</el-divider>
+
     <pre>{{ app }}</pre>
 </div>
 </template>

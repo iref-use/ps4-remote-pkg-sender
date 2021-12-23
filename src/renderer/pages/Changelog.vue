@@ -15,6 +15,7 @@
           Create queue table and test process handler. <br>
           Added fontawesome Icons to the build. <br>
           Refactor status, size and type methods to helper class. <br>
+          Check files if they are already in the queue and add them if not. <br>
         </p>
     </el-timeline-item>
 

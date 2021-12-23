@@ -36,7 +36,7 @@
 
         <el-table-column prop="status" label="Status" width="120" align="center">
           <template slot-scope="scope">
-              <el-tag size="small" plain type="info">{{ scope.row.status }}</el-tag>
+              <el-tag size="small" plain :type="$helper.getFileStatus(scope.row.status)">{{ scope.row.status }}</el-tag>
           </template>
         </el-table-column>
 
@@ -104,6 +104,7 @@ export default {
         server: get('app/server'),
         serverFiles: get('server/serverFiles'),
         servingFiles: get('server/servingFiles'),
+        queueFiles: get('queue/queue'),
         routes: get('server/routes'),
         loading: get('server/loading'),
         files(){ 
@@ -154,8 +155,19 @@ export default {
             }, 1000)
         },
 
-        addToQueue(item){
+        addToQueue(file){
+            let find = this.$store.getters['queue/isInQueue'](file)
 
+            if(!find){
+                this.$store.dispatch('queue/addToQueue', file)
+                file.status = 'in queue'
+            }
+            else{
+                this.$message({
+                    message: file.name + ' is already in Queue',
+                    type: 'warning'
+                })
+            }
         },
 
     }

@@ -64,13 +64,9 @@
       </el-table-column>
   </el-table>
 
-  <Queue />
-
-  <Tasks />
-
   <mainComponents v-if="false" />
 
-  <pre>{{ queue }}</pre>
+  <pre v-if="debug">{{ queue }}</pre>
 </div>
 </template>
 
@@ -81,6 +77,8 @@ export default {
   name: 'Index',
 
   data(){ return {
+      debug: false,
+
       loading: false,
       showCUSA: false,
       showVersion: false,
@@ -98,17 +96,18 @@ export default {
       server: get('app/server'),
       queue: get('queue'),
       servingFiles: get('server/servingFiles'),
+      queueFiles: get('queue/queue'),
       files(){ 
           let search = this.search.toLowerCase()
 
           if(search.length != 0)
-            return this.servingFiles.filter( file =>
+            return this.queueFiles.filter( file =>
                 file.name.toLowerCase().includes(search) || 
                 file.cusa.toLowerCase().includes(search) ||
                 file.status.toLowerCase().includes(search)
               )
 
-          return this.servingFiles
+          return this.queueFiles
       },
   },
 
