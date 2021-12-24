@@ -30,6 +30,10 @@ export default {
               console.log(event, data)
               this.$message({ type: 'info', message: data });
           })
+
+          ipcRenderer.on('main-error', (event, data) => {
+              this.$message({ type: 'error', message: data })
+          })
       },
 
       open(b){

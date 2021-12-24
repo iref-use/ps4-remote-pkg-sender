@@ -77,7 +77,7 @@ let o = {
     },
 
     createItem(item, folder=''){
-        console.log(":: fs | Create File Item", item)
+        // console.log(":: fs | Create File Item", item)
         let isFile = this.isFile(item)
 
         if(!isFile) return false
@@ -89,18 +89,23 @@ let o = {
         // let stats = isFile ? fs.statSync(item) : null
         // let size = (stats.size / (1024*1024*1024)).toFixed(3)
         let size = this.formatBytes(stats.size, 2)
+        let regex = /(CUSA\d{5})/i
+
+        // let cusa  = regex.test(fileName) ? fileName.match(regex)[0] : 'not found' // overhead?
+        let searchCUSA = fileName.match(/(CUSA\d{5})/i)
+        let cusa = searchCUSA ? searchCUSA[0] : ''
 
         // title location 0x40 to 0x63
         // cusa location 0x47 to 0x4F
 
         return {
             name: fileName,
-            cusa: '',
             status: 'n/a',
             percentage: 0,
             task: '',
             ext: path.extname(item),
             path: fullPath,
+            cusa,
             isFile,
             patchedFilename,
             sizeInBytes: stats.size,
@@ -110,10 +115,9 @@ let o = {
         }
     },
 
-    formatBytes(bytes, decimals = 2) {
+    formatBytes(bytes, decimals=2, k=1000) {
         if (bytes === 0) return '0 Bytes';
 
-        const k = 1000;
         const dm = decimals < 0 ? 0 : decimals;
         const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 

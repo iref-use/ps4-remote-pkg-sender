@@ -1,21 +1,14 @@
 import Vue from 'vue'
 import axios from 'axios'
+import JSON5 from 'json5'
 
 // Request interceptor
 axios.interceptors.request.use(request => {
-    // prepare #todo
-    // const token = store.getters['auth/token']
-    // if (token) {
-    //   request.headers.common['Authorization'] = `Bearer ${token}`
-    // }
 
-    const locale = store.getters['lang/locale']
-    if (locale) {
-      request.headers.common['Accept-Language'] = locale
-    }
-
-    // request.headers['X-Socket-Id'] = Echo.socketId()
-    // console.log('request', request)
+    // force to disable preflight requests
+    // request.headers.post['method'] = 'POST'
+    // request.headers.post['content-type'] = 'application/x-www-form-urlencoded';
+    // request.headers.common['content-type'] = 'application/x-www-form-urlencoded';
 
     return request
 })
@@ -23,31 +16,41 @@ axios.interceptors.request.use(request => {
 // Response interceptor
 axios.interceptors.response.use(response =>
   {
-      // console.log('response', status)
+      // console.log('response', response)
+
+      // parse json5
+      if(typeof response.data == 'string' && response.data.includes('0x')){
+        response.data = JSON5.parse(response.data)
+        return response
+      }
+
       // Loading.hide()
       return response
   },
 
-  error => {
-  const { status } = error.response
-  const message = error.response.data.message
+  // on error
+  e => {
+    const { status, message } = e
 
-  if (status >= 500) {
-    alert(message)
-    // swal.fire({
-    //     title: status,
-    //     text: message,
-    //     reverseButtons: true,
-    //     confirmButtonText: 'OK',
-    //     cancelButtonText: 'Cancel',
-    // })
-  }
+    if(message == 'Network Error'){
+        console.log("Error in Response (interceptor)", message)
+        // return Promise.reject(new Error("Network Error. Playstation not available"))
+        // return new Promise( () => {})
 
-  if (status === 401 && store.getters['auth/check']) {
-    alert(message)
-  }
+        return Promise.reject({
+            response: { message: 'Playstation not available'},
+            status: '4444'
+        })
+    }
 
-  return Promise.reject(error)
+    if (status >= 500) {
+      alert(message)
+      // #todo show error dialog
+    }
+
+    return Promise.reject(e)
 })
 
 Vue.prototype.$axios = axios
+
+export default axios

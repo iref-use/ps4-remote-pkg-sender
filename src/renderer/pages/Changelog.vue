@@ -10,6 +10,14 @@
           Remove and resort dependencies. <br>
           Create PS4 Plugin to handle API requests. <br>
           Add Button to remove finished files manually. <br>
+          Create a regex to filter cusa from filename. <br>
+          Added CORS handler to the express Server. <br>
+          Wrote a wrapper for axios to disable preflight requests. <br>
+          Adding check requests to check axios against the server hearthbeat. <br>
+          Adding isInstalled method to check if file exists on ps4. <br>
+          Adding JSON5 parser to parse hex values when RPI responds with it. <br>
+          Add custom error handler for Network Error, when PS4 is not available. <br>
+          Refactor isInstalled method and outsourced the working code into the PS4 Plugin. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.2.0" placement="top">

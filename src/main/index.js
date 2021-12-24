@@ -73,13 +73,10 @@ function hearthbeat(){
 
 // registerChannel
 function registerChannel(){
-    ipcMain.on('server', (event, data) => {
-        windows.server.webContents.send('server', data)
-    })
+    ipcMain.on('server', (event, data) => windows.server.webContents.send('server', data) )
 
-    ipcMain.on('main', (event, data) =>{
-        windows.main.webContents.send('main', data)
-    })
+    ipcMain.on('main', (event, data) => windows.main.webContents.send('main', data) )
+    ipcMain.on('main-error', (event, data) => windows.main.webContents.send('main-error', data) )
 }
 
 // quit application when all windows are closed

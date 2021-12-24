@@ -31,8 +31,11 @@
             </template>
         </el-table-column>
 
-        <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
-        <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
+        <el-table-column prop="cusa" label="CUSA" width="110" align="center" v-if="showCUSA">
+            <template slot-scope="scope">
+                <small style="font-size:12px">{{ scope.row.cusa }}</small>
+            </template>
+        </el-table-column>
 
         <el-table-column prop="status" label="Status" width="120" align="center">
           <template slot-scope="scope">
@@ -85,7 +88,7 @@ export default {
         // files: [],
         debug: false,
         showExtension: false,
-        showCUSA: false,
+        showCUSA: true,
         showVersion: false,
         showPercentage: false,
 

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import JSON5 from 'json5'
 
 let helper = {
     getNetWorkInterfaces() {
@@ -65,6 +66,19 @@ let helper = {
           return 'primary'
 
         return ''
+    },
+
+    stringifyToHex(obj){
+        return JSON.stringify(obj, (key, value) => {
+            if( typeof value === 'number'){
+              return '0x' + value.toString(16)
+            }
+            return value
+        })
+    },
+
+    parse(o){
+        return JSON5.parse(o)
     },
 
 }

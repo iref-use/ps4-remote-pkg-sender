@@ -6,6 +6,8 @@
         <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
         <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
         <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
+
+        <el-button size="small" @click="checkps4"> check </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -40,7 +42,7 @@
 
       <el-table-column prop="status" label="Status" width="120" align="center">
         <template slot-scope="scope">
-            <el-tag size="small" plain :type="$helper.getFileStatus(scope.row.status)"> <i class="el-icon-loading" v-if="scope.row.status == 'installing'" /> {{ scope.row.status }}</el-tag>
+            <el-tag size="small" plain :type="$helper.getFileStatus(scope.row.status)"> <i class="el-icon-loading" v-if="scope.row.status == 'installing'" /> {{ scope.row.status }} </el-tag>
         </template>
       </el-table-column>
 
@@ -52,7 +54,6 @@
 
       <el-table-column label="Progress" width="100px" v-if="showPercentage">
           <template slot-scope="scope">
-              <el-tag size="mini" v-if="0">n/a</el-tag>
               <el-progress :stroke-width="25" :percentage="scope.row.percentage" :text-inside="true" stroke-linecap="square"></el-progress>
           </template>
       </el-table-column>
@@ -61,10 +62,10 @@
           <template slot-scope="scope">
               <el-button circle size="small" icon="el-icon-caret-right" @click="run(scope.$index)" v-if="false" />
 
-              <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="run(scope.$index)"> </el-button>
+              <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.$index)"> </el-button>
               <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="stop(scope.$index)"> </el-button>
 
-              <el-button circle size="small" icon="el-icon-search" @click="check(scope.row.url)" />
+              <el-button circle size="small" icon="fab fa-playstation" @click="isInstalled(scope.row)" />
 
               <el-button circle size="small" icon="fa fa-check" v-if="scope.row.status == 'finished' && scope.row.status == 'serving' && scope.row.status == 'installing'" />
           </template>
@@ -79,6 +80,7 @@
 
 <script>
 import { get, sync } from 'vuex-pathify'
+import JSON5 from 'json5'
 
 export default {
   name: 'Index',
@@ -105,6 +107,7 @@ export default {
       servingFiles: sync('server/servingFiles'),
       queueFiles: get('queue/queue'),
       installedFiles: sync('queue/installed'),
+      ps4ip: get('app/getPS4IP'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -123,7 +126,27 @@ export default {
   },
 
   methods: {
-      run(i=0){
+      checkps4(){
+          this.$ps4.checkServer().then( ({ data }) => {
+              this.$message({ message: data.message, type: 'success' })
+          })
+          .catch( e => {
+              this.$mesage({ message: "Heartbeath not working", type: 'danger' })
+          })
+      },
+
+      isInstalled(file){
+          this.$ps4.isInstalled(file)
+                  .then( ({ data }) => {
+                      if(data.exists == true)
+                        file.status = 'installed'
+
+                      this.$message({ message: data.message, type: data.type })
+                  })
+                  .catch( e => console.log(e) )
+      },
+
+      start(i=0){
           clearInterval(this.ints[i])
 
           let file = this.files[i]

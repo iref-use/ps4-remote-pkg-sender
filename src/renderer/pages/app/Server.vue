@@ -150,6 +150,7 @@ export default {
             this.host.server = await this.host.app.listen(this.port, () => {
                 this.$store.dispatch('server/addLog', 'Server is running on port ' + this.ip + ' at port ' + this.port)
                 this.$store.dispatch('server/setStatus', 'running')
+                this.addCORSHandler()
                 this.addRouterMiddleware()
                 this.createPaths()
             })
@@ -176,6 +177,16 @@ export default {
             await this.host.server.close(() => {
                 this.$store.dispatch('server/addLog', 'Server closed')
                 this.$store.dispatch('server/setStatus', 'stopped')
+            })
+        },
+
+        addCORSHandler(){
+            this.host.app.use((req, res, next) => {
+                res.setHeader('Access-Control-Allow-Origin', '*')
+                res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+                // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+                // res.setHeader('Access-Control-Allow-Credentials', true);
+                next()
             })
         },
 
@@ -240,7 +251,7 @@ export default {
               file.status = 'in queue'
 
             if(isInstalled)
-              file.status = 'installed'            
+              file.status = 'installed'
 
             return file
         },

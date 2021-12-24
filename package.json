@@ -20,6 +20,7 @@
     "electron-webpack": "^2.8.2",
     "electron-webpack-vue": "^2.4.0",
     "element-ui": "^2.15.6",
+    "json5": "^2.2.0",
     "lodash": "^4.17.21",
     "node-sass": "4.14.1",
     "sass-loader": "10.1.1",

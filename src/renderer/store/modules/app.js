@@ -44,6 +44,7 @@ export const mutations = {
 
         state.ps4 = {
             ip: '',
+            port: '12800',
             name: ''
         }
     },
@@ -82,6 +83,14 @@ export const actions = {
 export const getters = {
   // make all getters (optional)
   ...make.getters(state),
+
+  getPS4IP(state){
+      return state.ps4.ip + ':' + state.ps4.port
+  },
+
+  getServerIP(state){
+      return state.server.ip + ':' + state.server.port
+  },
 
   // overwrite default `items` getter
   // allFiles: state => {
