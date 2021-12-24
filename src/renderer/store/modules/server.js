@@ -2,12 +2,10 @@ import { make } from 'vuex-pathify'
 import fs from './../../plugins/fs.js'
 
 export const state = {
-    tasks: [],
     files: [],
     serverFiles: [],
     servingFiles: [],
     routes: [],
-    queue: [],
     logs: [],
     status: 'stopped',
     loading: false,

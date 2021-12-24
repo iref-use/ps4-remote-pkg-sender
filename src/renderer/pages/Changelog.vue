@@ -4,6 +4,14 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.3.0" placement="top">
+        <h4>Prepare PS4 PKG API </h4>
+        <p>
+          Remove and resort dependencies. <br>
+          Create PS4 Plugin to handle API requests. <br>
+          Add Button to remove finished files manually. <br>
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.2.0" placement="top">
         <h4>Queue and Tasks</h4>
         <p>

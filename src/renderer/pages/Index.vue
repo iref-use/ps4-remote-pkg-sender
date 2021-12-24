@@ -5,9 +5,7 @@
     <el-col :span="20">
         <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
         <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
-    </el-col>
-    <el-col :span="0">
-
+        <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -19,6 +17,14 @@
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(255, 255, 255, 0.8)"
       style="width: 100%">
+
+      <el-table-column type="expand">
+        <template slot-scope="scope">
+            <pre>{{ scope.row }}</pre>
+        </template>
+      </el-table-column>
+
+
       <el-table-column prop="name" label="Name"></el-table-column>
 
       <el-table-column label="Ext" width="100" v-if="showExtension">
@@ -67,7 +73,7 @@
 
   <mainComponents v-if="false" />
 
-  <pre v-if="true">{{ queue }}</pre>
+  <pre v-if="debug">{{ queue }}</pre>
 </div>
 </template>
 
@@ -111,6 +117,9 @@ export default {
 
           return this.queueFiles
       },
+      finishedFiles(){
+          return this.queueFiles.filter( file => file.status == 'finish' )
+      }
   },
 
   methods: {
@@ -123,7 +132,7 @@ export default {
 
           this.ints[i] = setInterval( () => {
               // console.log(file.name + ' ' + file.percentage)
-              let value = file.percentage + this.getRandomInt(5)
+              let value = file.percentage + this.getRandomInt(65)
 
               if(value < 100){
                 file.percentage = value
@@ -134,13 +143,7 @@ export default {
                 file.percentage = 100
                 file.status = 'finish'
 
-                let servingFile = this.$store.getters['server/findFile'](file)
-                if(servingFile){
-                  servingFile.status = 'installed'
-                  console.log("File Done", servingFile)
-                }
-
-                this.$store.dispatch('queue/installed', file)
+                this.fileInstalled(file, 'installed')
               }
           }, 1000)
       },
@@ -148,6 +151,15 @@ export default {
       stop(i){
           clearInterval(this.ints[i])
           this.files[i].status = 'pause'
+      },
+
+      fileInstalled(file, status='installed'){
+          let servingFile = this.$store.getters['server/findFile'](file)
+          if(servingFile){
+            servingFile.status = status
+          }
+
+          this.$store.dispatch('queue/installed', file)
       },
 
       getRandomInt(max) {
@@ -189,6 +201,10 @@ export default {
                 .map( file => file.status = 'serving')
           this.$store.dispatch('queue/setInstalled', [])
       },
+
+      clearFinishedFiles(){
+          this.finishedFiles.map( file => this.$store.dispatch('queue/removeFromQueue', file))
+      }
 
   }
 }

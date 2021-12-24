@@ -6,7 +6,6 @@ import store from './store'
 
 import './plugins'
 import './components'
-import './scripts'
 
 const styles=document.createElement('style');
 styles.innerText=`@import url(https://unpkg.com/spectre.css/dist/spectre.min.css);

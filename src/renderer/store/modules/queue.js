@@ -44,9 +44,13 @@ export const actions = {
         commit('toQueue', file)
     },
 
+    removeFromQueue({ commit }, file){
+        commit('removeQueue', file)
+    },
+
     installed({ commit, state }, file){
         let i = state.installed.findIndex( x => x.name == file.name)
-        console.log(file.name + ' installed. lets check i '+ i)
+        console.log(file.name + ' installed. lets check file at pos '+ i)
 
         // file not installed yet
         if(i == -1){
@@ -57,8 +61,6 @@ export const actions = {
         else {
           state.installed[i].status = 'installed +'
         }
-
-        commit('removeQueue', file)
     },
 
     // addFiles({ commit, dispatch, state}, payload){

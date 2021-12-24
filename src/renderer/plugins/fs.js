@@ -103,7 +103,9 @@ let o = {
             path: fullPath,
             isFile,
             patchedFilename,
+            sizeInBytes: stats.size,
             size,
+            logs: [],
             // stats,
         }
     },
