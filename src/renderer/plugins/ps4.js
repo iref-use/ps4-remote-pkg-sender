@@ -154,13 +154,35 @@ let ps4 = {
                 })
     },
 
-    startInstall(file){
+    install(file){
         if(!file.url){
             return console.log("Cannot find path for file " + file.name )
         }
 
         return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.path] })
-    }
+    },
+
+    pause(file){
+        return this.request(this.getURL() + '/api/pause_task', { task_id: file.task })
+    },
+
+    stop(file){
+        return this.request(this.getURL() + '/api/stop_task', { task_id: file.task })
+    },
+
+    resume(file){
+        return this.request(this.getURL() + '/api/resume_task', { task_id: file.task })
+    },
+
+    remove(file){
+        return this.request(this.getURL() + '/api/unregister_task', { task_id: file.task })
+    },
+
+    getTask(file){
+        return this.request(this.getURL() + '/api/get_task_progress', { task_id: file.task })
+    },
+
+
 
 }
 

@@ -93,7 +93,7 @@ let o = {
 
         // let cusa  = regex.test(fileName) ? fileName.match(regex)[0] : 'not found' // overhead?
         let searchCUSA = fileName.match(/(CUSA\d{5})/i)
-        let cusa = searchCUSA ? searchCUSA[0] : ''
+        let cusa = searchCUSA ? searchCUSA[0].toUpperCase() : ''
 
         // title location 0x40 to 0x63
         // cusa location 0x47 to 0x4F

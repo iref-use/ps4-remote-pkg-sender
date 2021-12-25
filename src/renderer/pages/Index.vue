@@ -37,6 +37,7 @@
           </template>
       </el-table-column>
 
+      <el-table-column prop="task" label="Task" width="100" v-if="showTask"></el-table-column>
       <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
       <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
 
@@ -61,7 +62,7 @@
       <el-table-column label="Operation" width="130" align="right">
           <template slot-scope="scope">
               <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.row)"> </el-button>
-              <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="stop(scope.row)"> </el-button>
+              <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="pause(scope.row)"> </el-button>
 
               <el-button circle size="small" icon="fab fa-playstation" @click="isInstalled(scope.row)" />
 
@@ -87,6 +88,7 @@ export default {
       debug: false,
 
       loading: false,
+      showTask: true,
       showCUSA: false,
       showVersion: false,
       showPercentage: true,
@@ -145,13 +147,31 @@ export default {
       },
 
       start(file){
-          this.clearInterval(file)
+          if(file.task && file.status == 'pause'){
+              console.log(file.name + ' found task id ' + file.task)
+              return this.resume(file)
+          }
 
+          this.clearInterval(file)
           file.percentage = 0
 
-          // file.status = 'installing'
+          this.setTask(file, 1234)
           this.setStatus(file, 'installing')
+          this.startInterval(file)
+      },
 
+      pause(file){
+          this.clearInterval(file)
+          this.setStatus(file, 'pause')
+      },
+
+      resume(file){
+          console.log(file.name + ' continue task id ' + file.task)
+          this.setStatus(file, 'installing')
+          this.startInterval(file)
+      },
+
+      startInterval(file){
           this.ints[file.patchedFilename] = setInterval( () => {
               // console.log(file.name + ' ' + file.percentage)
               let value = file.percentage + this.getRandomInt(65)
@@ -172,9 +192,11 @@ export default {
           }, 1000)
       },
 
-      stop(file){
-          this.clearInterval(file)
-          file.status = 'pause'
+      haveInterval(file){
+          if(this.ints[file.patchedFilename])
+            return this.ints[file.patchedFilename]
+
+          return false
       },
 
       clearInterval(file){
@@ -183,6 +205,10 @@ export default {
 
       setStatus(file, status){
           this.$store.dispatch('queue/status', { file, status })
+      },
+
+      setTask(file, id){
+          this.$store.dispatch('queue/task', { file, id })
       },
 
       fileInstalled(file, status='installed'){

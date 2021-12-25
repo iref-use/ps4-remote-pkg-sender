@@ -35,6 +35,11 @@ export const mutations = {
         let i  = state.queue.findIndex( x => x.name == file.name)
         state.queue[i].status = status
     },
+
+    task(state, { file, id }){
+        let i  = state.queue.findIndex( x => x.name == file.name)
+        state.queue[i].task = id
+    },
 }
 
 // actions
@@ -71,6 +76,10 @@ export const actions = {
 
     status({ commit }, data){
         commit('status', data)
+    },
+
+    task({ commit }, data){
+        commit('task', data)
     },
 
     // addFiles({ commit, dispatch, state}, payload){

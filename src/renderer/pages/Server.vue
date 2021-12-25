@@ -59,7 +59,7 @@
         <el-table-column label="Operation" width="100" align="right">
             <template slot-scope="scope">
                 <el-button circle size="small" icon="el-icon-plus" @click="addToQueue(scope.row)" />
-                <el-button circle size="small" icon="el-icon-search" @click="check(scope.row.url)" />
+                <el-button circle size="small" icon="fa fa-cloud-download-alt" @click="check(scope.row.url)" />
             </template>
         </el-table-column>
     </el-table>
