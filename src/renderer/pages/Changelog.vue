@@ -18,6 +18,9 @@
           Adding JSON5 parser to parse hex values when RPI responds with it. <br>
           Add custom error handler for Network Error, when PS4 is not available. <br>
           Refactor isInstalled method and outsourced the working code into the PS4 Plugin. <br>
+          Add Timeout on isInstalled request. Check and catch custom timeout error. <br>
+          Refactor Simulated install process, split start script and outsource methods. <br>
+
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.2.0" placement="top">
@@ -56,6 +59,7 @@
           Add channel communication between main and server. <br>
           Add send method globaly to and reducing duplicated code. <br>
           Optiimzing start up and quick fix double reload of files on start. <br>
+          Commit file status on queue when it changes. <br>
         </p>
     </el-timeline-item>
 

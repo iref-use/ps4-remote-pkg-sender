@@ -92,12 +92,19 @@ let ps4 = {
         return ''
     },
 
-    request(url, data){
-        return axios.post(url, data, { headers: { 'content-type':'application/x-www-form-urlencoded' } })
+    request(url, data, options={}){
+        let defaultOptions = { headers: { 'content-type':'application/x-www-form-urlencoded' } }
+
+        return axios.post(url, data, { ...defaultOptions, ...options})
                 .catch( e => {
                     console.log("PS4 Plugin Error catcher", e)
 
                     if(e.response && e.response.message == 'Playstation not available'){
+                        ipcRenderer.send('main-error', e.response.message)
+                        throw e
+                    }
+
+                    if(e.response && e.status === 4408){
                         ipcRenderer.send('main-error', e.response.message)
                         throw e
                     }
@@ -120,7 +127,7 @@ let ps4 = {
 
     isInstalled(file){
         console.log("Check if cusa is exists ", file, file.cusa)
-        return this.request(this.getURL() + '/api/is_exists', { title_id : file.cusa })
+        return this.request(this.getURL() + '/api/is_exists', { title_id : file.cusa }, { timeout: 2400 })
                 .then( res => {
                     let data = res.data
                     let message = ''
@@ -146,6 +153,14 @@ let ps4 = {
                     }}
                 })
     },
+
+    startInstall(file){
+        if(!file.url){
+            return console.log("Cannot find path for file " + file.name )
+        }
+
+        return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.path] })
+    }
 
 }
 

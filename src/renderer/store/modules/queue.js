@@ -29,7 +29,12 @@ export const mutations = {
 
     toInstalled(state, file){
         state.installed.push(file)
-    }
+    },
+
+    status(state, { file, status }){
+        let i  = state.queue.findIndex( x => x.name == file.name)
+        state.queue[i].status = status
+    },
 }
 
 // actions
@@ -59,8 +64,13 @@ export const actions = {
         }
         // file exists in installed
         else {
+          console.log(file.name + ' is already installed')
           state.installed[i].status = 'installed +'
         }
+    },
+
+    status({ commit }, data){
+        commit('status', data)
     },
 
     // addFiles({ commit, dispatch, state}, payload){

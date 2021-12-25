@@ -39,9 +39,17 @@ axios.interceptors.response.use(response =>
 
         return Promise.reject({
             response: { message: 'Playstation not available'},
-            status: '4444'
+            status: 4444,
         })
     }
+
+    if(message.includes('timeout of') !== false){
+        return Promise.reject({
+            response: { message: 'Timeout on Request' },
+            status: 4408,
+        })
+    }
+
 
     if (status >= 500) {
       alert(message)

@@ -60,10 +60,8 @@
 
       <el-table-column label="Operation" width="130" align="right">
           <template slot-scope="scope">
-              <el-button circle size="small" icon="el-icon-caret-right" @click="run(scope.$index)" v-if="false" />
-
-              <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.$index)"> </el-button>
-              <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="stop(scope.$index)"> </el-button>
+              <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.row)"> </el-button>
+              <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="stop(scope.row)"> </el-button>
 
               <el-button circle size="small" icon="fab fa-playstation" @click="isInstalled(scope.row)" />
 
@@ -146,34 +144,45 @@ export default {
                   .catch( e => console.log(e) )
       },
 
-      start(i=0){
-          clearInterval(this.ints[i])
+      start(file){
+          this.clearInterval(file)
 
-          let file = this.files[i]
           file.percentage = 0
-          file.status = 'installing'
 
-          this.ints[i] = setInterval( () => {
+          // file.status = 'installing'
+          this.setStatus(file, 'installing')
+
+          this.ints[file.patchedFilename] = setInterval( () => {
               // console.log(file.name + ' ' + file.percentage)
               let value = file.percentage + this.getRandomInt(65)
 
               if(value < 100){
                 file.percentage = value
-                file.status = 'installing'
+                // file.status = 'installing'
               }
               else {
-                clearInterval(this.ints[i])
+                console.log(file.name + " finished")
+                this.clearInterval(file)
                 file.percentage = 100
-                file.status = 'finish'
+                // file.status = 'finish'
 
+                this.setStatus(file, 'finish')
                 this.fileInstalled(file, 'installed')
               }
           }, 1000)
       },
 
-      stop(i){
-          clearInterval(this.ints[i])
-          this.files[i].status = 'pause'
+      stop(file){
+          this.clearInterval(file)
+          file.status = 'pause'
+      },
+
+      clearInterval(file){
+          clearInterval(this.ints[file.patchedFilename])
+      },
+
+      setStatus(file, status){
+          this.$store.dispatch('queue/status', { file, status })
       },
 
       fileInstalled(file, status='installed'){
