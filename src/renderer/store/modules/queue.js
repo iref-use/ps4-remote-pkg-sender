@@ -40,6 +40,10 @@ export const mutations = {
         let i  = state.queue.findIndex( x => x.name == file.name)
         state.queue[i].task = id
     },
+
+    addLog(state, log){
+        state.logs.unshift(log)
+    },
 }
 
 // actions
@@ -80,6 +84,10 @@ export const actions = {
 
     task({ commit }, data){
         commit('task', data)
+    },
+
+    addLog({ commit }, log){
+        commit('addLog', log)
     },
 
     // addFiles({ commit, dispatch, state}, payload){

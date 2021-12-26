@@ -73,6 +73,10 @@
 
   <mainComponents v-if="false" />
 
+  <pre v-if="debugLogs">
+    <el-button size="mini" @click="$store.dispatch('queue/setLogs', [])"> Clear Logs </el-button>
+    {{ logs }}
+  </pre>
   <pre v-if="debug">{{ queue }}</pre>
 </div>
 </template>
@@ -86,6 +90,7 @@ export default {
 
   data(){ return {
       debug: false,
+      debugLogs: true,
 
       loading: false,
       showTask: true,
@@ -104,6 +109,7 @@ export default {
   computed: {
       server: get('app/server'),
       queue: get('queue'),
+      logs: get('queue/logs'),
       servingFiles: sync('server/servingFiles'),
       queueFiles: get('queue/queue'),
       installedFiles: sync('queue/installed'),
@@ -152,23 +158,31 @@ export default {
               return this.resume(file)
           }
 
+          console.log(file.name + ' start installing')
           this.clearInterval(file)
           file.percentage = 0
 
           this.setTask(file, 1234)
           this.setStatus(file, 'installing')
           this.startInterval(file)
+
+          this.log(file.name + ' has been started installing')
       },
 
       pause(file){
+          console.log(file.name + ' pause')
           this.clearInterval(file)
           this.setStatus(file, 'pause')
+
+          this.log(file.name + ' pause')
       },
 
       resume(file){
           console.log(file.name + ' continue task id ' + file.task)
           this.setStatus(file, 'installing')
           this.startInterval(file)
+
+          this.log(file.name + ' resume')
       },
 
       startInterval(file){
@@ -188,6 +202,8 @@ export default {
 
                 this.setStatus(file, 'finish')
                 this.fileInstalled(file, 'installed')
+
+                this.log(file.name + ' finished')
               }
           }, 1000)
       },
@@ -209,6 +225,10 @@ export default {
 
       setTask(file, id){
           this.$store.dispatch('queue/task', { file, id })
+      },
+
+      log(a){
+          this.$store.dispatch('queue/addLog', a)
       },
 
       fileInstalled(file, status='installed'){
