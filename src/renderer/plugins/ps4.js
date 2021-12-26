@@ -118,6 +118,19 @@ let ps4 = {
                         // })
                     }
                 })
+                .then( ({ data }) => {
+                    if(data.status && data.status == 'fail'){
+                        // Found Error Codes
+                        // 2157510677 error on double install?
+                        // 2157510663 already installed?
+                        // 2157510681 task doesn't exist
+                        let code = data.error_code
+                        let message = ''
+
+                        ipcRenderer.send('main-error', "Error " + code)
+                        throw data
+                    }
+                })
     },
 
     checkServer(){
@@ -159,7 +172,7 @@ let ps4 = {
             return console.log("Cannot find path for file " + file.name )
         }
 
-        return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.path] })
+        return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.url] })
     },
 
     pause(file){
@@ -182,7 +195,9 @@ let ps4 = {
         return this.request(this.getURL() + '/api/get_task_progress', { task_id: file.task })
     },
 
-
+    find(file){
+        return this.request(this.getURL() + '/api/find_task', { content_id: file.patchedFilename, sub_type: 6 })
+    },
 
 }
 

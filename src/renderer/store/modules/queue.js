@@ -44,6 +44,10 @@ export const mutations = {
     addLog(state, log){
         state.logs.unshift(log)
     },
+
+    addTask(state, task){
+        state.tasks.push(task)
+    },
 }
 
 // actions
@@ -88,6 +92,10 @@ export const actions = {
 
     addLog({ commit }, log){
         commit('addLog', log)
+    },
+
+    addTask({ commit }, task){
+        commit('addTask', task)
     },
 
     // addFiles({ commit, dispatch, state}, payload){
