@@ -4,6 +4,16 @@ import windows from './index'
 
 let tray
 
+function showProcessingCenter(){
+    windows.main.show()
+    windows.main.webContents.send('main-route', 'home')
+}
+
+function showServerList(){
+  windows.main.show()
+  windows.main.webContents.send('main-route', 'server')
+}
+
 export default {
   tray,
 
@@ -18,9 +28,9 @@ export default {
         { label: 'Open PS4 Remote PKG Installer', click: () =>  windows.main.show() },
         { label: 'Open Server', click: () => windows.server.show() },
         { label: 'Separator', type: 'separator'},
-        { label: 'Install new PKG' },
-        { label: 'Show Tasks' },
-        { label: 'Show Server listed PKGs', click: () => windows.server.show() },
+        // { label: 'Install new PKG' },
+        { label: 'Show Processing Center', click: () => showProcessingCenter() },
+        { label: 'Show Server listed PKGs', click: () => showServerList() },
         { label: 'Separator', type: 'separator'},
         { label: 'Info', click: () => windows.info.show() }
       ])

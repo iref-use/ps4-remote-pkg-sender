@@ -77,6 +77,7 @@ function registerChannel(){
 
     ipcMain.on('main', (event, data) => windows.main.webContents.send('main', data) )
     ipcMain.on('main-error', (event, data) => windows.main.webContents.send('main-error', data) )
+    ipcMain.on('main-route', (event, data) => windows.main.webContents.send('main-route', data) )
 }
 
 // quit application when all windows are closed

@@ -2,10 +2,10 @@
 <el-container>
 
       <el-header>
-          <el-menu :default-active="'home'" :router="true" mode="horizontal" @select="handleSelect">
-              <el-menu-item index="home">Processing Center</el-menu-item>
+          <el-menu :default-active="'home'" :router="true" mode="horizontal" ref="menu" @select="handleSelect">
+              <el-menu-item index="home" ref="home">Processing Center</el-menu-item>
 
-              <el-menu-item index="server">Server</el-menu-item>
+              <el-menu-item index="server" ref="server">Server</el-menu-item>
 
               <el-menu-item index="config">Config</el-menu-item>
 
@@ -33,6 +33,7 @@
 <script>
 import { shell } from 'electron'
 import links from '@/../config/links'
+import { ipcRenderer } from 'electron'
 
 export default {
   name: 'DefaultLayout',
@@ -41,7 +42,18 @@ export default {
       links,
   }},
 
+  mounted(){
+      this.registerChannel()
+  },
+
   methods: {
+      registerChannel(){
+          ipcRenderer.on('main-route', (event, data) => {
+              this.$router.push(data)
+              this.$refs.menu.activeIndex = data
+          })
+      },
+
       handleSelect(val){
           console.log('Select View ', val)
           // this.$router.push({ name: val })
