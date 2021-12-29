@@ -226,11 +226,11 @@ export default {
           console.log(file.name + ' stop')
 
           this.clearInterval(file)
-          this.setStatus(file, 'stop')
 
           this.$ps4.stop(file)
                   .then( ({ data }) => {
                       console.log("Stop ", data)
+                      this.setStatus(file, 'stop')
                       this.log(file.name + ' stop', data)
                   })
                   .catch( e => console.log(e) )
@@ -240,11 +240,11 @@ export default {
           console.log(file.name + ' pause')
 
           this.clearInterval(file)
-          this.setStatus(file, 'pause')
 
           this.$ps4.stop(file)
                   .then( ({ data }) => {
                       console.log("pause ", data)
+                      this.setStatus(file, 'pause')
                       this.log(file.name + ' pause', data)
                   })
                   .catch( e => console.log(e) )
@@ -252,6 +252,8 @@ export default {
 
       resume(file){
           console.log(file.name + ' continue task id ' + file.task)
+
+          this.clearInterval(file)
 
           this.$ps4.resume(file)
                   .then( ({ data }) => {
@@ -268,6 +270,8 @@ export default {
 
       remove(file){
           console.log(file.name + ' remove ')
+
+          this.clearInterval(file)
 
           this.$ps4.remove(file)
                 .then( ({ data }) => {
