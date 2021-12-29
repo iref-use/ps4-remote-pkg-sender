@@ -31,8 +31,8 @@
             <el-button size="mini" icon="fa fa-play" @click="resume(scope.row)"> Resume </el-button>
             <el-button size="mini" icon="fa fa-play" @click="start(scope.row)"> Start </el-button>
             <el-divider direction="vertical" />
-            <el-button size="mini" icon="fa fa-eye" @click="start(scope.row)"> File Object </el-button>
-            <el-button size="mini" icon="fa fa-eye" @click="start(scope.row)"> File Logs </el-button>
+            <el-button size="mini" icon="fa fa-eye" @click="toggleFileObject(scope.row)"> File Object </el-button>
+            <el-button size="mini" icon="fa fa-eye" @click="toggleFileLogs(scope.row)"> File Logs </el-button>
 
             <div style='height: 10px' />
 
@@ -54,7 +54,7 @@
             <el-tag size="small" type="info" style="margin-bottom: 5px"> URL: {{ scope.row.url }} </el-tag> <br>
 
 
-            <pre>{{ scope.row }}</pre>
+            <pre v-if="false">{{ scope.row }}</pre>
         </template>
       </el-table-column>
 
@@ -69,7 +69,7 @@
           </template>
       </el-table-column>
 
-      <el-table-column prop="task" label="Task" width="110" v-if="showTask"></el-table-column>
+      <el-table-column prop="task" label="Task" width="105" v-if="showTask"></el-table-column>
       <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
       <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
 
@@ -91,10 +91,10 @@
           </template>
       </el-table-column>
 
-      <el-table-column label="Operation" width="200" align="right">
+      <el-table-column label="Operation" width="150" align="right">
           <template slot-scope="scope">
               <el-button circle size="small" icon="fa fa-info" @click="info(scope.row)"> </el-button>
-              <el-button circle size="small" icon="fa fa-stop" @click="stop(scope.row)"> </el-button>
+              <el-button circle size="small" icon="fa fa-stop" @click="stop(scope.row)" v-if="false"> </el-button>
               <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.row)"> </el-button>
               <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="pause(scope.row)"> </el-button>
 
