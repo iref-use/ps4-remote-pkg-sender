@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style='max-width: 960px'>
 
   <ServerConfig />
 

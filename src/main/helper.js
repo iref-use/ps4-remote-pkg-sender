@@ -42,6 +42,8 @@ export default {
 
     createBaseWindow(args={}){
         let params = {
+            minHeight: 900,
+            minWidth: 600,
             height: 600,
             width: 900,
             title: 'PS4 Remote Package Sender',
@@ -53,6 +55,13 @@ export default {
                 enableRemoteModule: true,
             }
         }
+
+        if(args.width)
+          params.minWidth = args.width
+
+        if(args.height)
+          params.minHeight = args.height
+          
         return new BrowserWindow({...params, ...args})
     },
 
