@@ -15,6 +15,7 @@
           Add browser min size values based on given sizes. <br>
           Lower request timeout value to 2,2secs. <br>
           Refine queued Task Information, expanded table row. <br>
+          Fix redundant move when moved is triggered through tray menu.<br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.3.0" placement="top">
