@@ -176,27 +176,27 @@ let ps4 = {
     },
 
     pause(file){
-        return this.request(this.getURL() + '/api/pause_task', { task_id: file.task })
+        return this.request(this.getURL() + '/api/pause_task', { task_id: file.task }, { timeout: 8000 })
     },
 
     stop(file){
-        return this.request(this.getURL() + '/api/stop_task', { task_id: file.task })
+        return this.request(this.getURL() + '/api/stop_task', { task_id: file.task }, { timeout: 8000 })
     },
 
     resume(file){
-        return this.request(this.getURL() + '/api/resume_task', { task_id: file.task })
+        return this.request(this.getURL() + '/api/resume_task', { task_id: file.task }, { timeout: 8000 })
     },
 
     remove(file){
-        return this.request(this.getURL() + '/api/unregister_task', { task_id: file.task })
+        return this.request(this.getURL() + '/api/unregister_task', { task_id: file.task }, { timeout: 8000 })
     },
 
     getTask(file){
-        return this.request(this.getURL() + '/api/get_task_progress', { task_id: file.task })
+        return this.request(this.getURL() + '/api/get_task_progress', { task_id: file.task }, { timeout: 8000 })
     },
 
     find(file){
-        return this.request(this.getURL() + '/api/find_task', { content_id: file.patchedFilename, sub_type: 6 })
+        return this.request(this.getURL() + '/api/find_task', { content_id: file.patchedFilename, sub_type: 6 }, { timeout: 6000 })
     },
 
 }
