@@ -31,6 +31,7 @@ axios.interceptors.response.use(response =>
   // on error
   e => {
     const { status, message } = e
+    // console.log("Axios Error", e, status, message)
 
     if(message == 'Network Error'){
         console.log("Error in Response (interceptor)", message)
@@ -51,10 +52,10 @@ axios.interceptors.response.use(response =>
     }
 
 
-    if (status >= 500) {
-      alert(message)
-      // #todo show error dialog
-    }
+    // if (status >= 500) {
+    //   alert(message)
+    //   // #todo show error dialog
+    // }
 
     return Promise.reject(e)
 })

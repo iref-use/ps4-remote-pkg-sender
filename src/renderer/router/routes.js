@@ -35,6 +35,7 @@ export default [
       children: [
           { path: 'info', name: 'info', component: loadPage('Info') },
           { path: 'app/server', name: 'server.app', component: loadPage('app/Server') },
+          { path: 'ps4', name: 'ps4', component: loadPage('ps4/Index') },
       ]
   },
 

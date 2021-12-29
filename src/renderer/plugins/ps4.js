@@ -109,6 +109,13 @@ let ps4 = {
                         throw e
                     }
 
+                    if(e.status == 500 || e.response.status == 500){
+                        console.log(e, e.response)
+                        ipcRenderer.send('main-error', e.response.data.error)
+                        throw e
+                        // return e.response
+                    }
+
                     if(!e.response){
                         // console.log("Network Error, is playstation on?")
                         // this.$message({ 
@@ -120,6 +127,7 @@ let ps4 = {
                 })
                 .then( response => {
                     let data = response.data
+                    console.log("PS4 API Response", data)
                     if(data.status && data.status == 'fail'){
                         // Found Error Codes
                         // 2157510677 error on double install?

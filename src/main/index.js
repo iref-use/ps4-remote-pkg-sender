@@ -17,6 +17,7 @@ let windows = {
   info: null,
   main: null,
   server: null,
+  ps4: null,
 }
 
 // Create Windows
@@ -38,7 +39,7 @@ function createMainWindow() {
   // mainWindow.webContents.openDevTools()
 }
 
-// function create Server Window
+// create Server Window
 function createServerWindow(){
   const window = helper.createWindowInstance('/app/Server', {
     width: 800, height: 500, title: 'Server', show: showServerWindowOnStartUp,
@@ -51,7 +52,7 @@ function createServerWindow(){
   windows.server = window
 }
 
-// function create Info Window
+// create Info Window
 function createInfoWindow(){
   const window = helper.createWindowInstance('/info', {
     width: 300, height: 400, title: 'Info', show: false,
@@ -62,6 +63,19 @@ function createInfoWindow(){
   })
   window.on('closed', (event) => { windows.info = null })
   windows.info = window
+}
+
+// create Info Window
+function createPS4Window(){
+  const window = helper.createWindowInstance('/ps4', {
+    width: 800, height: 800, title: 'PS4', show: false,
+  })
+  window.on('close', (event) => {
+    event.preventDefault()
+    window.hide()
+  })
+  window.on('closed', (event) => { windows.ps4 = null })
+  windows.ps4 = window
 }
 
 // hearthbeat
@@ -78,6 +92,8 @@ function registerChannel(){
     ipcMain.on('main', (event, data) => windows.main.webContents.send('main', data) )
     ipcMain.on('main-error', (event, data) => windows.main.webContents.send('main-error', data) )
     ipcMain.on('main-route', (event, data) => windows.main.webContents.send('main-route', data) )
+
+    ipcMain.on('ps4', (event, data) => windows.ps4.webContents.send('ps4', data) )
 }
 
 // quit application when all windows are closed
@@ -110,6 +126,8 @@ app.on('ready', () => {
   createMainWindow()
   createServerWindow()
   createInfoWindow()
+  createPS4Window()
+
   menu.createMenu()
   tray.createTray()
 

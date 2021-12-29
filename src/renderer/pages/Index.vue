@@ -89,10 +89,6 @@
 
   <mainComponents v-if="false" />
 
-  <pre v-if="debugLogs">
-    <el-button size="mini" @click="$store.dispatch('queue/setLogs', [])"> Clear Logs </el-button>
-    {{ logs }}
-  </pre>
   <pre v-if="debug">{{ queue }}</pre>
 </div>
 </template>
@@ -106,7 +102,6 @@ export default {
 
   data(){ return {
       debug: false,
-      debugLogs: true,
 
       loading: false,
       showTask: true,
@@ -181,7 +176,7 @@ export default {
 
           this.$ps4.install(file)
               .then( ({ data }) => {
-                  this.log(data)
+                  this.log(file.name + ' install', data)
 
                   let example =   {
                     "status": "success",
@@ -196,10 +191,10 @@ export default {
                       this.setStatus(file, 'installing')
                       this.startInterval(file)
 
-                      this.log(file.name + ' has been started installing')
+                      this.log(file.name + ' has been started installing', data)
                   }
                   else {
-                      console.log(file.name, "Error on install", data)
+                      console.log(file.name + " error on install", data)
                       // 2157510677 error on double install?
                       // 2157510663 already installed?
                       // 2157510681 task doesn't exist
@@ -218,10 +213,9 @@ export default {
           this.$ps4.stop(file)
                   .then( ({ data }) => {
                       console.log("Stop ", data)
+                      this.log(file.name + ' stop', data)
                   })
                   .catch( e => console.log(e) )
-
-          this.log(file.name + ' stop')
       },
 
       pause(file){
@@ -233,10 +227,9 @@ export default {
           this.$ps4.stop(file)
                   .then( ({ data }) => {
                       console.log("pause ", data)
+                      this.log(file.name + ' pause', data)
                   })
-                  .catch( e => console.log("Error to console " + e) )
-
-          this.log(file.name + ' pause')
+                  .catch( e => console.log(e) )
       },
 
       resume(file){
@@ -248,11 +241,11 @@ export default {
                           console.log("resume ", data)
                           this.setStatus(file, 'installing')
                           this.startInterval(file)
+
+                          this.log(file.name + ' resume', data)
                       }
                   })
                   .catch( e => console.log(e) )
-
-          this.log(file.name + ' resume')
       },
 
       remove(file){
@@ -261,6 +254,7 @@ export default {
           this.$ps4.remove(file)
                 .then( ({ data }) => {
                     console.log(data)
+                    this.log(file.name + ' remove', data)
                 })
                 .catch( e => console.log(e) )
       },
@@ -292,24 +286,27 @@ export default {
                           let onePercent = 100 / length
                           let percent = Math.round(done * onePercent)
                           // console.log("percent", length, done, onePercent, percent)
+                          let isWorking = data.length != data.transferred
 
-                          if(percent < 100){
+                          if(isWorking && percent < 100){
                             file.percentage = percent
+                            this.log(file.name + ' info', data)
                           }
                           else {
-                            console.log(file.name + " finished")
+                            this.log(file.name + " finished", data)
                             this.clearInterval(file)
                             file.percentage = 100
                             this.setStatus(file, 'finish')
                             this.fileInstalled(file, 'installed')
 
-                            this.log(file.name + ' finished')
+                            this.log(file.name + ' finished', data)
                           }
 
-                          file.logs.push(data)
+                          file.logs.unshift(data)
                       }
                       else {
                           console.log("Task Info Fail", data)
+                          this.log(file.name + ' Info fail', data)
                       }
 
                   })
@@ -321,11 +318,9 @@ export default {
       find(file){
           this.$ps4.find(file)
                   .then( ({ data }) => {
-                      console.log("find ", data)
+                      this.log(file.name + ' find', data)
                   })
                   .catch( e => console.log(e) )
-
-          this.log(file.name + ' find')
       },
 
       startInterval(file){
@@ -355,8 +350,9 @@ export default {
           this.$store.dispatch('queue/task', { file, id })
       },
 
-      log(a){
-          this.$store.dispatch('queue/addLog', a)
+      log(msg='', data={}){
+          // this.$store.dispatch('queue/addLog', a)
+          this.$root.sendPS4({ time: Date.now(), msg, data })
       },
 
       fileInstalled(file, status='installed'){
@@ -388,6 +384,7 @@ export default {
                 .then(() => {
                     this.ints.map( i => clearInterval(i) )
                     this.servingFiles.map( file => file.status = 'serving')
+
                     this.$store.dispatch('queue/resetAll')
                     this.$message({
                       type: 'success',

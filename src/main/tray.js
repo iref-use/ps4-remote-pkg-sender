@@ -28,11 +28,16 @@ export default {
         { label: 'Open PS4 Remote PKG Installer', click: () =>  windows.main.show() },
         { label: 'Open Server', click: () => windows.server.show() },
         { label: 'Separator', type: 'separator'},
+
         // { label: 'Install new PKG' },
         { label: 'Show Processing Center', click: () => showProcessingCenter() },
         { label: 'Show Server listed PKGs', click: () => showServerList() },
         { label: 'Separator', type: 'separator'},
-        { label: 'Info', click: () => windows.info.show() }
+
+        { label: 'PS4 API Logs', click: () => windows.ps4.show() },
+        { label: 'Separator', type: 'separator'},
+
+        { label: 'Info', click: () => windows.info.show() },
       ])
 
       tray.setContextMenu(contextMenu)
