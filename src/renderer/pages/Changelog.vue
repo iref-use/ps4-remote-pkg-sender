@@ -4,6 +4,17 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.3.1" placement="top">
+        <h4>PS4 API </h4>
+        <p>
+          Fixing PS4 API Responses and add correct error catcher. <br>
+          Add Timeout to requests and validate false positive errors. <br>
+          Create PS4 API Logs Window and Channel to log ps4 responses separatly. <br>
+          Extend Processing Center Task Row with additional operation buttons. <br>
+          Create a custom logger method with timestamp and data object. <br>
+          
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.3.0" placement="top">
         <h4>Prepare PS4 PKG API </h4>
         <p>
@@ -20,7 +31,6 @@
           Refactor isInstalled method and outsourced the working code into the PS4 Plugin. <br>
           Add Timeout on isInstalled request. Check and catch custom timeout error. <br>
           Refactor Simulated install process, split start script and outsource methods. <br>
-
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.2.0" placement="top">
