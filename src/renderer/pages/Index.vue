@@ -24,18 +24,36 @@
         <template slot-scope="scope">
             <el-button size="mini" icon="fa fa-search" @click="find(scope.row)"> Find </el-button>
             <el-button size="mini" icon="fa fa-info" @click="info(scope.row)"> Info </el-button>
-            <el-button size="mini" icon="fa fa-stop" @click="stop(scope.row)"> Stop </el-button>
+            <el-divider direction="vertical" />
             <el-button size="mini" icon="fa fa-trash" @click="remove(scope.row)"> Remove </el-button>
+            <el-button size="mini" icon="fa fa-stop" @click="stop(scope.row)"> Stop </el-button>
+            <el-button size="mini" icon="fa fa-pause" @click="pause(scope.row)"> Pause </el-button>
             <el-button size="mini" icon="fa fa-play" @click="resume(scope.row)"> Resume </el-button>
             <el-button size="mini" icon="fa fa-play" @click="start(scope.row)"> Start </el-button>
+            <el-divider direction="vertical" />
+            <el-button size="mini" icon="fa fa-eye" @click="start(scope.row)"> File Object </el-button>
+            <el-button size="mini" icon="fa fa-eye" @click="start(scope.row)"> File Logs </el-button>
 
-            <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.row)"> </el-button>
-            <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="pause(scope.row)"> </el-button>
+            <div style='height: 10px' />
 
-            <br>
+            <el-tag size="small"> Percent: {{ scope.row.percentage }}  </el-tag>
+            <el-tag size="small" :type="$helper.getFileStatus(scope.row.status)"> Status: {{ scope.row.status }} </el-tag>
+            <el-tag size="small" type="info" v-if="scope.row.cusa"> {{ scope.row.cusa }} </el-tag>
+            <el-tag size="small" :type="$helper.getFileSizeType(scope.row.size)"> {{ scope.row.size }} </el-tag>
+            <el-tag size="small" type="info"> Task: {{ scope.row.task ? scope.row.task : '-' }} </el-tag>
+            <el-tag size="small" type="info"> Logs: {{ scope.row.logs.length }} </el-tag>
 
-            <pre> Percent: {{ scope.row.percentage }} | Status: {{ scope.row.status }} </pre>
-            <pre> {{ scope.row.length }} | {{ scope.row.transferred }}</pre>
+            <el-divider direction="vertical" v-if="false" />
+            <el-tag size="small" type="info" v-if="false"> Show File Object </el-tag>
+            <el-tag size="small" type="info" v-if="false"> Show File Logs </el-tag>
+
+            <div style='height: 10px' />
+
+            <el-tag size="small" type="info" style="margin-bottom: 5px"> File Name: {{ scope.row.name }} </el-tag> <br>
+            <el-tag size="small" type="info" style="margin-bottom: 5px"> Patched Name: {{ scope.row.patchedFilename }} </el-tag> <br>
+            <el-tag size="small" type="info" style="margin-bottom: 5px"> URL: {{ scope.row.url }} </el-tag> <br>
+
+
             <pre>{{ scope.row }}</pre>
         </template>
       </el-table-column>
