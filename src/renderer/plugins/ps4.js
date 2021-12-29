@@ -118,7 +118,8 @@ let ps4 = {
                         // })
                     }
                 })
-                .then( ({ data }) => {
+                .then( response => {
+                    let data = response.data
                     if(data.status && data.status == 'fail'){
                         // Found Error Codes
                         // 2157510677 error on double install?
@@ -130,6 +131,8 @@ let ps4 = {
                         ipcRenderer.send('main-error', "Error " + code)
                         throw data
                     }
+
+                    return response
                 })
     },
 
