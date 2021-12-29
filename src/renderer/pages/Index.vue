@@ -31,8 +31,8 @@
             <el-button size="mini" icon="fa fa-play" @click="resume(scope.row)"> Resume </el-button>
             <el-button size="mini" icon="fa fa-play" @click="start(scope.row)"> Start </el-button>
             <el-divider direction="vertical" />
-            <el-button size="mini" icon="fa fa-eye" @click="toggleFileObject(scope.row)"> File Object </el-button>
-            <el-button size="mini" icon="fa fa-eye" @click="toggleFileLogs(scope.row)"> File Logs </el-button>
+            <el-button size="mini" icon="fa fa-eye" @click="toggleFileObject(scope.row)" v-if="false"> File Object </el-button>
+            <el-button size="mini" icon="fa fa-eye" @click="toggleFileLogs(scope.row)" v-if="false"> File Logs </el-button>
 
             <div style='height: 10px' />
 
