@@ -49,9 +49,20 @@ export default {
   methods: {
       registerChannel(){
           ipcRenderer.on('main-route', (event, data) => {
-              this.$router.push(data)
-              this.$refs.menu.activeIndex = data
+              this.move(data)
           })
+      },
+
+      move(params){
+         let from  = this.$route.fullPath
+         let to    = this.$router.resolve(params).route.fullPath
+
+         if(from === to) {
+             return
+         }
+
+         this.$router.push(params)
+         this.$refs.menu.activeIndex = params
       },
 
       handleSelect(val){
