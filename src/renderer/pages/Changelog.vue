@@ -14,7 +14,7 @@
           Create a custom logger method with timestamp and data object. <br>
           Add browser min size values based on given sizes. <br>
           Lower request timeout value to 2,2secs. <br>
-
+          Refine queued Task Information, expanded table row. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.3.0" placement="top">
