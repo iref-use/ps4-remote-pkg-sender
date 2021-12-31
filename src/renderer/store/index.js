@@ -25,6 +25,7 @@ export default new Vuex.Store({
   plugins: [
     pathify.plugin,
     createPersistedState({
+      throttle: 1000, 
       whitelist: (mutation) => true,
     }),
     createSharedMutations()
