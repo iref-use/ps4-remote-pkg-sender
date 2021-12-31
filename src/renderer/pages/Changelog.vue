@@ -4,6 +4,16 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.4.0" placement="top">
+        <h4>Application bundling </h4>
+        <p>
+          Fix windows race condition error for storage. <br>
+          Preparing auto-update feature. <br>
+          Finishing Info Window with content. <br>
+          Adding menu items from tray to menu<br>
+          Adding build commands for mac, windows and linux. <br>
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.3.1" placement="top">
         <h4>PS4 API </h4>
         <p>

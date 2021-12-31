@@ -1,12 +1,15 @@
 {
   "private": true,
-  "version": "2.3.1",
+  "version": "2.4.0",
   "name": "PS4RemotePKGSender",
   "author": "Gkiokan <support@gkiokan.net>",
   "description": "Manage and send PKG files to your ps4",
   "scripts": {
-    "build--": "electron-webpack && electron-packager ./ --platform=darwin --out ./release --overwrite --DEPCREATED_NOT_WORKING_WITH_THE_REFACTORED_VERSION",
     "build": "electron-webpack && electron-builder --dir",
+    "build:mac": "electron-webpack && electron-builder --mac",
+    "build:win": "electron-webpack && electron-builder --win",
+    "build:linux": "electron-webpack && electron-builder --linux",
+    "build:all": "electron-webpack && electron-builder -mwl",
     "dist": "electron-webpack && electron-builder --dir",
     "webpack": "electron-webpack",
     "watch": "electron-webpack dev"
@@ -38,12 +41,23 @@
     "axios": "^0.24.0",
     "express": "^4.17.1",
     "source-map-support": "^0.5.16",
+    "uaup-js": "0.0.22",
     "webtorrent": "^0.102.4"
   },
   "build": {
-    "appId": "gkiokan.net.ps4remotepkgsender.v2",
+    "appId": "gkiokan.net.ps4remotepkgsenderv2",
+    "asar": true,
     "directories": {
       "output": "release"
+    },
+    "win": {
+      "target": "portable"
+    },
+    "publish": {
+        "provider": "github",
+        "owner": "gkiokan",
+        "repo": "ps4-remote-pkg-sender",
+        "vPrefixedTagName": true
     }
   }
 }

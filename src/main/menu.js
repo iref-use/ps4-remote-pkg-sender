@@ -2,13 +2,38 @@ import { app, shell, Menu } from 'electron'
 import windows from './index'
 import links from './../config/links'
 
+function showProcessingCenter(){
+    windows.main.show()
+    windows.main.webContents.send('main-route', 'home')
+}
+
+function showServerList(){
+  windows.main.show()
+  windows.main.webContents.send('main-route', 'server')
+}
+
 const application = {
   label: "Application",
-  submenu: [{
-    label: "Quit",
-    accelerator: "Command+Q",
-    click: () => { app.quit() }
-  }]
+  submenu: [
+      { label: 'Open PS4 Remote PKG Installer', click: () =>  windows.main.show() },
+      { label: 'Open Server', click: () => windows.server.show() },
+      { label: 'Separator', type: 'separator'},
+
+      // { label: 'Install new PKG' },
+      { label: 'Show Processing Center', click: () => showProcessingCenter() },
+      { label: 'Show Server listed PKGs', click: () => showServerList() },
+      { label: 'Separator', type: 'separator'},
+
+      { label: 'PS4 API Logs', click: () => windows.ps4.show() },
+
+      { label: 'Separator', type: 'separator' },
+
+      {
+        label: "Quit",
+        accelerator: "Command+Q",
+        click: () => { app.quit() }
+      },
+  ]
 }
 
 const edit = {
@@ -74,7 +99,7 @@ const help = {
 
 const template = [
   application,
-  edit,
+  // edit,
   help,
 ];
 

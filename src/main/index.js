@@ -54,7 +54,7 @@ function createServerWindow(){
 // create Info Window
 function createInfoWindow(){
   const window = helper.createWindowInstance('/info', {
-    width: 300, height: 400, title: 'Info', show: false,
+    width: 300, height: 550, title: 'Info', show: false,
   })
   window.on('close', (event) => {
     event.preventDefault()
