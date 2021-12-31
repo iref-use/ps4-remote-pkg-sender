@@ -8,7 +8,7 @@
   "scripts": {
     "build": "electron-webpack && electron-builder --dir",
     "build:mac": "electron-webpack && electron-builder --mac",
-    "build:win": "electron-webpack && electron-builder --win",
+    "build:win": "electron-webpack && electron-builder --win portable",
     "build:linux": "electron-webpack && electron-builder --linux",
     "build:all": "electron-webpack && electron-builder -mwl",
     "dist": "electron-webpack && electron-builder --dir",
