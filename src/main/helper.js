@@ -46,7 +46,7 @@ export default {
             minWidth: 600,
             height: 600,
             width: 900,
-            frame: false,
+            // frame: false,
             title: 'PS4 Remote Package Sender',
             icon: nativeImage.createFromDataURL(this.getAppIconPath()),
             // titleBarStyle: 'hiddenInset',
