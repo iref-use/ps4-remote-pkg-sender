@@ -12,6 +12,7 @@
           Finishing Info Window with content. <br>
           Adding menu items from tray to menu<br>
           Adding build commands for mac, windows and linux. <br>
+          Adding dmg build options. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.3.1" placement="top">

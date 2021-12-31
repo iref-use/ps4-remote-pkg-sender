@@ -1,7 +1,8 @@
 {
   "private": true,
   "version": "2.4.0",
-  "name": "PS4RemotePKGSender",
+  "name": "PS4RemotePKGSenderV2",
+  "productName": "PS4 Remote PKG Sender V2",
   "author": "Gkiokan <support@gkiokan.net>",
   "description": "Manage and send PKG files to your ps4",
   "scripts": {
@@ -52,6 +53,18 @@
     },
     "win": {
       "target": "portable"
+    },
+    "dmg": {
+      "title": "${productName} - ${version}",
+      "background": "build/background.png",
+      "contents": [
+          { "x": "20", "y": "100" },
+          { "x": "160", "y": "100", "type": "link", "path": "/Applications" }
+      ],
+      "window": {
+          "width": "540",
+          "height": "380"
+      }
     },
     "publish": {
         "provider": "github",
