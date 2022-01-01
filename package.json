@@ -12,6 +12,7 @@
     "build:linux": "electron-webpack && electron-builder --linux",
     "build:all": "electron-webpack && electron-builder -mwl",
     "dist": "electron-webpack && electron-builder --dir",
+    "publish": "electron-builder --mac --linux --win portable --publish onTag",
     "webpack": "electron-webpack",
     "watch": "electron-webpack dev"
   },
