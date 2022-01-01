@@ -31,7 +31,7 @@ export default {
           window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` + '#' + to)
         }
         else {
-          window.loadURL('file://' + path.join(__dirname, 'index.html' + '#' + to))
+          window.loadURL('file://' + path.join(__dirname, 'index.html') + '#' + to)
           // window.loadURL(formatUrl({
           //   pathname: path.join(__dirname, 'index.html'+ '#' + to),
           //   protocol: 'file',

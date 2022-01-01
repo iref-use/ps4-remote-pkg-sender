@@ -52,7 +52,10 @@
       "output": "release"
     },
     "win": {
-      "target": "portable"
+      "target": ["portable"]
+    },
+    "portable": {
+      "artifactName": "${productName}.exe"
     },
     "dmg": {
       "title": "${productName} - ${version}",
