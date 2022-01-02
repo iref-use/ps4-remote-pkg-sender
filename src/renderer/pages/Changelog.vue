@@ -13,6 +13,9 @@
           Adding menu items from tray to menu<br>
           Adding build commands for mac, windows and linux. <br>
           Adding dmg build options. <br>
+          Adding windows build options and fixing backslash error. <br>
+          Testing portable build on windows and fixing windows stuff. <br>
+          Adding linux build options to the build script. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.3.1" placement="top">
