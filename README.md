@@ -25,11 +25,14 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * NEW Add Served files to your Queue and install them on your PS4  
 * NEW Processing Center reflects any status changes in your server list, too     
 
-#ToDo for  
+## ToDo for the future
 * Search your PS4 automatically in the current network (WIP)  
 * Add a FAQ and Troubleshooting Area
 * Configuration values for timeout and heartbeat  
 * Implement Auto-updater  
+* Queue scanner (start next file in the queue after one is finished)
+* Import / Export Configuration  
+* Server as global Server Host and Provide Server Files over Internet    
 
 ## How To  
 So there you have it. How can you use it?  
@@ -49,6 +52,8 @@ Start flatZ Remote Package Installer
 ## Troubleshooting  
 Your PS4 and PC have to be on the same Network.  
 If you have connection issues, check your Router or Firewall.  
+If you get Playstation not available error, check RPI on PS4 and restart it.  
+
 If you think there is an issue, please report it.  
 
 ## Credits
