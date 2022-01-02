@@ -33,7 +33,8 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * Queue scanner (start next file in the queue after one is finished)
 * Import / Export Configuration  
 * Serve as global Server Host and provide Server Files over Internet   
-* Implement HB Store and install fPKG's
+* Save PS4 (local, wlan, wan, internet) and make them chooseable  
+* Implement HB Store and install fPKG's  
 * Read CUSA from file hex values instead of title  
 * Preview CUSAxxxxx Game title covers  
 
