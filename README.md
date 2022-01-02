@@ -42,8 +42,8 @@ The refactored Version provides a better GUI and technicall more ordered feature
 So there you have it. How can you use it?  
 
 ### on PS4
-Start HEN v1.8+  
-Start flatZ Remote Package Installer  
+1.) Start HEN v1.8+  
+2.) Start flatZ Remote Package Installer  
 
 ### on PC  
 1.) Start PS4 Package Sender V2   
