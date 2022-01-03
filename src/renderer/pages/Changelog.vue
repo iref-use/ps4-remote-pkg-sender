@@ -4,6 +4,12 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.4.1" placement="top">
+        <h4>Handling Errors </h4>
+        <p>
+          Adding global error catcher and crashReporter for debugging purposes. <br>
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.4.0" placement="top">
         <h4>Application bundling </h4>
         <p>
