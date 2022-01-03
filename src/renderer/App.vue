@@ -24,6 +24,17 @@ export default {
       this.registerChannel()
   },
 
+  errorCaptured(err, vm, info) {
+    // err: error trace
+    // vm: component in which error occured
+    // info: Vue specific error information such as lifecycle hooks, events etc.
+    console.log(err, vm, info)
+    alert(err)
+
+    // TODO: Perform any custom logic or log to server
+    // return false to stop the propagation of errors further to parent or global error handler
+  },
+
   methods:{
       registerChannel(){
           ipcRenderer.on('main', (event, data) => {
@@ -33,6 +44,11 @@ export default {
 
           ipcRenderer.on('main-error', (event, data) => {
               this.$message({ type: 'error', message: data })
+          })
+
+          ipcRenderer.on('error', (event, data) => {
+              console.log(event, data)
+              alert(data)
           })
       },
 

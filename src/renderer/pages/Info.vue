@@ -6,6 +6,8 @@
     app: {{ $root.versions.app }} <br>
     electron: {{ $root.versions.electron }} <br>
     electron-webpack: {{ $root.versions.electronWebpack }} <br>
+    platform: {{ platform }} <br>
+    <br>
     runtime: {{ time }} sec's since start <br>
     started: {{ started }} times started <br>
     <br>
@@ -19,6 +21,10 @@
     Mega thanks to my wife and her patience (or not having it) on
     endless hours of development and debugging troubles.
 
+    <el-divider />
+
+    <el-button size="mini" @click="crash"> Crash it! </el-button>
+
     <template v-if="debug">
       <pre>{{ ps4 }}</pre>
       <pre>{{ server }}</pre>
@@ -28,6 +34,7 @@
 
 <script>
 import { get } from 'vuex-pathify'
+import os from 'os'
 
 export default {
   name: 'Info',
@@ -41,6 +48,16 @@ export default {
       time: get('app/time'),
       server: get('app/server'),
       ps4: get('app/ps4'),
+      platform(){
+        return os.type() + ' ' + os.release() + ' ' + os.platform()
+      },
+  },
+
+  methods: {
+      crash(){
+          alert("Crashing" + { crash: true })
+          process.crash()
+      },
   }
 
 }

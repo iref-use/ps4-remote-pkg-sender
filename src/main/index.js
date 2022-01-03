@@ -7,10 +7,15 @@ import menu from './menu'
 import tray from './tray'
 import store from './../renderer/store/index.js'
 
+import './crashReporter'
+
 // set vars
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
 const showServerWindowOnStartUp = false
 const showServerDevtools = false
+
+const showMainDevTools = process.env.NODE_ENV !== 'production'
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let windows = {
@@ -24,7 +29,7 @@ let windows = {
 function createMainWindow() {
   const window = helper.createWindowInstance('/', {
     width: 1000, height: 700,
-  }, true)
+  }, showMainDevTools)
 
   window.on('close', (event) => {
     event.preventDefault()
@@ -55,7 +60,7 @@ function createServerWindow(){
 function createInfoWindow(){
   const window = helper.createWindowInstance('/info', {
     width: 340, height: 600, title: 'Info', show: false,
-  })
+  }, true)
   window.on('close', (event) => {
     event.preventDefault()
     window.hide()
@@ -93,6 +98,8 @@ function registerChannel(){
     ipcMain.on('main-route', (event, data) => windows.main.webContents.send('main-route', data) )
 
     ipcMain.on('ps4', (event, data) => windows.ps4.webContents.send('ps4', data) )
+
+    ipcMain.on('error', (event, data) => windows.main.webContents.send('error', data) )
 }
 
 // quit application when all windows are closed

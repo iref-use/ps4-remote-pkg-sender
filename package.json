@@ -42,6 +42,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "express": "^4.17.1",
+    "os": "^0.1.2",
     "source-map-support": "^0.5.16",
     "uaup-js": "0.0.22",
     "webtorrent": "^0.102.4"
@@ -53,7 +54,9 @@
       "output": "release"
     },
     "win": {
-      "target": ["portable"]
+      "target": [
+        "portable"
+      ]
     },
     "portable": {
       "artifactName": "${productName}.exe",
@@ -63,19 +66,27 @@
       "title": "${productName} - ${version}",
       "background": "build/background.png",
       "contents": [
-          { "x": "20", "y": "100" },
-          { "x": "160", "y": "100", "type": "link", "path": "/Applications" }
+        {
+          "x": "20",
+          "y": "100"
+        },
+        {
+          "x": "160",
+          "y": "100",
+          "type": "link",
+          "path": "/Applications"
+        }
       ],
       "window": {
-          "width": "540",
-          "height": "380"
+        "width": "540",
+        "height": "380"
       }
     },
     "publish": {
-        "provider": "github",
-        "owner": "gkiokan",
-        "repo": "ps4-remote-pkg-sender",
-        "vPrefixedTagName": true
+      "provider": "github",
+      "owner": "gkiokan",
+      "repo": "ps4-remote-pkg-sender",
+      "vPrefixedTagName": true
     }
   }
 }

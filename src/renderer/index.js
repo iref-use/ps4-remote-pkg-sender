@@ -24,7 +24,7 @@ styles.innerText=`@import url(https://unpkg.com/spectre.css/dist/spectre.min.css
 // document.head.appendChild(styles);
 
 
-Vue.config.devtools= process.env.NODE_ENV !== 'production',
+Vue.config.devtools = process.env.NODE_ENV !== 'production',
 Vue.config.productionTip = false,
 
 new Vue({
@@ -32,3 +32,17 @@ new Vue({
   store,
   ...App,
 }).$mount('#app')
+
+// global window error catcher
+window.onerror = function(message, source, lineno, colno, error) {
+  console.log(message, source, lineno, colno, error)
+  alert(message)
+};
+
+window.addEventListener('unhandledrejection', function(event) {
+    //handle error here
+    //event.promise contains the promise object
+    //event.reason contains the reason for the rejection
+    console.log(event)
+    alert(event.reason)
+});

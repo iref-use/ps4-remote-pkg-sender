@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, app, nativeImage } from 'electron'
+import { BrowserWindow, Menu, ipcMain, app, nativeImage } from 'electron'
 import path from 'path'
 import { format as formatUrl } from 'url'
 
@@ -40,6 +40,20 @@ export default {
         }
     },
 
+    setErrorHandler(window){
+        window.onerror = (error, url, line) => {
+            console.log(error, url, line)
+            alert("Window Error" + error)
+            // ipcMain.on('error', (event, data) => window.webContents.send('error', data) )
+        }
+
+        window.webContents.on('did-fail-load', (event, errorCode, errorDescription, validateURL, isMainFrame, frameProcessId, frameRoutingId) => {
+            console.log(event, errorCode, errorDescription, validateURL, isMainFrame, frameProcessId, frameRoutingId)
+            alert("loading failed" + errorDescription)
+            // ipcMain.on('error', (event, data) => window.webContents.send('error', data) )
+        })
+    },
+
     createBaseWindow(args={}){
         let params = {
             minHeight: 900,
@@ -73,6 +87,8 @@ export default {
         this.setDevtools(window)
 
         this.setWindowLoadURL(window, to)
+
+        this.setErrorHandler(window)
 
         return window
     },
