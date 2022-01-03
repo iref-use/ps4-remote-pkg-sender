@@ -95,6 +95,7 @@ let ps4 = {
     request(url, data, options={}){
         let defaultOptions = { headers: { 'content-type':'application/x-www-form-urlencoded' } }
 
+        console.log("Request", url, data, options)
         return axios.post(url, data, { ...defaultOptions, ...options})
                 .catch( e => {
                     console.log("PS4 Plugin Error catcher", e)
@@ -109,7 +110,8 @@ let ps4 = {
                         throw e
                     }
 
-                    if(e.status == 500 || e.response.status == 500){
+                    //if(e.status == 500 || e.response.status == 500){
+                    if(e.status == 500){
                         console.log(e, e.response)
                         ipcRenderer.send('main-error', e.response.data.error)
                         throw e
@@ -123,11 +125,14 @@ let ps4 = {
                         //     message: "Network Error. <br>Is the Remote Pakage Installer is running on Playstation?",
                         //     type: 'error'
                         // })
+                        throw e
                     }
                 })
                 .then( response => {
+                    console.log("PS4 API Response", response)
+
                     let data = response.data
-                    console.log("PS4 API Response", data)
+
                     if(data.status && data.status == 'fail'){
                         // Found Error Codes
                         // 2157510677 error on double install?

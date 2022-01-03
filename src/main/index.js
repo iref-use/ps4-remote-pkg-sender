@@ -14,7 +14,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const showServerWindowOnStartUp = false
 const showServerDevtools = false
-
+const showPS4DevTools = false
 const showMainDevTools = process.env.NODE_ENV !== 'production'
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
@@ -60,7 +60,7 @@ function createServerWindow(){
 function createInfoWindow(){
   const window = helper.createWindowInstance('/info', {
     width: 340, height: 600, title: 'Info', show: false,
-  }, true)
+  }, false)
   window.on('close', (event) => {
     event.preventDefault()
     window.hide()
@@ -73,7 +73,7 @@ function createInfoWindow(){
 function createPS4Window(){
   const window = helper.createWindowInstance('/ps4', {
     width: 800, height: 800, title: 'PS4', show: false,
-  })
+  }, showPS4DevTools)
   window.on('close', (event) => {
     event.preventDefault()
     window.hide()

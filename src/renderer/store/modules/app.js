@@ -15,6 +15,7 @@ export const state = {
     ps4: {
         ip: '',
         name: '',
+        port: 12800,
     },
 
 }
