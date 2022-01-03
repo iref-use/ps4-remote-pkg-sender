@@ -1,4 +1,4 @@
-import { Menu, Tray, nativeImage } from 'electron'
+import { app, Menu, Tray, nativeImage } from 'electron'
 import helper from './helper'
 import windows from './index'
 
@@ -38,6 +38,9 @@ export default {
         { label: 'Separator', type: 'separator'},
 
         { label: 'Info', click: () => windows.info.show() },
+        { label: 'Separator', type: 'separator'},
+
+        { label: "Quit Application", click: () => { app.quit() } },
       ])
 
       tray.setContextMenu(contextMenu)
