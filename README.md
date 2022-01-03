@@ -8,22 +8,24 @@ and provides a nice GUI.
 
 ![PS4 Package Sender Main Application Windows](https://cdn.discordapp.com/attachments/463406779599028265/926965282000474122/unknown.png)
 
+[Full Changelog](Changelog.md)  
+
 ## New features in v2.*
 The refactored Version provides a better GUI and technicall more ordered features.  
-* NEW Configure your server with your base path
-* NEW Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
-* NEW Controll the Server application by click and have it running in the background  
-* NEW Closing windows doesn't stop the Server but stops if you quit the application.   
-* NEW Show a list of all Server side listed PKG's  
-* NEW Miscs download link to flatZ PS4 Remote Package Installer homebrew  
-* NEW Extended Menu and Tray Icon  
-* NEW Separate Server Window (Logs, Server Routes, Controls)
-* NEW Separate PS4 API Logs Window  
-* NEW Catch any possible Error on Request or Response with the RPI on your PS4  
-* NEW Scan base path (deep scan support) directory for fPKG's and serve them with the server  
-* NEW Search for titles through your found files    
-* NEW Add Served files to your Queue and install them on your PS4  
-* NEW Processing Center reflects any status changes in your server list, too     
+* Configure your server with your base path
+* Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
+* Controll the Server application by click and have it running in the background  
+* Closing windows doesn't stop the Server but stops if you quit the application.   
+* Show a list of all Server side listed PKG's  
+* Miscs download link to flatZ PS4 Remote Package Installer homebrew  
+* Extended Menu and Tray Icon  
+* Separate Server Window (Logs, Server Routes, Controls)
+* Separate PS4 API Logs Window  
+* Catch any possible Error on Request or Response with the RPI on your PS4  
+* Scan base path (deep scan support) directory for fPKG's and serve them with the server  
+* Search for titles through your found files    
+* Add Served files to your Queue and install them on your PS4  
+* Processing Center reflects any status changes in your server list, too     
 
 ## ToDo's for the future
 * Search your PS4 automatically in the current network (WIP)  
