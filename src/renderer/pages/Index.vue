@@ -188,7 +188,7 @@ export default {
               return this.resume(file)
           }
 
-          console.log(file.name + ' start installing')
+          this.log(file.name + ' prepare start installing', {})
 
           this.clearInterval(file)
 
@@ -213,6 +213,7 @@ export default {
                   }
                   else {
                       console.log(file.name + " error on install", data)
+                      this.log(file.name + " error on install", data)
                       // 2157510677 error on double install?
                       // 2157510663 already installed?
                       // 2157510681 task doesn't exist
