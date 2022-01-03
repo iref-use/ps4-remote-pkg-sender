@@ -8,11 +8,11 @@
   "scripts": {
     "build": "electron-webpack && electron-builder --dir",
     "build:mac": "electron-webpack && electron-builder --mac",
-    "build:win": "electron-webpack && electron-builder --win portable",
+    "build:win": "electron-webpack && electron-builder --win",
     "build:linux": "electron-webpack && electron-builder --linux",
     "build:all": "electron-webpack && electron-builder -mwl",
     "dist": "electron-webpack && electron-builder --dir",
-    "publish": "electron-builder --mac --linux --win portable --publish onTag",
+    "publish": "electron-builder --mac --linux --win --publish onTag",
     "webpack": "electron-webpack",
     "watch": "electron-webpack dev"
   },
@@ -54,9 +54,7 @@
       "output": "release"
     },
     "win": {
-      "target": [
-        "portable"
-      ]
+      "target": ["zip", "portable"]
     },
     "portable": {
       "artifactName": "${productName}.exe",
