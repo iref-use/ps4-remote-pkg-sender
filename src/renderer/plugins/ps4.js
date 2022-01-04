@@ -142,6 +142,7 @@ let ps4 = {
                         // 2157510677 error on double install?
                         // 2157510663 already installed?
                         // 2157510681 task doesn't exist
+                        // 2157510789 (not known)
                         let code = data.error_code
                         let message = code
 
@@ -167,9 +168,18 @@ let ps4 = {
         return axios.get(url)
     },
 
+    checkPS4(){
+        return this.request(this.getURL() + '/api/is_exists', { title_id: 'CUSA000000' }, { timeout: this.getTimeout() })
+                  .then( res => {
+                      console.log("Check PS4 Response", res)
+                      return res
+                  })
+    },
+
     isInstalled(file){
         console.log("Check if cusa is exists ", file, file.cusa)
-        return this.request(this.getURL() + '/api/is_exists', { title_id : file.cusa }, { timeout: 2400 })
+
+        return this.request(this.getURL() + '/api/is_exists', { title_id : file.cusa }, { timeout: this.getTimeout() })
                 .then( res => {
                     let data = res.data
                     let message = ''

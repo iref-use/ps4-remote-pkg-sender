@@ -6,7 +6,7 @@
         Adding global error catcher and crashReporter for debugging purposes.   
         Fixing the Install request Error, because port was missing on the default ps4 config.   
         Thanks for iceMongus and CyB1K for testing with me.                   
-
+        
 ### v2.4.0
 #### Application bundling   
         Fix windows race condition error for storage.   

@@ -13,6 +13,8 @@
           Added deeper logging of PS4 Requests to the PS4 API Logs Window. <br>
           Putting little design to the PS4 API Logs Window to make it more readable. <br>
           Adding ps4 update interval config to manually set the interval. <br>
+          Added Server Check to see if the server is working properly. <br>
+          Added PS4 Check to see if we have a connection to RPI itself. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.4.1" placement="top">

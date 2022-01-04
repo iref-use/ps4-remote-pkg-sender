@@ -7,7 +7,8 @@
         <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
         <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
 
-        <el-button size="small" @click="checkps4"> check </el-button>
+        <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
+        <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -163,12 +164,23 @@ export default {
   },
 
   methods: {
-      checkps4(){
+      checkHB(){
           this.$ps4.checkServer().then( ({ data }) => {
               this.$message({ message: data.message, type: 'success' })
           })
           .catch( e => {
-              this.$mesage({ message: "Heartbeath not working", type: 'danger' })
+              this.$message({ message: "No Heartbeat. Server is not working, please check the Server Logs.", type: 'error' })
+          })
+      },
+
+      checkPS4(){
+          this.$ps4.checkPS4().then( (res) => {
+              this.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
+              this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
+          })
+          .catch( e => {
+              this.log("Check Playstation: PS4 is not accessible", e)
+              // this.$message({ message: "PS4 is not accessible.", type: 'error' })
           })
       },
 
