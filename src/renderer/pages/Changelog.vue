@@ -4,12 +4,23 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.4.2" placement="top">
+        <h4>Optimizing Request Handling </h4>
+        <p>
+          Adding rest_sec_total value to condition to determine if file is installed. <br>
+          Adding ps4 request timeout to configs to kill pending requests when they take to long. <br>
+          Adding error messages for fail responses with hex to int mapped status values. <br>
+          Added deeper logging of PS4 Requests to the PS4 API Logs Window. <br>
+          Putting little design to the PS4 API Logs Window to make it more readable. <br>
+          Adding ps4 update interval config to manually set the interval. <br>
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.4.1" placement="top">
         <h4>Handling Errors </h4>
         <p>
           Adding global error catcher and crashReporter for debugging purposes. <br>
           Fixing the Install request Error, because port was missing on the default ps4 config. <br>
-          Thanks for iceMongus and CyB1K for testing with me. <br>          
+          Thanks for iceMongus and CyB1K for testing with me. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.4.0" placement="top">

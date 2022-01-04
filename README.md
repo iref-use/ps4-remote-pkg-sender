@@ -26,6 +26,7 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * Search for titles through your found files    
 * Add Served files to your Queue and install them on your PS4  
 * Processing Center reflects any status changes in your server list, too     
+* Set custom timeout and update interval with a slider
 
 ## ToDo's for the future
 * Search your PS4 automatically in the current network (WIP)  
@@ -58,7 +59,7 @@ So there you have it. How can you use it?
 ## Troubleshooting  
 Your PS4 and PC have to be on the same Network.  
 If you have connection issues, check your Router or Firewall.  
-If you get timeout, RPI is not running on your PS4 or PS4 IP Adress is wrong.
+If you get timeout, RPI is not running on your PS4 or PS4 IP Adress is wrong.  
 If you get Playstation not available error, check RPI on PS4 and restart it.  
 
 If you think there is an issue, please report it.  

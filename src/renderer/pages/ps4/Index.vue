@@ -7,7 +7,8 @@
 
     <div v-for="(log,i) in logs" :key="i">
         <div v-if="showData" style="margin-bottom: 20px;">
-            {{ log.time }}
+            {{ log.time }} <br>
+            <el-tag size="small" type="info">{{ log.msg }} </el-tag> <br>
             <pre>{{ log.data }}</pre>
         </div>
 
@@ -35,8 +36,8 @@ export default {
 
     methods: {
         registerChannel(){
-            ipcRenderer.on('ps4', (event, { time, msg, data }) => {
-                this.logs.unshift({ time, msg, data })
+            ipcRenderer.on('ps4', (event, { time, msg, data, type }) => {
+                this.logs.unshift({ time, msg, data, type })
             })
         },
 
@@ -49,4 +50,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+pre {
+  font-size: 13px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid rgba(125,125,125,.5);
+}
 </style>

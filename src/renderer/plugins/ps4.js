@@ -92,6 +92,11 @@ let ps4 = {
         return ''
     },
 
+    getTimeout(min=2000){
+        let timeout = store.getters['app/getPS4Timeout']
+        return timeout < min ? min : timeout
+    },
+
     request(url, data, options={}){
         let defaultOptions = { headers: { 'content-type':'application/x-www-form-urlencoded' } }
 
@@ -110,8 +115,7 @@ let ps4 = {
                         throw e
                     }
 
-                    //if(e.status == 500 || e.response.status == 500){
-                    if(e.status == 500){
+                    if(e.status == 500 || (e.response && e.response.status && e.response.status == 500) ){
                         console.log(e, e.response)
                         ipcRenderer.send('main-error', e.response.data.error)
                         throw e
@@ -139,9 +143,18 @@ let ps4 = {
                         // 2157510663 already installed?
                         // 2157510681 task doesn't exist
                         let code = data.error_code
-                        let message = ''
+                        let message = code
 
-                        ipcRenderer.send('main-error', "Error " + code)
+                        if(code==2157510681)
+                          message = code + " | task doesn't exist (?)"
+
+                        if(code==2157510663)
+                          message = code + " | already installed (?)"
+
+                        if(code==2157510677)
+                          message = code + " | It seems to be installed already."
+
+                        ipcRenderer.send('main-error', "Error " + message)
                         throw data
                     }
 
@@ -188,31 +201,31 @@ let ps4 = {
             return console.log("Cannot find path for file " + file.name )
         }
 
-        return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.url] }, { timeout: 2000 })
+        return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.url] }, { timeout: this.getTimeout() })
     },
 
     pause(file){
-        return this.request(this.getURL() + '/api/pause_task', { task_id: file.task }, { timeout: 2200 })
+        return this.request(this.getURL() + '/api/pause_task', { task_id: file.task }, { timeout: this.getTimeout() })
     },
 
     stop(file){
-        return this.request(this.getURL() + '/api/stop_task', { task_id: file.task }, { timeout: 2200 })
+        return this.request(this.getURL() + '/api/stop_task', { task_id: file.task }, { timeout: this.getTimeout() })
     },
 
     resume(file){
-        return this.request(this.getURL() + '/api/resume_task', { task_id: file.task }, { timeout: 2200 })
+        return this.request(this.getURL() + '/api/resume_task', { task_id: file.task }, { timeout: this.getTimeout() })
     },
 
     remove(file){
-        return this.request(this.getURL() + '/api/unregister_task', { task_id: file.task }, { timeout: 2200 })
+        return this.request(this.getURL() + '/api/unregister_task', { task_id: file.task }, { timeout: this.getTimeout() })
     },
 
     getTask(file){
-        return this.request(this.getURL() + '/api/get_task_progress', { task_id: file.task }, { timeout: 2200 })
+        return this.request(this.getURL() + '/api/get_task_progress', { task_id: file.task }, { timeout: this.getTimeout() })
     },
 
     find(file){
-        return this.request(this.getURL() + '/api/find_task', { content_id: file.patchedFilename, sub_type: 6 }, { timeout: 2200 })
+        return this.request(this.getURL() + '/api/find_task', { content_id: file.patchedFilename, sub_type: 6 }, { timeout: this.getTimeout() })
     },
 
 }

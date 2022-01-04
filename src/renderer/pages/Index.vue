@@ -144,6 +144,7 @@ export default {
       queueFiles: get('queue/queue'),
       installedFiles: sync('queue/installed'),
       ps4ip: get('app/getPS4IP'),
+      updateInterval: get('app/ps4.update'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -177,6 +178,8 @@ export default {
                       if(data.exists == true)
                         file.status = 'installed'
 
+                      let { exists, size, type } = data
+                      this.log(data.message, { exists, size, type })
                       this.$message({ message: data.message, type: data.type })
                   })
                   .catch( e => console.log(e) )
@@ -188,7 +191,7 @@ export default {
               return this.resume(file)
           }
 
-          this.log(file.name + ' prepare start installing', {})
+          this.log(file.name + ' prepare start installing', file)
 
           this.clearInterval(file)
 
@@ -209,7 +212,7 @@ export default {
                       this.setStatus(file, 'installing')
                       this.startInterval(file)
 
-                      this.log(file.name + ' has been started installing', data)
+                      this.log(file.name + ' has been started installing with Task ID ' + data.task_id, data)
                   }
                   else {
                       console.log(file.name + " error on install", data)
@@ -232,7 +235,7 @@ export default {
                   .then( ({ data }) => {
                       console.log("Stop ", data)
                       this.setStatus(file, 'stop')
-                      this.log(file.name + ' stop', data)
+                      this.log(file.name + ' stop Task ID ' + file.task, data)
                   })
                   .catch( e => console.log(e) )
       },
@@ -263,7 +266,7 @@ export default {
                           this.setStatus(file, 'installing')
                           this.startInterval(file)
 
-                          this.log(file.name + ' resume', data)
+                          this.log(file.name + ' resume Task ID ' + file.task, data)
                       }
                   })
                   .catch( e => console.log(e) )
@@ -310,13 +313,13 @@ export default {
                           let percent = Math.round(done * onePercent)
                           // console.log("percent", length, done, onePercent, percent)
                           let isWorking = data.length != data.transferred
+                          let haveRestTime = data.rest_sec_total != 0
 
-                          if(isWorking && percent < 100){
+                          if(isWorking && percent < 100 && haveRestTime){
                             file.percentage = percent
                             this.log(file.name + ' info', data)
                           }
                           else {
-                            this.log(file.name + " finished", data)
                             this.clearInterval(file)
                             file.percentage = 100
                             this.setStatus(file, 'finish')
@@ -351,7 +354,7 @@ export default {
           this.ints[file.patchedFilename] = setInterval( () => {
               // console.log(file.name + ' ' + file.percentage)
               this.info(file)
-          }, 2000)
+          }, this.updateInterval)
       },
 
       haveInterval(file){
@@ -373,9 +376,9 @@ export default {
           this.$store.dispatch('queue/task', { file, id })
       },
 
-      log(msg='', data={}){
+      log(msg='', data={}, type='log'){
           // this.$store.dispatch('queue/addLog', a)
-          this.$root.sendPS4({ time: Date.now(), msg, data })
+          this.$root.sendPS4({ time: Date.now(), msg, data, type })
       },
 
       fileInstalled(file, status='installed'){

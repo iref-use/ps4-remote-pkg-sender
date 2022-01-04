@@ -16,6 +16,8 @@ export const state = {
         ip: '',
         name: '',
         port: 12800,
+        timeout: 2500,
+        update: 2200,
     },
 
 }
@@ -45,8 +47,10 @@ export const mutations = {
 
         state.ps4 = {
             ip: '',
-            port: '12800',
-            name: ''
+            name: '',
+            port: 12800,
+            timeout: 2500,
+            update: 2200,
         }
     },
 
@@ -87,6 +91,10 @@ export const getters = {
 
   getPS4IP(state){
       return state.ps4.ip + ':' + state.ps4.port
+  },
+
+  getPS4Timeout(state){
+      return state.ps4.timeout
   },
 
   getServerIP(state){
