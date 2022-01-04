@@ -1,12 +1,24 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.4.2
+#### Optimizing Request Handling
+        Adding rest_sec_total value to condition to determine if file is installed.   
+        Adding ps4 request timeout to configs to kill pending requests when they take to long.   
+        Adding error messages for fail responses with hex to int mapped status values.   
+        Added deeper logging of PS4 Requests to the PS4 API Logs Window.   
+        Putting little design to the PS4 API Logs Window to make it more readable.   
+        Adding ps4 update interval config to manually set the interval.   
+        Added Server Check to see if the server is working properly.   
+        Added PS4 Check to see if we have a connection to RPI itself.   
+        Added extendable Row for Server files to see path and url of the file.   
+        Added dedicated Troubleshooting.md to have a central helper guide for now.   
 
 ### v2.4.1
 #### Handling Errors   
         Adding global error catcher and crashReporter for debugging purposes.   
         Fixing the Install request Error, because port was missing on the default ps4 config.   
         Thanks for iceMongus and CyB1K for testing with me.                   
-        
+
 ### v2.4.0
 #### Application bundling   
         Fix windows race condition error for storage.   
