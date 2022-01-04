@@ -14,7 +14,7 @@
     <br>
     Thanks to everyone that makes this community great. <br>
     <br>
-    Special thanks to flatz, Specter, xvortex. <br>
+    Special thanks to flatz, Specter, xvortex, CyB1K. <br>
 
     <el-divider />
 
@@ -23,7 +23,7 @@
 
     <el-divider />
 
-    <el-button size="mini" @click="crash"> Crash it! </el-button>
+    <el-button size="mini" @click="crash" v-if="false"> Crash it! </el-button>
 
     <template v-if="debug">
       <pre>{{ ps4 }}</pre>

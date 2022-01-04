@@ -59,10 +59,11 @@ So there you have it. How can you use it?
 ## Troubleshooting  
 Your PS4 and PC have to be on the same Network.  
 If you have connection issues, check your Router or Firewall.  
-If you get timeout, RPI is not running on your PS4 or PS4 IP Adress is wrong.  
+If you get timeout, RPI is not running on your PS4 or PS4 IP Adress is wrong or timeout to low.   
 If you get Playstation not available error, check RPI on PS4 and restart it.  
+If you get the White Screen of Dead, use the unpacked version.  
 
 If you think there is an issue, please report it.  
 
 ## Credits
-Thanks to flatz, Specter, xvortex
+Thanks to flatz, Specter, xvortex, CyB1K
