@@ -10,6 +10,8 @@ and provides a nice GUI.
 
 [Full Changelog](Changelog.md)  
 
+[Troubleshooting Guide](Troubleshoot.md)
+
 ## New features in v2.*
 The refactored Version provides a better GUI and technicall more ordered features.  
 * Configure your server with your base path
