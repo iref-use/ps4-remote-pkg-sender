@@ -29,7 +29,13 @@ Thoose Error Codes are not documented yet but I've patched the known ones which 
 `2157510681` Task doesn't exists  
 `2157510663` already installed  
 `2157510677` it seems to be installed already (duplicate?)  
-`2157510789` ( not known yet )  
+`2157510789` not enough storage  
+
+## unable to set up prerequisites for package  
+This error is not documented, too.  
+I have no clue yet what causes this error.  
+But the error is the explicit error message from the Remote Package Installer,  
+so this is not an issue with the app.  
 
 ## Server not starting  
 If you see that your server is on error, please check the Server Window for the logs.  

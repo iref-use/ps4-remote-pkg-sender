@@ -153,7 +153,10 @@ let ps4 = {
                           message = code + " | already installed (?)"
 
                         if(code==2157510677)
-                          message = code + " | It seems to be installed already."
+                          message = code + " | It seems to be installed already"
+
+                        if(code==2157510789)
+                          message = code + " | Not enough storage"
 
                         ipcRenderer.send('main-error', "Error " + message)
                         throw data
