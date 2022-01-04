@@ -15,6 +15,8 @@
           Adding ps4 update interval config to manually set the interval. <br>
           Added Server Check to see if the server is working properly. <br>
           Added PS4 Check to see if we have a connection to RPI itself. <br>
+          Added extendable Row for Server files to see path and url of the file. <br>
+          Added dedicated Troubleshooting.md to have a central helper guide for now. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.4.1" placement="top">

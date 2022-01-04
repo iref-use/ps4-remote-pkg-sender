@@ -21,6 +21,14 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(255, 255, 255, 0.8)"
         style="width: 100%">
+        <el-table-column type="expand">
+          <template slot-scope="scope">
+              <el-tag size="small" type="info" style="margin-bottom: 3px;"> Path: {{ scope.row.path }} </el-tag> <br>
+              <el-tag size="small" type="info"> URL: {{ scope.row.url }} </el-tag> <br>
+              <pre v-if="false">{{ scope.row }}</pre>
+          </template>
+        </el-table-column>
+
         <el-table-column prop="name" label="Name"></el-table-column>
 
         <el-table-column label="Ext" width="100" v-if="showExtension">
