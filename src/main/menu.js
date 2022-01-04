@@ -76,16 +76,22 @@ const edit = {
 };
 
 const help = {
-  label: "Info",
+  label: "Help",
   submenu: [
       {
         label: "Info",
         click: () => { windows.info.show() }
       },
+      { label: 'Separator', type: 'separator' },
       {
-        label: 'Separator',
-        type: 'separator'
+        label: "Changelog",
+        click: () => { shell.openExternal(links.changelog) }
       },
+      {
+        label: "Troubleshooting Guide",
+        click: () => { shell.openExternal(links.troubleshoot) } 
+      },
+      { label: 'Separator', type: 'separator' },
       {
         label: "GitHub",
         click: () => { shell.openExternal(links.github_repo) }

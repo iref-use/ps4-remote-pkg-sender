@@ -12,6 +12,7 @@
         Added PS4 Check to see if we have a connection to RPI itself.   
         Added extendable Row for Server files to see path and url of the file.   
         Added dedicated Troubleshooting.md to have a central helper guide for now.   
+        Added Menu links for Changelog and Troubleshoot.  
 
 ### v2.4.1
 #### Handling Errors   

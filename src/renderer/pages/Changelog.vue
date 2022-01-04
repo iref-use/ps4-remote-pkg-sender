@@ -17,6 +17,7 @@
           Added PS4 Check to see if we have a connection to RPI itself. <br>
           Added extendable Row for Server files to see path and url of the file. <br>
           Added dedicated Troubleshooting.md to have a central helper guide for now. <br>
+          Added Menu links for Changelog and Troubleshoot. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.4.1" placement="top">

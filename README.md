@@ -29,6 +29,7 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * Add Served files to your Queue and install them on your PS4  
 * Processing Center reflects any status changes in your server list, too     
 * Set custom timeout and update interval with a slider
+* Added Seperate Changelog file and Troubleshooting Guide
 
 ## ToDo's for the future
 * Search your PS4 automatically in the current network (WIP)  
