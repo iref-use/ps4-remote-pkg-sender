@@ -327,6 +327,17 @@ export default {
                           let isWorking = data.length != data.transferred
                           let haveRestTime = data.rest_sec_total != 0
 
+                          // check if we are in prepare state
+                          if(data.preparing_percent != 100 && data.local_copy_percent != 100 && data.transferred == 0 && data.length == 0){
+                            this.log(file.name + ' ps4 is still preparing ' + data.preparing_percent + '%', data)
+                            return
+                          }
+
+                          if(data.length == 0 && data.transferred == 0){
+                            this.log(file.name + ' ps4 prepared but still doing some work', data)
+                            return
+                          }
+
                           if(isWorking && percent < 100 && haveRestTime){
                             file.percentage = percent
                             this.log(file.name + ' info', data)

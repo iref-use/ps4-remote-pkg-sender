@@ -36,7 +36,13 @@ new Vue({
 // global window error catcher
 window.onerror = function(message, source, lineno, colno, error) {
   console.log(message, source, lineno, colno, error)
-  alert(message)
+
+  if(error != null)
+  alert('Message ' + message +
+        '\nSource ' + source +
+        '\nLine ' + lineno +
+        '\nColNo'  + colno +
+        '\nError ' + error)
 };
 
 window.addEventListener('unhandledrejection', function(event) {
