@@ -37,6 +37,19 @@ I have no clue yet what causes this error.
 But the error is the explicit error message from the Remote Package Installer,  
 so this is not an issue with the app.  
 
+## My RPI crashes on console  
+This happend to a couple of users when we try to hit to hard on the RPI.  
+RPI cann't handle to much concurrent requests and crashes after a while  
+especially when you try to install something big 100GB+ PKG files or
+installing multiple files at once and have a low update interval value.  
+
+It may help if you leave the interval value arround 2-3 secs because
+updating progress info is also a request that will be sent upon the interval.  
+
+In v2.4.2 you can still send as many install request as you want, that is not limited yet,  
+but consider the fact that once the installation progress started the RPI has no work to do with it.  
+Download still continues on PS4 even if you jump out of RPI! Keep that in mind!  
+
 ## Server not starting  
 If you see that your server is on error, please check the Server Window for the logs.  
 It will give you a specific error message what happend.  Mostly it is a blocked port.  

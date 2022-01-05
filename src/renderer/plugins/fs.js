@@ -95,6 +95,8 @@ let o = {
         let searchCUSA = fileName.match(/(CUSA\d{5})/i)
         let cusa = searchCUSA ? searchCUSA[0].toUpperCase() : ''
 
+        // #todo get pkg deep info with https://github.com/dexter85/ps4-pkg-info
+
         // title location 0x40 to 0x63
         // cusa location 0x47 to 0x4F
 
