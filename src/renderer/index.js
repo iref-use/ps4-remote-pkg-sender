@@ -26,6 +26,9 @@ styles.innerText=`@import url(https://unpkg.com/spectre.css/dist/spectre.min.css
 
 Vue.config.devtools = process.env.NODE_ENV !== 'production',
 Vue.config.productionTip = false,
+Vue.config.errorHandler = (error, vm, info) => {
+  alert("Application global errorHandler:\n" + error)
+}
 
 new Vue({
   router,

@@ -54,7 +54,10 @@
       "output": "release"
     },
     "win": {
-      "target": ["zip", "portable"]
+      "target": [
+        "zip",
+        "portable"
+      ]
     },
     "portable": {
       "artifactName": "${productName}.exe",
