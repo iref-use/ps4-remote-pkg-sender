@@ -162,7 +162,7 @@ export default {
                   this.$store.dispatch('server/addLog', error)
                 }
                 else {
-                  this.$root.sendMain(error)
+                  this.$root.sendMain(e)
                   this.$store.dispatch('server/addLog', 'Error in listening on ' + this.ip + ' at port ' + this.port + ". Error: " + e.errno)
                 }
 
@@ -174,10 +174,13 @@ export default {
             let log = 'Closing Server'
             this.$store.dispatch('server/addLog', log)
 
-            await this.host.server.close(() => {
-                this.$store.dispatch('server/addLog', 'Server closed')
-                this.$store.dispatch('server/setStatus', 'stopped')
-            })
+            if(this.host.server)
+              await this.host.server.close(() => {
+                  this.$store.dispatch('server/addLog', 'Server closed')
+                  this.$store.dispatch('server/setStatus', 'stopped')
+              })
+            else
+              this.$store.dispatch('server/addLog', "Server can not be closed. Server Object does't exist")
         },
 
         addCORSHandler(){

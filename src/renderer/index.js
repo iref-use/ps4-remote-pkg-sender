@@ -37,7 +37,7 @@ new Vue({
 }).$mount('#app')
 
 // global window error catcher
-window.onerror = function(message, source, lineno, colno, error) {
+window.onerror = function(message=null, source=null, lineno=null, colno=null, error=null) {
   console.log(message, source, lineno, colno, error)
 
   if(error != null)
