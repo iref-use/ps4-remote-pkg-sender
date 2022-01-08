@@ -1,5 +1,11 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.4.3
+#### Fixing storage race condition
+        Put storage creation into a while loop until store creates successfully.  
+        This prevents the application to crash which was still the case on win11.  
+        Lowered the write throttle for the storage to 1000ms instead of 3300ms.   
+
 ### v2.4.2
 #### Optimizing Request Handling
         Adding rest_sec_total value to condition to determine if file is installed.   

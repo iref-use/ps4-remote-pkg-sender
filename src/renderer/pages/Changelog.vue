@@ -4,6 +4,14 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.4.3" placement="top">
+        <h4>Fixing storage race condition </h4>
+        <p>
+          Put storage creation into a while loop until store creates successfully. <br>
+          This prevents the application to crash which was still the case on win11. <br>
+          Lowered the write throttle for the storage to 1000ms instead of 3300ms. <br>
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.4.2" placement="top">
         <h4>Optimizing Request Handling </h4>
         <p>
