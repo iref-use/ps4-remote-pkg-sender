@@ -123,7 +123,7 @@ let o = {
         let fullPath = root + 'download.php?tid=' + item.id
         let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '');
         let fileName = item.name + ' (version '+item.version+')'
-        let size = item.Size.replace('s', '')
+        let size = item.Size ? item.Size.replace('s', '') : 'n/a'
 
         return {
             name: item.name,

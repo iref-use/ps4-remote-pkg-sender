@@ -16,7 +16,7 @@
           Create Item Objects from HB-Store package response. <br>
           Add Table Expandable Row to see all properties of Item Object. <br>
           Add remove Item from queue button in Queue, Server and HB-Store view. <br>
-          
+          Added Pagination to HB-Store Table view. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.4.3" placement="top">

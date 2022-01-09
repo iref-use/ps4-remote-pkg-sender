@@ -33,7 +33,11 @@ p {
 }
 
 table {
-  .el-button+.el-button {
-      margin-left: 3px;
-  }
+    .el-button+.el-button {
+        margin-left: 3px;
+    }
+}
+
+.el-pager li {
+    font-weight: normal;
 }
