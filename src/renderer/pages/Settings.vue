@@ -1,14 +1,12 @@
 <template >
 <div>
-    <h2>Application Settings</h2>
 
-    <p>
-      No Settings are avaible yet. <br>
-      <br>
-      Future Ideas would be import and export Settings. <br>
-      That could be usefull if someone adds secured CDN / Server configurations that you may import. <br>
-    </p>
+    <AppConfig />
+
+
     <br>
+
+    <el-button size="mini" @click="$store.dispatch('app/resetConfig')"> Reset App Settings </el-button>
 
     <el-divider content-position="left">Your current settings object</el-divider>
 

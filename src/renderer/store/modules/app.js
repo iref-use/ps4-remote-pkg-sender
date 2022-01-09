@@ -3,6 +3,14 @@ import { make } from 'vuex-pathify'
 export const state = {
     time: 0,
     started: 0,
+
+    config: {
+        lang: 'en',
+        style: 'light',
+        useHB: false,
+        useHBRoot: '',
+    },
+
     server: {
         ip: '',
         port: '8337',
@@ -54,6 +62,15 @@ export const mutations = {
         }
     },
 
+    resetConfig(state){
+        state.config = {
+            lang: 'en',
+            style: 'light',
+            useHB: false,
+            useHBRoot: '',
+        }
+    },
+
     saveServer(state){
         state.server = state.server
     },
@@ -77,6 +94,10 @@ export const actions = {
 
     save({ commit }){
       commit('saveServer')
+    },
+
+    resetConfig({ commit }){
+      commit('resetConfig')
     },
 
     // addFiles({ commit, dispatch, state}, payload){
