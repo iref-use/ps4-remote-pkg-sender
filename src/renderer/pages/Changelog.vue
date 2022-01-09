@@ -12,6 +12,8 @@
           Disable Queued file operation buttons when no task exists. <br>
           On Config View change apply to server button to open Server Window. <br>
           Add Application Settings. <br>
+          Prepare HB-Store tab with prototype content of HB-Store-R2. <br>
+
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.4.3" placement="top">

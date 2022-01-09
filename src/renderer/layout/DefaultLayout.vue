@@ -7,6 +7,8 @@
 
               <el-menu-item index="server" ref="server">Server</el-menu-item>
 
+              <el-menu-item index="hb-store" ref="server" v-if="config.useHB">HB-Store</el-menu-item>
+
               <el-menu-item index="config">Config</el-menu-item>
 
               <el-submenu index="miscs">
@@ -31,6 +33,7 @@
 </template>
 
 <script>
+import { get } from 'vuex-pathify'
 import { shell } from 'electron'
 import links from '@/../config/links'
 import { ipcRenderer } from 'electron'
@@ -41,6 +44,10 @@ export default {
   data(){ return {
       links,
   }},
+
+  computed: {
+      config: get('app/config'),
+  },
 
   mounted(){
       this.registerChannel()

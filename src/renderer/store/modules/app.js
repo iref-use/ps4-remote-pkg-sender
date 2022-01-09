@@ -8,7 +8,7 @@ export const state = {
         lang: 'en',
         style: 'light',
         useHB: false,
-        useHBRoot: '',
+        useHBRoot: 'http://api.pkg-zone.com/',
     },
 
     server: {
@@ -67,7 +67,7 @@ export const mutations = {
             lang: 'en',
             style: 'light',
             useHB: false,
-            useHBRoot: '',
+            useHBRoot: 'http://api.pkg-zone.com/',
         }
     },
 
