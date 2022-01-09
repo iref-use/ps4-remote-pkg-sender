@@ -28,7 +28,7 @@ let windows = {
 // Create Windows
 function createMainWindow() {
   const window = helper.createWindowInstance('/', {
-    width: 1000, height: 700,
+    width: 1300, height: 700,
   }, showMainDevTools)
 
   window.on('close', (event) => {
@@ -92,6 +92,7 @@ function hearthbeat(){
 // registerChannel
 function registerChannel(){
     ipcMain.on('server', (event, data) => windows.server.webContents.send('server', data) )
+    ipcMain.on('server-show', () => windows.server.show() )
 
     ipcMain.on('main', (event, data) => windows.main.webContents.send('main', data) )
     ipcMain.on('main-error', (event, data) => windows.main.webContents.send('main-error', data) )

@@ -60,6 +60,10 @@ export default {
           ipcRenderer.send('server', msg)
       },
 
+      openServer(){
+          ipcRenderer.send('server-show')
+      },
+
       sendMain(msg){
           console.log('sending to main', msg)
           ipcRenderer.send('main', msg)
@@ -68,7 +72,8 @@ export default {
       sendPS4(msg){
           console.log('sending to ps4', msg)
           ipcRenderer.send('ps4', msg)
-      }
+      },
+
   },
 }
 </script>

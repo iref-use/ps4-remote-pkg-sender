@@ -4,6 +4,16 @@
   <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.5.0" placement="top">
+        <h4>Further upgrades </h4>
+        <p>
+          Extend main Window width to 1300px. <br>
+          Add button to remove files from Queue. <br>
+          Disable Queued file operation buttons when no task exists. <br>
+          On Config View change apply to server button to open Server Window. <br>
+          
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.4.3" placement="top">
         <h4>Fixing storage race condition </h4>
         <p>

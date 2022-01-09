@@ -24,12 +24,12 @@
       <el-table-column type="expand">
         <template slot-scope="scope">
             <el-button size="mini" icon="fa fa-search" @click="find(scope.row)"> Find </el-button>
-            <el-button size="mini" icon="fa fa-info" @click="info(scope.row)"> Info </el-button>
+            <el-button size="mini" icon="fa fa-info" @click="info(scope.row)" :disabled="!scope.row.task"> Info </el-button>
             <el-divider direction="vertical" />
-            <el-button size="mini" icon="fa fa-trash" @click="remove(scope.row)"> Remove </el-button>
-            <el-button size="mini" icon="fa fa-stop" @click="stop(scope.row)"> Stop </el-button>
-            <el-button size="mini" icon="fa fa-pause" @click="pause(scope.row)"> Pause </el-button>
-            <el-button size="mini" icon="fa fa-play" @click="resume(scope.row)"> Resume </el-button>
+            <el-button size="mini" icon="fa fa-trash" @click="remove(scope.row)" :disabled="!scope.row.task"> Remove </el-button>
+            <el-button size="mini" icon="fa fa-stop" @click="stop(scope.row)" :disabled="!scope.row.task"> Stop </el-button>
+            <el-button size="mini" icon="fa fa-pause" @click="pause(scope.row)" :disabled="!scope.row.task"> Pause </el-button>
+            <el-button size="mini" icon="fa fa-play" @click="resume(scope.row)" :disabled="!scope.row.task"> Resume </el-button>
             <el-button size="mini" icon="fa fa-play" @click="start(scope.row)"> Start </el-button>
             <el-divider direction="vertical" />
             <el-button size="mini" icon="fa fa-eye" @click="toggleFileObject(scope.row)" v-if="false"> File Object </el-button>
@@ -94,7 +94,9 @@
 
       <el-table-column label="Operation" width="150" align="right">
           <template slot-scope="scope">
-              <el-button circle size="small" icon="fa fa-info" @click="info(scope.row)"> </el-button>
+              <el-button circle size="small" icon="fa fa-minus" @click="removeFromQueue(scope.row)"> </el-button>
+
+              <el-button circle size="small" icon="fa fa-info" @click="info(scope.row)" v-if="false"> </el-button>
               <el-button circle size="small" icon="fa fa-stop" @click="stop(scope.row)" v-if="false"> </el-button>
               <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.row)"> </el-button>
               <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="pause(scope.row)"> </el-button>
@@ -456,8 +458,23 @@ export default {
       },
 
       clearFinishedFiles(){
-          this.finishedFiles.map( file => this.$store.dispatch('queue/removeFromQueue', file))
-      }
+          this.finishedFiles.map( file => this.removeFromQueue(file))
+      },
+
+      removeFromQueue(file){
+          this.clearInterval(file)
+          let servingFile = this.$store.getters['server/findFile'](file)
+
+          if(servingFile.status == 'in queue'){
+              servingFile.status = 'serving'
+          }
+
+          if(servingFile.task){
+              this.stop(file)
+          }
+
+          this.$store.dispatch('queue/removeFromQueue', file)
+      },
 
   }
 }

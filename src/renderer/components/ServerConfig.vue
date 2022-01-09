@@ -19,7 +19,7 @@
               </el-form-item>
           </el-col>
           <el-col :span="4">
-              <el-button size="mini" style="width: calc(100% - 40px)" @click="$root.sendServer('refresh')"> Apply </el-button>
+              <el-button size="mini" icon="fa fa-server" style="width: calc(100% - 40px)" @click="$root.openServer()"> Server </el-button>
           </el-col>
       </el-row>
 
