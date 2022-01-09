@@ -66,7 +66,8 @@
 
         <el-table-column label="Operation" width="100" align="right">
             <template slot-scope="scope">
-                <el-button circle size="small" icon="el-icon-plus" @click="addToQueue(scope.row)" />
+                <el-button circle size="small" icon="fa fa-minus" @click="removeFromQueue(scope.row)" v-if="scope.row.status == 'in queue'" />
+                <el-button circle size="small" icon="el-icon-plus" @click="addToQueue(scope.row)" v-if="scope.row.status != 'in queue'" />
                 <el-button circle size="small" icon="fa fa-cloud-download-alt" @click="check(scope.row.url)" />
             </template>
         </el-table-column>
@@ -173,9 +174,27 @@ export default {
                 file.status = 'in queue'
                 this.$store.dispatch('queue/addToQueue', file)
             }
-            else{
+            else {
+                if(file.status == 'serving')
+                  file.status = 'in queue'
+
                 this.$message({
                     message: file.name + ' is already in Queue',
+                    type: 'warning'
+                })
+            }
+        },
+
+        removeFromQueue(file){
+            let servingFile = this.$store.getters['server/findFile'](file)
+
+            if(servingFile && servingFile.status == 'in queue'){
+                servingFile.status = 'serving'
+                this.$store.dispatch('queue/removeFromQueue', file)
+            }
+            else {
+                this.$message({
+                    message: "Can't remove " + file.name + " from queue because it's in another state",
                     type: 'warning'
                 })
             }

@@ -107,6 +107,8 @@ let o = {
             task: '',
             ext: path.extname(item),
             path: fullPath,
+            url: null,
+            type: 'local',
             cusa,
             isFile,
             patchedFilename,
@@ -114,6 +116,32 @@ let o = {
             size,
             logs: [],
             // stats,
+        }
+    },
+
+    createItemFromHB(item, root=''){
+        let fullPath = root + 'download.php?tid=' + item.id
+        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '');
+        let fileName = item.name + ' (version '+item.version+')'
+        let size = item.Size.replace('s', '')
+
+        return {
+            name: item.name,
+            status: 'remote',
+            percentage: 0,
+            task: '',
+            ext: 'remote', // path.extname(item),
+            path: fullPath,
+            url: fullPath,
+            type: 'remote',
+            cusa: item.id,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size, // stats.size,
+            size: size,
+            logs: [],
+            // stats,
+            data: item
         }
     },
 

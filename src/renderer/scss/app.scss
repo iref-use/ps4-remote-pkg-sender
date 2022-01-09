@@ -31,3 +31,9 @@ p {
 .q-pl-md {
     padding-left: 40px;
 }
+
+table {
+  .el-button+.el-button {
+      margin-left: 3px;
+  }
+}

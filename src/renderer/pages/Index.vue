@@ -94,7 +94,7 @@
 
       <el-table-column label="Operation" width="150" align="right">
           <template slot-scope="scope">
-              <el-button circle size="small" icon="fa fa-minus" @click="removeFromQueue(scope.row)"> </el-button>
+              <el-button circle size="small" icon="fa fa-minus" @click="removeFromQueue(scope.row)" />
 
               <el-button circle size="small" icon="fa fa-info" @click="info(scope.row)" v-if="false"> </el-button>
               <el-button circle size="small" icon="fa fa-stop" @click="stop(scope.row)" v-if="false"> </el-button>
@@ -465,11 +465,11 @@ export default {
           this.clearInterval(file)
           let servingFile = this.$store.getters['server/findFile'](file)
 
-          if(servingFile.status == 'in queue'){
+          if(servingFile && servingFile.status == 'in queue'){
               servingFile.status = 'serving'
           }
 
-          if(servingFile.task){
+          if(file.task){
               this.stop(file)
           }
 

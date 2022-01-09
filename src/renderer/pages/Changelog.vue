@@ -13,7 +13,10 @@
           On Config View change apply to server button to open Server Window. <br>
           Add Application Settings. <br>
           Prepare HB-Store tab with prototype content of HB-Store-R2. <br>
-
+          Create Item Objects from HB-Store package response. <br>
+          Add Table Expandable Row to see all properties of Item Object. <br>
+          Add remove Item from queue button in Queue, Server and HB-Store view. <br>
+          
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.4.3" placement="top">

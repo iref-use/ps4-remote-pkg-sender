@@ -29,7 +29,7 @@ let helper = {
         return ifaces;
     },
 
-    getServerStatusType(i){
+    getServerStatusType(i=''){
         if(i == 'error')
           return 'danger'
 
@@ -39,7 +39,23 @@ let helper = {
         return ''
     },
 
-    getFileStatus(type){
+    getAppStoreType(type=''){
+        if(type == 'HB Game' || type == 'Game')
+          return 'success'
+
+        if(type == 'Media')
+          return 'primary'
+
+        if(type == 'Utility')
+          return 'warning'
+
+        if(type == 'Dev Menu')
+          return 'danger'
+
+        return ''
+    },
+
+    getFileStatus(type=''){
         if(type == 'serving' || type == 'pause')
           return 'info'
 
@@ -55,7 +71,7 @@ let helper = {
         return ''
     },
 
-    getFileSizeType(size){
+    getFileSizeType(size=''){
         if(size.includes('Bytes'))
           return 'info'
 
