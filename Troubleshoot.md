@@ -4,6 +4,19 @@
 ## I have White Screen of Dead
 This happens in general with the portable Version on Windows.  
 Please try to use the unpacked version. That works for sure and has been tested.  
+This issue is fixed in v2.4.3. If you still get an error, please report.  
+
+## I can't run the app because Mac blocks the app
+Because I haven't signed my app yet with a paid apple certificate that happens.  
+Once you tried to open it mac blocks it, that is correct.
+You can check your System `Preferences > Security > General`  
+There should be the app listed as blocked. You can explicity allow it then to run.  
+Don't worry. My app is clean and open source.  Once I get money for the certificate I will fix that.  
+
+## I can't run the app because windows blocks the app
+Even windows need a paid certificate to have it signed. Same circumstance as on mac.  
+Extend the window and allow the app to be run.  
+Again. Don't worry. My app is clean. Once I get money for the certificate I will fix that.  
 
 ## Playstation not available  
 We can not connect to the RPI on PS4.  
