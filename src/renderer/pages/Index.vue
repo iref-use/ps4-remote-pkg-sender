@@ -9,6 +9,7 @@
 
         <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
         <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
+        <el-button size="small" icon="el-icon-link" @click="openAddFileDialog"> Add URL </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -108,6 +109,7 @@
       </el-table-column>
   </el-table>
 
+  <AddFileByURLDialog ref="AddFileByURLDialog"/>
   <mainComponents v-if="false" />
 
   <pre v-if="debug">{{ queue }}</pre>
@@ -474,6 +476,11 @@ export default {
           }
 
           this.$store.dispatch('queue/removeFromQueue', file)
+      },
+
+      openAddFileDialog(){
+          console.log(this.$refs)
+          this.$refs.AddFileByURLDialog.show = true
       },
 
   }

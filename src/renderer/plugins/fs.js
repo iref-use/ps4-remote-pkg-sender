@@ -120,8 +120,8 @@ let o = {
     },
 
     createItemFromHB(item, root=''){
-        let fullPath = root + 'download.php?tid=' + item.id
-        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '');
+        let fullPath = root + 'dl.php?tid=' + item.id
+        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
         let fileName = item.name + ' (version '+item.version+')'
         let size = item.Size ? item.Size.replace('s', '') : 'n/a'
 
@@ -142,6 +142,30 @@ let o = {
             logs: [],
             // stats,
             data: item
+        }
+    },
+
+    createItemFromURL(item){
+        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
+        let fullPath = item.url
+        let size = 'n/a'
+
+        return {
+            name: item.name,
+            status: 'url',
+            percentage: 0,
+            task: '',
+            ext: 'remote', // path.extname(item),
+            path: fullPath,
+            url: fullPath,
+            type: 'remote',
+            cusa: item.cusa,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size, // stats.size,
+            size: size,
+            logs: [],
+            // stats,
         }
     },
 

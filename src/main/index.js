@@ -1,4 +1,4 @@
-import { app, session, BrowserWindow, Notification, ipcMain } from 'electron'
+import { app, session, BrowserWindow, Notification, ipcMain, globalShortcut } from 'electron'
 import path from 'path'
 import { format as formatUrl } from 'url'
 
@@ -103,6 +103,18 @@ function registerChannel(){
     ipcMain.on('error', (event, data) => windows.main.webContents.send('error', data) )
 }
 
+// add Shortcuts
+function addShortcuts(){
+    globalShortcut.register('CommandOrControl+C', () => {
+      contents.copy()
+    })
+
+    globalShortcut.register('CommandOrControl+V', () => {
+      contents.paste()
+    })
+}
+
+
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
@@ -134,6 +146,8 @@ app.on('ready', () => {
   createServerWindow()
   createInfoWindow()
   createPS4Window()
+
+  // addShortcuts()
 
   menu.createMenu()
   tray.createTray()

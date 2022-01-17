@@ -123,6 +123,7 @@ let ps4 = {
                     }
 
                     if(!e.response){
+                        console.log("Err", e)
                         // console.log("Network Error, is playstation on?")
                         // this.$message({ 
                         //     dangerouslyUseHTMLString: true,
