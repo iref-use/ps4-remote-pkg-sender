@@ -1,7 +1,7 @@
 <template>
 <div class="">
 
-  <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
+  <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
     <el-timeline-item timestamp="2.5.0" placement="top">

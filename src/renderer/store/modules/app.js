@@ -22,6 +22,7 @@ export const state = {
 
     ps4: {
         ip: '',
+        app: 'rpi',
         name: '',
         port: 12800,
         timeout: 2500,
