@@ -36,6 +36,25 @@ Timeout on Request because timeout value is to short.
 Set a higher request timeout value before the Sender kills the request when RPI takes to long to respond.  
 Mostly seen on the Install Request because the RPI needs to prepare some stuff before it sends a valide Task ID back.  
 
+##### Option c)  
+Sometimes a restart just fixes connection issues, specially on windows.  
+Restart your PC and PS4, try again. Some users reported back that this helped.  
+
+##### Option d)  
+There is something arround with the latest update of the GoldHen.  
+I am not sure yet but I can not debug this down as I am still on 5.05.  
+Check the PS4 API Logs and see if you get any response.  
+If the response for Check PS4 works, but you don't proceed on the install request  
+then you might be affected on the latest update of GoldHen (probably, not sure).  
+I assume that because there was a latest update and since then some users reported back install issues.  
+Try another HEN edition as this was initially working from HENv1.8 until GoldHen 2.0 for sure.  
+If nothing helps, try another PKG Sender - I guess they will not work eithier.  
+
+##### Option e)  
+You can try another Installation type. Try using IPI and FTP untill my app does support  
+it natively or the RPIOOSDK. Support for both target apps will done soon.  
+
+
 ## I get a long Error Code  
 This will be patched in the v2.4.2 but for the completenes here they are.  
 Thoose Error Codes are not documented yet but I've patched the known ones which are:   

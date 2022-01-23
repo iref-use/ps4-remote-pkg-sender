@@ -1,4 +1,9 @@
 # PS4 Remote PKG Sender v2  
+[![ko-fi](https://img.shields.io/badge/Buy%20me%20a%20Shisha%20on-Ko--fi-red)](https://ko-fi.com/M4M082WK8)
+[![os](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)]()
+[![commits_since_release](https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v2.4.3)]()
+[![version](https://img.shields.io/github/package-json/v/gkiokan/ps4-remote-pkg-sender)]()
+[![last_commit](https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender)]()
 
 This application has been highly inspired by @irefuse and is a full refactored version of the orginal repo.  
 
@@ -8,9 +13,9 @@ and provides a nice GUI.
 
 ![PS4 Package Sender Main Application Windows](https://cdn.discordapp.com/attachments/463406779599028265/926965282000474122/unknown.png)
 
-[Full Changelog](Changelog.md)  
+[![Full Changelog](https://img.shields.io/badge/Checkout%20-All%20Changelogs-yellow)](Changelog.md)
 
-[Troubleshooting Guide](Troubleshoot.md)
+[![Troubleshooting Guide](https://img.shields.io/badge/Checkout%20-Troubleshooting%20Guide-brightgreen)](Troubleshoot.md)
 
 ## New features in v2.*
 The refactored Version provides a better GUI and technicall more ordered features.  
@@ -30,11 +35,11 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * Processing Center reflects any status changes in your server list, too     
 * Set custom timeout and update interval with a slider
 * Added Seperate Changelog file and Troubleshooting Guide
+* Add a FAQ and Troubleshooting Area
+* Configuration values for timeout and heartbeat  
 
 ## ToDo's for the future
 * Search your PS4 automatically in the current network (WIP)  
-* Add a FAQ and Troubleshooting Area
-* Configuration values for timeout and heartbeat  
 * Implement Auto-updater  
 * Queue scanner (start next file in the queue after one is finished)
 * Import / Export Configuration  
@@ -65,8 +70,26 @@ If you have connection issues, check your Router or Firewall.
 If you get timeout, RPI is not running on your PS4 or PS4 IP Adress is wrong or timeout to low.   
 If you get Playstation not available error, check RPI on PS4 and restart it.  
 If you get the White Screen of Dead, use the unpacked version.  
-
 If you think there is an issue, please report it.  
+[Checkout the full Troubleshooting Guide](Troubleshoot.md)
 
 ## Credits
-Thanks to flatz, Specter, xvortex, CyB1K
+Thanks to flatz, Specter, xvortex, and all initial developers for their efford on the scene.  
+Thanks to my primary testers CyB1K, mtnjustme, Masamune3210, hypermist.  
+Thanks to Sam Daniel for the first full fledged Tutorial on windows and mac.  
+Thanks to the awesome community and everyone else on their feedback that I am missing here.  
+Mega thanks to my wife having patience while I develop this awesome tool.  
+
+## Support  
+If you want to Support me and my development, you can do this here.  
+That high quality application development is done in my free time and takes much efford.  
+There are so many nice features that are on my todo (black)-list that are not done yet.  
+I'd like to invest more time into this tool and provide you one of the best Tools ever.  
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M082WK8)
+
+## Disclaimer
+This tool is a Proof of Concept (PoC) on my skills and also part of educational process.  
+The PS4 name and PS Logo are trademarks of their respective owners.  
+Exclusive approval request to Sony has been made. Until then the fair-use rule come into effect.   
+If there is any law issue, please report that to me directly, I will take immediately action.  
