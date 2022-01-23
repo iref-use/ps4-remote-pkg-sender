@@ -1,9 +1,9 @@
 # PS4 Remote PKG Sender v2  
 [![ko-fi](https://img.shields.io/badge/Buy%20me%20a%20Shisha%20on-Ko--fi-red)](https://ko-fi.com/M4M082WK8)
-[![os](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)]()
-[![commits_since_release](https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v2.4.3)]()
-[![version](https://img.shields.io/github/package-json/v/gkiokan/ps4-remote-pkg-sender)]()
-[![last_commit](https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender)]()
+[![os](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)](#)
+[![commits_since_release](https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v2.4.3)](#)
+[![version](https://img.shields.io/github/package-json/v/gkiokan/ps4-remote-pkg-sender)](#)
+[![last_commit](https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender)](#)
 
 This application has been highly inspired by @irefuse and is a full refactored version of the orginal repo.  
 
