@@ -82,14 +82,16 @@ Mega thanks to my wife having patience while I develop this awesome tool.
 
 ## Support  
 If you want to Support me and my development, you can do this here.  
-That high quality application development is done in my free time and takes much efford.  
+That high quality application development is done in my free time and takes much effort.  
 There are so many nice features that are on my todo (black)-list that are not done yet.  
-I'd like to invest more time into this tool and provide you one of the best Tools ever.  
+I'd like to invest more time into this Tool and provide you one of the best Tools ever.  
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M082WK8)
 
 ## Disclaimer
 This tool is a Proof of Concept (PoC) on my skills and also part of educational process.  
 The PS4 name and PS Logo are trademarks of their respective owners.  
-Exclusive approval request to Sony has been made. Until then the fair-use rule come into effect.   
+Exclusive approval request to Sony has been made. Until then the fair-use rule comes into effect.   
 If there is any law issue, please report that to me directly, I will take immediately action.  
+
+Made with passion and love.  :heart:
