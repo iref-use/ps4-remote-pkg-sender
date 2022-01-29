@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import fs from 'fs'
 import path from 'path'
+import store from './../store'
+
+// const shouldPrefix  = store.getters['app/getPrefixFullPath']
 
 const getFiles = (folder, deep=false) => {
     const files = []
@@ -77,6 +80,8 @@ let o = {
     },
 
     createItem(item, folder=''){
+        const shouldPrefix  = store.getters['app/getPrefixFullPath']
+        
         // console.log(":: fs | Create File Item", item)
         let isFile = this.isFile(item)
 
@@ -84,7 +89,15 @@ let o = {
 
         let fileName = path.basename(item)
         let fullPath = path.resolve(folder, item)
-        let patchedFilename = fileName.replace(/[^a-zA-Z0-9-_.]/g, '');
+        let patchedFilename; // = shouldPrefix ? fullPath.replace(/[^a-zA-Z0-9-_./]/g, '') : fileName.replace(/[^a-zA-Z0-9-_.]/g, '');
+
+        if(shouldPrefix){
+            patchedFilename = (fullPath.charAt(0) == "/") ? fullPath.substr(1).replace(/[^a-zA-Z0-9-_./]/g, '') : fullPath.replace(/[^a-zA-Z0-9-_./]/g, '')
+        }
+        else {
+            patchedFilename = fileName.replace(/[^a-zA-Z0-9-_.]/g, '');
+        }
+
         let stats = fs.lstatSync(fullPath)
         // let stats = isFile ? fs.statSync(item) : null
         // let size = (stats.size / (1024*1024*1024)).toFixed(3)

@@ -15,8 +15,8 @@
           Disable direct input for base_path. Now you need to choose it with the file explorer. <br>
           Adding a custom popup for manual path input. <br>
           Added rest timer with human readable time. <br>
-          Added css to fix the header, so it stays there when you scroll <br>
-
+          Added css to fix the header, so it stays there when you scroll. <br>
+          Add prefix full path URL to the serving file (CyB1K request), so every file is unique. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.5.1" placement="top">

@@ -64,6 +64,11 @@
               <el-checkbox v-model="server.scan_subdir">Scan sub directories</el-checkbox>
           </el-form-item>
       </div>
+      <div>
+          <el-form-item label=" ">
+              <el-checkbox v-model="server.prependFullPath"> Prefix Serving File URL with full file path </el-checkbox>
+          </el-form-item>
+      </div>
 
   </el-form>
   </div>
@@ -113,17 +118,21 @@ export default {
         //     handler: throttle(this.save(), 2000)
         // },
         'server.ip'(){ this.save() },
+        'server.port'(){ this.save() },
+        'server.app'(){ this.save() },
+        'server.auto_scan_on_startup'(){ this.save() },
         'server.base_path'(){
             this.save()
             this.loadFiles()
         },
-        'server.port'(){ this.save() },
-        'server.app'(){ this.save() },
-        'server.auto_scan_on_startup'(){ this.save() },
         'server.scan_subdir'(){
             this.save()
             this.loadFiles()
         },
+        'server.prependFullPath'(){
+            this.save()
+            this.loadFiles()
+        }
     },
 
     methods: {

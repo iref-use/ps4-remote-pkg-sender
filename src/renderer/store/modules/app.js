@@ -21,6 +21,7 @@ export const state = {
         base_path: '',
         auto_scan_on_startup: true,
         scan_subdir: false,
+        prependFullPath: false,
     },
 
     ps4: {
@@ -55,10 +56,12 @@ export const mutations = {
             base_path: '',
             auto_scan_on_startup: true,
             scan_subdir: false,
+            prependFullPath: false,
         }
 
         state.ps4 = {
             ip: '',
+            app: 'rpi',
             name: '',
             port: 12800,
             timeout: 2500,
@@ -128,6 +131,10 @@ export const getters = {
   getServerIP(state){
       return state.server.ip + ':' + state.server.port
   },
+
+  getPrefixFullPath(state){
+      return state.server.prependFullPath
+  }
 
   // overwrite default `items` getter
   // allFiles: state => {
