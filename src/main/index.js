@@ -28,7 +28,7 @@ let windows = {
 // Create Windows
 function createMainWindow() {
   const window = helper.createWindowInstance('/', {
-    width: 1300, height: 700,
+    width: 1300, height: 800,
   }, showMainDevTools)
 
   window.on('close', (event) => {
@@ -59,7 +59,7 @@ function createServerWindow(){
 // create Info Window
 function createInfoWindow(){
   const window = helper.createWindowInstance('/info', {
-    width: 340, height: 600, title: 'Info', show: false,
+    width: 500, height: 600, title: 'Info', show: false,
   }, false)
   window.on('close', (event) => {
     event.preventDefault()

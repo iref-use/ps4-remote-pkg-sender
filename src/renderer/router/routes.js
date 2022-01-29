@@ -27,6 +27,7 @@ export default [
           { path: 'server', name: 'server', component: loadPage('Server') },
           { path: 'settings', name: 'settings', component: loadPage('Settings') },
           { path: 'changelog', name: 'changelog', component: loadPage('Changelog') },
+          { path: 'downloads', name: 'download', component: loadPage('Download') },
       ]
   },
 

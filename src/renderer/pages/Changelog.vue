@@ -4,6 +4,16 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.5.1" placement="top">
+        <h4>Further upgrades </h4>
+        <p>
+          Added Download View for RPI and HB-Store. <br>
+          Added Troubleshooting Guide to the Miscs. <br>
+          Fix flashing on Configuration pages when pressing enter (not necesarry). <br>
+          Fix base_path configuration error when opening file explorer and canceling it. <br>
+          Updated Info Window size and content. Applied additional thanks. <br>
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.5.0" placement="top">
         <h4>Further upgrades </h4>
         <p>

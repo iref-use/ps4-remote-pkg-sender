@@ -3,7 +3,6 @@
 
     <AppConfig />
 
-
     <br>
 
     <el-button size="mini" @click="$store.dispatch('app/resetConfig')"> Reset App Settings </el-button>

@@ -4,7 +4,7 @@
   <el-divider content-position="left">Local Server Configuration</el-divider>
 
   <div class="q-pl-md">
-  <el-form :inline="true" label-width="150px" size="mini" label-position="left">
+  <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
       <el-row :gutter="10">
           <el-col :span="10">
               <el-form-item label="Server IP">
@@ -46,8 +46,8 @@
       <el-row>
           <el-col :span="24">
               <el-form-item label="PKG Base Path" style="width: 100%;" class="base_path">
-                <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path">
-                    <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
+                <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
+                    <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"> Click here to Choose the Path</el-button>
                 </el-input>
               </el-form-item>
           </el-col>
@@ -136,6 +136,8 @@ export default {
 
         selectBasePath(){
             let path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+
+            if(path)
             this.server.base_path = path[0]
         },
 

@@ -5,7 +5,7 @@
   <el-divider content-position="left">PS4 Configuration</el-divider>
 
   <div class="q-pl-md">
-  <el-form :inline="true" label-width="150px" size="mini" label-position="left">
+  <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
       <el-row :gutter="20">
           <el-col :span="10">
               <el-form-item label="PS4 IP">

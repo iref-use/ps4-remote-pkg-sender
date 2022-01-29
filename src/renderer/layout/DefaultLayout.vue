@@ -13,11 +13,18 @@
 
               <el-submenu index="miscs">
                   <template slot="title">Miscs</template>
-                  <el-menu-item @click="openLink(links.ps4_rkg_installer)">PS4 PKG Installer</el-menu-item>
+
+                  <el-menu-item index="downloads">Downloads</el-menu-item>
                   <el-menu-item index="changelog">Changelog</el-menu-item>
+
                   <div style="background: #ddd; height: 1px; margin: 5px 0px" />
-                  <el-menu-item @click="openLink(links.github_repo)">GitHub Repo</el-menu-item>
-                  <el-menu-item @click="openLink(links.report_issue)">Report a Issue</el-menu-item>
+
+                  <el-menu-item @click="$root.open(links.troubleshoot)">Troubleshooting Guide</el-menu-item>
+
+                  <div style="background: #ddd; height: 1px; margin: 5px 0px" />
+
+                  <el-menu-item @click="$root.open(links.github_repo)">GitHub Repo</el-menu-item>
+                  <el-menu-item @click="$root.open(links.report_issue)">Report a Issue</el-menu-item>
               </el-submenu>
 
               <el-menu-item index="settings">Settings</el-menu-item>

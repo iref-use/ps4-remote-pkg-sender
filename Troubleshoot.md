@@ -58,16 +58,20 @@ it natively or the RPIOOSDK. Support for both target apps will done soon.
 ## I get a long Error Code  
 This will be patched in the v2.4.2 but for the completenes here they are.  
 Thoose Error Codes are not documented yet but I've patched the known ones which are:   
-`2157510681` Task doesn't exists  
-`2157510663` already installed  
-`2157510677` it seems to be installed already (duplicate?)  
+`2157510681` Task doesn't exists -> RPI can't find any task associated with the id
+`2157510663` already installed  -> delete the app
+`2157510677` it seems to be installed already (duplicate?)  -> delte old app chunks
 `2157510789` not enough storage  
+`2157510920` not known yet
 
 ## unable to set up prerequisites for package  
-This error is not documented, too.  
-I have no clue yet what causes this error.  
-But the error is the explicit error message from the Remote Package Installer,  
-so this is not an issue with the app.  
+Thanks to marcussacana we could debug this error down.
+This error will be responded from the Remote Package Installer when there is  
+a HTTP Protocoll error on the serving point.  In case of the RPS v2, just in case  
+it will accour, just restart the server in another Port.
+
+If you get the error message from any other package sender, this is due
+the lack of missing multipart stream support.  
 
 ## My RPI crashes on console  
 This happend to a couple of users when we try to hit to hard on the RPI.  
@@ -87,6 +91,9 @@ If you see that your server is on error, please check the Server Window for the 
 It will give you a specific error message what happend.  Mostly it is a blocked port.  
 Just change the Port and press apply, refresh or just i/o button to close and start the server.  
 
+## Cannot Install HB-Store items directly  
+Until the refactored version of the HB-Store goes public you can download the App,  
+put it on your base_path folder and install it on the regular way.  
 
 ## Application doesn't close  
 Closing windows doesn't kill the App.  

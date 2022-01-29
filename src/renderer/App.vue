@@ -6,7 +6,7 @@
 import './scss/app.scss';
 // import "@fortawesome/fontawesome-free/js/all";
 
-import { remote, ipcRenderer } from 'electron'
+import { remote, ipcRenderer, shell } from 'electron'
 
 export default {
   name: 'App',
@@ -53,7 +53,7 @@ export default {
       },
 
       open(b){
-          require('electron').shell.openExternal(b)
+          shell.openExternal(b)
       },
 
       sendServer(msg){
