@@ -14,8 +14,9 @@
           Extend the Settings options to show current Config Object data. <br>
           Disable direct input for base_path. Now you need to choose it with the file explorer. <br>
           Adding a custom popup for manual path input. <br>
-          Add rest timer with human readable time. <br>
-          
+          Added rest timer with human readable time. <br>
+          Added css to fix the header, so it stays there when you scroll <br>
+
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.5.1" placement="top">

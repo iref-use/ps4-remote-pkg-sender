@@ -38,6 +38,20 @@ table {
     }
 }
 
+.el-header {
+    position: fixed; z-index: 10;
+    top: 0; left: 0; right: 0;
+}
+
+.el-main {
+    position: relative;
+    padding-top: 80px !important;
+}
+
+.el-dialog {
+    border-radius: 8px !important;
+}
+
 .el-pager li {
     font-weight: normal;
 }
