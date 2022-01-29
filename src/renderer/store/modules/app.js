@@ -11,6 +11,7 @@ export const state = {
         useHBMode: 'legacy',
         useHBRoot: 'http://api.pkg-zone.com/',
         showConfigObject: false,
+        enableExternalLinks: false,
     },
 
     server: {
@@ -73,6 +74,7 @@ export const mutations = {
             useHBMode: 'legacy',
             useHBRoot: 'http://api.pkg-zone.com/',
             showConfigObject: false,
+            enableExternalLinks: false,
         }
     },
 

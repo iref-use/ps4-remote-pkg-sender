@@ -47,6 +47,7 @@
           <el-col :span="24">
               <el-form-item label="PKG Base Path" class="base_path">
                 <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
+                    <el-button slot="append" icon="el-icon-edit" @click.native="enterManuallyBasePath"> Enter manually</el-button>
                     <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"> Click here to Choose the Path</el-button>
                 </el-input>
               </el-form-item>
@@ -149,6 +150,28 @@ export default {
             console.log("Saving Local Server Configuration")
             this.$store.dispatch('app/setServer', this.server)
         },
+
+        enterManuallyBasePath(){
+            this.$prompt('Please input base path', 'Base Path for the Server', {
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+              // inputErrorMessage: 'Invalid Email'
+            }).then(({ value }) => {
+                if(value){
+                    this.server.base_path = value
+                    this.$message({
+                      type: 'success',
+                      message: 'Your base_path has been set to:' + value
+                    });
+                }
+            }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: 'Input canceled'
+                });
+            });
+        }
 
     }
 }

@@ -8,7 +8,7 @@
     <el-row>
       <el-col :span="20" style="display: flex">
           <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
-          <el-tag size="size" effect="light" class="path_input_tag">{{ server.base_path }}</el-tag>
+          <el-tag size="size" effect="light" class="path_input_tag" v-if="server.base_path">{{ server.base_path }}</el-tag>
       </el-col>
       <el-col :span="4">
           <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />

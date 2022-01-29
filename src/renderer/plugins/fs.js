@@ -6,7 +6,7 @@ const getFiles = (folder, deep=false) => {
     const files = []
     for (const file of fs.readdirSync(folder, { widthFileTypes: true }) ) {
         // fix permission error on external drives for darwin
-        let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes'].includes(file)
+        let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes', '.Trash'].includes(file)
 
         if(forbidden){
             continue

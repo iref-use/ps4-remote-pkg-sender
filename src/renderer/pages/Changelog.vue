@@ -4,6 +4,7 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+
     <el-timeline-item timestamp="2.5.2" placement="top">
         <h4>Application Settings </h4>
         <p>
@@ -12,6 +13,7 @@
           Added RPI OOP to the Download Area. <br>
           Extend the Settings options to show current Config Object data. <br>
           Disable direct input for base_path. Now you need to choose it with the file explorer. <br>
+          Adding a custom popup for manual path input. <br>
           
         </p>
     </el-timeline-item>

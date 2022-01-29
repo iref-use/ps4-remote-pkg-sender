@@ -21,12 +21,29 @@
         </el-col>
       </el-row>
 
+      <el-row>
+        <el-col :span="8">
+            <el-form-item label="Style">
+              <el-select v-model="config.style" placeholder="Style" default-first-option>
+                  <el-option label="Light Mode" value="light" />
+                  <el-option label="Dark Mode" value="dark" />
+              </el-select>
+            </el-form-item>
+        </el-col>
+        <el-col :span="16">
+            <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+              *Preparation only. Will come, soon.
+            </p>
+        </el-col>
+      </el-row>
+
       <div>
-          <el-form-item label="Style">
-            <el-select v-model="config.style" placeholder="Style" default-first-option>
-                <el-option label="Light Mode" value="light" />
-                <el-option label="Dark Mode" value="dark" />
-            </el-select>
+
+      </div>
+
+      <div>
+          <el-form-item label="External Links">
+              <el-checkbox v-model="config.enableExternalLinks"> Enable adding external Links </el-checkbox>
           </el-form-item>
       </div>
 
@@ -67,12 +84,11 @@
           </el-col>
       </el-row>
 
+      <div style="height: 30px" />
 
-      <div style="margin-top: 50px;">
-          <el-checkbox v-model="config.showConfigObject"> Show Configuration Object </el-checkbox>
-
-          <el-form-item label="Show Configuration Object" label-width="300px" v-if="false">
-              <el-checkbox v-model="config.showConfigObject"> Show Configuration Object </el-checkbox>
+      <div>
+          <el-form-item label="Show Configuration Object" label-width="300px">
+              <el-checkbox v-model="config.showConfigObject"> Show my full Settings Object </el-checkbox>
           </el-form-item>
       </div>
 
@@ -125,6 +141,7 @@ export default {
         'config.useHBMode'(){ this.save() },
         'config.useHBRoot'(){ this.save() },
         'config.showConfigObject'(){ this.save() },
+        'config.enableExternalLinks'(){ this.save() },
     },
 
     methods: {

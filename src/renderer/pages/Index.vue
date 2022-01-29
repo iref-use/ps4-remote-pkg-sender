@@ -9,7 +9,7 @@
 
         <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
         <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
-        <el-button size="small" icon="el-icon-link" @click="openAddFileDialog"> Add URL </el-button>
+        <el-button size="small" icon="el-icon-link" @click="openAddFileDialog" v-if="app.config.enableExternalLinks"> Add URL </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -141,6 +141,7 @@ export default {
   },
 
   computed: {
+      app: get('app'),
       server: get('app/server'),
       queue: get('queue'),
       logs: get('queue/logs'),

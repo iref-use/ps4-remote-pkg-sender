@@ -79,7 +79,7 @@ export default {
     data(){ return {
         ps4Apps: [
             { value: 'RPI (flatZ)', key: 'rpi', disabled: false },
-            { value: 'RPI (OOSDK)', key: 'rpiOOSDK', disabled: true },
+            { value: 'RPI (OOP)', key: 'rpiOOP', disabled: true },
             { value: 'IPI', key: 'ipi', disabled: true },
             { value: 'HB-Store', key: 'hbstore', disabled: true },
         ]
