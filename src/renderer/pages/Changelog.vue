@@ -4,6 +4,17 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.5.2" placement="top">
+        <h4>Application Settings </h4>
+        <p>
+          Added more explicit HB Configuration. <br>
+          Moved scss styling to global css file for full-width inputs. <br>
+          Added RPI OOP to the Download Area. <br>
+          Extend the Settings options to show current Config Object data. <br>
+          Disable direct input for base_path. Now you need to choose it with the file explorer. <br>
+          
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.5.1" placement="top">
         <h4>Further upgrades </h4>
         <p>
@@ -12,6 +23,7 @@
           Fix flashing on Configuration pages when pressing enter (not necesarry). <br>
           Fix base_path configuration error when opening file explorer and canceling it. <br>
           Updated Info Window size and content. Applied additional thanks. <br>
+          Added experimental add url endpoint. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.5.0" placement="top">

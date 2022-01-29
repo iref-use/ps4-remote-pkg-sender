@@ -24,6 +24,25 @@
 
   <el-row>
     <el-col style="width: 240px;">
+        <img src="/assets/rpioop.png" class="icon0" />
+    </el-col>
+    <el-col :span="12">
+        <b>Remote Package Installer Open Orbis Port</b> by backporter (aka kernel panic) <br>
+        <br>
+        Backporter is working on a new version of the Remote Package Installer <br>
+        porting it from flatZ version to a new one with the Open Orbis SDK. <br>
+        <br>
+        Below you can find the direct version 1.0 and the GitHub repo. <br>
+        <br>
+        <el-button @click="$root.open(links.ps4_rpioop)"> Download </el-button>
+        <el-button @click="$root.open(links.ps4_rpioop_github)"> GitHub </el-button>
+    </el-col>
+  </el-row>
+
+  <div style="height: 40px" />
+
+  <el-row>
+    <el-col style="width: 240px;">
         <img src="/assets/hb.png" class="icon0" />
     </el-col>
     <el-col :span="12">
@@ -39,6 +58,22 @@
     </el-col>
   </el-row>
 
+  <div style="height: 40px" />
+
+  <el-row>
+    <el-col style="width: 240px;">
+        &nbsp;
+    </el-col>
+    <el-col :span="12">
+        <b>Your App here?</b> <br>
+        <br>
+        If you would like to add your Homebrew App to the Downloads Area <br>
+        message me on Discord at Gkiokan#0735 <br>
+
+    </el-col>
+  </el-row>
+
+  <div style="height: 40px" />
 </div>
 </template>
 

@@ -6,13 +6,20 @@
   <div class="q-pl-md">
   <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
 
-      <div>
-          <el-form-item label="Language">
-            <el-select v-model="config.lang" placeholder="Language" default-first-option>
-                <el-option :label="lang.value" :value="lang.key" :disabled="lang.disabled" v-for="lang in languages" :key="lang.key" />
-            </el-select>
-          </el-form-item>
-      </div>
+      <el-row>
+        <el-col :span="8">
+            <el-form-item label="Language">
+              <el-select v-model="config.lang" placeholder="Language" default-first-option>
+                  <el-option :label="lang.value" :value="lang.key" :disabled="lang.disabled" v-for="lang in languages" :key="lang.key" />
+              </el-select>
+            </el-form-item>
+        </el-col>
+        <el-col :span="16">
+            <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+              *Preparation only. If anyone want to contribute, just open a new Issue with [feature/language].
+            </p>
+        </el-col>
+      </el-row>
 
       <div>
           <el-form-item label="Style">
@@ -23,18 +30,57 @@
           </el-form-item>
       </div>
 
-      <div>
-          <el-form-item label="HB-Store">
-              <el-checkbox v-model="config.useHB"> Activate HB-Store in Tab </el-checkbox>
+      <el-row>
+          <el-col :span="8">
+              <el-form-item label="HB-Store">
+                  <el-checkbox v-model="config.useHB"> Activate HB-Store </el-checkbox>
+              </el-form-item>
+          </el-col>
+
+          <el-col :span="8" v-if="config.useHB">
+              <el-form-item label="HB-Store CDN" class="full-width full-width-150">
+                  <el-input v-model="config.useHBRoot" style="width: 100%;"> </el-input>
+              </el-form-item>
+          </el-col>
+
+          <el-col :span="8" v-if="config.useHB">
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px; padding-left: 30px;">
+                  Needs to end with slash (e.g. domain.com<b>/</b>)
+              </p>
+          </el-col>
+      </el-row>
+
+      <el-row v-if="config.useHB">
+          <el-col :span="8">
+              <el-form-item label="HB-Store Mode">
+                  <el-select v-model="config.useHBMode" placeholder="Mode" default-first-option>
+                      <el-option :label="mode.value" :value="mode.key" :disabled="mode.disabled" v-for="mode in HBModes" :key="mode.key" />
+                  </el-select>
+              </el-form-item>
+          </el-col>
+
+          <el-col :span="16">
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+                  Legacy Mode is for the current working HB-Store API. Refactored one for the new version (on staging yet).<br>
+                  Info: Once the new version is out you can access to more features on the HB-Store. <br>
+              </p>
+          </el-col>
+      </el-row>
+
+
+      <div style="margin-top: 50px;">
+          <el-checkbox v-model="config.showConfigObject"> Show Configuration Object </el-checkbox>
+
+          <el-form-item label="Show Configuration Object" label-width="300px" v-if="false">
+              <el-checkbox v-model="config.showConfigObject"> Show Configuration Object </el-checkbox>
           </el-form-item>
       </div>
-
 
   </el-form>
   </div>
 
   <template v-if="debug">
-    <pre>Config {{ config }}</pre>
+      <pre>Config {{ config }}</pre>
   </template>
 
 </div>
@@ -57,6 +103,11 @@ export default {
             { key: 'tr', value: 'Turkish', disabled: true },
             { key: 'gr', value: 'Greek', disabled: true },
         ],
+
+        HBModes: [
+            { key: 'legacy', value: 'Legacy', disabled: false },
+            { key: 'refactored', value: 'Refactored', disabled: true },
+        ]
     }},
 
     mounted(){
@@ -71,7 +122,9 @@ export default {
         'config.lang'(){ this.save() },
         'config.style'(){ this.save() },
         'config.useHB'(){ this.save() },
+        'config.useHBMode'(){ this.save() },
         'config.useHBRoot'(){ this.save() },
+        'config.showConfigObject'(){ this.save() },
     },
 
     methods: {

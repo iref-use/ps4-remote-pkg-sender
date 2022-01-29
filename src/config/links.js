@@ -1,5 +1,7 @@
 export default {
     ps4_rpi: "https://mega.nz/file/2dN1XajB#Z5fXyFoKOXFI_ujgGoCZfFFy5nyn7OWo6vF6h_HmWhQ",
+    ps4_rpioop: "https://github.com/Backporter/ps4_remote_pkg_installer-OOSDK/releases/download/1.0/IV0000-KPBR01111_00-AAAAAAAAAAAAAAAA.pkg",
+    ps4_rpioop_github: "https://github.com/Backporter/ps4_remote_pkg_installer-OOSDK",
     github_repo: "https://github.com/Gkiokan/ps4-remote-pkg-sender",
     report_issue: "https://github.com/Gkiokan/ps4-remote-pkg-sender/issues",
     troubleshoot: "https://github.com/Gkiokan/ps4-remote-pkg-sender/blob/master/Troubleshoot.md",
