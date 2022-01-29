@@ -43,12 +43,16 @@ Restart your PC and PS4, try again. Some users reported back that this helped.
 ##### Option d)  
 There is something arround with the latest update of the GoldHen.  
 I am not sure yet but I can not debug this down as I am still on 5.05.  
+
 Check the PS4 API Logs and see if you get any response.  
 If the response for Check PS4 works, but you don't proceed on the install request  
-then you might be affected on the latest update of GoldHen (probably, not sure).  
+then you might be affected on the latest update of GoldHen (for sure).  
+
 I assume that because there was a latest update and since then some users reported back install issues.  
 Try another HEN edition as this was initially working from HENv1.8 until GoldHen 2.0 for sure.  
 If nothing helps, try another PKG Sender - I guess they will not work eithier.  
+
+A working GoldHen 2.0 (old one) can be found on e.g. nightkinghost.  
 
 ##### Option e)  
 You can try another Installation type. Try using IPI and FTP untill my app does support  
