@@ -1,4 +1,4 @@
-import { app, session, BrowserWindow, Notification, ipcMain, globalShortcut } from 'electron'
+import { app, session, BrowserWindow, Notification, ipcMain, globalShortcut, protocol } from 'electron'
 import path from 'path'
 import { format as formatUrl } from 'url'
 
@@ -114,6 +114,16 @@ function addShortcuts(){
     })
 }
 
+// create Protocols
+function createProtocols(){
+    return;
+    protocol.registerSchemesAsPrivileged([
+      { scheme: 'http', privileges: { standard: true, bypassCSP: true, allowServiceWorkers: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
+      { scheme: 'https', privileges: { standard: true, bypassCSP: true, allowServiceWorkers: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
+      { scheme: 'mailto', privileges: { standard: true } },
+    ]);
+}
+
 
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
@@ -146,6 +156,7 @@ app.on('ready', () => {
   createServerWindow()
   createInfoWindow()
   createPS4Window()
+  createProtocols()
 
   // addShortcuts()
 
