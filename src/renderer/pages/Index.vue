@@ -56,7 +56,7 @@
             <el-tag size="small" type="info" style="margin-bottom: 5px"> URL: {{ scope.row.url }} </el-tag> <br>
 
 
-            <pre v-if="false">{{ scope.row }}</pre>
+            <pre v-if="showDebugInRow">{{ scope.row }}</pre>
         </template>
       </el-table-column>
 
@@ -72,14 +72,14 @@
       </el-table-column>
 
       <el-table-column prop="task" label="Task" width="105" v-if="showTask"></el-table-column>
+      <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
+      <el-table-column prop="cusa" label="Version" width="100" v-if="showVersion"></el-table-column>
+
       <el-table-column prop="rest" label="Rest" width="150" align="center">
         <template slot-scope="scope">
             <el-tag size="small" plain v-if="scope.row.rest != 0"> {{ $helper.secondsToString(scope.row.rest) }} </el-tag>
         </template>
       </el-table-column>
-
-      <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
-      <el-table-column prop="cusa" label="Version" width="100" v-if="showVersion"></el-table-column>
 
       <el-table-column prop="status" label="Status" width="120" align="center">
         <template slot-scope="scope">
@@ -138,6 +138,7 @@ export default {
       showVersion: false,
       showPercentage: true,
       showExtension: false,
+      showDebugInRow: true,
       ints: [],
       search: '',
   }},
