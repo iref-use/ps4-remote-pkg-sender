@@ -206,7 +206,10 @@ export default {
                       this.log(data.message, { exists, size, type })
                       this.$message({ message: data.message, type: data.type })
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       start(file){
@@ -247,7 +250,10 @@ export default {
                   }
 
               })
-              .catch( e => console.log(e) )
+              .catch( e => {
+                  this.clearInterval(file)
+                  console.log(e)
+              })
       },
 
       stop(file){
@@ -261,7 +267,10 @@ export default {
                       this.setStatus(file, 'stop')
                       this.log(file.name + ' stop Task ID ' + file.task, data)
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       pause(file){
@@ -275,7 +284,10 @@ export default {
                       this.setStatus(file, 'pause')
                       this.log(file.name + ' pause', data)
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       resume(file){
@@ -293,7 +305,10 @@ export default {
                           this.log(file.name + ' resume Task ID ' + file.task, data)
                       }
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       remove(file){
@@ -306,7 +321,10 @@ export default {
                     console.log(data)
                     this.log(file.name + ' remove', data)
                 })
-                .catch( e => console.log(e) )
+                .catch( e => {
+                    this.clearInterval(file)
+                    console.log(e)
+                })
       },
 
       info(file){
@@ -370,10 +388,14 @@ export default {
                       else {
                           console.log("Task Info Fail", data)
                           this.log(file.name + ' Info fail', data)
+                          this.clearInterval(file)
                       }
 
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
 
           // this.log(file.name + ' info')
       },
@@ -383,7 +405,10 @@ export default {
                   .then( ({ data }) => {
                       this.log(file.name + ' find', data)
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       startInterval(file){

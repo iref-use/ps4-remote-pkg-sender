@@ -18,6 +18,7 @@
           Added css to fix the header, so it stays there when you scroll. <br>
           Added prefix full path URL to the serving file (CyB1K request), so every file is unique. <br>
           Added Suport Information on Settings View if anyone want to help and support me. <br>
+          Stop Interval if there is an error. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.5.1" placement="top">
