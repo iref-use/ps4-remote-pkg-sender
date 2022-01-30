@@ -1,5 +1,41 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.5.2
+####Application Settings
+      Added more explicit HB Configuration.  
+      Moved scss styling to global css file for full-width inputs.  
+      Added RPI OOP to the Download Area.  
+      Extend the Settings options to show current Config Object data.  
+      Disable direct input for base_path. Now you need to choose it with the file explorer.  
+      Adding a custom popup for manual path input.  
+      Added rest timer with human readable time.  
+      Added css to fix the header, so it stays there when you scroll.  
+      Added prefix full path URL to the serving file (CyB1K request), so every file is unique.  
+      Added Suport Information on Settings View if anyone want to help and support me.  
+
+### v2.5.1
+####Further upgrades
+      Added Download View for RPI and HB-Store.  
+      Added Troubleshooting Guide to the Miscs.  
+      Fix flashing on Configuration pages when pressing enter (not necesarry).  
+      Fix base_path configuration error when opening file explorer and canceling it.  
+      Updated Info Window size and content. Applied additional thanks.  
+      Added experimental add url endpoint.  
+
+
+### v2.5.0
+####Further upgrades
+      Extend main Window width to 1300px.  
+      Add button to remove files from Queue.  
+      Disable Queued file operation buttons when no task exists.  
+      On Config View change apply to server button to open Server Window.  
+      Add Application Settings.  
+      Prepare HB-Store tab with prototype content of HB-Store-R2.  
+      Create Item Objects from HB-Store package response.  
+      Add Table Expandable Row to see all properties of Item Object.  
+      Add remove Item from queue button in Queue, Server and HB-Store view.  
+      Added Pagination to HB-Store Table view.  
+
 ### v2.4.3
 #### Fixing storage race condition
         Put storage creation into a while loop until store creates successfully.  
