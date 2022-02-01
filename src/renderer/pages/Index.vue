@@ -77,7 +77,7 @@
 
       <el-table-column prop="rest" label="Rest" width="150" align="center">
         <template slot-scope="scope">
-            <el-tag size="small" plain v-if="scope.row.rest != 0"> {{ $helper.secondsToString(scope.row.rest) }} </el-tag>
+            <el-tag size="small" plain v-if="scope.row.rest && scope.row.rest != 0"> {{ $helper.secondsToString(scope.row.rest) }} </el-tag>
         </template>
       </el-table-column>
 
