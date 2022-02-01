@@ -5,17 +5,16 @@
 
     <el-divider />
 
-
     <el-row>
       <el-col :span="8">
-        <img src="/assets/buymeashisha.svg" class="cursor-pointer" @click="$root.open(links.kofi)" />
-        <img src="/assets/platform.svg" class="cursor-pointer" @click="$root.open(links.github_releases)" />
+        <img :src="$root.getImage('assets/buymeashisha.svg')" class="cursor-pointer" @click="$root.open(links.kofi)" />
+        <img :src="$root.getImage('assets/platform.svg')" class="cursor-pointer" @click="$root.open(links.github_releases)" />
         <br>
         <img :src="'https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v'+$root.versions.app" class="cursor-pointer" @click="$root.open(links.github_releases_latest)" />
         <img src="https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender" class="cursor-pointer" @click="$root.open(links.github_repo)" />
         <br>
         <br>
-        <img src="/assets/kofi.svg" class="cursor-pointer" @click="$root.open(links.kofi)" />
+        <img :src="$root.getImage('assets/kofi.svg')" class="cursor-pointer" @click="$root.open(links.kofi)" />
 
       </el-col>
       <el-col :span="16">

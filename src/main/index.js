@@ -15,7 +15,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 const showServerWindowOnStartUp = false
 const showServerDevtools = false
 const showPS4DevTools = false
-const showMainDevTools = process.env.NODE_ENV !== 'production'
+const showMainDevTools = isDevelopment
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let windows = {
@@ -36,6 +36,7 @@ function createMainWindow() {
     window.hide()
   })
   window.on('closed', () => { windows.main = null })
+  // window.webContents.openDevTools()
 
   windows.main = window
 

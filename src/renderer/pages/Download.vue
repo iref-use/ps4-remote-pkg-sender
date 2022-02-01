@@ -5,7 +5,7 @@
 
   <el-row>
     <el-col style="width: 240px;">
-        <img src="/assets/rpi.png" class="icon0" />
+        <img :src="$root.getImage('assets/rpi.png')" class="icon0" />
     </el-col>
     <el-col :span="12">
         <b>Remote Package Installer</b> by flatZ <br>
@@ -24,7 +24,7 @@
 
   <el-row>
     <el-col style="width: 240px;">
-        <img src="/assets/rpioop.png" class="icon0" />
+        <img :src="$root.getImage('assets/rpioop.png')" class="icon0" />
     </el-col>
     <el-col :span="12">
         <b>Remote Package Installer Open Orbis Port</b> by backporter (aka kernel panic) <br>
@@ -43,7 +43,7 @@
 
   <el-row>
     <el-col style="width: 240px;">
-        <img src="/assets/hb.png" class="icon0" />
+        <img :src="$root.getImage('assets/hb.png')" class="icon0" />
     </el-col>
     <el-col :span="12">
         <b>HB-Store R2</b> by LightningMods <br>
@@ -79,6 +79,7 @@
 
 <script>
 import links from '@/../config/links'
+
 export default {
     name: 'Download',
 
