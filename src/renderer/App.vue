@@ -7,6 +7,7 @@ import './scss/app.scss';
 // import "@fortawesome/fontawesome-free/js/all";
 
 import { remote, ipcRenderer, shell } from 'electron'
+import url from 'url'
 
 export default {
   name: 'App',
@@ -76,8 +77,12 @@ export default {
 
       getImage(img){
           const isDevelopment = process.env.NODE_ENV === 'development';
-          const staticPath = isDevelopment ? __static : __dirname.replace(/app\.asar$/, 'static');
-          return staticPath + '/' + img
+          // const staticPath = isDevelopment ? __static : __dirname.replace(/app\.asar$/, 'static');
+
+          if(isDevelopment)
+            return url.resolve(window.location.origin, img);
+
+          return __dirname.replace(/app\.asar$/, 'static') + '/' + img
       }
 
   },

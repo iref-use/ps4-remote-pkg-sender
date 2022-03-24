@@ -5,6 +5,15 @@
 
   <el-timeline>
 
+    <el-timeline-item timestamp="2.6.0" placement="top">
+        <h4>Update</h4>
+        <p>
+          Handle application closing with child process kill after Application Quit. <br>
+          Add AppImage, deb and snap to Linux build command. <br>
+          Fix static asset paths for developing mode. <br>
+          
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.5.2" placement="top">
         <h4>Application Settings </h4>
         <p>

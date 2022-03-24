@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.5.2",
+  "version": "2.6.0",
   "name": "PS4RemotePKGSenderV2",
   "productName": "PS4 Remote PKG Sender V2",
   "author": "Gkiokan <support@gkiokan.net>",
@@ -64,6 +64,9 @@
           "arch": ["x64", "ia32"]
         }
       ]
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "snap"]
     },
     "portable": {
       "artifactName": "${productName}.exe",

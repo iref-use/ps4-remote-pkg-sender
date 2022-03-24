@@ -128,19 +128,34 @@ function createProtocols(){
 
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
+  console.log("All windows are closed. Kill all processes.")
   // on macOS it is common for applications to stay open until the user explicitly quits
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  // if (process.platform !== 'darwin') {
+  //   app.quit()
+  // }
+
+  app.quit()
 })
 
 // fix quit issue when open windows are left
-app.on('before-quit', () => {
+app.on('before-quit', (event) => {
   console.log("Closing applications")
-  Object.values(windows).map( (win) => {
-    win.removeAllListeners('close')
-    win.close()
-  })
+
+  console.log("Closing Server")
+  windows.server.webContents.send('server', 'stop')
+
+  setTimeout(() => {
+    Object.values(windows).map( (win) => {
+      if(!win){
+          return console.log("No win object")
+      }
+
+      win.removeAllListeners('close')
+      win.close()
+    })
+  }, 500)
+
+  console.log("Application closed.")
 })
 
 //  activate hook
