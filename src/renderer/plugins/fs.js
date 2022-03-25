@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import fs from 'fs'
 import path from 'path'
+import store from './../store'
+
+// const shouldPrefix  = store.getters['app/getPrefixFullPath']
 
 const getFiles = (folder, deep=false) => {
     const files = []
     for (const file of fs.readdirSync(folder, { widthFileTypes: true }) ) {
         // fix permission error on external drives for darwin
-        let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes'].includes(file)
+        let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes', '.Trash'].includes(file)
 
         if(forbidden){
             continue
@@ -77,6 +80,8 @@ let o = {
     },
 
     createItem(item, folder=''){
+        const shouldPrefix  = store.getters['app/getPrefixFullPath']
+        
         // console.log(":: fs | Create File Item", item)
         let isFile = this.isFile(item)
 
@@ -84,7 +89,15 @@ let o = {
 
         let fileName = path.basename(item)
         let fullPath = path.resolve(folder, item)
-        let patchedFilename = fileName.replace(/[^a-zA-Z0-9-_.]/g, '');
+        let patchedFilename; // = shouldPrefix ? fullPath.replace(/[^a-zA-Z0-9-_./]/g, '') : fileName.replace(/[^a-zA-Z0-9-_.]/g, '');
+
+        if(shouldPrefix){
+            patchedFilename = (fullPath.charAt(0) == "/") ? fullPath.substr(1).replace(/[^a-zA-Z0-9-_./]/g, '') : fullPath.replace(/[^a-zA-Z0-9-_./]/g, '')
+        }
+        else {
+            patchedFilename = fileName.replace(/[^a-zA-Z0-9-_.]/g, '');
+        }
+
         let stats = fs.lstatSync(fullPath)
         // let stats = isFile ? fs.statSync(item) : null
         // let size = (stats.size / (1024*1024*1024)).toFixed(3)
@@ -95,6 +108,8 @@ let o = {
         let searchCUSA = fileName.match(/(CUSA\d{5})/i)
         let cusa = searchCUSA ? searchCUSA[0].toUpperCase() : ''
 
+        // #todo get pkg deep info with https://github.com/dexter85/ps4-pkg-info
+
         // title location 0x40 to 0x63
         // cusa location 0x47 to 0x4F
 
@@ -102,14 +117,69 @@ let o = {
             name: fileName,
             status: 'n/a',
             percentage: 0,
+            rest: 0,
             task: '',
             ext: path.extname(item),
             path: fullPath,
+            url: null,
+            type: 'local',
             cusa,
             isFile,
             patchedFilename,
             sizeInBytes: stats.size,
             size,
+            logs: [],
+            // stats,
+        }
+    },
+
+    createItemFromHB(item, root=''){
+        let fullPath = root + 'dl.php?tid=' + item.id
+        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
+        let fileName = item.name + ' (version '+item.version+')'
+        let size = item.Size ? item.Size.replace('s', '') : 'n/a'
+
+        return {
+            name: item.name,
+            status: 'remote',
+            percentage: 0,
+            rest: 0,
+            task: '',
+            ext: 'remote', // path.extname(item),
+            path: fullPath,
+            url: fullPath,
+            type: 'remote',
+            cusa: item.id,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size, // stats.size,
+            size: size,
+            logs: [],
+            // stats,
+            data: item
+        }
+    },
+
+    createItemFromURL(item){
+        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
+        let fullPath = item.url
+        let size = 'n/a'
+
+        return {
+            name: item.name,
+            status: 'url',
+            percentage: 0,
+            rest: 0,
+            task: '',
+            ext: 'remote', // path.extname(item),
+            path: fullPath,
+            url: fullPath,
+            type: 'remote',
+            cusa: item.cusa,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size, // stats.size,
+            size: size,
             logs: [],
             // stats,
         }

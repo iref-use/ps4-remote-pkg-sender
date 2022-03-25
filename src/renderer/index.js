@@ -26,6 +26,9 @@ styles.innerText=`@import url(https://unpkg.com/spectre.css/dist/spectre.min.css
 
 Vue.config.devtools = process.env.NODE_ENV !== 'production',
 Vue.config.productionTip = false,
+Vue.config.errorHandler = (error, vm, info) => {
+  alert("Application global errorHandler:\n" + error)
+}
 
 new Vue({
   router,
@@ -34,7 +37,7 @@ new Vue({
 }).$mount('#app')
 
 // global window error catcher
-window.onerror = function(message, source, lineno, colno, error) {
+window.onerror = function(message=null, source=null, lineno=null, colno=null, error=null) {
   console.log(message, source, lineno, colno, error)
 
   if(error != null)

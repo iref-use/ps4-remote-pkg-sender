@@ -9,6 +9,7 @@
 
         <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
         <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
+        <el-button size="small" icon="el-icon-link" @click="openAddFileDialog" v-if="app.config.enableExternalLinks"> Add URL </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -24,12 +25,12 @@
       <el-table-column type="expand">
         <template slot-scope="scope">
             <el-button size="mini" icon="fa fa-search" @click="find(scope.row)"> Find </el-button>
-            <el-button size="mini" icon="fa fa-info" @click="info(scope.row)"> Info </el-button>
+            <el-button size="mini" icon="fa fa-info" @click="info(scope.row)" :disabled="!scope.row.task"> Info </el-button>
             <el-divider direction="vertical" />
-            <el-button size="mini" icon="fa fa-trash" @click="remove(scope.row)"> Remove </el-button>
-            <el-button size="mini" icon="fa fa-stop" @click="stop(scope.row)"> Stop </el-button>
-            <el-button size="mini" icon="fa fa-pause" @click="pause(scope.row)"> Pause </el-button>
-            <el-button size="mini" icon="fa fa-play" @click="resume(scope.row)"> Resume </el-button>
+            <el-button size="mini" icon="fa fa-trash" @click="remove(scope.row)" :disabled="!scope.row.task"> Remove </el-button>
+            <el-button size="mini" icon="fa fa-stop" @click="stop(scope.row)" :disabled="!scope.row.task"> Stop </el-button>
+            <el-button size="mini" icon="fa fa-pause" @click="pause(scope.row)" :disabled="!scope.row.task"> Pause </el-button>
+            <el-button size="mini" icon="fa fa-play" @click="resume(scope.row)" :disabled="!scope.row.task"> Resume </el-button>
             <el-button size="mini" icon="fa fa-play" @click="start(scope.row)"> Start </el-button>
             <el-divider direction="vertical" />
             <el-button size="mini" icon="fa fa-eye" @click="toggleFileObject(scope.row)" v-if="false"> File Object </el-button>
@@ -55,7 +56,7 @@
             <el-tag size="small" type="info" style="margin-bottom: 5px"> URL: {{ scope.row.url }} </el-tag> <br>
 
 
-            <pre v-if="false">{{ scope.row }}</pre>
+            <pre v-if="showDebugInRow">{{ scope.row }}</pre>
         </template>
       </el-table-column>
 
@@ -72,7 +73,13 @@
 
       <el-table-column prop="task" label="Task" width="105" v-if="showTask"></el-table-column>
       <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
-      <el-table-column prop="cusa" label="CUSA" width="100" v-if="showVersion"></el-table-column>
+      <el-table-column prop="cusa" label="Version" width="100" v-if="showVersion"></el-table-column>
+
+      <el-table-column prop="rest" label="Rest" width="150" align="center">
+        <template slot-scope="scope">
+            <el-tag size="small" plain v-if="scope.row.rest && scope.row.rest != 0"> {{ $helper.secondsToString(scope.row.rest) }} </el-tag>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="status" label="Status" width="120" align="center">
         <template slot-scope="scope">
@@ -94,7 +101,9 @@
 
       <el-table-column label="Operation" width="150" align="right">
           <template slot-scope="scope">
-              <el-button circle size="small" icon="fa fa-info" @click="info(scope.row)"> </el-button>
+              <el-button circle size="small" icon="fa fa-minus" @click="removeFromQueue(scope.row)" />
+
+              <el-button circle size="small" icon="fa fa-info" @click="info(scope.row)" v-if="false"> </el-button>
               <el-button circle size="small" icon="fa fa-stop" @click="stop(scope.row)" v-if="false"> </el-button>
               <el-button circle size="small" icon="fa fa-play" v-if="scope.row.status != 'installing'" @click="start(scope.row)"> </el-button>
               <el-button circle size="small" icon="fa fa-pause" v-if="scope.row.status == 'installing'" @click="pause(scope.row)"> </el-button>
@@ -106,6 +115,7 @@
       </el-table-column>
   </el-table>
 
+  <AddFileByURLDialog ref="AddFileByURLDialog"/>
   <mainComponents v-if="false" />
 
   <pre v-if="debug">{{ queue }}</pre>
@@ -128,6 +138,7 @@ export default {
       showVersion: false,
       showPercentage: true,
       showExtension: false,
+      showDebugInRow: true,
       ints: [],
       search: '',
   }},
@@ -137,6 +148,7 @@ export default {
   },
 
   computed: {
+      app: get('app'),
       server: get('app/server'),
       queue: get('queue'),
       logs: get('queue/logs'),
@@ -194,7 +206,10 @@ export default {
                       this.log(data.message, { exists, size, type })
                       this.$message({ message: data.message, type: data.type })
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       start(file){
@@ -235,7 +250,10 @@ export default {
                   }
 
               })
-              .catch( e => console.log(e) )
+              .catch( e => {
+                  this.clearInterval(file)
+                  console.log(e)
+              })
       },
 
       stop(file){
@@ -249,7 +267,10 @@ export default {
                       this.setStatus(file, 'stop')
                       this.log(file.name + ' stop Task ID ' + file.task, data)
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       pause(file){
@@ -263,7 +284,10 @@ export default {
                       this.setStatus(file, 'pause')
                       this.log(file.name + ' pause', data)
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       resume(file){
@@ -281,7 +305,10 @@ export default {
                           this.log(file.name + ' resume Task ID ' + file.task, data)
                       }
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       remove(file){
@@ -294,7 +321,10 @@ export default {
                     console.log(data)
                     this.log(file.name + ' remove', data)
                 })
-                .catch( e => console.log(e) )
+                .catch( e => {
+                    this.clearInterval(file)
+                    console.log(e)
+                })
       },
 
       info(file){
@@ -340,11 +370,13 @@ export default {
 
                           if(isWorking && percent < 100 && haveRestTime){
                             file.percentage = percent
+                            file.rest = data.rest_sec_total
                             this.log(file.name + ' info', data)
                           }
                           else {
                             this.clearInterval(file)
                             file.percentage = 100
+                            file.rest = 0
                             this.setStatus(file, 'finish')
                             this.fileInstalled(file, 'installed')
 
@@ -356,10 +388,14 @@ export default {
                       else {
                           console.log("Task Info Fail", data)
                           this.log(file.name + ' Info fail', data)
+                          this.clearInterval(file)
                       }
 
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
 
           // this.log(file.name + ' info')
       },
@@ -369,7 +405,10 @@ export default {
                   .then( ({ data }) => {
                       this.log(file.name + ' find', data)
                   })
-                  .catch( e => console.log(e) )
+                  .catch( e => {
+                      this.clearInterval(file)
+                      console.log(e)
+                  })
       },
 
       startInterval(file){
@@ -456,8 +495,28 @@ export default {
       },
 
       clearFinishedFiles(){
-          this.finishedFiles.map( file => this.$store.dispatch('queue/removeFromQueue', file))
-      }
+          this.finishedFiles.map( file => this.removeFromQueue(file))
+      },
+
+      removeFromQueue(file){
+          this.clearInterval(file)
+          let servingFile = this.$store.getters['server/findFile'](file)
+
+          if(servingFile && servingFile.status == 'in queue'){
+              servingFile.status = 'serving'
+          }
+
+          if(file.task){
+              this.stop(file)
+          }
+
+          this.$store.dispatch('queue/removeFromQueue', file)
+      },
+
+      openAddFileDialog(){
+          console.log(this.$refs)
+          this.$refs.AddFileByURLDialog.show = true
+      },
 
   }
 }

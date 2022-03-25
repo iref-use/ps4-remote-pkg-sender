@@ -21,14 +21,31 @@ const modules = requireContext.keys()
     return { ...modules, [name]: module }
   }, {})
 
-export default new Vuex.Store({
-  plugins: [
-    pathify.plugin,
-    createPersistedState({
-      throttle: 3300,
-      whitelist: (mutation) => true,
-    }),
-    createSharedMutations()
-  ],
-  modules
-})
+function createStore(){
+    return new Vuex.Store({
+      plugins: [
+        pathify.plugin,
+        createPersistedState({
+          throttle: 1000,
+          whitelist: (mutation) => true,
+        }),
+        createSharedMutations()
+      ],
+      modules
+    })
+}
+
+let store
+
+while(store === undefined){
+  try {
+      store = createStore()
+      break;
+  }
+  catch(e){
+      // alert("Error in Store, guess race condition. Recreating Storage." + e)
+      continue;
+  }
+}
+
+export default store

@@ -1,4 +1,4 @@
-import { app, session, BrowserWindow, Notification, ipcMain } from 'electron'
+import { app, session, BrowserWindow, Notification, ipcMain, globalShortcut, protocol } from 'electron'
 import path from 'path'
 import { format as formatUrl } from 'url'
 
@@ -15,7 +15,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 const showServerWindowOnStartUp = false
 const showServerDevtools = false
 const showPS4DevTools = false
-const showMainDevTools = process.env.NODE_ENV !== 'production'
+const showMainDevTools = isDevelopment
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let windows = {
@@ -28,7 +28,7 @@ let windows = {
 // Create Windows
 function createMainWindow() {
   const window = helper.createWindowInstance('/', {
-    width: 1000, height: 700,
+    width: 1300, height: 800,
   }, showMainDevTools)
 
   window.on('close', (event) => {
@@ -36,6 +36,7 @@ function createMainWindow() {
     window.hide()
   })
   window.on('closed', () => { windows.main = null })
+  // window.webContents.openDevTools()
 
   windows.main = window
 
@@ -59,7 +60,7 @@ function createServerWindow(){
 // create Info Window
 function createInfoWindow(){
   const window = helper.createWindowInstance('/info', {
-    width: 340, height: 600, title: 'Info', show: false,
+    width: 500, height: 600, title: 'Info', show: false,
   }, false)
   window.on('close', (event) => {
     event.preventDefault()
@@ -92,6 +93,7 @@ function hearthbeat(){
 // registerChannel
 function registerChannel(){
     ipcMain.on('server', (event, data) => windows.server.webContents.send('server', data) )
+    ipcMain.on('server-show', () => windows.server.show() )
 
     ipcMain.on('main', (event, data) => windows.main.webContents.send('main', data) )
     ipcMain.on('main-error', (event, data) => windows.main.webContents.send('main-error', data) )
@@ -102,21 +104,58 @@ function registerChannel(){
     ipcMain.on('error', (event, data) => windows.main.webContents.send('error', data) )
 }
 
+// add Shortcuts
+function addShortcuts(){
+    globalShortcut.register('CommandOrControl+C', () => {
+      contents.copy()
+    })
+
+    globalShortcut.register('CommandOrControl+V', () => {
+      contents.paste()
+    })
+}
+
+// create Protocols
+function createProtocols(){
+    return;
+    protocol.registerSchemesAsPrivileged([
+      { scheme: 'http', privileges: { standard: true, bypassCSP: true, allowServiceWorkers: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
+      { scheme: 'https', privileges: { standard: true, bypassCSP: true, allowServiceWorkers: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
+      { scheme: 'mailto', privileges: { standard: true } },
+    ]);
+}
+
+
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
+  console.log("All windows are closed. Kill all processes.")
   // on macOS it is common for applications to stay open until the user explicitly quits
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  // if (process.platform !== 'darwin') {
+  //   app.quit()
+  // }
+
+  app.quit()
 })
 
 // fix quit issue when open windows are left
-app.on('before-quit', () => {
+app.on('before-quit', (event) => {
   console.log("Closing applications")
-  Object.values(windows).map( (win) => {
-    win.removeAllListeners('close')
-    win.close()
-  })
+
+  console.log("Closing Server")
+  windows.server.webContents.send('server', 'stop')
+
+  setTimeout(() => {
+    Object.values(windows).map( (win) => {
+      if(!win){
+          return console.log("No win object")
+      }
+
+      win.removeAllListeners('close')
+      win.close()
+    })
+  }, 500)
+
+  console.log("Application closed.")
 })
 
 //  activate hook
@@ -133,6 +172,9 @@ app.on('ready', () => {
   createServerWindow()
   createInfoWindow()
   createPS4Window()
+  createProtocols()
+
+  // addShortcuts()
 
   menu.createMenu()
   tray.createTray()

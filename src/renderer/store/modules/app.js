@@ -3,6 +3,17 @@ import { make } from 'vuex-pathify'
 export const state = {
     time: 0,
     started: 0,
+
+    config: {
+        lang: 'en',
+        style: 'light',
+        useHB: false,
+        useHBMode: 'legacy',
+        useHBRoot: 'http://api.pkg-zone.com/',
+        showConfigObject: false,
+        enableExternalLinks: false,
+    },
+
     server: {
         ip: '',
         port: '8337',
@@ -10,10 +21,12 @@ export const state = {
         base_path: '',
         auto_scan_on_startup: true,
         scan_subdir: false,
+        prependFullPath: false,
     },
 
     ps4: {
         ip: '',
+        app: 'rpi',
         name: '',
         port: 12800,
         timeout: 2500,
@@ -43,14 +56,28 @@ export const mutations = {
             base_path: '',
             auto_scan_on_startup: true,
             scan_subdir: false,
+            prependFullPath: false,
         }
 
         state.ps4 = {
             ip: '',
+            app: 'rpi',
             name: '',
             port: 12800,
             timeout: 2500,
             update: 2200,
+        }
+    },
+
+    resetConfig(state){
+        state.config = {
+            lang: 'en',
+            style: 'light',
+            useHB: false,
+            useHBMode: 'legacy',
+            useHBRoot: 'http://api.pkg-zone.com/',
+            showConfigObject: false,
+            enableExternalLinks: false,
         }
     },
 
@@ -79,6 +106,10 @@ export const actions = {
       commit('saveServer')
     },
 
+    resetConfig({ commit }){
+      commit('resetConfig')
+    },
+
     // addFiles({ commit, dispatch, state}, payload){
     //     commit('addFiles', payload)
     // }
@@ -100,6 +131,10 @@ export const getters = {
   getServerIP(state){
       return state.server.ip + ':' + state.server.port
   },
+
+  getPrefixFullPath(state){
+      return state.server.prependFullPath
+  }
 
   // overwrite default `items` getter
   // allFiles: state => {

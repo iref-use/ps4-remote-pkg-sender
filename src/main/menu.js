@@ -89,7 +89,7 @@ const help = {
       },
       {
         label: "Troubleshooting Guide",
-        click: () => { shell.openExternal(links.troubleshoot) } 
+        click: () => { shell.openExternal(links.troubleshoot) }
       },
       { label: 'Separator', type: 'separator' },
       {
@@ -105,7 +105,7 @@ const help = {
 
 const template = [
   application,
-  // edit,
+  edit,
   help,
 ];
 

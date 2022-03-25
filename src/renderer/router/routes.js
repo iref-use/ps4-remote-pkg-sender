@@ -23,9 +23,11 @@ export default [
       children: [
           { path: 'home', name: 'home', component: loadPage('Index') },
           { path: 'config', name: 'config', component: loadPage('Config') },
+          { path: 'hb-store', name: 'hb-store', component: loadPage('HBStore') },
           { path: 'server', name: 'server', component: loadPage('Server') },
           { path: 'settings', name: 'settings', component: loadPage('Settings') },
           { path: 'changelog', name: 'changelog', component: loadPage('Changelog') },
+          { path: 'downloads', name: 'download', component: loadPage('Download') },
       ]
   },
 

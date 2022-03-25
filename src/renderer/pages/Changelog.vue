@@ -1,9 +1,69 @@
 <template>
 <div class="">
 
-  <h2 style="margin-bottom: 20px;">Your are on version {{ $root.versions.app }}</h2>
+  <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+
+    <el-timeline-item timestamp="2.6.0" placement="top">
+        <h4>Update</h4>
+        <p>
+          Handle application closing with child process kill after Application Quit. <br>
+          Add AppImage, deb and snap to Linux build command. <br>
+          Fix static asset paths for developing mode. <br>
+          
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.5.2" placement="top">
+        <h4>Application Settings </h4>
+        <p>
+          Added more explicit HB Configuration. <br>
+          Moved scss styling to global css file for full-width inputs. <br>
+          Added RPI OOP to the Download Area. <br>
+          Extend the Settings options to show current Config Object data. <br>
+          Disable direct input for base_path. Now you need to choose it with the file explorer. <br>
+          Adding a custom popup for manual path input. <br>
+          Added rest timer with human readable time. <br>
+          Added css to fix the header, so it stays there when you scroll. <br>
+          Added prefix full path URL to the serving file (CyB1K request), so every file is unique. <br>
+          Added Suport Information on Settings View if anyone want to help and support me. <br>
+          Stop Interval if there is an error. <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.5.1" placement="top">
+        <h4>Further upgrades </h4>
+        <p>
+          Added Download View for RPI and HB-Store. <br>
+          Added Troubleshooting Guide to the Miscs. <br>
+          Fix flashing on Configuration pages when pressing enter (not necesarry). <br>
+          Fix base_path configuration error when opening file explorer and canceling it. <br>
+          Updated Info Window size and content. Applied additional thanks. <br>
+          Added experimental add url endpoint. <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.5.0" placement="top">
+        <h4>Further upgrades </h4>
+        <p>
+          Extend main Window width to 1300px. <br>
+          Add button to remove files from Queue. <br>
+          Disable Queued file operation buttons when no task exists. <br>
+          On Config View change apply to server button to open Server Window. <br>
+          Add Application Settings. <br>
+          Prepare HB-Store tab with prototype content of HB-Store-R2. <br>
+          Create Item Objects from HB-Store package response. <br>
+          Add Table Expandable Row to see all properties of Item Object. <br>
+          Add remove Item from queue button in Queue, Server and HB-Store view. <br>
+          Added Pagination to HB-Store Table view. <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.4.3" placement="top">
+        <h4>Fixing storage race condition </h4>
+        <p>
+          Put storage creation into a while loop until store creates successfully. <br>
+          This prevents the application to crash which was still the case on win11. <br>
+          Lowered the write throttle for the storage to 1000ms instead of 3300ms. <br>
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.4.2" placement="top">
         <h4>Optimizing Request Handling </h4>
         <p>

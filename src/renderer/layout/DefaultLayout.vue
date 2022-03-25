@@ -7,15 +7,24 @@
 
               <el-menu-item index="server" ref="server">Server</el-menu-item>
 
+              <el-menu-item index="hb-store" ref="server" v-if="config.useHB">HB-Store</el-menu-item>
+
               <el-menu-item index="config">Config</el-menu-item>
 
               <el-submenu index="miscs">
                   <template slot="title">Miscs</template>
-                  <el-menu-item @click="openLink(links.ps4_rkg_installer)">PS4 PKG Installer</el-menu-item>
+
+                  <el-menu-item index="downloads">Downloads</el-menu-item>
                   <el-menu-item index="changelog">Changelog</el-menu-item>
+
                   <div style="background: #ddd; height: 1px; margin: 5px 0px" />
-                  <el-menu-item @click="openLink(links.github_repo)">GitHub Repo</el-menu-item>
-                  <el-menu-item @click="openLink(links.report_issue)">Report a Issue</el-menu-item>
+
+                  <el-menu-item @click="$root.open(links.troubleshoot)">Troubleshooting Guide</el-menu-item>
+
+                  <div style="background: #ddd; height: 1px; margin: 5px 0px" />
+
+                  <el-menu-item @click="$root.open(links.github_repo)">GitHub Repo</el-menu-item>
+                  <el-menu-item @click="$root.open(links.report_issue)">Report a Issue</el-menu-item>
               </el-submenu>
 
               <el-menu-item index="settings">Settings</el-menu-item>
@@ -24,6 +33,7 @@
       </el-header>
 
       <el-main>
+          <div style="height: 60px" />
           <router-view />
       </el-main>
 
@@ -31,6 +41,7 @@
 </template>
 
 <script>
+import { get } from 'vuex-pathify'
 import { shell } from 'electron'
 import links from '@/../config/links'
 import { ipcRenderer } from 'electron'
@@ -41,6 +52,10 @@ export default {
   data(){ return {
       links,
   }},
+
+  computed: {
+      config: get('app/config'),
+  },
 
   mounted(){
       this.registerChannel()

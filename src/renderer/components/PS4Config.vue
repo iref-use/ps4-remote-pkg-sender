@@ -5,7 +5,7 @@
   <el-divider content-position="left">PS4 Configuration</el-divider>
 
   <div class="q-pl-md">
-  <el-form :inline="true" label-width="150px" size="mini" label-position="left">
+  <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
       <el-row :gutter="20">
           <el-col :span="10">
               <el-form-item label="PS4 IP">
@@ -15,6 +15,22 @@
 
           <el-col :span="10">
               <el-button size="mini" icon="el-icon-search" :disabled="true">Search for PlayStation in Network</el-button>
+          </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+          <el-col :span="10">
+              <el-form-item label="PS4 App">
+                  <el-select v-model="ps4.app" placeholder="Target App" default-first-option>
+                      <el-option :label="app.value" :value="app.key" :disabled="app.disabled" v-for="app in ps4Apps" :key="app.key" />
+                  </el-select>
+              </el-form-item>
+          </el-col>
+
+          <el-col :span="14">
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+                *Preparation only for now. Choose your Target Application on your PS4
+              </p>
           </el-col>
       </el-row>
 
@@ -61,7 +77,12 @@ export default {
     name: 'PS4Config',
 
     data(){ return {
-
+        ps4Apps: [
+            { value: 'RPI (flatZ)', key: 'rpi', disabled: false },
+            { value: 'RPI (OOP)', key: 'rpiOOP', disabled: true },
+            { value: 'IPI', key: 'ipi', disabled: true },
+            { value: 'HB-Store', key: 'hbstore', disabled: true },
+        ]
     }},
 
     computed: {
@@ -70,6 +91,7 @@ export default {
 
     watch: {
         'ps4.ip'(){ this.save() },
+        'ps4.app'(){ this.save() },
         'ps4.timeout'(){ this.save() },
         'ps4.updateInterval'(){ this.save() },
     },

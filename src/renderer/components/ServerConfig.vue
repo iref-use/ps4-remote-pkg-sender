@@ -4,7 +4,7 @@
   <el-divider content-position="left">Local Server Configuration</el-divider>
 
   <div class="q-pl-md">
-  <el-form :inline="true" label-width="150px" size="mini" label-position="left">
+  <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
       <el-row :gutter="10">
           <el-col :span="10">
               <el-form-item label="Server IP">
@@ -19,7 +19,7 @@
               </el-form-item>
           </el-col>
           <el-col :span="4">
-              <el-button size="mini" style="width: calc(100% - 40px)" @click="$root.sendServer('refresh')"> Apply </el-button>
+              <el-button size="mini" icon="fa fa-server" style="width: calc(100% - 40px)" @click="$root.openServer()"> Server </el-button>
           </el-col>
       </el-row>
 
@@ -45,9 +45,10 @@
 
       <el-row>
           <el-col :span="24">
-              <el-form-item label="PKG Base Path" style="width: 100%;" class="base_path">
-                <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path">
-                    <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
+              <el-form-item label="PKG Base Path" class="base_path">
+                <el-input placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
+                    <el-button slot="append" icon="el-icon-edit" @click.native="enterManuallyBasePath"> Enter manually</el-button>
+                    <el-button slot="append" icon="el-icon-folder" @click.native="selectBasePath"> Click here to Choose the Path</el-button>
                 </el-input>
               </el-form-item>
           </el-col>
@@ -61,6 +62,11 @@
       <div>
           <el-form-item label=" ">
               <el-checkbox v-model="server.scan_subdir">Scan sub directories</el-checkbox>
+          </el-form-item>
+      </div>
+      <div>
+          <el-form-item label=" ">
+              <el-checkbox v-model="server.prependFullPath"> Prefix Serving File URL with full file path </el-checkbox>
           </el-form-item>
       </div>
 
@@ -112,17 +118,21 @@ export default {
         //     handler: throttle(this.save(), 2000)
         // },
         'server.ip'(){ this.save() },
+        'server.port'(){ this.save() },
+        'server.app'(){ this.save() },
+        'server.auto_scan_on_startup'(){ this.save() },
         'server.base_path'(){
             this.save()
             this.loadFiles()
         },
-        'server.port'(){ this.save() },
-        'server.app'(){ this.save() },
-        'server.auto_scan_on_startup'(){ this.save() },
         'server.scan_subdir'(){
             this.save()
             this.loadFiles()
         },
+        'server.prependFullPath'(){
+            this.save()
+            this.loadFiles()
+        }
     },
 
     methods: {
@@ -136,6 +146,8 @@ export default {
 
         selectBasePath(){
             let path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+
+            if(path)
             this.server.base_path = path[0]
         },
 
@@ -148,6 +160,28 @@ export default {
             this.$store.dispatch('app/setServer', this.server)
         },
 
+        enterManuallyBasePath(){
+            this.$prompt('Please input base path', 'Base Path for the Server', {
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+              // inputErrorMessage: 'Invalid Email'
+            }).then(({ value }) => {
+                if(value){
+                    this.server.base_path = value
+                    this.$message({
+                      type: 'success',
+                      message: 'Your base_path has been set to:' + value
+                    });
+                }
+            }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: 'Input canceled'
+                });
+            });
+        }
+
     }
 }
 </script>
@@ -155,9 +189,5 @@ export default {
 <style lang="scss">
 .input_base_path .el-form-item__content {
   width: calc(100% - 175px);
-}
-
-.base_path .el-form-item__content {
-  width: calc(100% - 190px);
 }
 </style>

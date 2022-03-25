@@ -6,7 +6,8 @@
 import './scss/app.scss';
 // import "@fortawesome/fontawesome-free/js/all";
 
-import { remote, ipcRenderer } from 'electron'
+import { remote, ipcRenderer, shell } from 'electron'
+import url from 'url'
 
 export default {
   name: 'App',
@@ -53,11 +54,15 @@ export default {
       },
 
       open(b){
-          require('electron').shell.openExternal(b)
+          shell.openExternal(b)
       },
 
       sendServer(msg){
           ipcRenderer.send('server', msg)
+      },
+
+      openServer(){
+          ipcRenderer.send('server-show')
       },
 
       sendMain(msg){
@@ -68,7 +73,18 @@ export default {
       sendPS4(msg){
           console.log('sending to ps4', msg)
           ipcRenderer.send('ps4', msg)
+      },
+
+      getImage(img){
+          const isDevelopment = process.env.NODE_ENV === 'development';
+          // const staticPath = isDevelopment ? __static : __dirname.replace(/app\.asar$/, 'static');
+
+          if(isDevelopment)
+            return url.resolve(window.location.origin, img);
+
+          return __dirname.replace(/app\.asar$/, 'static') + '/' + img
       }
+
   },
 }
 </script>

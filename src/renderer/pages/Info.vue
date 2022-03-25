@@ -1,6 +1,7 @@
 <template>
 <div>
-    <i class="fab fa-playstation" style="font-size: 40px; margin-bottom: 10px;" />
+    <i class="fab fa-playstation" style="font-size: 40px; margin-bottom: 10px;" v-if="false" />
+
     <h2>Information</h2>
     <br>
     app: {{ $root.versions.app }} <br>
@@ -11,11 +12,23 @@
     runtime: {{ time }} sec's since start <br>
     started: {{ started }} times started <br>
     <br>
-    <br>
-    Thanks to everyone that makes this community great. <br>
-    <br>
-    Special thanks to flatz, Specter, xvortex, CyB1K. <br>
+    <el-divider />
 
+    Thanks to everyone that makes this community great. <br>
+
+    <el-divider />
+
+    Thanks to flatz, Specter, xvortex, <br>
+    and all initial developers for their efford on the scene.<br>
+     <br>
+    Thanks to my primary testers <br>
+    CyB1K, mtnjustme, Masamune3210, hypermist. <br>
+    <br>
+    Thanks to Sam Daniel for the <br>first full fledged Tutorial on windows and mac. <br>
+    <br>
+    Thanks to the awesome community and everyone else on their feedback that I am missing here.
+    If you like what I did and want to support me and my development, don't forget to checkout my ko-fi.
+    <br>
     <el-divider />
 
     Mega thanks to my wife and her patience (or not having it) on

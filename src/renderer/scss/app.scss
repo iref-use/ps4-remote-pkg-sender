@@ -31,3 +31,51 @@ p {
 .q-pl-md {
     padding-left: 40px;
 }
+
+table {
+    .el-button+.el-button {
+        margin-left: 3px;
+    }
+}
+
+.el-header {
+    position: fixed; z-index: 10;
+    top: 0; left: 0; right: 0;
+}
+
+.el-main {
+    position: relative;
+}
+
+.el-dialog {
+    border-radius: 8px !important;
+}
+
+.el-pager li {
+    font-weight: normal;
+}
+
+
+.base_path {
+  width: 100%;
+
+  .el-form-item__content {
+      width: calc(100% - 190px);
+  }
+}
+
+.full-width-150 {
+  width: 100%;
+
+  .el-form-item__content {
+      width: calc(100% - 150px);
+  }
+}
+
+.cursor-pointer {
+    cursor: pointer;    
+}
+
+b {
+  font-weight: bold;
+}
