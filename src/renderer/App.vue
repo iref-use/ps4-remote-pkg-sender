@@ -5,7 +5,7 @@
 <script>
 import './scss/app.scss';
 // import "@fortawesome/fontawesome-free/js/all";
-
+import { get } from 'vuex-pathify'
 import { remote, ipcRenderer, shell } from 'electron'
 import url from 'url'
 
@@ -19,6 +19,20 @@ export default {
       electronWebpack: require('electron-webpack/package.json').version
     }
   }},
+
+  computed: {
+      style: get('app/getStyle'),
+  },
+
+  watch: {
+      style(){
+          this.checkColorStyle()
+      }
+  },
+
+  created(){
+      this.checkColorStyle()
+  },
 
   mounted(){
       this.$store.dispatch('app/started')
@@ -83,6 +97,12 @@ export default {
             return url.resolve(window.location.origin, img);
 
           return __dirname.replace(/app\.asar$/, 'static') + '/' + img
+      },
+
+      checkColorStyle(){
+          document.getElementsByTagName('html')[0].classList.remove('dark')
+          document.getElementsByTagName('html')[0].classList.remove('light')
+          document.getElementsByTagName('html')[0].classList.add(this.style)
       }
 
   },

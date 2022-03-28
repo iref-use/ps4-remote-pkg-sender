@@ -134,6 +134,10 @@ export const getters = {
 
   getPrefixFullPath(state){
       return state.server.prependFullPath
+  },
+
+  getStyle(state){
+      return state.config.style
   }
 
   // overwrite default `items` getter

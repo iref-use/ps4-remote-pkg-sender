@@ -1,0 +1,43 @@
+$bg : #111;
+$text: #eee;
+
+html.dark {
+    background: $bg;
+    color: $text;
+
+    body,
+    .el-menu,
+    .el-table,
+    .el-table tr th,
+    .el-table tr td {
+        background: $bg !important;
+        color: $text !important;
+    }
+
+    .el-menu--horizontal>.el-menu-item.is-active {
+        border-bottom: 2px solid red;
+    }
+
+    .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus,
+    .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover,
+    .el-menu--horizontal>.el-submenu
+    .el-submenu__title:hover {
+        background: red;
+        color: white;
+    }
+
+    .el-menu--horizontal>.el-menu-item,
+    .el-menu--horizontal>.el-submenu .el-submenu__title {
+        color: $text;
+    }
+
+    .el-table,
+    .el-table * {
+        // background: inherit !important;
+        // color: inherit !important;
+    }
+
+    p, .el-form-item__label {
+        color: inherit !important;
+    }
+}

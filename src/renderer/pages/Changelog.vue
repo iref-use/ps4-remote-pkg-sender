@@ -11,6 +11,7 @@
           Handle application closing with child process kill after Application Quit. <br>
           Add AppImage, deb and snap to Linux build command. <br>
           Fix static asset paths for developing mode. <br>
+          Add new Logo for Homebrew Store on the Download View. <br>
           
         </p>
     </el-timeline-item>
