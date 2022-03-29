@@ -12,7 +12,9 @@
           Add AppImage, deb and snap to Linux build command. <br>
           Fix static asset paths for developing mode. <br>
           Add new Logo for Homebrew Store on the Download View. <br>
-          
+          Added Darkmode SCSS styling. <br>
+          Added Style Schematics for the Application Scrollbar. <br>
+
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.5.2" placement="top">

@@ -1,4 +1,24 @@
 
+$scroll-bar-track: #eee;
+$scroll-bar-background: #fff;
+
+// Scroll
+html {
+    scrollbar-color: #999 #333;
+
+    ::-webkit-scrollbar {
+        width: 10px; /* Mostly for vertical scrollbars */
+        height: 5px; /* Mostly for horizontal scrollbars */
+    }
+
+    ::-webkit-scrollbar-thumb { /* Foreground */
+        background: $scroll-bar-track;
+    }
+    ::-webkit-scrollbar-track { /* Background */
+        background: $scroll-bar-background;
+    }
+}
+
 html, body {
     background: #fff;
     color: #666;
@@ -72,6 +92,11 @@ table {
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.el-message-box,
+.el-dialog {
+    border-radius: 8px !important;
 }
 
 b {
