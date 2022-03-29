@@ -195,6 +195,15 @@ html.dark {
     }
 
     // dropdown
+    .el-popper[x-placement^=bottom] .popper_arrow,
+    .popper__arrow {
+        border-bottom-color: $bg3 !important;
+        top: -7px !important;
+
+        &::after {
+            border-bottom-color: $bg !important;
+        }
+    }
     .el-select-dropdown {
         background: $bg !important;
         border-color: $border-color !important;

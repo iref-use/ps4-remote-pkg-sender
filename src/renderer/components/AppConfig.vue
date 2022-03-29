@@ -5,7 +5,6 @@
 
   <div class="q-pl-md">
   <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
-
       <el-row>
         <el-col :span="8">
             <el-form-item label="Language">
@@ -32,37 +31,39 @@
         </el-col>
         <el-col :span="16">
             <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
-              *Preparation only. Will come, soon.
+              Want to have a specific coloring Schema? Create a new Issue with [feature/style]
+            </p>
+        </el-col>
+      </el-row>
+  </el-form>
+  </div>
+
+
+  <el-divider content-position="left">Feature List</el-divider>
+  <div class="q-pl-md">
+  <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
+      <el-row>
+        <el-col :span="8">
+            <el-form-item label="External Links">
+                <el-checkbox v-model="config.enableExternalLinks"> Enable adding external Links </el-checkbox>
+            </el-form-item>
+        </el-col>
+        <el-col :span="16">
+            <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+              Add PKG's to your Processing Center from a external URL (experimental)
             </p>
         </el-col>
       </el-row>
 
-      <div>
-
-      </div>
-
-      <div>
-          <el-form-item label="External Links">
-              <el-checkbox v-model="config.enableExternalLinks"> Enable adding external Links </el-checkbox>
-          </el-form-item>
-      </div>
-
       <el-row>
           <el-col :span="8">
               <el-form-item label="HB-Store">
-                  <el-checkbox v-model="config.useHB"> Activate HB-Store </el-checkbox>
+                  <el-checkbox v-model="config.useHB"> Activate HB-Store Tab</el-checkbox>
               </el-form-item>
           </el-col>
-
-          <el-col :span="8" v-if="config.useHB">
-              <el-form-item label="HB-Store CDN" class="full-width full-width-150">
-                  <el-input v-model="config.useHBRoot" style="width: 100%;"> </el-input>
-              </el-form-item>
-          </el-col>
-
-          <el-col :span="8" v-if="config.useHB">
-              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px; padding-left: 30px;">
-                  Needs to end with slash (e.g. domain.com<b>/</b>)
+          <el-col :span="16">
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+                Access to the official HB-Store from pkg-zone.com directly
               </p>
           </el-col>
       </el-row>
@@ -77,9 +78,28 @@
           </el-col>
 
           <el-col :span="16">
-              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
-                  Legacy Mode is for the current working HB-Store API. Refactored one for the new version (on staging yet).<br>
-                  Info: Once the new version is out you can access to more features on the HB-Store. <br>
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'legacy'">
+                  <b>Legacy Mode</b> is for the current working HB-Store API <br>
+              </p>
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'refactored'">
+                  <b>Refactored</b> one allows you to search and see your favorite apps <br>
+              </p>
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'custom'">
+                  <b>Custom</b> allows you to gather information from your own cdn store hosting <br>
+              </p>
+          </el-col>
+      </el-row>
+
+      <el-row v-if="config.useHB && config.useHBMode == 'custom'">
+          <el-col :span="8">
+              <el-form-item label="HB-Store CDN" class="full-width full-width-150">
+                  <el-input v-model="config.useHBRoot" style="width: 100%;"> </el-input>
+              </el-form-item>
+          </el-col>
+
+          <el-col :span="16">
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px; padding-left: 30px;">
+                  Must end with slash (e.g. domain.com<b>/</b>)
               </p>
           </el-col>
       </el-row>
@@ -123,6 +143,7 @@ export default {
         HBModes: [
             { key: 'legacy', value: 'Legacy', disabled: false },
             { key: 'refactored', value: 'Refactored', disabled: true },
+            { key: 'custom', value: 'Custom CDN', disabled: false },
         ]
     }},
 

@@ -14,7 +14,8 @@
           Add new Logo for Homebrew Store on the Download View. <br>
           Added Darkmode SCSS styling. <br>
           Added Style Schematics for the Application Scrollbar. <br>
-
+          Update Settings View with proper content splitting. <br>
+          Prepare HB-Store Settings for legacy, refactored and custom CDN. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.5.2" placement="top">
