@@ -1,7 +1,7 @@
 <template>
 <div class='hb_store'>
 
-  <h2>HB-Store R2</h2>
+  <h2>HB-Store R2 (legacy)</h2>
 
   <div v-if="view == 'table'">
       <el-table :data="packages" class="file">
@@ -198,7 +198,8 @@ export default {
         },
 
         check(url){
-            window.open(url)
+            this.$root.openWithAutoclose(url)
+            // window.open(url)
         },
 
     },

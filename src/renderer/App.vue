@@ -71,6 +71,10 @@ export default {
           shell.openExternal(b)
       },
 
+      openWithAutoclose(url){
+          window.open(url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')
+      },
+
       sendServer(msg){
           ipcRenderer.send('server', msg)
       },

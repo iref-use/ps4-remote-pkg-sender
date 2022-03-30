@@ -152,7 +152,7 @@ export default {
         },
 
         check(url){
-            const child = window.open(url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')
+            this.$root.openWithAutoclose(url)
         },
 
         run(){
