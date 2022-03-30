@@ -39,7 +39,7 @@
             </template>
         </el-table-column>
 
-        <el-table-column prop="cusa" label="CUSA" width="110" align="center" v-if="showCUSA">
+        <el-table-column prop="cusa" label="Title ID" width="110" align="center" v-if="showCUSA">
             <template slot-scope="scope">
                 <small style="font-size:12px">{{ scope.row.cusa }}</small>
             </template>
