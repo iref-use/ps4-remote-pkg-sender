@@ -9,7 +9,8 @@
         <h4>Update</h4>
         <p>
           Added autoclose function to close the Downloading window. <br>
-
+          Refactor HB Store Legacy Component. <br>
+          
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.6.0" placement="top">
