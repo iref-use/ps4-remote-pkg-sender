@@ -102,6 +102,7 @@ export default {
       checkColorStyle(){
           document.getElementsByTagName('html')[0].classList.remove('dark')
           document.getElementsByTagName('html')[0].classList.remove('light')
+          document.getElementsByTagName('html')[0].classList.remove('pureblack')
           document.getElementsByTagName('html')[0].classList.add(this.style)
       }
 

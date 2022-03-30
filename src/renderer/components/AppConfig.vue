@@ -26,6 +26,7 @@
               <el-select v-model="config.style" placeholder="Style" default-first-option>
                   <el-option label="Light Mode" value="light" />
                   <el-option label="Dark Mode" value="dark" />
+                  <el-option label="Pure Black" value="pureblack" />
               </el-select>
             </el-form-item>
         </el-col>
