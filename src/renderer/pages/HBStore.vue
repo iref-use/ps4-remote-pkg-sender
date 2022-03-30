@@ -197,6 +197,21 @@ export default {
             }
         },
 
+        isInstalled(file){
+            this.$ps4.isInstalled(file)
+                    .then( ({ data }) => {
+                        if(data.exists == true)
+                          file.status = 'installed'
+
+                        let { exists, size, type } = data
+                        this.log(data.message, { exists, size, type })
+                        this.$message({ message: data.message, type: data.type })
+                    })
+                    .catch( e => {
+                        console.log(e)
+                    })
+        },
+
         check(url){
             this.$root.openWithAutoclose(url)
             // window.open(url)
