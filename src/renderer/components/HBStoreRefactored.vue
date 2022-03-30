@@ -1,12 +1,13 @@
 <template>
 <div class='hb_store'>
 
+
   <el-row style="margin-bottom: 10px;">
     <el-col :span="20" style="display: flex">
-        <h2 style="margin:0; line-height: 32px;">HB-Store R2 (legacy)</h2>
+        <h2 style="margin:0; line-height: 32px;">HB-Store R2 (refactored)</h2>
     </el-col>
     <el-col :span="4">
-
+        <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
     </el-col>
   </el-row>
 
@@ -111,7 +112,7 @@
 import { get } from 'vuex-pathify'
 
 export default {
-    name: 'HBStoreLegacy',
+    name: 'HBStoreRefactored',
 
     data(){ return {
         debug: false,
