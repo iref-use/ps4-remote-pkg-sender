@@ -81,7 +81,7 @@ let o = {
 
     createItem(item, folder=''){
         const shouldPrefix  = store.getters['app/getPrefixFullPath']
-        
+
         // console.log(":: fs | Create File Item", item)
         let isFile = this.isFile(item)
 
@@ -133,7 +133,7 @@ let o = {
         }
     },
 
-    createItemFromHB(item, root=''){
+    createItemFromHBLegacy(item, root=''){
         let fullPath = root + 'dl.php?tid=' + item.id
         let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
         let fileName = item.name + ' (version '+item.version+')'

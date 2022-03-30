@@ -127,7 +127,7 @@ export default {
             let a = []
 
             // map hb-store package to item object
-            p.map(i => a.push(this.$fs.createItemFromHB(i, this.config.useHBRoot)) )
+            p.map(i => a.push(this.$fs.createItemFromHBLegacy(i, this.config.useHBRoot)) )
 
             // check if item is in queue
             a.map(file => {
