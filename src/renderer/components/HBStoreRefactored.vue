@@ -2,12 +2,27 @@
 <div class='hb_store'>
 
 
-  <el-row style="margin-bottom: 10px;">
-    <el-col :span="20" style="display: flex">
-        <h2 style="margin:0; line-height: 32px;">HB-Store R2 (refactored)</h2>
+  <el-row style="margin-bottom: 20px;" class="top">
+    <el-col :span="16">
+        <h2 style="margin:0; line-height: 32px;" v-if="false">HB-Store R2 (refactored)</h2>
+
+        <el-button-group style="margin-right: auto; margin-left: 10px;">
+            <el-button size="small" :type="isCategory('all')" @click="setCategory('all')"> All </el-button>
+            <el-button size="small" :type="isCategory('media')" @click="setCategory('media')"> Multimedia </el-button>
+            <el-button size="small" :type="isCategory('game')" @click="setCategory('game')"> HB Game </el-button>
+            <el-button size="small" :type="isCategory('utility')" @click="setCategory('utility')"> Utility </el-button>
+            <el-button size="small" :type="isCategory('emulator')" @click="setCategory('emulator')"> Emulator </el-button>
+        </el-button-group>
     </el-col>
-    <el-col :span="4">
-        <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
+    <el-col :span="8">
+        <div style="display: flex; ">
+            <el-button-group style="margin-right: 10px; margin-left: auto;">
+                <el-button size="small" :type="isOrder('')" @click="setOrder('')"> A-Z </el-button>
+                <el-button size="small" :type="isOrder('created_at')" @click="setOrder('created_at')"> Latest </el-button>
+                <el-button size="small" :type="isOrder('downloads')" @click="setOrder('downloads')"> Popular </el-button>
+            </el-button-group>
+            <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" style="width: 200px"/>
+        </div>
     </el-col>
   </el-row>
 
@@ -125,6 +140,11 @@ export default {
             last_page: 10,
             data: [],
         },
+
+        params: {
+            category: 'all',
+            orderBy: 'created_at',
+        },
     }},
 
     watch: {
@@ -133,6 +153,12 @@ export default {
         },
         search(){
             this.load(this.page)
+        },
+        params: {
+            deep: true,
+            handler(){
+                this.load(this.page)
+            }
         },
     },
 
@@ -165,7 +191,7 @@ export default {
 
     methods: {
         load(page=1){
-            let url = this.config.useHBRoot + "pkg/all?per_page="+this.perPage+"&page="+page+"&search="+this.search+"&category=all&orderBy=downloads"
+            let url = this.config.useHBRoot + "pkg/all?per_page="+this.perPage+"&page="+page+"&search="+this.search+"&category="+this.params.category+"&orderBy="+this.params.orderBy
 
             this.$axios.get(url)
                 .then( ({ data }) => {
@@ -222,6 +248,22 @@ export default {
 
         check(url){
             this.$root.openWithAutoclose(url)
+        },
+
+        setCategory(c){
+            this.params.category = c
+        },
+
+        setOrder(o){
+            this.params.orderBy = o
+        },
+
+        isCategory(c){
+            return this.params.category == c ? 'info' : ''
+        },
+
+        isOrder(o){
+            return this.params.orderBy == o ? 'info' : ''
         },
 
     },

@@ -32,4 +32,26 @@
         }
     }
 
+
+
+}
+
+// darkmode fix
+html.dark {
+    .top {
+        .el-button--info {
+            background-color: #333 !important;
+            // border-color: #909399 !important;
+        }
+    }
+}
+
+// pureblack fix
+html.pureblack {
+    .top {
+        .el-button--info {
+            background-color: #1a1a1a !important;
+            // border-color: #909399 !important;
+        }
+    }
 }

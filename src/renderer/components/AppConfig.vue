@@ -59,7 +59,7 @@
       <el-row>
           <el-col :span="8">
               <el-form-item label="HB-Store">
-                  <el-checkbox v-model="config.useHB"> Activate HB-Store Tab</el-checkbox>
+                  <el-checkbox v-model="config.useHB"> Enable HB-Store Tab</el-checkbox>
               </el-form-item>
           </el-col>
           <el-col :span="16">
@@ -83,10 +83,10 @@
                   <b>Legacy Mode</b> is for the current working HB-Store API <br>
               </p>
               <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'refactored'">
-                  <b>Refactored</b> one allows you to search and see your favorite apps <br>
+                  <b>Refactored Mode</b> allows you to search and see your favorite apps <br>
               </p>
               <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'custom'">
-                  <b>Custom</b> allows you to gather information from your own cdn store hosting <br>
+                  <b>Custom Mode</b> allows you to gather information from your own cdn store hosting <br>
               </p>
           </el-col>
       </el-row>
@@ -144,7 +144,7 @@ export default {
         HBModes: [
             { key: 'legacy', value: 'Legacy', disabled: false },
             { key: 'refactored', value: 'Refactored', disabled: false },
-            { key: 'custom', value: 'Custom CDN', disabled: false },
+            { key: 'custom', value: 'Custom CDN', disabled: true },
         ]
     }},
 
