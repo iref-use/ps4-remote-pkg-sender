@@ -93,6 +93,23 @@ export default {
         return window
     },
 
+    autocloseAfterDownload(window){
+        // window.webContents.on('new-window', (createEvent, contents) => {
+        //     console.log("Web content created")
+        //     console.log(createEvent.sender)
+        //     console.log(contents)
+        //
+        //     let newWindow = BrowserWindow.fromWebContents(createEvent.sender)
+        //     console.log(newWindow)
+        //     newWindow.setContentSize(10,10)
+        // })
+        window.webContents.session.on('will-download', (event, item, webContents) => {
+           item.once('done', (event, state) => {
+              BrowserWindow.fromWebContents(webContents).close();
+           });
+        });
+    }
+
     getIconPath(){
         return path.join(__static, 'assets/ps_icon_white.png')
     },

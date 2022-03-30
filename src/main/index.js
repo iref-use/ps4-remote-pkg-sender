@@ -38,6 +38,9 @@ function createMainWindow() {
   window.on('closed', () => { windows.main = null })
   // window.webContents.openDevTools()
 
+  // handle download child windows and autoclose
+  helper.autocloseAfterDownload(window)
+
   windows.main = window
 
   // for hard debugging

@@ -5,8 +5,15 @@
 
   <el-timeline>
 
-    <el-timeline-item timestamp="2.6.0" placement="top">
+    <el-timeline-item timestamp="2.6.1" placement="top">
         <h4>Update</h4>
+        <p>
+          Added autoclose function to close the Downloading window. <br>
+
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.6.0" placement="top">
+        <h4>Update & Darkmode</h4>
         <p>
           Handle application closing with child process kill after Application Quit. <br>
           Add AppImage, deb and snap to Linux build command. <br>
