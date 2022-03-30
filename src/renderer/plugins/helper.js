@@ -40,16 +40,16 @@ let helper = {
     },
 
     getAppStoreType(type=''){
-        if(type == 'HB Game' || type == 'Game')
+        if(type == 'game' || type == 'hb game')
           return 'success'
 
-        if(type == 'Media')
+        if(type == 'media')
           return 'primary'
 
-        if(type == 'Utility')
+        if(type == 'utility')
           return 'warning'
 
-        if(type == 'Dev Menu')
+        if(type == 'emulator')
           return 'danger'
 
         return ''

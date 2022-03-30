@@ -5,6 +5,7 @@ $bg5: #555;
 $text: #ccc;
 $text2: #bbb;
 $text-disabled: #333;
+$text-darken: #555;
 
 $border-color: #333;
 
@@ -46,6 +47,10 @@ html.dark {
 
     [disabled='disabled']{
         color: #555 !important;
+    }
+
+    .text-darken {
+        color: $text-darken;
     }
 
     body,

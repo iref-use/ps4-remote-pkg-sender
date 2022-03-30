@@ -160,6 +160,31 @@ let o = {
         }
     },
 
+    createItemFromHBRefactored(item, root=''){
+        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
+        let size = item.size ? item.size : 'n/a'
+
+        return {
+            name: item.name,
+            status: 'remote',
+            percentage: 0,
+            rest: 0,
+            task: '',
+            ext: 'pkg', // path.extname(item),
+            path: item.file,
+            url: item.file,
+            type: item.type,
+            cusa: item.cusa,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size, // stats.size,
+            size: size,
+            logs: [],
+            // stats,
+            data: item
+        }
+    },
+
     createItemFromURL(item){
         let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
         let fullPath = item.url

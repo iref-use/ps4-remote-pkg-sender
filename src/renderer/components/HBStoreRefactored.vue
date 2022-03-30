@@ -16,20 +16,19 @@
       <el-table :data="packages" class="file">
           <el-table-column type="expand">
               <template slot-scope="scope">
-                  <el-tag size="small" type="info" style="margin-bottom: 5px"> Review Stars: {{ scope.row.data.ReviewStars }} </el-tag>
-                  <el-tag size="small" type="info" style="margin-bottom: 5px"> Author: {{ scope.row.data.Author }} </el-tag>
-                  <el-tag size="small" type="info" style="margin-bottom: 5px" :type="$helper.getAppStoreType(scope.row.data.apptype)"> Type: {{ scope.row.data.apptype }} </el-tag>
-                  <el-tag size="small" type="info" style="margin-bottom: 5px"> PV: {{ scope.row.data.pv }} </el-tag>
-                  <el-tag size="small" type="info" style="margin-bottom: 5px"> Release Date: {{ scope.row.data.releaseddate }} </el-tag>
+                  <el-tag size="small" type="info" style="margin-bottom: 5px"> Review Stars: {{ scope.row.data.average_rating }} </el-tag>
+                  <el-tag size="small" type="info" style="margin-bottom: 5px"> Author: {{ scope.row.data.author }} </el-tag>
+                  <el-tag size="small" type="info" style="margin-bottom: 5px" :type="$helper.getAppStoreType(scope.row.data.type)"> Type: {{ scope.row.data.type }} </el-tag>
+                  <el-tag size="small" type="info" style="margin-bottom: 5px"> PV: {{ scope.row.data.pv.join(', ') }} </el-tag>
+                  <el-tag size="small" type="info" style="margin-bottom: 5px"> Release Date: {{ scope.row.data.released_at }} </el-tag>
                   <br>
 
                   <el-tag size="small" type="info" style="margin-bottom: 5px"> Name: {{ scope.row.data.name }} </el-tag> <br>
-                  <div class="el-tag el-tag--info el-tag--small" style="height: auto; margin-bottom: 3px;">
+                  <div class="el-tag el-tag--info el-tag--small" style="height: auto; margin-bottom: 5px;">
                       <div style='display: flex;'>
-                          <div style="margin-right: 5px; ">Description: </div>
+                          <div style="margin-right: 10px; ">Description: </div>
                           <div>
-                            <div v-if="scope.row.data.desc_1">{{ scope.row.data.desc_1 }} </div>
-                            <div v-if="scope.row.data.desc_2">{{ scope.row.data.desc_2 }} </div>
+                              <div v-for="(desc,i) in scope.row.data.description" :key="'desc_' + i">{{ desc }}</div>
                           </div>
                       </div>
                   </div>
@@ -49,14 +48,14 @@
           <el-table-column prop="name" label="Name">
               <template slot-scope="scope">
                   {{ scope.row.name }} <small>(v{{ scope.row.data.version}})</small>
-                  <el-tag size="small" :type="$helper.getAppStoreType(scope.row.data.apptype)" style="margin-bottom: 3px;">{{ scope.row.data.apptype }}</el-tag>
+                  <el-tag size="small" :type="$helper.getAppStoreType(scope.row.data.type)" style="margin-left: 10px; margin-bottom: 3px;">{{ scope.row.data.type }}</el-tag>
                   <br>
-                  <el-divider style="margin: 3px 0px" />
-                  {{ scope.row.data.desc }} <br>
+                  <el-divider style="margin: 3px 0px" v-if="false" />
+                  <div v-for="(desc,i) in scope.row.data.description" :key="'desc_' + i" class="text-darken">{{ desc }}</div>
               </template>
           </el-table-column>
 
-          <el-table-column prop="cusa" label="CUSA" width="110" align="center">
+          <el-table-column prop="cusa" label="Title ID" width="110" align="center">
               <template slot-scope="scope">
                   <small style="font-size:12px">{{ scope.row.cusa }}</small>
               </template>
@@ -118,27 +117,35 @@ export default {
         debug: false,
         view: 'table',
         page: 1,
-        total: 0,
         perPage: 15,
-        data: null,
+        search: '',
+
+        data: {
+            current_page: 1,
+            last_page: 10,
+            data: [],
+        },
     }},
 
     watch: {
         page(p){
             this.load(p)
         },
+        search(){
+            this.load(this.page)
+        },
     },
 
     computed: {
         config: get('app/config'),
         packages(){
-            let p = this.data ? this.data.packages : []
+            let p = this.data ? this.data.data : []
             let a = []
 
             // map hb-store package to item object
-            p.map(i => a.push(this.$fs.createItemFromHBLegacy(i, this.config.useHBRoot)) )
-
-            // check if item is in queue
+            p.map(i => a.push(this.$fs.createItemFromHBRefactored(i, this.config.useHBRoot)) )
+            //
+            // // check if item is in queue
             a.map(file => {
                 let fileInQueue = this.$store.getters['queue/isInQueue'](file)
                 if(fileInQueue)
@@ -147,31 +154,23 @@ export default {
 
             return a
         },
-
-        pages(){
-            return this.total ? this.total / this.perPage : 1
+        total(){
+            return this.data ? this.data.total : 1
         }
     },
 
     mounted(){
-        this.getCount()
         this.load()
     },
 
     methods: {
-        getCount(){
-            this.$axios.get(this.config.useHBRoot + 'api.php?count=true')
-                .then( ({ data }) => {
-                    this.total = parseInt(data.number_rows)
-                })
-                .catch( e => console.log(e) )
-        },
-
         load(page=1){
-            this.$axios.get(this.config.useHBRoot + 'api.php?page='+this.page)
+            let url = this.config.useHBRoot + "pkg/all?per_page="+this.perPage+"&page="+page+"&search="+this.search+"&category=all&orderBy=downloads"
+
+            this.$axios.get(url)
                 .then( ({ data }) => {
                     console.log(data)
-                    this.data = data
+                    this.data = data.items
                 })
                 .catch( e => console.log(e) )
         },
@@ -223,7 +222,6 @@ export default {
 
         check(url){
             this.$root.openWithAutoclose(url)
-            // window.open(url)
         },
 
     },

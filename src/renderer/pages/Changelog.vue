@@ -10,7 +10,10 @@
         <p>
           Added autoclose function to close the Downloading window. <br>
           Refactor HB Store Legacy Component. <br>
-          
+          Create new HB Store Component for the refactored version. <br>
+          Map new HB Store Items data to the app Data. <br>
+          Add coloring schema for the new categories. <br>
+
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.6.0" placement="top">
