@@ -162,7 +162,7 @@ let o = {
 
     createItemFromHBRefactored(item, root=''){
         let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
-        let size = item.size ? item.size : 'n/a'
+        let size = item.size ? this.formatBytes(item.size) : 'n/a'
 
         return {
             name: item.name,
