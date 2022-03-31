@@ -50,7 +50,7 @@
                   {{ scope.row.name }} <small>(v{{ scope.row.data.version}})</small>
                   <el-tag size="small" :type="$helper.getAppStoreType(scope.row.data.apptype)" style="margin-bottom: 3px;">{{ scope.row.data.apptype }}</el-tag>
                   <br>
-                  <el-divider style="margin: 3px 0px" />
+                  <el-divider style="margin: 3px 0px" v-if="false" />
                   {{ scope.row.data.desc }} <br>
               </template>
           </el-table-column>
