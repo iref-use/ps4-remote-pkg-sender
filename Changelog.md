@@ -1,15 +1,25 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.6.1
+####HB-Store direct install  
+        Added autoclose function to close the Downloading window.  
+        Refactor HB Store Legacy Component.  
+        Create new HB Store Component for the refactored version.  
+        Map new HB Store Items data to the app Data.  
+        Add coloring schema for the new categories.  
+        Fix hb-store item direct install.  
+        Update Changelog and Troubleshooting Guide.  
+
 ### v2.6.0
-####Update & Darkmode
-        Handle application closing with child process kill after Application Quit. <br>
-        Add AppImage, deb and snap to Linux build command. <br>
-        Fix static asset paths for developing mode. <br>
-        Add new Logo for Homebrew Store on the Download View. <br>
-        Added Darkmode SCSS styling. <br>
-        Added Style Schematics for the Application Scrollbar. <br>
-        Update Settings View with proper content splitting. <br>
-        Prepare HB-Store Settings for legacy, refactored and custom CDN. <br>
+####Update & Darkmode  
+        Handle application closing with child process kill after Application Quit.  
+        Add AppImage, deb and snap to Linux build command.  
+        Fix static asset paths for developing mode.  
+        Add new Logo for Homebrew Store on the Download View.  
+        Added Darkmode SCSS styling.  
+        Added Style Schematics for the Application Scrollbar.  
+        Update Settings View with proper content splitting.  
+        Prepare HB-Store Settings for legacy, refactored and custom CDN.  
 
 ### v2.5.2
 ####Application Settings

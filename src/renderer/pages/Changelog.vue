@@ -5,14 +5,15 @@
 
   <el-timeline>
     <el-timeline-item timestamp="2.6.1" placement="top">
-        <h4>Update</h4>
+        <h4>HB-Store direct install</h4>
         <p>
           Added autoclose function to close the Downloading window. <br>
           Refactor HB Store Legacy Component. <br>
           Create new HB Store Component for the refactored version. <br>
           Map new HB Store Items data to the app Data. <br>
           Add coloring schema for the new categories. <br>
-          Fix hb-store item direct install. <br>      
+          Fix hb-store item direct install. <br>
+          Update Changelog and Troubleshooting Guide. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.6.0" placement="top">

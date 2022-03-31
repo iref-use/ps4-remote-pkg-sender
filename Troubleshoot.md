@@ -95,6 +95,17 @@ If you see that your server is on error, please check the Server Window for the 
 It will give you a specific error message what happend.  Mostly it is a blocked port.  
 Just change the Port and press apply, refresh or just i/o button to close and start the server.  
 
+## Can't see HB-Store Tab  
+You have to activate that feature first on Settings below the feature list.  
+
+## Legacy or Refactored HB-Store Mode?  
+Legacy Mode is still there if you have a custom server with the "old cdn host".  
+Refactored Mode (recommended) implements the new Store Site API and have multiple  
+benefits besides filtering by category and search value.  
+
+##I lost the main Store API CDN  
+Put in `http://api.pkg-zone.com/` (must end with / at the end)  
+
 ## Cannot Install HB-Store items directly  
 Until the refactored version of the HB-Store goes public you can download the App,  
 put it on your base_path folder and install it on the regular way.  
