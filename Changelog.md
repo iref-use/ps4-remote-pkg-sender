@@ -1,7 +1,7 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
 ### v2.6.1
-####HB-Store direct install  
+#### HB-Store direct install  
         Added autoclose function to close the Downloading window.  
         Refactor HB Store Legacy Component.  
         Create new HB Store Component for the refactored version.  
@@ -11,7 +11,7 @@
         Update Changelog and Troubleshooting Guide.  
 
 ### v2.6.0
-####Update & Darkmode  
+#### Update & Darkmode  
         Handle application closing with child process kill after Application Quit.  
         Add AppImage, deb and snap to Linux build command.  
         Fix static asset paths for developing mode.  
@@ -22,7 +22,7 @@
         Prepare HB-Store Settings for legacy, refactored and custom CDN.  
 
 ### v2.5.2
-####Application Settings
+#### Application Settings
         Added more explicit HB Configuration.  
         Moved scss styling to global css file for full-width inputs.  
         Added RPI OOP to the Download Area.  
@@ -35,7 +35,7 @@
         Added Suport Information on Settings View if anyone want to help and support me.  
 
 ### v2.5.1
-####Further upgrades
+#### Further upgrades
         Added Download View for RPI and HB-Store.  
         Added Troubleshooting Guide to the Miscs.  
         Fix flashing on Configuration pages when pressing enter (not necesarry).  
@@ -45,7 +45,7 @@
 
 
 ### v2.5.0
-####Further upgrades
+#### Further upgrades
         Extend main Window width to 1300px.  
         Add button to remove files from Queue.  
         Disable Queued file operation buttons when no task exists.  

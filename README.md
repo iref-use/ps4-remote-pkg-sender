@@ -37,6 +37,7 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * Added Seperate Changelog file and Troubleshooting Guide
 * Add a FAQ and Troubleshooting Area
 * Configuration values for timeout and heartbeat  
+* Implement HB Store and direct install fPKG's  
 
 ## ToDo's for the future
 * Search your PS4 automatically in the current network (WIP)  
@@ -45,7 +46,6 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * Import / Export Configuration  
 * Serve as global Server Host and provide Server Files over Internet   
 * Save PS4 (local, wlan, wan, internet) and make them chooseable  
-* Implement HB Store and install fPKG's  
 * Read CUSA from file hex values instead of title  
 * Preview CUSAxxxxx Game title covers  
 
