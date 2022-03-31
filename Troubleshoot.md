@@ -103,7 +103,7 @@ Legacy Mode is still there if you have a custom server with the "old cdn host".
 Refactored Mode (recommended) implements the new Store Site API and have multiple  
 benefits besides filtering by category and search value.  
 
-##I lost the main Store API CDN  
+## I lost the main Store API CDN  
 Put in `http://api.pkg-zone.com/` (must end with / at the end)  
 
 ## Cannot Install HB-Store items directly  
