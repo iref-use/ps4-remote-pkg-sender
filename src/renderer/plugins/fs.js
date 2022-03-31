@@ -163,6 +163,9 @@ let o = {
     createItemFromHBRefactored(item, root=''){
         let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
         let size = item.size ? this.formatBytes(item.size) : 'n/a'
+        // patch file url to stream
+        // let filePath = item.file.replace('attachments/', 'attachments/stream/')
+        let filePath = item.file.replace('https', 'http')
 
         return {
             name: item.name,
@@ -171,8 +174,8 @@ let o = {
             rest: 0,
             task: '',
             ext: 'pkg', // path.extname(item),
-            path: item.file,
-            url: item.file,
+            path: filePath,
+            url: filePath,
             type: item.type,
             cusa: item.cusa,
             isFile: true,

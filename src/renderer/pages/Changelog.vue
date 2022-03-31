@@ -4,7 +4,6 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
-
     <el-timeline-item timestamp="2.6.1" placement="top">
         <h4>Update</h4>
         <p>
@@ -13,7 +12,7 @@
           Create new HB Store Component for the refactored version. <br>
           Map new HB Store Items data to the app Data. <br>
           Add coloring schema for the new categories. <br>
-
+          Fix hb-store item direct install. <br>      
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.6.0" placement="top">

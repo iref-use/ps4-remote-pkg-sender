@@ -91,7 +91,7 @@
           </el-col>
       </el-row>
 
-      <el-row v-if="config.useHB && config.useHBMode == 'custom'">
+      <el-row v-if="config.useHB && config.useHBMode">
           <el-col :span="8">
               <el-form-item label="HB-Store CDN" class="full-width full-width-150">
                   <el-input v-model="config.useHBRoot" style="width: 100%;"> </el-input>

@@ -222,6 +222,8 @@ export default {
 
           this.clearInterval(file)
 
+          this.log("install request", { type : 'direct', packages: [file.url] })
+          
           this.$ps4.install(file)
               .then( ({ data }) => {
                   this.log(file.name + ' install', data)
@@ -455,10 +457,6 @@ export default {
 
       getRandomInt(max) {
           return Math.floor(Math.random() * max);
-      },
-
-      check(url){
-          window.open(url)
       },
 
       resetAll(){

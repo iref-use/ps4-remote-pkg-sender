@@ -215,6 +215,7 @@ let ps4 = {
             return console.log("Cannot find path for file " + file.name )
         }
 
+        console.log("Install Request", { type : 'direct', packages: [file.url] })
         return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.url] }, { timeout: this.getTimeout() })
     },
 
