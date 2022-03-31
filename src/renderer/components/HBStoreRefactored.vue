@@ -123,6 +123,7 @@
 </template>
 
 <script>
+import { debounce } from 'debounce'
 import { get } from 'vuex-pathify'
 
 export default {
@@ -157,7 +158,7 @@ export default {
         params: {
             deep: true,
             handler(){
-                this.load(this.page)
+                debounce(() => this.load(this.page), 2000)
             }
         },
     },

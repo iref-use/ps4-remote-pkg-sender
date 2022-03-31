@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "debounce": "^1.2.1",
     "express": "^4.17.1",
     "os": "^0.1.2",
     "source-map-support": "^0.5.16",
@@ -57,16 +58,26 @@
       "target": [
         {
           "target": "zip",
-          "arch": ["x64", "ia32"]
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         },
         {
           "target": "portable",
-          "arch": ["x64", "ia32"]
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         }
       ]
     },
     "linux": {
-      "target": ["AppImage", "deb", "snap"]
+      "target": [
+        "AppImage",
+        "deb",
+        "snap"
+      ]
     },
     "portable": {
       "artifactName": "${productName}.exe",
