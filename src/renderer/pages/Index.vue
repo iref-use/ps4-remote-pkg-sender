@@ -36,6 +36,8 @@
 
         <el-button size="small" icon="el-icon-link" @click="openAddFileDialog" v-if="app.config.enableExternalLinks"> Add URL </el-button>
         <el-button size="small" icon="el-icon-sync" :type="queueScanner ? 'success active' : ' active'" @click="toggleQueueScanner"> Queue Scanner </el-button>
+
+        <el-button size="small" icon="fa fa-play" @click="handleQueueScannerNextItem"> Autostart </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -250,17 +252,17 @@ export default {
 
           this.clearInterval(file)
 
-          this.log("install request", { type : 'direct', packages: [file.url] })
+          this.log("Install Request", { type : 'direct', packages: [file.url] })
 
           this.$ps4.install(file)
               .then( ({ data }) => {
                   this.log(file.name + ' install', data)
 
-                  let example =   {
-                    "status": "success",
-                    "task_id": 268435806,
-                    "title": "Tin & Kuna"
-                  }
+                  // let example =   {
+                  //   "status": "success",
+                  //   "task_id": 268435806,
+                  //   "title": "Tin & Kuna"
+                  // }
 
                   if( data.status == 'success'){
                       this.$store.dispatch('queue/addTask', data)
@@ -362,21 +364,21 @@ export default {
                   .then( ({ data }) => {
                       console.log(file.name + " get task info ", data)
 
-                      let example = {
-                        "status": "success",
-                        "bits": 394,
-                        "error": 0,
-                        "length": 2667446272,
-                        "transferred": 236060672,
-                        "length_total": 2667446272,
-                        "transferred_total": 236060672,
-                        "num_index": 1,
-                        "num_total": 1,
-                        "rest_sec": 1116,
-                        "rest_sec_total": 1116,
-                        "preparing_percent": 100,
-                        "local_copy_percent": 0
-                      }
+                      // let example = {
+                      //   "status": "success",
+                      //   "bits": 394,
+                      //   "error": 0,
+                      //   "length": 2667446272,
+                      //   "transferred": 236060672,
+                      //   "length_total": 2667446272,
+                      //   "transferred_total": 236060672,
+                      //   "num_index": 1,
+                      //   "num_total": 1,
+                      //   "rest_sec": 1116,
+                      //   "rest_sec_total": 1116,
+                      //   "preparing_percent": 100,
+                      //   "local_copy_percent": 0
+                      // }
 
                       if(data.status && data.status == 'success'){
                           let length = Math.round(parseInt(data.length))
@@ -481,6 +483,10 @@ export default {
 
           this.setTask(file, '')
           this.$store.dispatch('queue/installed', file)
+
+          // queue scanner hook
+          if(this.queueScanner)
+              this.handleQueueScannerNextItem()
       },
 
       getRandomInt(max) {
@@ -540,7 +546,6 @@ export default {
       },
 
       openAddFileDialog(){
-          console.log(this.$refs)
           this.$refs.AddFileByURLDialog.show = true
       },
 
@@ -550,6 +555,21 @@ export default {
 
       toggleQueueScanner(){
           this.$store.dispatch('app/toggleQueueScanner')
+      },
+
+      handleQueueScannerNextItem(){
+          let findNextFile = this.queueFiles.filter( f => f.status == 'in queue')
+          console.log(findNextFile, findNextFile.length)
+
+          if(findNextFile.length > 0){
+            let file = findNextFile[0]
+            this.$message({
+              type: 'success',
+              message: 'Found next File in the Queue. ' + file.name,
+            });
+            this.start(file)
+          }
+
       },
 
   }

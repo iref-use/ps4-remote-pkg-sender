@@ -4,6 +4,17 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.7.0" placement="top">
+        <h4>Queue Scanner</h4>
+        <p>
+          Prepare Queue Scanner settings. <br>
+          Put operation buttons together as button group. <br>
+          Sync Queue Sanner Button on the Process Center. <br>
+          Add Autostart Button. <br>
+          Add Linux deb package with x64, ia32 and amvl7 architecture. <br>
+          
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.6.1" placement="top">
         <h4>HB-Store direct install</h4>
         <p>
