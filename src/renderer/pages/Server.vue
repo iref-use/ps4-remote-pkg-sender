@@ -5,7 +5,7 @@
 
     </div>
 
-    <el-row>
+    <el-row style="margin-bottom: 20px;">
       <el-col :span="20" style="display: flex">
           <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
           <el-tag size="size" effect="light" class="path_input_tag" v-if="server.base_path">{{ server.base_path }}</el-tag>

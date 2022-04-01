@@ -21,6 +21,7 @@
                 <el-button size="small" :type="isOrder('created_at')" @click="setOrder('created_at')"> Latest </el-button>
                 <el-button size="small" :type="isOrder('downloads')" @click="setOrder('downloads')"> Popular </el-button>
             </el-button-group>
+
             <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" style="width: 200px"/>
         </div>
     </el-col>
@@ -153,12 +154,12 @@ export default {
             this.load(p)
         },
         search(){
-            this.load(this.page)
+            debounce(this.load(this.page), 500)
         },
         params: {
             deep: true,
             handler(){
-                debounce(() => this.load(this.page), 2000)
+                this.load(this.page)
             }
         },
     },

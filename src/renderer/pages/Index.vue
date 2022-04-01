@@ -1,7 +1,7 @@
 <template>
 <div>
 
-  <el-row style="margin-bottom: 10px;">
+  <el-row style="margin-bottom: 20px;">
     <el-col :span="20">
         <div v-if="false">
             <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
@@ -37,7 +37,7 @@
         <el-button size="small" icon="el-icon-link" @click="openAddFileDialog" v-if="app.config.enableExternalLinks"> Add URL </el-button>
         <el-button size="small" icon="el-icon-sync" :type="queueScanner ? 'success active' : ' active'" @click="toggleQueueScanner"> Queue Scanner </el-button>
 
-        <el-button size="small" icon="fa fa-play" @click="handleQueueScannerNextItem"> Autostart </el-button>
+        <el-button size="small" icon="fa fa-play" @click="handleQueueScannerNextItem" v-if="queueScanner"> Autostart </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
