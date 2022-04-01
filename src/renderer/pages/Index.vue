@@ -285,6 +285,9 @@ export default {
               .catch( e => {
                   this.clearInterval(file)
                   console.log(e)
+
+                  if(e.status == 'fail' && e.error_code)
+                    this.handleStartInstallError(file, e)
               })
       },
 
@@ -564,12 +567,20 @@ export default {
           if(findNextFile.length > 0){
             let file = findNextFile[0]
             this.$message({
+              dangerouslyUseHTMLString: true,
               type: 'success',
-              message: 'Found next File in the Queue. ' + file.name,
+              message: 'Found next File in the Queue. <br>' + file.name,
             });
             this.start(file)
           }
+      },
 
+      handleStartInstallError(file, e){
+          let code = e.error_code
+
+          if(code==2157510677){
+              file.status = 'exists'
+          }
       },
 
   }
