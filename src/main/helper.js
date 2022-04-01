@@ -108,7 +108,7 @@ export default {
               BrowserWindow.fromWebContents(webContents).close();
            });
         });
-    }
+    },
 
     getIconPath(){
         return path.join(__static, 'assets/ps_icon_white.png')

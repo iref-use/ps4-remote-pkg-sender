@@ -1,20 +1,47 @@
 <template>
 <div>
 
-  <el-row>
+  <el-row style="margin-bottom: 10px;">
     <el-col :span="20">
-        <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
-        <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
-        <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
+        <div v-if="false">
+            <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
+            <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
+            <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
 
-        <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
-        <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
+            <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
+            <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
+        </div>
+
+        <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
+          <el-button size="small" icon="el-icon-refresh-left" >
+              Reset Options <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item icon="el-icon-refresh-left" command="resetAll">Reset Queue, Tasks and Installed</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-refresh-left" command="resetInstalled">Reset Installed</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-refresh-left" command="clearFinishedFiles">Clear finished</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
+
+        <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
+          <el-button size="small" icon="el-icon-check" >
+              Check Options <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item icon="fa fa-server" command="checkHB">Check Local Server</el-dropdown-item>
+              <el-dropdown-item icon="fab fa-playstation" command="checkPS4">Check PS4</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
         <el-button size="small" icon="el-icon-link" @click="openAddFileDialog" v-if="app.config.enableExternalLinks"> Add URL </el-button>
+        <el-button size="small" icon="el-icon-sync" :type="queueScanner ? 'success active' : ' active'" @click="toggleQueueScanner"> Queue Scanner </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
     </el-col>
   </el-row>
+
 
   <el-table :data="files" v-loading="loading"
       element-loading-text="Loading Server files"
@@ -158,6 +185,7 @@ export default {
       installedFiles: sync('queue/installed'),
       ps4ip: get('app/getPS4IP'),
       updateInterval: get('app/ps4.update'),
+      queueScanner: get('app/server.enableQueueScanner'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -223,7 +251,7 @@ export default {
           this.clearInterval(file)
 
           this.log("install request", { type : 'direct', packages: [file.url] })
-          
+
           this.$ps4.install(file)
               .then( ({ data }) => {
                   this.log(file.name + ' install', data)
@@ -514,6 +542,14 @@ export default {
       openAddFileDialog(){
           console.log(this.$refs)
           this.$refs.AddFileByURLDialog.show = true
+      },
+
+      handleDropdownCommand(cmd){
+          this[cmd]()
+      },
+
+      toggleQueueScanner(){
+          this.$store.dispatch('app/toggleQueueScanner')
       },
 
   }

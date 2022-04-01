@@ -209,10 +209,13 @@ html.pureblack {
             border-bottom-color: $bg !important;
         }
     }
+    
+    .el-dropdown-menu,
     .el-select-dropdown {
         background: $bg !important;
         border-color: $border-color !important;
 
+        .el-dropdown-menu__item,
         .el-select-dropdown__item {
             color: $text2;
             &.hover,

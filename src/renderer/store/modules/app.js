@@ -8,7 +8,7 @@ export const state = {
         lang: 'en',
         style: 'light',
         useHB: false,
-        useHBMode: 'legacy',
+        useHBMode: 'refactored',
         useHBRoot: 'http://api.pkg-zone.com/',
         showConfigObject: false,
         enableExternalLinks: false,
@@ -22,6 +22,7 @@ export const state = {
         auto_scan_on_startup: true,
         scan_subdir: false,
         prependFullPath: false,
+        enableQueueScanner: false,
     },
 
     ps4: {
@@ -57,6 +58,7 @@ export const mutations = {
             auto_scan_on_startup: true,
             scan_subdir: false,
             prependFullPath: false,
+            enableQueueScanner: false,
         }
 
         state.ps4 = {
@@ -74,7 +76,7 @@ export const mutations = {
             lang: 'en',
             style: 'light',
             useHB: false,
-            useHBMode: 'legacy',
+            useHBMode: 'refactored',
             useHBRoot: 'http://api.pkg-zone.com/',
             showConfigObject: false,
             enableExternalLinks: false,
@@ -84,6 +86,10 @@ export const mutations = {
     saveServer(state){
         state.server = state.server
     },
+
+    toggleQueueScanner(state){
+        state.server.enableQueueScanner = !state.server.enableQueueScanner
+    }
 }
 
 // actions
@@ -110,6 +116,9 @@ export const actions = {
       commit('resetConfig')
     },
 
+    toggleQueueScanner({ commit }){
+        commit('toggleQueueScanner')
+    }
     // addFiles({ commit, dispatch, state}, payload){
     //     commit('addFiles', payload)
     // }
