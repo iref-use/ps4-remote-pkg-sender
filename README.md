@@ -38,11 +38,11 @@ The refactored Version provides a better GUI and technicall more ordered feature
 * Add a FAQ and Troubleshooting Area
 * Configuration values for timeout and heartbeat  
 * Implement HB Store and direct install fPKG's  
+* Queue scanner (start next file in the queue after one is finished)
 
 ## ToDo's for the future
 * Search your PS4 automatically in the current network (WIP)  
 * Implement Auto-updater  
-* Queue scanner (start next file in the queue after one is finished)
 * Import / Export Configuration  
 * Serve as global Server Host and provide Server Files over Internet   
 * Save PS4 (local, wlan, wan, internet) and make them chooseable  
