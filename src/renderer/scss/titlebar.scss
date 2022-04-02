@@ -19,9 +19,45 @@ $titleBarColorDark: #0c0c0c;
 
     .title {
         display: block;
-        position: fixed;
+        position: fixed; z-index: 1;
         width: 100vw;
         top: 0px; left: 0px; right: 0px;
+    }
+
+    .win, .linux {
+        display: block;
+        position: absolute; z-index: 2;
+        top: 0px;
+    }
+
+    .linux {
+        left: 10px;
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        > div {
+            position: relative;
+            z-index: 5;
+            display: block;
+            width: 12px; height: 12px;
+            margin-right: 10px;
+            border-radius: 50%;
+            background: crimson;
+            cursor: pointer;
+
+            &:nth-child(2){
+                background: darkorange;
+            }
+
+            &:nth-child(3){
+                background: forestgreen;
+            }
+        }
+    }
+
+    .win {
+        right: 20px;
     }
 }
 

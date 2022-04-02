@@ -170,10 +170,7 @@ app.on('before-quit', (event) => {
 
 //  activate hook
 app.on('activate', () => {
-  // on macOS it is common to re-create a window even after all windows have been closed
-  if (windows.main === null) {
-    windows.main = createMainWindow()
-  }
+  windows.main.show()
 })
 
 // create main BrowserWindow when electron is ready

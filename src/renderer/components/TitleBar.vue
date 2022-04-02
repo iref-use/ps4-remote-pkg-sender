@@ -1,12 +1,65 @@
 <template>
     <div class="alternative_title_bar draggable">
         <div class="title"> Remote Package Sender v2 </div>
+
+        <div class='linux' v-if="platform == 'linux'">
+            <div class="" @click="close"></div>
+            <div class="" @click="min"></div>
+            <div class="" @click="max"></div>
+        </div>
+
+        <div class='win' v-if="platform == 'win'">
+
+        </div>
     </div>
 </template>
 
 <script>
+import os from 'os'
+import { remote } from 'electron'
+
 export default {
-    name: 'TitleBar'
+    name: 'TitleBar',
+
+    data(){ return {
+        platform: ''
+    }},
+
+    mounted(){
+        this.platform = os.platform() == 'win32' ? 'win' : 'linux'
+    },
+
+    methods: {
+        getWindow(){
+            return remote.getCurrentWindow()
+        },
+
+        close(){
+            this.getWindow().close()
+        },
+
+        min(){
+            this.getWindow().minimize()
+        },
+
+        max(){
+            var window = this.getWindow()
+
+
+            if (!window.isMaximized())
+               window.maximize()
+            else
+               window.unmaximize()
+
+            return
+
+            if(!window.isFullScreen())
+              window.setFullScreen(true)
+            else
+              window.setFullScreen(false)
+        },
+
+    }
 }
 </script>
 
