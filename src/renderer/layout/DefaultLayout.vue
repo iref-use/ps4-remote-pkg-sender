@@ -30,6 +30,10 @@
 
               <el-menu-item index="settings">Settings</el-menu-item>
 
+              <div class='close_application'>
+                  <i class="el-icon-switch-button" />
+              </div>
+
           </el-menu>
       </el-header>
 

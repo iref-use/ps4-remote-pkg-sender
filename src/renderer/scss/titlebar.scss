@@ -3,6 +3,24 @@ $mainOffset: 60px;
 $titleBarColorLight: #fafafa;
 $titleBarColorDark: #0c0c0c;
 
+.close_application {
+    position: absolute;
+    top: 0px; right: 0px;
+    display: flex;
+    width: 40px; height: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 20px;
+    border-radius: 50%;
+    // background: #222;
+
+    &:focus {
+        outline: none !important;
+    }
+}
+
+
 .alternative_title_bar {
     position: relative;
     display: block;
