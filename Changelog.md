@@ -7,7 +7,7 @@
         Add callback for Queue Scanner to continue if a file exists.
         Add Custom TitleBar with coloring based on the Style settings.
         Add Window operation buttons for linux and windows.
-        Add close application button to the header menu. 
+        Add close application button to the header menu.
 
 ### v2.7.0
 #### Queue Scanner

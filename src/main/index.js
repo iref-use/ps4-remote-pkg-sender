@@ -106,6 +106,7 @@ function registerChannel(){
 
     ipcMain.on('error', (event, data) => windows.main.webContents.send('error', data) )
     ipcMain.on('notify', (event, data) => notify(data))
+    ipcMain.on('quit', () => app.quit() )
 }
 
 // add Shortcuts

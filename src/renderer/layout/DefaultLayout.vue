@@ -30,7 +30,7 @@
 
               <el-menu-item index="settings">Settings</el-menu-item>
 
-              <div class='close_application'>
+              <div class='close_application' @click="closeApplicationRequest">
                   <i class="el-icon-switch-button" />
               </div>
 
@@ -49,7 +49,7 @@
 import { get } from 'vuex-pathify'
 import { shell } from 'electron'
 import links from '@/../config/links'
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 
 export default {
   name: 'DefaultLayout',
@@ -92,7 +92,22 @@ export default {
 
       openLink(link){
           shell.openExternal(link)
-      }
+      },
+
+      closeApplicationRequest(){
+
+          this.$confirm('Do you really want to close the Application? \nThis stops the server and all child processes.', 'Warning', {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning',
+            center: true
+          }).then(() => {
+              ipcRenderer.send('quit')
+          }).catch(() => {
+
+          });
+      },
+
   }
 }
 </script>
