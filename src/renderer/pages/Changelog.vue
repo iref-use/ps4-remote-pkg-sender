@@ -4,13 +4,12 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
-    <el-timeline-item timestamp="2.7.0" placement="top">
+    <el-timeline-item timestamp="2.7.1" placement="top">
         <h4>Prefinings</h4>
         <p>
           Add System Wide Notification Settings and Notification. <br>
-          Enable PS4 App rpi OOP with custom port. <br>
+          Enable PS4 App RPI OOP with custom port. <br>
           Add callback for Queue Scanner to continue if a file exists. <br>
-
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.7.0" placement="top">

@@ -1,5 +1,23 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.7.1
+#### Prefinings
+        Add System Wide Notification Settings and Notification.
+        Enable PS4 App RPI OOP with custom port.
+        Add callback for Queue Scanner to continue if a file exists.
+
+### v2.7.0
+#### Queue Scanner
+        Prepare Queue Scanner settings.
+        Put operation buttons together as button group.
+        Sync Queue Sanner Button on the Process Center.
+        Add Autostart Button.
+        Add Linux deb package with x64, ia32 and amvl7 architecture.
+        Handle Queue Scanner process, one by one (more performance instead of batch).
+        Extend PS4 API error logging.
+        Add a message when everything is done and there are no items in the queue left.
+
+
 ### v2.6.1
 #### HB-Store direct install  
         Added autoclose function to close the Downloading window.  
