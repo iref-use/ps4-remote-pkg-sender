@@ -5,6 +5,8 @@
         Add System Wide Notification Settings and Notification.
         Enable PS4 App RPI OOP with custom port.
         Add callback for Queue Scanner to continue if a file exists.
+        Add Custom TitleBar with coloring based on the Style settings.
+        Add Window operation buttons for linux and windows.
 
 ### v2.7.0
 #### Queue Scanner

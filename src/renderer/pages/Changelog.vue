@@ -10,6 +10,8 @@
           Add System Wide Notification Settings and Notification. <br>
           Enable PS4 App RPI OOP with custom port. <br>
           Add callback for Queue Scanner to continue if a file exists. <br>
+          Add Custom TitleBar with coloring based on the Style settings. <br>
+          Add Window operation buttons for linux and windows. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.7.0" placement="top">
