@@ -28,7 +28,7 @@ let windows = {
 // Create Windows
 function createMainWindow() {
   const window = helper.createWindowInstance('/', {
-    width: 1300, height: 800,
+    width: 1300, height: 800, frame: false,
   }, showMainDevTools)
 
   window.on('close', (event) => {

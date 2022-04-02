@@ -11,12 +11,12 @@ $border-color: #333;
 
 $menu-active-bg: $bg2;
 
-$scroll-bar-track: #333;
+$scroll-bar-track: #222;
 $scroll-bar-background: #111;
 
 // Scroll
 html.dark {
-    scrollbar-color: #999 #333;
+    scrollbar-color: $scroll-bar-track $scroll-bar-background;
 
     ::-webkit-scrollbar {
         width: 10px; /* Mostly for vertical scrollbars */

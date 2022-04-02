@@ -1,0 +1,44 @@
+$titleBarHeight: 30px;
+$mainOffset: 60px;
+$titleBarColorLight: #fafafa;
+$titleBarColorDark: #0c0c0c;
+
+.alternative_title_bar {
+    position: relative;
+    display: block;
+    height: $titleBarHeight;
+    line-height: $titleBarHeight;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    background: $titleBarColorLight;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -20px;
+    margin-right: -20px;
+
+    .title {
+        display: block;
+        position: fixed;
+        width: 100vw;
+        top: 0px; left: 0px; right: 0px;
+    }
+}
+
+
+html:not(.light){
+    .alternative_title_bar {
+        background: $titleBarColorDark;
+        color: #888;
+    }
+}
+
+.draggable {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.main_content_offset {
+    display: block;
+    height: $mainOffset + $titleBarHeight;
+}
