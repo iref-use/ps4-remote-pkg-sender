@@ -25,13 +25,8 @@ $titleBarColorDark: #0c0c0c;
     }
 
     .win, .linux {
-        display: block;
         position: absolute; z-index: 2;
         top: 0px;
-    }
-
-    .linux {
-        left: 10px;
         display: flex;
         align-items: center;
         height: 100%;
@@ -41,10 +36,17 @@ $titleBarColorDark: #0c0c0c;
             z-index: 5;
             display: block;
             width: 12px; height: 12px;
+            cursor: pointer;
+        }
+    }
+
+    .linux {
+        left: 10px;
+
+        > div {
             margin-right: 10px;
             border-radius: 50%;
             background: crimson;
-            cursor: pointer;
 
             &:nth-child(2){
                 background: darkorange;
@@ -57,7 +59,17 @@ $titleBarColorDark: #0c0c0c;
     }
 
     .win {
-        right: 20px;
+        right: 10px;
+
+        > div {
+            margin-left: 8px;
+            width: 20px;
+            height: auto;
+
+            &:nth-child(3){
+                font-size: 16px;
+            }
+        }
     }
 }
 

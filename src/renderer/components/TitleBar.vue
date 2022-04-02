@@ -9,7 +9,9 @@
         </div>
 
         <div class='win' v-if="platform == 'win'">
-
+            <div class="" @click="min"> <i class="far fa-window-minimize" /> </div>
+            <div class="" @click="max"> <i class="far fa-window-maximize" /> </div>
+            <div class="" @click="close"> <i class="fas fa-times" /> </div>
         </div>
     </div>
 </template>
