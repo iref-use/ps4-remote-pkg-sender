@@ -12,6 +12,7 @@
           Add callback for Queue Scanner to continue if a file exists. <br>
           Add Custom TitleBar with coloring based on the Style settings. <br>
           Add Window operation buttons for linux and windows. <br>
+          Add close application button to the header menu.  <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.7.0" placement="top">
