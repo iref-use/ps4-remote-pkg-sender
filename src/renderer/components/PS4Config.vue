@@ -28,9 +28,9 @@
           </el-col>
 
           <el-col :span="14">
-              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
-                *Preparation only for now. Choose your Target Application on your PS4
-              </p>
+              <el-form-item label="App Port">
+                <el-input v-model="ps4.port" :disabled="ps4.app != 'rpiOOP'"></el-input>
+              </el-form-item>
           </el-col>
       </el-row>
 
@@ -79,7 +79,7 @@ export default {
     data(){ return {
         ps4Apps: [
             { value: 'RPI (flatZ)', key: 'rpi', disabled: false },
-            { value: 'RPI (OOP)', key: 'rpiOOP', disabled: true },
+            { value: 'RPI (OOP)', key: 'rpiOOP', disabled: false },
             { value: 'IPI', key: 'ipi', disabled: true },
             { value: 'HB-Store', key: 'hbstore', disabled: true },
         ]
@@ -91,7 +91,21 @@ export default {
 
     watch: {
         'ps4.ip'(){ this.save() },
-        'ps4.app'(){ this.save() },
+        'ps4.app'(val){ 
+            if(val == 'rpi')
+              this.ps4.port = this.ps4.port_rpi
+
+            if(val == 'rpiOOP')
+              this.ps4.port = this.ps4.port_rpiOOP
+
+            this.save()
+        },
+        'ps4.port'(){ 
+            if(this.ps4.app == 'rpiOOP')
+              this.ps4.port_rpiOOP = this.ps4.port
+
+            this.save()
+        },
         'ps4.timeout'(){ this.save() },
         'ps4.updateInterval'(){ this.save() },
     },

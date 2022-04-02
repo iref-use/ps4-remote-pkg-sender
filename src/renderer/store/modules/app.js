@@ -31,6 +31,9 @@ export const state = {
         app: 'rpi',
         name: '',
         port: 12800,
+        port_rpi: 12800,
+        port_rpiOOP: 12800,
+        port_ftp: 2121,
         timeout: 2500,
         update: 2200,
     },
@@ -67,6 +70,9 @@ export const mutations = {
             app: 'rpi',
             name: '',
             port: 12800,
+            port_rpi: 12800,
+            port_rpiOOP: 12800,
+            port_ftp: 2121,
             timeout: 2500,
             update: 2200,
         }
@@ -81,6 +87,7 @@ export const mutations = {
             useHBRoot: 'http://api.pkg-zone.com/',
             showConfigObject: false,
             enableExternalLinks: false,
+            enableSystemNotifications: false,
         }
     },
 
