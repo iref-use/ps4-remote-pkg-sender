@@ -93,6 +93,10 @@ export default {
           ipcRenderer.send('ps4', msg)
       },
 
+      notify(data){
+          ipcRenderer.send('notify', data)
+      },
+
       getImage(img){
           const isDevelopment = process.env.NODE_ENV === 'development';
           // const staticPath = isDevelopment ? __static : __dirname.replace(/app\.asar$/, 'static');

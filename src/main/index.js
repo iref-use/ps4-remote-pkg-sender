@@ -105,6 +105,7 @@ function registerChannel(){
     ipcMain.on('ps4', (event, data) => windows.ps4.webContents.send('ps4', data) )
 
     ipcMain.on('error', (event, data) => windows.main.webContents.send('error', data) )
+    ipcMain.on('notify', (event, data) => notify(data))
 }
 
 // add Shortcuts
@@ -127,6 +128,12 @@ function createProtocols(){
       { scheme: 'mailto', privileges: { standard: true } },
     ]);
 }
+
+// notifications
+function notify(data){
+    new Notification(data).show()
+}
+
 
 
 // quit application when all windows are closed

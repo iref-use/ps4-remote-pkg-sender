@@ -39,7 +39,7 @@
         <el-button size="small" icon="el-icon-sync" :type="queueScanner ? 'success active' : ' active'" @click="toggleQueueScanner"> Queue Scanner </el-button>
         <el-button size="small" icon="fa fa-play" @click="handleQueueScannerNextItem" v-if="queueScanner"> Autostart </el-button>
 
-        <el-button size="small" @click="test">Test </el-button>
+        <el-button size="small" @click="test" v-if="false">Test </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -231,7 +231,7 @@ export default {
 
       test(){
           if(this.notify)
-            alert('blub')
+            this.sendNotification({ title: "Test", body: "This test is for Systemwide Notifications" })
       },
 
       isInstalled(file){
@@ -277,6 +277,7 @@ export default {
 
                       this.setTask(file, data.task_id)
                       this.setStatus(file, 'installing')
+                      this.sendNotification({ title: "Installing", body: file.name + " is installing" })
                       this.startInterval(file)
 
                       this.log(file.name + ' has been started installing with Task ID ' + data.task_id, data)
@@ -487,6 +488,11 @@ export default {
           this.$root.sendPS4({ time: Date.now(), msg, data, type })
       },
 
+      sendNotification(data){
+          if(this.notify)
+            this.$root.notify(data)
+      },
+
       fileInstalled(file, status='installed'){
           let servingFile = this.$store.getters['server/findFile'](file)
           if(servingFile){
@@ -494,7 +500,9 @@ export default {
           }
 
           this.setTask(file, '')
+          this.sendNotification({ title: "Finished", body: file.name + " is finished installing" })
           this.$store.dispatch('queue/installed', file)
+
 
           // queue scanner hook
           if(this.queueScanner)
@@ -598,6 +606,7 @@ export default {
 
           if(code==2157510677){
               file.status = 'exists'
+              this.handleQueueScannerNextItem()
           }
       },
 
