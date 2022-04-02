@@ -285,6 +285,7 @@ export default {
               .catch( e => {
                   this.clearInterval(file)
                   console.log(e)
+                  this.log("Install error", e, 'error')
 
                   if(e.status == 'fail' && e.error_code)
                     this.handleStartInstallError(file, e)
@@ -564,14 +565,23 @@ export default {
           let findNextFile = this.queueFiles.filter( f => f.status == 'in queue')
           console.log(findNextFile, findNextFile.length)
 
+          // no items
+          if(findNextFile.length == 0){
+              return this.$message({
+                type: 'success',
+                message: 'There are no items to be installed in the queue'
+              });
+          }
+
+          // we have a file in the queue
           if(findNextFile.length > 0){
-            let file = findNextFile[0]
-            this.$message({
-              dangerouslyUseHTMLString: true,
-              type: 'success',
-              message: 'Found next File in the Queue. <br>' + file.name,
-            });
-            this.start(file)
+              let file = findNextFile[0]
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                type: 'success',
+                message: 'Found next File in the Queue. <br>' + file.name,
+              });
+              this.start(file)
           }
       },
 

@@ -12,7 +12,9 @@
           Sync Queue Sanner Button on the Process Center. <br>
           Add Autostart Button. <br>
           Add Linux deb package with x64, ia32 and amvl7 architecture. <br>
-          
+          Handle Queue Scanner process, one by one (more performance instead of batch). <br>
+          Extend PS4 API error logging. <br>
+          Add a message when everything is done and there are no items in the queue left. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.6.1" placement="top">
