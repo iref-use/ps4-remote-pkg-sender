@@ -40,9 +40,27 @@
   </div>
 
 
+  <!--
+    ***************************
+    Features
+    ***************************
+  -->
   <el-divider content-position="left">Feature List</el-divider>
   <div class="q-pl-md">
   <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
+      <el-row>
+        <el-col :span="8">
+            <el-form-item label="Notifications">
+                <el-checkbox v-model="config.enableSystemNotifications"> Enable System Notifications </el-checkbox>
+            </el-form-item>
+        </el-col>
+        <el-col :span="16">
+            <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+              Sends System Notifications when Installation starts and finishes
+            </p>
+        </el-col>
+      </el-row>
+
       <el-row>
         <el-col :span="8">
             <el-form-item label="External Links">
@@ -164,6 +182,7 @@ export default {
         'config.useHBRoot'(){ this.save() },
         'config.showConfigObject'(){ this.save() },
         'config.enableExternalLinks'(){ this.save() },
+        'config.enableSystemNotifications'(){ this.save() },
     },
 
     methods: {

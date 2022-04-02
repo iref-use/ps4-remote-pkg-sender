@@ -35,9 +35,11 @@
         </el-dropdown>
 
         <el-button size="small" icon="el-icon-link" @click="openAddFileDialog" v-if="app.config.enableExternalLinks"> Add URL </el-button>
-        <el-button size="small" icon="el-icon-sync" :type="queueScanner ? 'success active' : ' active'" @click="toggleQueueScanner"> Queue Scanner </el-button>
 
+        <el-button size="small" icon="el-icon-sync" :type="queueScanner ? 'success active' : ' active'" @click="toggleQueueScanner"> Queue Scanner </el-button>
         <el-button size="small" icon="fa fa-play" @click="handleQueueScannerNextItem" v-if="queueScanner"> Autostart </el-button>
+
+        <el-button size="small" @click="test">Test </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -188,6 +190,7 @@ export default {
       ps4ip: get('app/getPS4IP'),
       updateInterval: get('app/ps4.update'),
       queueScanner: get('app/server.enableQueueScanner'),
+      notify: get('app/config.enableSystemNotifications'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -224,6 +227,11 @@ export default {
               this.log("Check Playstation: PS4 is not accessible", e)
               // this.$message({ message: "PS4 is not accessible.", type: 'error' })
           })
+      },
+
+      test(){
+          if(this.notify)
+            alert('blub')
       },
 
       isInstalled(file){

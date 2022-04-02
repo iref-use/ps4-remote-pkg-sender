@@ -12,6 +12,7 @@ export const state = {
         useHBRoot: 'http://api.pkg-zone.com/',
         showConfigObject: false,
         enableExternalLinks: false,
+        enableSystemNotifications: false,
     },
 
     server: {
