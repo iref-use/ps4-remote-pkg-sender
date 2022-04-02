@@ -2,7 +2,6 @@
 <div id='server_config'>
 
   <el-divider content-position="left">Application Settings</el-divider>
-
   <div class="q-pl-md">
   <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
       <el-row>

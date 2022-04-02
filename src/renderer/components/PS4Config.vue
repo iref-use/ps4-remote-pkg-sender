@@ -27,13 +27,19 @@
               </el-form-item>
           </el-col>
 
-          <el-col :span="14">
+          <el-col :span="9">
               <el-form-item label="App Port">
                 <el-input v-model="ps4.port" :disabled="ps4.app != 'rpiOOP'"></el-input>
               </el-form-item>
           </el-col>
+
+          <el-col :span="5">
+              <el-button size="small" @click="checkPS4" style="width: 180px"> <i class="el-icon-loading" v-if="testingConnection" />  Test connection</el-button>
+          </el-col>
       </el-row>
 
+
+      <el-divider content-position="right">Parameters</el-divider>
       <el-row :gutter="20">
           <el-col :span="10">
               <el-form-item label="Request Timeout" style="margin-bottom: 0px;">
@@ -77,6 +83,7 @@ export default {
     name: 'PS4Config',
 
     data(){ return {
+        testingConnection: false,
         ps4Apps: [
             { value: 'RPI (flatZ)', key: 'rpi', disabled: false },
             { value: 'RPI (OOP)', key: 'rpiOOP', disabled: false },
@@ -115,6 +122,21 @@ export default {
             console.log("Save PS4 Configuration")
             this.$store.dispatch('app/setPs4', this.ps4)
         },
+
+        checkPS4(){
+            this.testingConnection = true
+            this.$ps4.checkPS4().then( (res) => {
+                this.testingConnection = false
+                this.$root.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
+                this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
+            })
+            .catch( e => {
+                this.testingConnection = false
+                this.$root.log("Check Playstation: PS4 is not accessible", e)
+                // this.$message({ message: "PS4 is not accessible.", type: 'error' })
+            })
+        },
+
     }
 }
 </script>

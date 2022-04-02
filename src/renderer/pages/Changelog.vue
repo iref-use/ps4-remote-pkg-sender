@@ -5,6 +5,15 @@
 
   <el-timeline>
     <el-timeline-item timestamp="2.7.0" placement="top">
+        <h4>Prefinings</h4>
+        <p>
+          Add System Wide Notification Settings and Notification. <br>
+          Enable PS4 App rpi OOP with custom port. <br>
+          Add callback for Queue Scanner to continue if a file exists. <br>
+
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.7.0" placement="top">
         <h4>Queue Scanner</h4>
         <p>
           Prepare Queue Scanner settings. <br>
