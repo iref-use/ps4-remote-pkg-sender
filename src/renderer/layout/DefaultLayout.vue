@@ -3,7 +3,7 @@
       <el-header>
           <TitleBar />
 
-          <el-menu class="draggable" :default-active="'home'" :router="true" mode="horizontal" ref="menu" @select="handleSelect">
+          <el-menu :default-active="'home'" :router="true" mode="horizontal" ref="menu" @select="handleSelect">
               <el-menu-item index="home" ref="home">Processing Center</el-menu-item>
 
               <el-menu-item index="server" ref="server">Server</el-menu-item>

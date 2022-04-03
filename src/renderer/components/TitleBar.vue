@@ -28,7 +28,7 @@ export default {
     }},
 
     mounted(){
-        this.platform = os.platform() == 'win32' ? 'win' : 'linux'
+        this.platform = os.platform() == 'darwin' ? 'linux' : 'win'
     },
 
     methods: {
