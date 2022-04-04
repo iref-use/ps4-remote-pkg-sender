@@ -4,6 +4,14 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.7.2" placement="top">
+        <h4>Optimization</h4>
+        <p>
+          Add custom TitleBar Settings to choose specific Style. <br>
+          Refactor TitleBar Buttons to work on Windows. <br>
+          
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.7.1" placement="top">
         <h4>Prefinings</h4>
         <p>

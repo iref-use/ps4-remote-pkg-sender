@@ -44,7 +44,6 @@ export default {
 
     methods: {
         getChoosenStyle(){
-            console.log("Set TitleBar Style to " + this.style)
             if(this.style == 'default')
               this.platform = os.platform() == 'darwin' ? 'mac' : 'win'
             else

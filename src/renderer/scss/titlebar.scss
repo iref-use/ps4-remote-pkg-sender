@@ -3,18 +3,38 @@ $mainOffset: 60px;
 $titleBarColorLight: #fafafa;
 $titleBarColorDark: #0c0c0c;
 
-.close_application {
+.top_right_header {
     position: absolute;
     top: 0px; right: 0px;
     display: flex;
-    width: 40px; height: 40px;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    font-size: 20px;
-    border-radius: 50%;
-    cursor: pointer;
+    height: 100%;
     // background: #222;
+
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px; height: 40px;
+        margin-left: 10px;
+        font-size: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:focus {
+            outline: none !important;
+        }
+    }
+
+    .window_dropdown > i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 40px;
+        margin-top: 2px;
+    }
 
     &:focus {
         outline: none !important;

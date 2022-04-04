@@ -30,8 +30,19 @@
 
               <el-menu-item index="settings">Settings</el-menu-item>
 
-              <div class='close_application' @click="closeApplicationRequest">
-                  <i class="el-icon-switch-button" />
+              <div class='top_right_header'>
+                  <el-dropdown class="window_dropdown">
+                    <i class="el-icon-files" />
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item> Local Server </el-dropdown-item>
+                      <el-dropdown-item> PS4 API Logs </el-dropdown-item>
+                      <el-dropdown-item> Info </el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+
+                  <div class='close_application' @click="closeApplicationRequest">
+                      <i class="el-icon-switch-button" />
+                  </div>
               </div>
 
           </el-menu>
