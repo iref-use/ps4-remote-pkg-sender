@@ -1,5 +1,12 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.7.2
+#### Optimization
+        Add custom TitleBar Settings to choose specific Style.
+        Refactor TitleBar Buttons to work on Windows.
+        Add opening methods to access specific view directly.
+        Add new logo to the info view.
+
 ### v2.7.1
 #### Prefinings
         Add System Wide Notification Settings and Notification.

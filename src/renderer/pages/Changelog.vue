@@ -9,7 +9,8 @@
         <p>
           Add custom TitleBar Settings to choose specific Style. <br>
           Refactor TitleBar Buttons to work on Windows. <br>
-          
+          Add opening methods to access specific view directly. <br>
+          Add new logo to the info view. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.7.1" placement="top">
