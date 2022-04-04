@@ -75,7 +75,8 @@ $titleBarColorDark: #0c0c0c;
     display: flex;
     align-items: center;
     height: $titleBarHeight;
-
+    -webkit-app-region: no-drag;
+    
     > div {
         position: relative;
         z-index: 5;
