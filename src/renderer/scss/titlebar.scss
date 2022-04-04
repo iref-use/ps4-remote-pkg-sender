@@ -23,7 +23,7 @@ $titleBarColorDark: #0c0c0c;
 
 
 .alternative_title_bar {
-    position: relative;
+    position: relative; z-index: 2;
     display: block;
     height: $titleBarHeight;
     line-height: $titleBarHeight;
@@ -42,52 +42,68 @@ $titleBarColorDark: #0c0c0c;
         width: 100vw;
         top: 0px; left: 0px; right: 0px;
     }
+}
 
-    .win, .linux {
-        position: absolute; z-index: 2;
-        top: 0px;
-        display: flex;
-        align-items: center;
-        height: 100%;
 
-        > div {
-            position: relative;
-            z-index: 5;
-            display: block;
-            width: 12px; height: 12px;
-            cursor: pointer;
+.win, .mac {
+    position: absolute; z-index: 5;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    height: $titleBarHeight;
+
+    > div {
+        position: relative;
+        z-index: 5;
+        display: block;
+        width: 12px; height: 12px;
+        cursor: pointer;
+    }
+}
+
+.mac {
+    left: 10px;
+
+    > div {
+        margin-right: 10px;
+        border-radius: 50%;
+        background: crimson;
+
+        &:nth-child(2){
+            background: darkorange;
+        }
+
+        &:nth-child(3){
+            background: forestgreen;
         }
     }
 
-    .linux {
-        left: 10px;
-
+    &.chromatic {
         > div {
-            margin-right: 10px;
-            border-radius: 50%;
-            background: crimson;
+            background: #4a4a4a;
 
             &:nth-child(2){
-                background: darkorange;
+                background: #5a5a5a;
             }
 
             &:nth-child(3){
-                background: forestgreen;
+                background: #6a6a6a;
             }
         }
     }
+}
 
-    .win {
-        right: 10px;
+.win {
+    right: 5px;
 
-        > div {
-            margin-left: 8px;
-            width: 20px;
-            height: auto;
+    > div {
+        font-size: 13px;
+        margin-left: 12px;
+        width: 20px;
+        height: auto;
 
-            &:nth-child(3){
-                font-size: 16px;
-            }
+        &:nth-child(3){
+            font-size: 16px;
         }
     }
 }

@@ -35,6 +35,25 @@
             </p>
         </el-col>
       </el-row>
+
+      <el-row>
+        <el-col :span="8">
+            <el-form-item label="Style">
+              <el-select v-model="config.titleBar" placeholder="Title Bar" default-first-option>
+                  <el-option label="System Default" value="default" />
+                  <el-option label="Mac" value="mac" />
+                  <el-option label="Mac chromatic" value="mac-chromatic" />
+                  <el-option label="Windows / Linux" value="win" />
+                  <el-option label="None" value="none" />
+              </el-select>
+            </el-form-item>
+        </el-col>
+        <el-col :span="16">
+            <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
+              Set TitleBar Appereance
+            </p>
+        </el-col>
+      </el-row>
   </el-form>
   </div>
 
@@ -176,6 +195,7 @@ export default {
     watch: {
         'config.lang'(){ this.save() },
         'config.style'(){ this.save() },
+        'config.titleBar'(){ this.save() },
         'config.useHB'(){ this.save() },
         'config.useHBMode'(){ this.save() },
         'config.useHBRoot'(){ this.save() },

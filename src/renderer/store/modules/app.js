@@ -7,6 +7,7 @@ export const state = {
     config: {
         lang: 'en',
         style: 'light',
+        titleBar: 'default',
         useHB: false,
         useHBMode: 'refactored',
         useHBRoot: 'http://api.pkg-zone.com/',
