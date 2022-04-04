@@ -34,6 +34,10 @@ $titleBarColorDark: #0c0c0c;
         height: 40px;
         width: 40px;
         margin-top: 2px;
+
+        &:focus {
+            outline: none !important;
+        }
     }
 
     &:focus {

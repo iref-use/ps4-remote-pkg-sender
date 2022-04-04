@@ -31,12 +31,12 @@
               <el-menu-item index="settings">Settings</el-menu-item>
 
               <div class='top_right_header'>
-                  <el-dropdown class="window_dropdown">
+                  <el-dropdown class="window_dropdown" @command="handleViewCallback">
                     <i class="el-icon-files" />
                     <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item> Local Server </el-dropdown-item>
-                      <el-dropdown-item> PS4 API Logs </el-dropdown-item>
-                      <el-dropdown-item> Info </el-dropdown-item>
+                      <el-dropdown-item command="server"> Open Local Server </el-dropdown-item>
+                      <el-dropdown-item command="ps4"> Open PS4 API Logs </el-dropdown-item>
+                      <el-dropdown-item command="info"> Info </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
 
@@ -117,6 +117,10 @@ export default {
           }).catch(() => {
 
           });
+      },
+
+      handleViewCallback(view){
+          ipcRenderer.send('show', view)
       },
 
   }

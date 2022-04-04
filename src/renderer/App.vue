@@ -83,6 +83,10 @@ export default {
           ipcRenderer.send('server-show')
       },
 
+      show(data){
+          ipcRenderer.send('show', data)
+      },
+
       sendMain(msg){
           console.log('sending to main', msg)
           ipcRenderer.send('main', msg)

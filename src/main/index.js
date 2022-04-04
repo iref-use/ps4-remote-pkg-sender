@@ -97,6 +97,7 @@ function hearthbeat(){
 function registerChannel(){
     ipcMain.on('server', (event, data) => windows.server.webContents.send('server', data) )
     ipcMain.on('server-show', () => windows.server.show() )
+    ipcMain.on('show', (event, data) => showWindow(data) )
 
     ipcMain.on('main', (event, data) => windows.main.webContents.send('main', data) )
     ipcMain.on('main-error', (event, data) => windows.main.webContents.send('main-error', data) )
@@ -105,7 +106,7 @@ function registerChannel(){
     ipcMain.on('ps4', (event, data) => windows.ps4.webContents.send('ps4', data) )
 
     ipcMain.on('error', (event, data) => windows.main.webContents.send('error', data) )
-    ipcMain.on('notify', (event, data) => notify(data))
+    ipcMain.on('notify', (event, data) => notify(data) )
     ipcMain.on('quit', () => app.quit() )
 }
 
@@ -135,7 +136,17 @@ function notify(data){
     new Notification(data).show()
 }
 
+// show window
+function showWindow(data){
+    if(data == 'ps4')
+      windows.ps4.show()
 
+    if(data == 'server')
+      windows.server.show()
+
+    if(data == 'info')
+      windows.info.show()
+}
 
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
