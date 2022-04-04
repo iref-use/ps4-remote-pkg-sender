@@ -43,7 +43,7 @@
 
   <el-row>
     <el-col style="width: 240px;">
-        <img :src="$root.getImage('assets/hb_new.png')" class="icon0" />
+        <img :src="$root.getImage('assets/hb.png')" class="icon0" />
     </el-col>
     <el-col :span="12">
         <b>HB-Store R2</b> by LightningMods <br>
