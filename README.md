@@ -20,26 +20,26 @@ and provides a nice GUI.
 
 ## New features in v2.*
 The refactored Version provides a better GUI and technicall more ordered features.  
-[x] Configure your server with your base path
+[x] Configure your server with your base path  
 [x] Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
 [x] Controll the Server application by click and have it running in the background  
 [x] Closing windows doesn't stop the Server but stops if you quit the application.   
 [x] Show a list of all Server side listed PKG's  
 [x] Miscs download link to flatZ PS4 Remote Package Installer homebrew  
 [x] Extended Menu and Tray Icon  
-[x] Separate Server Window (Logs, Server Routes, Controls)
+[x] Separate Server Window (Logs, Server Routes, Controls)  
 [x] Separate PS4 API Logs Window  
 [x] Catch any possible Error on Request or Response with the RPI on your PS4  
 [x] Scan base path (deep scan support) directory for fPKG's and serve them with the server  
 [x] Search for titles through your found files    
 [x] Add Served files to your Queue and install them on your PS4  
 [x] Processing Center reflects any status changes in your server list, too     
-[x] Set custom timeout and update interval with a slider
+[x] Set custom timeout and update interval with a slider  
 [x] Added Seperate Changelog file and Troubleshooting Guide
-[x] Add a FAQ and Troubleshooting Area
+[x] Add a FAQ and Troubleshooting Area  
 [x] Configuration values for timeout and heartbeat  
 [x] Implement HB Store and direct install fPKG's  
-[x] Queue scanner (start next file in the queue after one is finished)
+[x] Queue scanner (start next file in the queue after one is finished)  
 
 ## ToDo's for the future (Comming into v2.9+)
 [ ] Search your PS4 automatically in the current network
