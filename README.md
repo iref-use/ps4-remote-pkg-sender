@@ -42,7 +42,7 @@ The refactored Version provides a better GUI and technicall more ordered feature
 [x] Queue scanner (start next file in the queue after one is finished)  
 
 ## ToDo's for the future (Comming into v2.9+)
-[ ] Search your PS4 automatically in the current network
+[ ] Search your PS4 automatically in the current network  
 [ ] Implement Auto-updater  
 [ ] Import / Export Configuration  
 [ ] Serve as global Server Host and provide Server Files over Internet   
@@ -50,11 +50,11 @@ The refactored Version provides a better GUI and technicall more ordered feature
 [ ] Read CUSA from file hex values instead of title  
 [ ] Preview CUSAxxxxx Game title covers  
 [ ] Chrome Extension for external usage  
-[ ] GoldHen Cheats Manager
-[ ] Integrated FTP Client
-[ ] Context Menu on Processing Center
-[ ] Group PKG's by TitleID and Type (Base, Update, DLC)
-[ ] One click to install all Group based PKG (send all PKGs from TitleID X)
+[ ] GoldHen Cheats Manager  
+[ ] Integrated FTP Client  
+[ ] Context Menu on Processing Center  
+[ ] Group PKG's by TitleID and Type (Base, Update, DLC)  
+[ ] One click to install all Group based PKG (send all PKGs from TitleID X)  
 
 ## How To  
 So there you have it. How can you use it?  
