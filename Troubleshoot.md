@@ -1,6 +1,6 @@
 # PS4 Remote PKG Sender v2 - Troubleshooting
-
-
+  
+  
 ## I have a White Screen of Death
 This happens in general with the portable Version on Windows.  
 Please try to use the unpacked version. That works for sure and has been tested.  
@@ -8,7 +8,7 @@ This issue is fixed in v2.4.3. If you still get an error, please report.
 
 ## I can't run the app because macOS blocks the app
 Because I haven't signed my app yet with a paid apple certificate, that happens.  
-It is normal for the first time that you try to open it for it to be blocked.
+It is normal for the first time that you try to open it for it to be blocked.  
 Go to System Settings `Preferences > Security > General`  
 There should be the app listed as blocked. You can explicity allow it then to run.  
 Don't worry. My app is clean and open source.  Once I get money for the certificate I will fix that.  
@@ -46,27 +46,27 @@ I am not sure yet but I can not debug this as I am still on 5.05.
 
 Check the PS4 API Logs and see if you get any response.  
 If the response for Check PS4 works, but you don't proceed on the install request  
-then you might be affected by this bug in GoldHen.  
-
+then you might be affected by this bug in GoldHen.    
+  
 I assume that because there was a update and since then some users reported install issues.  
 Try another HEN edition as this was initially working from HENv1.8 until GoldHen 2.0 for sure.  
-If nothing helps, try another PKG Sender - I guess they will not work eithier.
-
+If nothing helps, try another PKG Sender - I guess they will not work eithier.  
+  
 A working GoldHen 2.0 (old version) can be found on e.g. nightkinghost.  
-
+  
 ##### Option e)  
 You can try another Installation type. Try using IPI and FTP until my app does support  
 it natively or the RPIOOSDK. Support for both target apps will done soon.  
 
 
-## I get a long Error Code  
-This will be patched in the v2.4.2 but for the completeness sake here they are.  
-Those Error Codes are not documented yet but I've patched the known ones which are:   
-`2157510681` Task doesn't exist -> RPI can't find any task associated with the id
-`2157510663` already installed  -> the app you are trying to install is already installed, delete the copy on your PS4 first and try again
-`2157510677` App seems to be installed already (duplicate?)  -> Delete the app and any app chunks that are on your PS4 first and try again
+## I get a long Error Code    
+This will be patched in the v2.4.2 but for the completeness sake here they are    
+Those Error Codes are not documented yet but I've patched the known ones which are:     
+`2157510681` Task doesn't exist -> RPI can't find any task associated with the id  
+`2157510663` already installed  -> the app you are trying to install is already installed, delete the copy on your PS4 first and try again  
+`2157510677` App seems to be installed already (duplicate?)  -> Delete the app and any app chunks that are on your PS4 first and try again  
 `2157510789` not enough storage  
-`2157510920` not known yet
+`2157510920` not known yet  
 
 ## Unable to set up prerequisites for package  
 Thanks to marcussacana we could debug this error down.
@@ -77,12 +77,12 @@ If you get the error message from any other package sender, this is due
 the lack of missing multipart stream support.  
 
 ## My RPI crashes on console  
-This happend to a couple of users when we try to hit RPI too hard.  
-RPI cann't handle too many concurrent requests and crashes after a while  
-especially when you try to install something big 100GB+ PKG files or
+This happend to a couple of users when we try to hit RPI too hard.    
+RPI cann't handle too many concurrent requests and crashes after a while    
+especially when you try to install something big 100GB+ PKG files or  
 installing multiple files at once and have a low update interval value.  
 
-It may help if you leave the interval value arround 2-3 secs because
+It may help if you leave the interval value arround 2-3 secs because  
 updating progress info is also a request that will be sent upon the interval.  
 
 In v2.4.2 you can still send as many install request as you want, that is not limited yet,  
