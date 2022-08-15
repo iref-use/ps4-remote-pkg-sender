@@ -31,8 +31,12 @@
               <el-menu-item index="settings">Settings</el-menu-item>
 
               <div class='top_right_header'>
+                  <div class="close_application" @click="checkUpdate">
+                      <i class="el-icon-refresh" />
+                  </div>
+
                   <el-dropdown class="window_dropdown" @command="handleViewCallback">
-                    <i class="el-icon-files" />
+                    <i class="el-icon-files" style="color: #bbb" />
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="server"> Open Local Server </el-dropdown-item>
                       <el-dropdown-item command="ps4"> Open PS4 API Logs </el-dropdown-item>
@@ -52,11 +56,13 @@
           <div class="main_content_offset" />
           <router-view />
 
-          <div style="margin-top: 50px; display:block;">
+          <div style="margin-top: 100px; display:block;">
               <transition name="el-zoom-in-bottom">
                 <el-button round icon="el-icon-arrow-up" class="scrollToTop" @click="scrollToTop" v-show="scrollOffset < scrollPosition"> Back to Top </el-button>
               </transition>
           </div>
+
+          <LatestVersionInfo ref="LatestVersionInfo" />
       </el-main>
 
 </el-container>
@@ -146,7 +152,12 @@ export default {
               left: 0,
               behavior: 'smooth'
           })
-      }
+      },
+
+      async checkUpdate(){
+          let release = await this.$git.getLatestRelease()
+          this.$refs.LatestVersionInfo.open(release)
+      },
 
   }
 }

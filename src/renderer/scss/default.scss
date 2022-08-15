@@ -108,11 +108,11 @@ b {
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .text-right {
-  text-align: right;
+  text-align: right !important;
 }
 
 .text-left {
@@ -122,4 +122,12 @@ b {
 .scrollToTop {
   position: fixed; z-index: 20;
   bottom: 15px; right: 20px;
+}
+
+.mr-md {
+  margin-right: 10px;
+}
+
+.text-bold {
+  font-weight: bold;
 }
