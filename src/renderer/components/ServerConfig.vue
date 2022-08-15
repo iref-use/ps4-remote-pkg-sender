@@ -164,6 +164,10 @@ export default {
 
         loadFiles(){
             this.$store.dispatch('server/loadFiles', this.server.base_path)
+            this.$message({
+              type: 'success',
+              message: 'Files has been reloaded'
+            });            
         },
 
         save(){
