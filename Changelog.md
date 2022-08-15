@@ -1,5 +1,18 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.8.0
+#### Update
+        Adding security policies to components.   
+        Adding custom window handler and component to download remote items.   
+        Adding animation to download window.   
+        Server Tab can change server path path now directly.   
+        Adding reload files notification.   
+        Disable deprecated Legacy Mode for HB-Store component.   
+        Added new misc download links and extend the list with the rpi port of njzydark.   
+        Add back to top scroll button, to easly jump back.   
+        Add latest version check with custom dialog component.   
+        Add auto check for latest release on startup.   
+
 ### v2.7.2
 #### Optimization
         Add custom TitleBar Settings to choose specific Style.
