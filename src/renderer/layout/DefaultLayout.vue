@@ -137,7 +137,6 @@ export default {
       },
 
       scroll(e){
-          console.log("scroll", e)
           this.scrollPosition = window.pageYOffset
       },
 
