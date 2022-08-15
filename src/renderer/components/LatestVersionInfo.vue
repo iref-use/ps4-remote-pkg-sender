@@ -5,8 +5,12 @@
     Latest Release Version is <b>{{ version }}</b> <br>
     <br>
 
-    <el-tag type="info" v-if="compare >= 0"> <i class="el-icon-check mr-md" /> You are already on the latest version </el-tag>
-    <el-tag type="success" class="cursor-pointer" v-if="compare == -1" @click="goToLatestRelease"> <i class="el-icon-download mr-md" /> New Version is available for you </el-tag>
+    <el-tag type="info" v-if="compare >= 0"> <i class="el-icon-check mr-md" />
+        You are already on the latest version
+    </el-tag>
+    <el-tag type="success" class="cursor-pointer" v-if="compare == -1" @click="goToLatestRelease"> <i class="el-icon-download mr-md" />
+        New Version is available for you. Checkout on GitHub Releases.
+    </el-tag>
 
     <div v-if="compare == -1">
         <table class="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition" style="margin-top: 20px;">
@@ -62,7 +66,7 @@ export default {
             this.item = item
             this.version = version
 
-            this.current = '2.4.1' //this.$root.versions.app
+            this.current = this.$root.versions.app
             this.version = this.$git.getVersion(item)
             this.compare = this.$git.compareVersion(this.current, this.version) // -1 new version available
         },

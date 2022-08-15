@@ -31,9 +31,11 @@
               <el-menu-item index="settings">Settings</el-menu-item>
 
               <div class='top_right_header'>
-                  <div class="close_application" @click="checkUpdate">
-                      <i class="el-icon-refresh" />
-                  </div>
+                  <el-badge :is-dot="true" value="new" :hidden="!newVersionAvailable" class="sync_icon">
+                      <div class="close_application" @click="checkUpdate">
+                          <i class="el-icon-refresh" />
+                      </div>
+                  </el-badge>
 
                   <el-dropdown class="window_dropdown" @command="handleViewCallback">
                     <i class="el-icon-files" style="color: #bbb" />
@@ -81,6 +83,7 @@ export default {
       links,
       scrollOffset: 500,
       scrollPosition: 0,
+      newVersionAvailable: true,
   }},
 
   computed: {
@@ -90,6 +93,7 @@ export default {
   mounted(){
       this.registerChannel()
       window.addEventListener('scroll', this.scroll)
+      this.autoCheckUpdate()
   },
 
   destroyed(){
@@ -125,7 +129,6 @@ export default {
       },
 
       closeApplicationRequest(){
-
           this.$confirm('Do you really want to close the Application? \nThis stops the server and all child processes.', 'Warning', {
             confirmButtonText: 'OK',
             cancelButtonText: 'Cancel',
@@ -156,12 +159,34 @@ export default {
 
       async checkUpdate(){
           let release = await this.$git.getLatestRelease()
+          if(!release) return
+
           this.$refs.LatestVersionInfo.open(release)
+          this.newVersionAvailable = false
+      },
+
+      async autoCheckUpdate(){
+          let release = await this.$git.getLatestRelease()
+          if(!release) return
+
+          let version = this.$git.getVersion(release)
+          let current = this.$root.versions.app
+          let compare = this.$git.compareVersion(current, version)
+          // console.log("Autocheck for latest updates on startup", compare)
+
+          if(compare == -1){
+              this.newVersionAvailable = true
+              this.$refs.LatestVersionInfo.open(release)
+          }
+          else {
+              this.newVersionAvailable = false
+          }
       },
 
   }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+
 </style>

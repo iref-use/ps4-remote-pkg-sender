@@ -16,6 +16,7 @@
           Added new misc download links and extend the list with the rpi port of njzydark. <br>
           Add back to top scroll button, to easly jump back. <br>
           Add latest version check with custom dialog component. <br>
+          Add auto check for latest release on startup. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.7.2" placement="top">

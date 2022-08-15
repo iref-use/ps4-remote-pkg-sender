@@ -131,3 +131,9 @@ b {
 .text-bold {
   font-weight: bold;
 }
+
+.sync_icon .el-badge__content.is-fixed {
+  top: 8px; right: 20px;
+  border: none;
+  background: maroon;
+}
