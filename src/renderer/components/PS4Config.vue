@@ -27,14 +27,14 @@
               </el-form-item>
           </el-col>
 
-          <el-col :span="9">
+          <el-col :span="10">
               <el-form-item label="App Port">
-                <el-input v-model="ps4.port" :disabled="ps4.app != 'rpiOOP'"></el-input>
+                  <el-input v-model="ps4.port" :disabled="ps4.app != 'rpiOOP'"></el-input>
               </el-form-item>
           </el-col>
 
-          <el-col :span="5">
-              <el-button size="small" @click="checkPS4" style="width: 180px"> <i class="el-icon-loading" v-if="testingConnection" />  Test connection</el-button>
+          <el-col :span="4">
+              <el-button size="small" @click="checkPS4" style="width: 100%"> <i class="el-icon-loading" v-if="testingConnection" />  Test connection</el-button>
           </el-col>
       </el-row>
 
