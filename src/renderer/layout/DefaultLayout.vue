@@ -38,7 +38,7 @@
                   </el-badge>
 
                   <el-dropdown class="window_dropdown" @command="handleViewCallback">
-                    <i class="el-icon-files" style="color: #bbb" />
+                    <i class="el-icon-files" off-style="color: #bbb" />
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="server"> Open Local Server </el-dropdown-item>
                       <el-dropdown-item command="ps4"> Open PS4 API Logs </el-dropdown-item>
