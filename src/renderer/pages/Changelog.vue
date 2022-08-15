@@ -4,6 +4,15 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.8.0" placement="top">
+        <h4>Update</h4>
+        <p>
+          Adding security policies to components. <br>
+          Adding custom window handler and component to download remote items. <br>
+          Adding animation to download window. <br>
+
+        </p>
+    </el-timeline-item>
     <el-timeline-item timestamp="2.7.2" placement="top">
         <h4>Optimization</h4>
         <p>
