@@ -8,6 +8,7 @@ import './scss/app.scss';
 import { get } from 'vuex-pathify'
 import { remote, ipcRenderer, shell } from 'electron'
 import url from 'url'
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 export default {
   name: 'App',
@@ -72,7 +73,14 @@ export default {
       },
 
       openWithAutoclose(url){
-          window.open(url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')
+          // window.open(url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true') // deprecated
+          // proxy though application view
+          if (isDevelopment) {
+            window.open(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` + '#window.loader?q=' + url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')
+          }
+          else {
+            window.open('file://' + path.join(__dirname, 'index.html') + '#window.loader?q=' + url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')
+          }
       },
 
       sendServer(msg){

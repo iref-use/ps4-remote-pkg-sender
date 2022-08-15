@@ -114,6 +114,8 @@
   </el-row>
 
 
+  <DownloadItem ref="DownloadItem" />
+
   <template v-if="debug">
       <pre>{{ packages }}</pre>
       <pre>{{ data }}</pre>
@@ -250,6 +252,7 @@ export default {
 
         check(url){
             this.$root.openWithAutoclose(url)
+            // this.$refs.DownloadItem.open(url)
         },
 
         setCategory(c){

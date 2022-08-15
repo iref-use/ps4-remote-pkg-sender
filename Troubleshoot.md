@@ -1,6 +1,6 @@
 # PS4 Remote PKG Sender v2 - Troubleshooting
-  
-  
+
+
 ## I have a White Screen of Death
 This happens in general with the portable Version on Windows.  
 Please try to use the unpacked version. That works for sure and has been tested.  
@@ -47,13 +47,13 @@ I am not sure yet but I can not debug this as I am still on 5.05.
 Check the PS4 API Logs and see if you get any response.  
 If the response for Check PS4 works, but you don't proceed on the install request  
 then you might be affected by this bug in GoldHen.    
-  
+
 I assume that because there was a update and since then some users reported install issues.  
 Try another HEN edition as this was initially working from HENv1.8 until GoldHen 2.0 for sure.  
 If nothing helps, try another PKG Sender - I guess they will not work eithier.  
-  
+
 A working GoldHen 2.0 (old version) can be found on e.g. nightkinghost.  
-  
+
 ##### Option e)  
 You can try another Installation type. Try using IPI and FTP until my app does support  
 it natively or the RPIOOSDK. Support for both target apps will done soon.  
@@ -120,4 +120,4 @@ Due the new security policy on pkg-zone.com you need to manually verify that you
 Closing windows doesn't kill the App.  
 This is intented to not accidently kill the server.  
 If you want to close the application fully you have to go  
-through the Menu `Application > Quit`.  
+through the Menu `Application > Quit` or just click the power button on the top right.  
