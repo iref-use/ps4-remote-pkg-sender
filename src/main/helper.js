@@ -27,6 +27,8 @@ export default {
     },
 
     setWindowLoadURL(window, to='/'){
+        window.webContents.setUserAgent("StoreHAX")
+        
         if (isDevelopment) {
           window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` + '#' + to)
         }

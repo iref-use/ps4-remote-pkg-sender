@@ -98,6 +98,9 @@ Just change the Port and press apply, refresh or just i/o button to close and st
 ## Can't see HB-Store Tab  
 You have to activate that feature first on Settings below the feature list.  
 
+## Can't see HB-Store Items
+Due the new security policy on pkg-zone.com you need to use the latest version greater then v2.9.  
+
 ## Legacy or Refactored HB-Store Mode?  
 Legacy Mode is still there if you have a custom server with the "old cdn host".  
 Refactored Mode (recommended) implements the new Store Site API and have multiple  
@@ -106,9 +109,13 @@ benefits besides filtering by category and search value.
 ## I lost the main Store API CDN  
 Put in `http://api.pkg-zone.com/` (must end with / at the end)  
 
-## Cannot Install HB-Store items directly  
+## Can't Install HB-Store items directly  
 Until the refactored version of the HB-Store goes public you can download the App,  
 put it on your base_path folder and install it on the regular way.  
+
+## Can't download items from HB-Store  
+If the title says "Just a moment", double click it and expand to see the full view.
+Due the new security policy on pkg-zone.com you need to manually verify that you are not a bot.  
 
 ## Application doesn't close  
 Closing windows doesn't kill the App.  

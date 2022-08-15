@@ -1,9 +1,9 @@
 <template>
 <div class='hb_store_wrapper'>
 
-    <HBStoreLegacy v-if="mode == 'legacy'"/>
+    <HBStoreLegacy v-if="mode == 'legacy' && false"/>
 
-    <HBStoreRefactored v-if="mode == 'refactored'" />
+    <HBStoreRefactored _v-if="mode == 'refactored'" />
 
 </div>
 </template>

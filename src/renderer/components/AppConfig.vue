@@ -178,7 +178,7 @@ export default {
         ],
 
         HBModes: [
-            { key: 'legacy', value: 'Legacy', disabled: false },
+            { key: 'legacy', value: 'Legacy', disabled: true},
             { key: 'refactored', value: 'Refactored', disabled: false },
             { key: 'custom', value: 'Custom CDN', disabled: true },
         ]
