@@ -12,6 +12,8 @@
           Adding animation to download window. <br>
           Server Tab can change server path path now directly. <br>
           Adding reload files notification. <br>
+          Disable deprecated Legacy Mode for HB-Store component. <br>
+          
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.7.2" placement="top">

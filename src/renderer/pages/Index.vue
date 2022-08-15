@@ -169,7 +169,7 @@ export default {
       showVersion: false,
       showPercentage: true,
       showExtension: false,
-      showDebugInRow: true,
+      showDebugInRow: false,
       ints: [],
       search: '',
   }},
