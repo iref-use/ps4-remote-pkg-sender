@@ -106,3 +106,20 @@ table {
 b {
     font-weight: bold;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.scrollToTop {
+  position: fixed; z-index: 20;
+  bottom: 15px; right: 20px;
+}

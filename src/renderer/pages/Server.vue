@@ -1,9 +1,5 @@
 <template>
-<div>
-
-    <div style="display: flex; flex-direction: row;">
-
-    </div>
+<div class="ServerView">
 
     <el-row style="margin-bottom: 20px;">
       <el-col :span="20" style="display: flex">

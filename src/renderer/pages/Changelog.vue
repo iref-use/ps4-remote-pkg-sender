@@ -13,7 +13,8 @@
           Server Tab can change server path path now directly. <br>
           Adding reload files notification. <br>
           Disable deprecated Legacy Mode for HB-Store component. <br>
-          
+          Added new misc download links and extend the list with the rpi port of njzydark. <br>
+          Add back to top scroll button, to easly jump back. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.7.2" placement="top">

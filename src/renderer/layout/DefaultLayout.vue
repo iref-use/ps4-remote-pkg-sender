@@ -48,9 +48,15 @@
           </el-menu>
       </el-header>
 
-      <el-main>
+      <el-main class="main_view">
           <div class="main_content_offset" />
           <router-view />
+
+          <div style="margin-top: 50px; display:block;">
+              <transition name="el-zoom-in-bottom">
+                <el-button round icon="el-icon-arrow-up" class="scrollToTop" @click="scrollToTop" v-show="scrollOffset < scrollPosition"> Back to Top </el-button>
+              </transition>
+          </div>
       </el-main>
 
 </el-container>
@@ -67,6 +73,8 @@ export default {
 
   data(){ return {
       links,
+      scrollOffset: 500,
+      scrollPosition: 0,
   }},
 
   computed: {
@@ -75,6 +83,11 @@ export default {
 
   mounted(){
       this.registerChannel()
+      window.addEventListener('scroll', this.scroll)
+  },
+
+  destroyed(){
+      window.removeEventListener('scroll', this.scroll)
   },
 
   methods: {
@@ -122,6 +135,19 @@ export default {
       handleViewCallback(view){
           ipcRenderer.send('show', view)
       },
+
+      scroll(e){
+          console.log("scroll", e)
+          this.scrollPosition = window.pageYOffset
+      },
+
+      scrollToTop(){
+          window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+          })
+      }
 
   }
 }
