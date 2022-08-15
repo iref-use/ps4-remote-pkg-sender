@@ -61,7 +61,7 @@ export default {
     },
 
     methods: {
-        open(item, version='n/a ??'){
+        open(item, version='n/a'){
             this.show = true
             this.item = item
             this.version = version
