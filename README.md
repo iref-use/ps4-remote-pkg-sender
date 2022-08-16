@@ -1,10 +1,10 @@
 # PS4 Remote PKG Sender v2  
 [![ko-fi](https://img.shields.io/badge/Buy%20me%20a%20Shisha%20on-Ko--fi-red)](https://ko-fi.com/M4M082WK8)
-[![os](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)](#)
-[![commits_since_release](https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v2.7.2)](#)
-[![version](https://img.shields.io/github/package-json/v/gkiokan/ps4-remote-pkg-sender)](#)  
-[![downloads](https://img.shields.io/github/downloads/gkiokan/ps4-remote-pkg-sender/total)](#)
-[![last_commit](https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender)](#)
+[![os](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)](https://github.com/Gkiokan/ps4-remote-pkg-sender)
+[![commits_since_release](https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v2.8.0)](https://github.com/Gkiokan/ps4-remote-pkg-sender/releases)
+[![version](https://img.shields.io/github/package-json/v/gkiokan/ps4-remote-pkg-sender)](https://github.com/Gkiokan/ps4-remote-pkg-sender/releases)  
+[![downloads](https://img.shields.io/github/downloads/gkiokan/ps4-remote-pkg-sender/total)](https://github.com/Gkiokan/ps4-remote-pkg-sender/releases)
+[![last_commit](https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender)](https://github.com/Gkiokan/ps4-remote-pkg-sender)
 
 This application has been highly inspired by @irefuse and is a full refactored version of the orginal repo.  
 
@@ -40,6 +40,8 @@ The refactored Version provides a better GUI and technicall more ordered feature
 [x] Configuration values for timeout and heartbeat  
 [x] Implement HB Store and direct install fPKG's  
 [x] Queue scanner (start next file in the queue after one is finished)  
+[x] Scroll To Top  
+[x] Auto update checker for latest release version 
 
 ## ToDo's for the future (Comming into v2.9+)
 [ ] Search your PS4 automatically in the current network  
