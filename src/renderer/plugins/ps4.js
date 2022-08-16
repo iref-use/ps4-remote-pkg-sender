@@ -139,25 +139,8 @@ let ps4 = {
                     let data = response.data
 
                     if(data.status && data.status == 'fail'){
-                        // Found Error Codes
-                        // 2157510677 error on double install?
-                        // 2157510663 already installed?
-                        // 2157510681 task doesn't exist
-                        // 2157510789 (not known)
                         let code = data.error_code
-                        let message = code
-
-                        if(code==2157510681)
-                          message = code + " | task doesn't exist (?)"
-
-                        if(code==2157510663)
-                          message = code + " | already installed (?)"
-
-                        if(code==2157510677)
-                          message = code + " | It seems to be installed already"
-
-                        if(code==2157510789)
-                          message = code + " | Not enough storage"
+                        let message = this.getErrorCodeMessage(code)
 
                         ipcRenderer.send('main-error', "Error " + message)
                         throw data
@@ -165,6 +148,24 @@ let ps4 = {
 
                     return response
                 })
+    },
+
+    getErrorCodeMessage(code=''){
+        let message = code
+
+        if(code==2157510681)
+          message = code + " | task doesn't exist (?)"
+
+        if(code==2157510663)
+          message = code + " | already installed (?)"
+
+        if(code==2157510677)
+          message = code + " | It seems to be installed already"
+
+        if(code==2157510789)
+          message = code + " | Not enough storage"
+
+        return message
     },
 
     checkServer(){

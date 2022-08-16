@@ -3,6 +3,8 @@
 
   <ServerConfig />
 
+  <div style="height: 30px" />
+
   <PS4Config />
 
   <el-divider />

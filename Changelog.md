@@ -1,40 +1,102 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.8.0
+#### Update
+        Adding security policies to components.   
+        Adding custom window handler and component to download remote items.   
+        Adding animation to download window.   
+        Server Tab can change server path path now directly.   
+        Adding reload files notification.   
+        Disable deprecated Legacy Mode for HB-Store component.   
+        Added new misc download links and extend the list with the rpi port of njzydark.   
+        Add back to top scroll button, to easly jump back.   
+        Add latest version check with custom dialog component.   
+        Add auto check for latest release on startup.   
+
+### v2.7.2
+#### Optimization
+        Add custom TitleBar Settings to choose specific Style.
+        Refactor TitleBar Buttons to work on Windows.
+        Add opening methods to access specific view directly.
+        Add new logo to the info view.
+
+### v2.7.1
+#### Prefinings
+        Add System Wide Notification Settings and Notification.
+        Enable PS4 App RPI OOP with custom port.
+        Add callback for Queue Scanner to continue if a file exists.
+        Add Custom TitleBar with coloring based on the Style settings.
+        Add Window operation buttons for linux and windows.
+        Add close application button to the header menu.
+
+### v2.7.0
+#### Queue Scanner
+        Prepare Queue Scanner settings.
+        Put operation buttons together as button group.
+        Sync Queue Sanner Button on the Process Center.
+        Add Autostart Button.
+        Add Linux deb package with x64, ia32 and amvl7 architecture.
+        Handle Queue Scanner process, one by one (more performance instead of batch).
+        Extend PS4 API error logging.
+        Add a message when everything is done and there are no items in the queue left.
+
+
+### v2.6.1
+#### HB-Store direct install  
+        Added autoclose function to close the Downloading window.  
+        Refactor HB Store Legacy Component.  
+        Create new HB Store Component for the refactored version.  
+        Map new HB Store Items data to the app Data.  
+        Add coloring schema for the new categories.  
+        Fix hb-store item direct install.  
+        Update Changelog and Troubleshooting Guide.  
+
+### v2.6.0
+#### Update & Darkmode  
+        Handle application closing with child process kill after Application Quit.  
+        Add AppImage, deb and snap to Linux build command.  
+        Fix static asset paths for developing mode.  
+        Add new Logo for Homebrew Store on the Download View.  
+        Added Darkmode SCSS styling.  
+        Added Style Schematics for the Application Scrollbar.  
+        Update Settings View with proper content splitting.  
+        Prepare HB-Store Settings for legacy, refactored and custom CDN.  
+
 ### v2.5.2
-####Application Settings
-      Added more explicit HB Configuration.  
-      Moved scss styling to global css file for full-width inputs.  
-      Added RPI OOP to the Download Area.  
-      Extend the Settings options to show current Config Object data.  
-      Disable direct input for base_path. Now you need to choose it with the file explorer.  
-      Adding a custom popup for manual path input.  
-      Added rest timer with human readable time.  
-      Added css to fix the header, so it stays there when you scroll.  
-      Added prefix full path URL to the serving file (CyB1K request), so every file is unique.  
-      Added Suport Information on Settings View if anyone want to help and support me.  
+#### Application Settings
+        Added more explicit HB Configuration.  
+        Moved scss styling to global css file for full-width inputs.  
+        Added RPI OOP to the Download Area.  
+        Extend the Settings options to show current Config Object data.  
+        Disable direct input for base_path. Now you need to choose it with the file explorer.  
+        Adding a custom popup for manual path input.  
+        Added rest timer with human readable time.  
+        Added css to fix the header, so it stays there when you scroll.  
+        Added prefix full path URL to the serving file (CyB1K request), so every file is unique.  
+        Added Suport Information on Settings View if anyone want to help and support me.  
 
 ### v2.5.1
-####Further upgrades
-      Added Download View for RPI and HB-Store.  
-      Added Troubleshooting Guide to the Miscs.  
-      Fix flashing on Configuration pages when pressing enter (not necesarry).  
-      Fix base_path configuration error when opening file explorer and canceling it.  
-      Updated Info Window size and content. Applied additional thanks.  
-      Added experimental add url endpoint.  
+#### Further upgrades
+        Added Download View for RPI and HB-Store.  
+        Added Troubleshooting Guide to the Miscs.  
+        Fix flashing on Configuration pages when pressing enter (not necesarry).  
+        Fix base_path configuration error when opening file explorer and canceling it.  
+        Updated Info Window size and content. Applied additional thanks.  
+        Added experimental add url endpoint.  
 
 
 ### v2.5.0
-####Further upgrades
-      Extend main Window width to 1300px.  
-      Add button to remove files from Queue.  
-      Disable Queued file operation buttons when no task exists.  
-      On Config View change apply to server button to open Server Window.  
-      Add Application Settings.  
-      Prepare HB-Store tab with prototype content of HB-Store-R2.  
-      Create Item Objects from HB-Store package response.  
-      Add Table Expandable Row to see all properties of Item Object.  
-      Add remove Item from queue button in Queue, Server and HB-Store view.  
-      Added Pagination to HB-Store Table view.  
+#### Further upgrades
+        Extend main Window width to 1300px.  
+        Add button to remove files from Queue.  
+        Disable Queued file operation buttons when no task exists.  
+        On Config View change apply to server button to open Server Window.  
+        Add Application Settings.  
+        Prepare HB-Store tab with prototype content of HB-Store-R2.  
+        Create Item Objects from HB-Store package response.  
+        Add Table Expandable Row to see all properties of Item Object.  
+        Add remove Item from queue button in Queue, Server and HB-Store view.  
+        Added Pagination to HB-Store Table view.  
 
 ### v2.4.3
 #### Fixing storage race condition

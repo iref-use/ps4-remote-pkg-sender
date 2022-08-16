@@ -81,7 +81,7 @@ let o = {
 
     createItem(item, folder=''){
         const shouldPrefix  = store.getters['app/getPrefixFullPath']
-        
+
         // console.log(":: fs | Create File Item", item)
         let isFile = this.isFile(item)
 
@@ -133,7 +133,7 @@ let o = {
         }
     },
 
-    createItemFromHB(item, root=''){
+    createItemFromHBLegacy(item, root=''){
         let fullPath = root + 'dl.php?tid=' + item.id
         let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
         let fileName = item.name + ' (version '+item.version+')'
@@ -150,6 +150,34 @@ let o = {
             url: fullPath,
             type: 'remote',
             cusa: item.id,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size, // stats.size,
+            size: size,
+            logs: [],
+            // stats,
+            data: item
+        }
+    },
+
+    createItemFromHBRefactored(item, root=''){
+        let patchedFilename = item.name.replace(/[^a-zA-Z0-9-_.]/g, '')
+        let size = item.size ? this.formatBytes(item.size) : 'n/a'
+        // patch file url to stream
+        // let filePath = item.file.replace('attachments/', 'attachments/stream/')
+        let filePath = item.file.replace('https', 'http')
+
+        return {
+            name: item.name,
+            status: 'remote',
+            percentage: 0,
+            rest: 0,
+            task: '',
+            ext: 'pkg', // path.extname(item),
+            path: filePath,
+            url: filePath,
+            type: item.type,
+            cusa: item.cusa,
             isFile: true,
             patchedFilename,
             sizeInBytes: size, // stats.size,

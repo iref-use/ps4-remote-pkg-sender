@@ -5,9 +5,10 @@
 <script>
 import './scss/app.scss';
 // import "@fortawesome/fontawesome-free/js/all";
-
+import { get } from 'vuex-pathify'
 import { remote, ipcRenderer, shell } from 'electron'
 import url from 'url'
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 export default {
   name: 'App',
@@ -19,6 +20,20 @@ export default {
       electronWebpack: require('electron-webpack/package.json').version
     }
   }},
+
+  computed: {
+      style: get('app/getStyle'),
+  },
+
+  watch: {
+      style(){
+          this.checkColorStyle()
+      }
+  },
+
+  created(){
+      this.checkColorStyle()
+  },
 
   mounted(){
       this.$store.dispatch('app/started')
@@ -57,12 +72,27 @@ export default {
           shell.openExternal(b)
       },
 
+      openWithAutoclose(url){
+          // window.open(url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true') // deprecated
+          // proxy though application view
+          if (isDevelopment) {
+            window.open(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` + '#window.loader?q=' + url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')
+          }
+          else {
+            window.open('file://' + path.join(__dirname, 'index.html') + '#window.loader?q=' + url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')
+          }
+      },
+
       sendServer(msg){
           ipcRenderer.send('server', msg)
       },
 
       openServer(){
           ipcRenderer.send('server-show')
+      },
+
+      show(data){
+          ipcRenderer.send('show', data)
       },
 
       sendMain(msg){
@@ -75,6 +105,14 @@ export default {
           ipcRenderer.send('ps4', msg)
       },
 
+      notify(data){
+          ipcRenderer.send('notify', data)
+      },
+
+      log(msg='', data={}, type='log'){
+          this.$root.sendPS4({ time: Date.now(), msg, data, type })
+      },
+
       getImage(img){
           const isDevelopment = process.env.NODE_ENV === 'development';
           // const staticPath = isDevelopment ? __static : __dirname.replace(/app\.asar$/, 'static');
@@ -83,6 +121,13 @@ export default {
             return url.resolve(window.location.origin, img);
 
           return __dirname.replace(/app\.asar$/, 'static') + '/' + img
+      },
+
+      checkColorStyle(){
+          document.getElementsByTagName('html')[0].classList.remove('dark')
+          document.getElementsByTagName('html')[0].classList.remove('light')
+          document.getElementsByTagName('html')[0].classList.remove('pureblack')
+          document.getElementsByTagName('html')[0].classList.add(this.style)
       }
 
   },

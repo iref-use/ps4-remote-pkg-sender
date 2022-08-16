@@ -1,0 +1,34 @@
+html.light {
+    .active {
+        &.el-button {
+            color: #888;
+            background: transparent;
+            border-color: #DCDFE6;
+        }
+    }
+}
+
+
+html {
+  .active {
+
+      &.el-button {
+          // color: #888;
+          // background: transparent;
+          // border-color: #888;
+
+          &:hover, &:focus {
+            // color: inherit !important;
+            // background-color: inherit !important;
+            // border-color: inherit !important;
+          }
+      }
+
+      &.el-button.el-button--success {
+          color: #67C23A !important;
+          background-color: transparent !important;
+          border-color: #67C23A !important;
+      }
+
+  }
+}

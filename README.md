@@ -1,9 +1,10 @@
 # PS4 Remote PKG Sender v2  
 [![ko-fi](https://img.shields.io/badge/Buy%20me%20a%20Shisha%20on-Ko--fi-red)](https://ko-fi.com/M4M082WK8)
-[![os](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)](#)
-[![commits_since_release](https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v2.5.2)](#)
-[![version](https://img.shields.io/github/package-json/v/gkiokan/ps4-remote-pkg-sender)](#)
-[![last_commit](https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender)](#)
+[![os](https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-lightgrey)](https://github.com/Gkiokan/ps4-remote-pkg-sender)
+[![commits_since_release](https://img.shields.io/github/commits-since/gkiokan/ps4-remote-pkg-sender/v2.8.0)](https://github.com/Gkiokan/ps4-remote-pkg-sender/releases)
+[![version](https://img.shields.io/github/package-json/v/gkiokan/ps4-remote-pkg-sender)](https://github.com/Gkiokan/ps4-remote-pkg-sender/releases)  
+[![downloads](https://img.shields.io/github/downloads/gkiokan/ps4-remote-pkg-sender/total)](https://github.com/Gkiokan/ps4-remote-pkg-sender/releases)
+[![last_commit](https://img.shields.io/github/last-commit/gkiokan/ps4-remote-pkg-sender)](https://github.com/Gkiokan/ps4-remote-pkg-sender)
 
 This application has been highly inspired by @irefuse and is a full refactored version of the orginal repo.  
 
@@ -11,7 +12,7 @@ Based on Electron, Webpack, Vue, Express, Axios, Element-UI and Node this does n
 dependencies. With this we can createa a cross platform application that works on mac, linux and Windows
 and provides a nice GUI.  
 
-![PS4 Package Sender Main Application Windows](https://cdn.discordapp.com/attachments/463406779599028265/926965282000474122/unknown.png)
+![PS4 Package Sender Main Application Windows](https://media.discordapp.net/attachments/933730584721780806/959908370565959750/new_cover_ported.jpg)
 
 [![Full Changelog](https://img.shields.io/badge/Checkout%20-All%20Changelogs-yellow)](Changelog.md)
 
@@ -19,35 +20,43 @@ and provides a nice GUI.
 
 ## New features in v2.*
 The refactored Version provides a better GUI and technicall more ordered features.  
-* Configure your server with your base path
-* Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
-* Controll the Server application by click and have it running in the background  
-* Closing windows doesn't stop the Server but stops if you quit the application.   
-* Show a list of all Server side listed PKG's  
-* Miscs download link to flatZ PS4 Remote Package Installer homebrew  
-* Extended Menu and Tray Icon  
-* Separate Server Window (Logs, Server Routes, Controls)
-* Separate PS4 API Logs Window  
-* Catch any possible Error on Request or Response with the RPI on your PS4  
-* Scan base path (deep scan support) directory for fPKG's and serve them with the server  
-* Search for titles through your found files    
-* Add Served files to your Queue and install them on your PS4  
-* Processing Center reflects any status changes in your server list, too     
-* Set custom timeout and update interval with a slider
-* Added Seperate Changelog file and Troubleshooting Guide
-* Add a FAQ and Troubleshooting Area
-* Configuration values for timeout and heartbeat  
+[x] Configure your server with your base path  
+[x] Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
+[x] Controll the Server application by click and have it running in the background  
+[x] Closing windows doesn't stop the Server but stops if you quit the application.   
+[x] Show a list of all Server side listed PKG's  
+[x] Miscs download link to flatZ PS4 Remote Package Installer homebrew  
+[x] Extended Menu and Tray Icon  
+[x] Separate Server Window (Logs, Server Routes, Controls)  
+[x] Separate PS4 API Logs Window  
+[x] Catch any possible Error on Request or Response with the RPI on your PS4  
+[x] Scan base path (deep scan support) directory for fPKG's and serve them with the server  
+[x] Search for titles through your found files    
+[x] Add Served files to your Queue and install them on your PS4  
+[x] Processing Center reflects any status changes in your server list, too     
+[x] Set custom timeout and update interval with a slider  
+[x] Added Seperate Changelog file and Troubleshooting Guide
+[x] Add a FAQ and Troubleshooting Area  
+[x] Configuration values for timeout and heartbeat  
+[x] Implement HB Store and direct install fPKG's  
+[x] Queue scanner (start next file in the queue after one is finished)  
+[x] Scroll To Top  
+[x] Auto update checker for latest release version 
 
-## ToDo's for the future
-* Search your PS4 automatically in the current network (WIP)  
-* Implement Auto-updater  
-* Queue scanner (start next file in the queue after one is finished)
-* Import / Export Configuration  
-* Serve as global Server Host and provide Server Files over Internet   
-* Save PS4 (local, wlan, wan, internet) and make them chooseable  
-* Implement HB Store and install fPKG's  
-* Read CUSA from file hex values instead of title  
-* Preview CUSAxxxxx Game title covers  
+## ToDo's for the future (Comming into v2.9+)
+[ ] Search your PS4 automatically in the current network  
+[ ] Implement Auto-updater  
+[ ] Import / Export Configuration  
+[ ] Serve as global Server Host and provide Server Files over Internet   
+[ ] Save PS4 (local, wlan, wan, internet) and make them chooseable  
+[ ] Read CUSA from file hex values instead of title  
+[ ] Preview CUSAxxxxx Game title covers  
+[ ] Chrome Extension for external usage  
+[ ] GoldHen Cheats Manager  
+[ ] Integrated FTP Client  
+[ ] Context Menu on Processing Center  
+[ ] Group PKG's by TitleID and Type (Base, Update, DLC)  
+[ ] One click to install all Group based PKG (send all PKGs from TitleID X)  
 
 ## How To  
 So there you have it. How can you use it?  

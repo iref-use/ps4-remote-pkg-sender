@@ -1,0 +1,152 @@
+$titleBarHeight: 30px;
+$mainOffset: 60px;
+$titleBarColorLight: #fafafa;
+$titleBarColorDark: #0c0c0c;
+
+.top_right_header {
+    position: absolute;
+    top: 0px; right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    // background: #222;
+
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px; height: 40px;
+        margin-left: 10px;
+        font-size: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:focus {
+            outline: none !important;
+        }
+    }
+
+    .window_dropdown > i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 40px;
+        margin-top: 2px;
+
+        &:focus {
+            outline: none !important;
+        }
+    }
+
+    &:focus {
+        outline: none !important;
+    }
+}
+
+
+.alternative_title_bar {
+    position: relative; z-index: 2;
+    display: block;
+    height: $titleBarHeight;
+    line-height: $titleBarHeight;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    background: $titleBarColorLight;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: -20px;
+    margin-right: -20px;
+
+    .title {
+        display: block;
+        position: fixed; z-index: 1;
+        width: 100vw;
+        top: 0px; left: 0px; right: 0px;
+    }
+}
+
+
+.win, .mac {
+    position: absolute; z-index: 5;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    height: $titleBarHeight;
+    -webkit-app-region: no-drag;
+
+    > div {
+        position: relative;
+        z-index: 5;
+        display: block;
+        width: 12px; height: 12px;
+        cursor: pointer;
+    }
+}
+
+.mac {
+    left: 10px;
+
+    > div {
+        margin-right: 10px;
+        border-radius: 50%;
+        background: crimson;
+
+        &:nth-child(2){
+            background: darkorange;
+        }
+
+        &:nth-child(3){
+            background: forestgreen;
+        }
+    }
+
+    &.chromatic {
+        > div {
+            background: #4a4a4a;
+
+            &:nth-child(2){
+                background: #5a5a5a;
+            }
+
+            &:nth-child(3){
+                background: #6a6a6a;
+            }
+        }
+    }
+}
+
+.win {
+    right: 5px;
+
+    > div {
+        font-size: 13px;
+        margin-left: 12px;
+        width: 20px;
+        height: auto;
+
+        &:nth-child(3){
+            font-size: 16px;
+        }
+    }
+}
+
+
+html:not(.light){
+    .alternative_title_bar {
+        background: $titleBarColorDark;
+        color: #888;
+    }
+}
+
+.draggable {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.main_content_offset {
+    display: block;
+    height: $mainOffset + $titleBarHeight;
+}

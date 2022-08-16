@@ -1,0 +1,57 @@
+.hb_store_wrapper {
+
+    .el-divider {
+        margin: 3px 0px;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    .file {
+        position: relative;
+        display: block;
+        margin-bottom: 20px;
+
+        &.border {
+            border: 1px solid gray;
+        }
+
+        .title {
+            display: block;
+            min-height: 60px;
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: 0px;
+            padding-bottom: 100%;
+            background: center center no-repeat;
+            background-size: cover;
+        }
+    }
+
+
+
+}
+
+// darkmode fix
+html.dark {
+    .top {
+        .el-button--info {
+            background-color: #333 !important;
+            // border-color: #909399 !important;
+        }
+    }
+}
+
+// pureblack fix
+html.pureblack {
+    .top {
+        .el-button--info {
+            background-color: #1a1a1a !important;
+            // border-color: #909399 !important;
+        }
+    }
+}

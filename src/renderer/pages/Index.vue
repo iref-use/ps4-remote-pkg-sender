@@ -1,20 +1,51 @@
 <template>
 <div>
 
-  <el-row>
+  <el-row style="margin-bottom: 20px;">
     <el-col :span="20">
-        <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
-        <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
-        <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
+        <div v-if="false">
+            <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
+            <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
+            <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
 
-        <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
-        <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
+            <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
+            <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
+        </div>
+
+        <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
+          <el-button size="small" icon="el-icon-refresh-left" >
+              Reset Options <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item icon="el-icon-refresh-left" command="resetAll">Reset Queue, Tasks and Installed</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-refresh-left" command="resetInstalled">Reset Installed</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-refresh-left" command="clearFinishedFiles">Clear finished</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
+
+        <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
+          <el-button size="small" icon="el-icon-check" >
+              Check Options <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item icon="fa fa-server" command="checkHB">Check Local Server</el-dropdown-item>
+              <el-dropdown-item icon="fab fa-playstation" command="checkPS4">Check PS4</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
         <el-button size="small" icon="el-icon-link" @click="openAddFileDialog" v-if="app.config.enableExternalLinks"> Add URL </el-button>
+
+        <el-button size="small" icon="el-icon-sync" :type="queueScanner ? 'success active' : ' active'" @click="toggleQueueScanner"> Queue Scanner </el-button>
+        <el-button size="small" icon="fa fa-play" @click="handleQueueScannerNextItem" v-if="queueScanner"> Autostart </el-button>
+
+        <el-button size="small" @click="test" v-if="false">Test </el-button>
     </el-col>
     <el-col :span="4">
         <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
     </el-col>
   </el-row>
+
 
   <el-table :data="files" v-loading="loading"
       element-loading-text="Loading Server files"
@@ -138,7 +169,7 @@ export default {
       showVersion: false,
       showPercentage: true,
       showExtension: false,
-      showDebugInRow: true,
+      showDebugInRow: false,
       ints: [],
       search: '',
   }},
@@ -158,6 +189,8 @@ export default {
       installedFiles: sync('queue/installed'),
       ps4ip: get('app/getPS4IP'),
       updateInterval: get('app/ps4.update'),
+      queueScanner: get('app/server.enableQueueScanner'),
+      notify: get('app/config.enableSystemNotifications'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -196,6 +229,11 @@ export default {
           })
       },
 
+      test(){
+          if(this.notify)
+            this.sendNotification({ title: "Test", body: "This test is for Systemwide Notifications" })
+      },
+
       isInstalled(file){
           this.$ps4.isInstalled(file)
                   .then( ({ data }) => {
@@ -222,21 +260,24 @@ export default {
 
           this.clearInterval(file)
 
+          this.log("Install Request", { type : 'direct', packages: [file.url] })
+
           this.$ps4.install(file)
               .then( ({ data }) => {
                   this.log(file.name + ' install', data)
 
-                  let example =   {
-                    "status": "success",
-                    "task_id": 268435806,
-                    "title": "Tin & Kuna"
-                  }
+                  // let example =   {
+                  //   "status": "success",
+                  //   "task_id": 268435806,
+                  //   "title": "Tin & Kuna"
+                  // }
 
                   if( data.status == 'success'){
                       this.$store.dispatch('queue/addTask', data)
 
                       this.setTask(file, data.task_id)
                       this.setStatus(file, 'installing')
+                      this.sendNotification({ title: "Installing", body: file.name + " is installing" })
                       this.startInterval(file)
 
                       this.log(file.name + ' has been started installing with Task ID ' + data.task_id, data)
@@ -253,6 +294,10 @@ export default {
               .catch( e => {
                   this.clearInterval(file)
                   console.log(e)
+                  this.log("Install error", e, 'error')
+
+                  if(e.status == 'fail' && e.error_code)
+                    this.handleStartInstallError(file, e)
               })
       },
 
@@ -332,21 +377,21 @@ export default {
                   .then( ({ data }) => {
                       console.log(file.name + " get task info ", data)
 
-                      let example = {
-                        "status": "success",
-                        "bits": 394,
-                        "error": 0,
-                        "length": 2667446272,
-                        "transferred": 236060672,
-                        "length_total": 2667446272,
-                        "transferred_total": 236060672,
-                        "num_index": 1,
-                        "num_total": 1,
-                        "rest_sec": 1116,
-                        "rest_sec_total": 1116,
-                        "preparing_percent": 100,
-                        "local_copy_percent": 0
-                      }
+                      // let example = {
+                      //   "status": "success",
+                      //   "bits": 394,
+                      //   "error": 0,
+                      //   "length": 2667446272,
+                      //   "transferred": 236060672,
+                      //   "length_total": 2667446272,
+                      //   "transferred_total": 236060672,
+                      //   "num_index": 1,
+                      //   "num_total": 1,
+                      //   "rest_sec": 1116,
+                      //   "rest_sec_total": 1116,
+                      //   "preparing_percent": 100,
+                      //   "local_copy_percent": 0
+                      // }
 
                       if(data.status && data.status == 'success'){
                           let length = Math.round(parseInt(data.length))
@@ -443,6 +488,11 @@ export default {
           this.$root.sendPS4({ time: Date.now(), msg, data, type })
       },
 
+      sendNotification(data){
+          if(this.notify)
+            this.$root.notify(data)
+      },
+
       fileInstalled(file, status='installed'){
           let servingFile = this.$store.getters['server/findFile'](file)
           if(servingFile){
@@ -450,15 +500,17 @@ export default {
           }
 
           this.setTask(file, '')
+          this.sendNotification({ title: "Finished", body: file.name + " is finished installing" })
           this.$store.dispatch('queue/installed', file)
+
+
+          // queue scanner hook
+          if(this.queueScanner)
+              this.handleQueueScannerNextItem()
       },
 
       getRandomInt(max) {
           return Math.floor(Math.random() * max);
-      },
-
-      check(url){
-          window.open(url)
       },
 
       resetAll(){
@@ -514,8 +566,48 @@ export default {
       },
 
       openAddFileDialog(){
-          console.log(this.$refs)
           this.$refs.AddFileByURLDialog.show = true
+      },
+
+      handleDropdownCommand(cmd){
+          this[cmd]()
+      },
+
+      toggleQueueScanner(){
+          this.$store.dispatch('app/toggleQueueScanner')
+      },
+
+      handleQueueScannerNextItem(){
+          let findNextFile = this.queueFiles.filter( f => f.status == 'in queue')
+          console.log(findNextFile, findNextFile.length)
+
+          // no items
+          if(findNextFile.length == 0){
+              return this.$message({
+                type: 'success',
+                message: 'There are no items to be installed in the queue'
+              });
+          }
+
+          // we have a file in the queue
+          if(findNextFile.length > 0){
+              let file = findNextFile[0]
+              this.$message({
+                dangerouslyUseHTMLString: true,
+                type: 'success',
+                message: 'Found next File in the Queue. <br>' + file.name,
+              });
+              this.start(file)
+          }
+      },
+
+      handleStartInstallError(file, e){
+          let code = e.error_code
+
+          if(code==2157510677){
+              file.status = 'exists'
+              this.handleQueueScannerNextItem()
+          }
       },
 
   }

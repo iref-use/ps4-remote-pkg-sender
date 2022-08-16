@@ -43,6 +43,7 @@
       </el-row>
 
 
+      <el-divider content-position="right">Location</el-divider>
       <el-row>
           <el-col :span="24">
               <el-form-item label="PKG Base Path" class="base_path">
@@ -55,18 +56,25 @@
       </el-row>
 
       <div>
-          <el-form-item label=" ">
+          <el-form-item label="Auto scan">
               <el-checkbox v-model="server.auto_scan_on_startup" disabled>Auto scan base path on Startup</el-checkbox>
           </el-form-item>
       </div>
       <div>
-          <el-form-item label=" ">
-              <el-checkbox v-model="server.scan_subdir">Scan sub directories</el-checkbox>
+          <el-form-item label="Deepscan">
+              <el-checkbox v-model="server.scan_subdir">Scan sub directories for pkg files</el-checkbox>
+          </el-form-item>
+      </div>
+
+      <el-divider content-position="right">Features</el-divider>
+      <div>
+          <el-form-item label="URL Prefix">
+              <el-checkbox v-model="server.prependFullPath"> Prefix Serving File URL with full file path, makes each file unique</el-checkbox>
           </el-form-item>
       </div>
       <div>
-          <el-form-item label=" ">
-              <el-checkbox v-model="server.prependFullPath"> Prefix Serving File URL with full file path </el-checkbox>
+          <el-form-item label="Queue Scanner">
+              <el-checkbox v-model="server.enableQueueScanner"> Enable Queue Scanner to automatically start the next install process on the Queue</el-checkbox>
           </el-form-item>
       </div>
 
@@ -132,7 +140,10 @@ export default {
         'server.prependFullPath'(){
             this.save()
             this.loadFiles()
-        }
+        },
+        'server.enableQueueScanner'(){
+            this.save()
+        },
     },
 
     methods: {
@@ -153,6 +164,10 @@ export default {
 
         loadFiles(){
             this.$store.dispatch('server/loadFiles', this.server.base_path)
+            this.$message({
+              type: 'success',
+              message: 'Files has been reloaded'
+            });            
         },
 
         save(){

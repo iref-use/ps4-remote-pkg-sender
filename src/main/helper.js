@@ -27,6 +27,8 @@ export default {
     },
 
     setWindowLoadURL(window, to='/'){
+        window.webContents.setUserAgent("StoreHAX")
+
         if (isDevelopment) {
           window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` + '#' + to)
         }
@@ -91,6 +93,47 @@ export default {
         this.setErrorHandler(window)
 
         return window
+    },
+
+    autocloseAfterDownload(window){
+        // window.webContents.on('new-window', (createEvent, contents) => {
+        //     console.log("Web content created")
+        //     console.log(createEvent.sender)
+        //     console.log(contents)
+        //
+        //     let newWindow = BrowserWindow.fromWebContents(createEvent.sender)
+        //     console.log(newWindow)
+        //     newWindow.setContentSize(10,10)
+        // })
+
+        window.webContents.on('new-window', (event, url) => {
+            console.log("new window")
+            event.preventDefault()
+
+            var win = new BrowserWindow({ show: false, frame: false })
+            win.webContents.setUserAgent("StoreHAX")
+            win.once('ready-to-show', () => win.show())
+            win.loadURL(url)
+
+            win.webContents.session.on('will-download', (event, item, webContents) => {
+                item.once('done', (event, state) => {
+                    console.log("item download done", state)
+                    win.destroy()
+                })
+            })
+        })
+
+
+        window.webContents.on('did-attach-webview', (event, webContents) => {
+            console.log("attached new webview")
+        })
+
+        // deprecated
+        // window.webContents.session.on('will-download', (event, item, webContents) => {
+        //    item.once('done', (event, state) => {
+        //       BrowserWindow.fromWebContents(webContents).close();
+        //    });
+        // });
     },
 
     getIconPath(){

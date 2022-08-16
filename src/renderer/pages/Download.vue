@@ -17,6 +17,7 @@
         Any troubles are addressed in the Troubleshooting Guide. <br>
         <br>
         <el-button @click="$root.open(links.ps4_rpi)"> Download </el-button>
+        <el-button @click="$root.open(links.ps4_rpi_github)"> GitHub </el-button>
     </el-col>
   </el-row>
 
@@ -27,7 +28,24 @@
         <img :src="$root.getImage('assets/rpioop.png')" class="icon0" />
     </el-col>
     <el-col :span="12">
-        <b>Remote Package Installer Open Orbis Port</b> by backporter (aka kernel panic) <br>
+        <b>Remote Package Installer [Open Orbis Port]</b> by njzydark <br>
+        <br>
+        Fork of the RPI OOP by Njzydark with latest updates. <br>
+        Check GitHub repositories to compare the updates. <br>
+        <br>
+        <el-button @click="$root.open(links.ps4_rpioop_njzydark)"> Download </el-button>
+        <el-button @click="$root.open(links.ps4_rpioop_github_njzydark)"> GitHub </el-button>
+    </el-col>
+  </el-row>
+
+  <div style="height: 40px" />
+
+  <el-row>
+    <el-col style="width: 240px;">
+        <img :src="$root.getImage('assets/rpioop.png')" class="icon0" />
+    </el-col>
+    <el-col :span="12">
+        <b>Remote Package Installer [Open Orbis Port]</b> by backporter<br>
         <br>
         Backporter is working on a new version of the Remote Package Installer <br>
         porting it from flatZ version to a new one with the Open Orbis SDK. <br>

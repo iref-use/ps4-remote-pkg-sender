@@ -27,13 +27,19 @@
               </el-form-item>
           </el-col>
 
-          <el-col :span="14">
-              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px">
-                *Preparation only for now. Choose your Target Application on your PS4
-              </p>
+          <el-col :span="9">
+              <el-form-item label="App Port">
+                  <el-input v-model="ps4.port" :disabled="ps4.app != 'rpiOOP'" style="width: 150px"></el-input>
+              </el-form-item>
+          </el-col>
+
+          <el-col :span="5">
+              <el-button size="small" @click="checkPS4" style="width: 100%"> <i class="el-icon-loading" v-if="testingConnection" />  Test connection</el-button>
           </el-col>
       </el-row>
 
+
+      <el-divider content-position="right">Parameters</el-divider>
       <el-row :gutter="20">
           <el-col :span="10">
               <el-form-item label="Request Timeout" style="margin-bottom: 0px;">
@@ -77,9 +83,10 @@ export default {
     name: 'PS4Config',
 
     data(){ return {
+        testingConnection: false,
         ps4Apps: [
             { value: 'RPI (flatZ)', key: 'rpi', disabled: false },
-            { value: 'RPI (OOP)', key: 'rpiOOP', disabled: true },
+            { value: 'RPI (OOP)', key: 'rpiOOP', disabled: false },
             { value: 'IPI', key: 'ipi', disabled: true },
             { value: 'HB-Store', key: 'hbstore', disabled: true },
         ]
@@ -91,7 +98,21 @@ export default {
 
     watch: {
         'ps4.ip'(){ this.save() },
-        'ps4.app'(){ this.save() },
+        'ps4.app'(val){ 
+            if(val == 'rpi')
+              this.ps4.port = this.ps4.port_rpi
+
+            if(val == 'rpiOOP')
+              this.ps4.port = this.ps4.port_rpiOOP
+
+            this.save()
+        },
+        'ps4.port'(){ 
+            if(this.ps4.app == 'rpiOOP')
+              this.ps4.port_rpiOOP = this.ps4.port
+
+            this.save()
+        },
         'ps4.timeout'(){ this.save() },
         'ps4.updateInterval'(){ this.save() },
     },
@@ -101,6 +122,21 @@ export default {
             console.log("Save PS4 Configuration")
             this.$store.dispatch('app/setPs4', this.ps4)
         },
+
+        checkPS4(){
+            this.testingConnection = true
+            this.$ps4.checkPS4().then( (res) => {
+                this.testingConnection = false
+                this.$root.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
+                this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
+            })
+            .catch( e => {
+                this.testingConnection = false
+                this.$root.log("Check Playstation: PS4 is not accessible", e)
+                // this.$message({ message: "PS4 is not accessible.", type: 'error' })
+            })
+        },
+
     }
 }
 </script>

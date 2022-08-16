@@ -7,11 +7,13 @@ export const state = {
     config: {
         lang: 'en',
         style: 'light',
+        titleBar: 'default',
         useHB: false,
-        useHBMode: 'legacy',
+        useHBMode: 'refactored',
         useHBRoot: 'http://api.pkg-zone.com/',
         showConfigObject: false,
         enableExternalLinks: false,
+        enableSystemNotifications: false,
     },
 
     server: {
@@ -22,6 +24,7 @@ export const state = {
         auto_scan_on_startup: true,
         scan_subdir: false,
         prependFullPath: false,
+        enableQueueScanner: false,
     },
 
     ps4: {
@@ -29,6 +32,9 @@ export const state = {
         app: 'rpi',
         name: '',
         port: 12800,
+        port_rpi: 12800,
+        port_rpiOOP: 12800,
+        port_ftp: 2121,
         timeout: 2500,
         update: 2200,
     },
@@ -57,6 +63,7 @@ export const mutations = {
             auto_scan_on_startup: true,
             scan_subdir: false,
             prependFullPath: false,
+            enableQueueScanner: false,
         }
 
         state.ps4 = {
@@ -64,6 +71,9 @@ export const mutations = {
             app: 'rpi',
             name: '',
             port: 12800,
+            port_rpi: 12800,
+            port_rpiOOP: 12800,
+            port_ftp: 2121,
             timeout: 2500,
             update: 2200,
         }
@@ -74,16 +84,21 @@ export const mutations = {
             lang: 'en',
             style: 'light',
             useHB: false,
-            useHBMode: 'legacy',
+            useHBMode: 'refactored',
             useHBRoot: 'http://api.pkg-zone.com/',
             showConfigObject: false,
             enableExternalLinks: false,
+            enableSystemNotifications: false,
         }
     },
 
     saveServer(state){
         state.server = state.server
     },
+
+    toggleQueueScanner(state){
+        state.server.enableQueueScanner = !state.server.enableQueueScanner
+    }
 }
 
 // actions
@@ -110,6 +125,9 @@ export const actions = {
       commit('resetConfig')
     },
 
+    toggleQueueScanner({ commit }){
+        commit('toggleQueueScanner')
+    }
     // addFiles({ commit, dispatch, state}, payload){
     //     commit('addFiles', payload)
     // }
@@ -134,6 +152,10 @@ export const getters = {
 
   getPrefixFullPath(state){
       return state.server.prependFullPath
+  },
+
+  getStyle(state){
+      return state.config.style
   }
 
   // overwrite default `items` getter

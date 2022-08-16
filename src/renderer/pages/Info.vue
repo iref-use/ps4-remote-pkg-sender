@@ -2,8 +2,11 @@
 <div>
     <i class="fab fa-playstation" style="font-size: 40px; margin-bottom: 10px;" v-if="false" />
 
+    <div style="background: #222; padding: 10px 20px; text-align: center; margin-bottom: 20px;">
+      <img :src="$root.getImage('assets/rpsV2.png')" style="width: 180px; margin: 0 auto;" />
+    </div>
+
     <h2>Information</h2>
-    <br>
     app: {{ $root.versions.app }} <br>
     electron: {{ $root.versions.electron }} <br>
     electron-webpack: {{ $root.versions.electronWebpack }} <br>

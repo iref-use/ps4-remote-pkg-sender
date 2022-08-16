@@ -40,16 +40,16 @@ let helper = {
     },
 
     getAppStoreType(type=''){
-        if(type == 'HB Game' || type == 'Game')
+        if(type == 'game' || type == 'hb game')
           return 'success'
 
-        if(type == 'Media')
+        if(type == 'media')
           return 'primary'
 
-        if(type == 'Utility')
+        if(type == 'utility')
           return 'warning'
 
-        if(type == 'Dev Menu')
+        if(type == 'emulator')
           return 'danger'
 
         return ''
@@ -116,7 +116,18 @@ let helper = {
         var sDisplay = s > 0 ? s + "s " : "";
 
         return dDisplay + hDisplay + mDisplay + sDisplay;
-    }
+    },
+
+    formatBytes(bytes, decimals=2, k=1000) {
+        if (bytes === 0) return '0 Bytes';
+
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    },    
 
 }
 

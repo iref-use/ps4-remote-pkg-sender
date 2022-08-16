@@ -1,0 +1,259 @@
+$bg : #000;
+$bg2: #111;
+$bg3: #1c1c1c;
+$bg5: #000;
+$text: #ccc;
+$text2: #bbb;
+$text-disabled: #333;
+$text-darken: #555;
+
+$border-color: #111;
+
+$menu-active-bg: #151515;
+
+$scroll-bar-track: #222;
+$scroll-bar-background: #111;
+
+// Scroll
+html.pureblack {
+    scrollbar-color: $scroll-bar-track $scroll-bar-background;
+
+    ::-webkit-scrollbar {
+        width: 10px; /* Mostly for vertical scrollbars */
+        height: 5px; /* Mostly for horizontal scrollbars */
+    }
+
+    ::-webkit-scrollbar-thumb { /* Foreground */
+        background: $scroll-bar-track;
+    }
+    ::-webkit-scrollbar-track { /* Background */
+        background: $scroll-bar-background;
+    }
+}
+
+html.pureblack {
+    background: $bg;
+    color: $text;
+
+    h1,h2,h3,h4,h5,h6,p {
+        color: $text2 !important;
+    }
+
+
+    * {
+        // border-color: $border-color !important;
+    }
+
+
+    [disabled='disabled']{
+        color: #555 !important;
+    }
+
+    .text-darken {
+        color: $text-darken;
+    }
+
+    body,
+    .el-menu,
+    .el-table,
+    .el-table tr,
+    .el-table tr th,
+    .el-table tr td {
+        background: $bg !important;
+        color: $text !important;
+    }
+
+
+    // Menu active
+    .el-menu--horizontal>.el-menu-item.is-active,
+    .el-menu--horizontal>.el-submenu.is-active {
+        background: $menu-active-bg !important;
+        color: $text !important;
+    }
+
+    .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus,
+    .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover,
+    .el-menu--horizontal>.el-submenu
+    .el-submenu__title:hover
+    {
+        background: $menu-active-bg;
+        color: $text;
+    }
+
+    // submenu popup
+    .el-menu--horizontal .el-menu--popup {
+        background: $bg !important;
+        border: 1px solid $menu-active-bg !important;
+
+        .el-menu-item {
+            background: $bg !important;
+            color: $text !important;
+
+            &.is-active {
+                background: $bg2 !important;
+                color: $text;
+            }
+
+            // divider
+            +div {
+                background: $menu-active-bg !important;
+            }
+        }
+    }
+
+    // Menu underline cleanup
+    .el-menu--horizontal>.el-menu-item,
+    .el-menu--horizontal>.el-submenu .el-submenu__title {
+        border-bottom: 2px solid transparent !important;
+        color: $text;
+    }
+
+    .el-menu--horizontal {
+        border-color: $bg3;
+    }
+
+
+    // Table
+    .el-table::before {
+        background-color: transparent;
+    }
+
+    .el-table .el-table__cell,
+    {
+        border-color: $border-color !important;
+
+        &.is-leaf {
+            bordr-bottom: 1px solid $border-color !important;
+        }
+    }
+
+    // label
+    .el-form-item__label {
+        color: $text !important;
+    }
+
+
+    // Button
+    [class^="btn-"],
+    .el-pager li,
+    .el-button {
+        background: $bg !important;
+        color: $text;
+        cursor: pointer;
+        border-color: $border-color !important;
+    }
+
+    // Tag
+    .el-tag {
+        background: $bg2;
+        border-color: $border-color !important;
+    }
+
+    // Input
+    .el-input__inner,
+    .el-input-group__append,
+    .el-input.is-disabled .el-input__inner {
+        background: $bg2;
+        color: $text2;
+        border-color: $border-color !important;
+    }
+
+    // checkbox
+    .el-checkbox__input {
+        &:not(.is-checked) .el-checkbox__inner {
+            background: $bg;
+            border-color: $border-color;
+        }
+
+        &.is-disabled {
+            .el-checkbox__inner {
+                background: $bg3;
+                border-color: $bg3;
+            }
+
+            +span {
+                color: $bg3;
+            }
+        }
+    }
+
+    // divider
+    .el-divider {
+        background: $bg3;
+
+        .el-divider__text {
+            background: $bg;
+            color: $text-disabled;
+        }
+    }
+
+    // progress
+    .el-progress-bar__outer {
+        background: $bg2 !important;
+        border: 1px solid $border-color;
+    }
+
+    // Message
+    .el-message {
+        background: $bg2;
+        border-color: $bg3 !important;
+    }
+
+    // dropdown
+    .el-popper[x-placement^=bottom] .popper_arrow,
+    .popper__arrow {
+        border-bottom-color: $bg3 !important;
+        top: -7px !important;
+
+        &::after {
+            border-bottom-color: $bg !important;
+        }
+    }
+
+    .el-dropdown-menu,
+    .el-select-dropdown {
+        background: $bg !important;
+        border-color: $border-color !important;
+
+        .el-dropdown-menu__item,
+        .el-select-dropdown__item {
+            color: $text2;
+            &.hover,
+            &:hover {
+                background: $menu-active-bg !important;
+            }
+
+            &.is-disabled {
+                color: $text-disabled !important;
+                cursor: not-allowed;
+            }
+        }
+
+        .popper_arrow {
+            // border-color: transparent !important;
+        }
+    }
+
+    // Dialog Popup
+    .el-message-box,
+    .el-dialog {
+        border: 1px solid $border-color !important;
+        border-radius: 8px !important;
+        background: $bg;
+        color: $text;
+
+        * {
+            color: inherit;
+        }
+    }
+
+    // slider
+    .el-slider__runway {
+        background: $bg3;
+
+        .el-slider__button {
+            background: $bg2;
+        }
+    }
+
+}

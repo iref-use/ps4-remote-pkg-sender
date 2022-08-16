@@ -1,7 +1,8 @@
 <template>
 <el-container>
-
       <el-header>
+          <TitleBar />
+
           <el-menu :default-active="'home'" :router="true" mode="horizontal" ref="menu" @select="handleSelect">
               <el-menu-item index="home" ref="home">Processing Center</el-menu-item>
 
@@ -29,12 +30,41 @@
 
               <el-menu-item index="settings">Settings</el-menu-item>
 
+              <div class='top_right_header'>
+                  <el-badge :is-dot="true" value="new" :hidden="!newVersionAvailable" class="sync_icon">
+                      <div class="close_application" @click="checkUpdate">
+                          <i class="el-icon-refresh" />
+                      </div>
+                  </el-badge>
+
+                  <el-dropdown class="window_dropdown" @command="handleViewCallback">
+                    <i class="el-icon-files" off-style="color: #bbb" />
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item command="server"> Open Local Server </el-dropdown-item>
+                      <el-dropdown-item command="ps4"> Open PS4 API Logs </el-dropdown-item>
+                      <el-dropdown-item command="info"> Info </el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+
+                  <div class='close_application' @click="closeApplicationRequest">
+                      <i class="el-icon-switch-button" />
+                  </div>
+              </div>
+
           </el-menu>
       </el-header>
 
-      <el-main>
-          <div style="height: 60px" />
+      <el-main class="main_view">
+          <div class="main_content_offset" />
           <router-view />
+
+          <div style="margin-top: 100px; display:block;">
+              <transition name="el-zoom-in-bottom">
+                <el-button round icon="el-icon-arrow-up" class="scrollToTop" @click="scrollToTop" v-show="scrollOffset < scrollPosition"> Back to Top </el-button>
+              </transition>
+          </div>
+
+          <LatestVersionInfo ref="LatestVersionInfo" />
       </el-main>
 
 </el-container>
@@ -44,13 +74,16 @@
 import { get } from 'vuex-pathify'
 import { shell } from 'electron'
 import links from '@/../config/links'
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 
 export default {
   name: 'DefaultLayout',
 
   data(){ return {
       links,
+      scrollOffset: 500,
+      scrollPosition: 0,
+      newVersionAvailable: true,
   }},
 
   computed: {
@@ -59,6 +92,12 @@ export default {
 
   mounted(){
       this.registerChannel()
+      window.addEventListener('scroll', this.scroll)
+      this.autoCheckUpdate()
+  },
+
+  destroyed(){
+      window.removeEventListener('scroll', this.scroll)
   },
 
   methods: {
@@ -87,10 +126,67 @@ export default {
 
       openLink(link){
           shell.openExternal(link)
-      }
+      },
+
+      closeApplicationRequest(){
+          this.$confirm('Do you really want to close the Application? \nThis stops the server and all child processes.', 'Warning', {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning',
+            center: true
+          }).then(() => {
+              ipcRenderer.send('quit')
+          }).catch(() => {
+
+          });
+      },
+
+      handleViewCallback(view){
+          ipcRenderer.send('show', view)
+      },
+
+      scroll(e){
+          this.scrollPosition = window.pageYOffset
+      },
+
+      scrollToTop(){
+          window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+          })
+      },
+
+      async checkUpdate(){
+          let release = await this.$git.getLatestRelease()
+          if(!release) return
+
+          this.$refs.LatestVersionInfo.open(release)
+          this.newVersionAvailable = false
+      },
+
+      async autoCheckUpdate(){
+          let release = await this.$git.getLatestRelease()
+          if(!release) return
+
+          let version = this.$git.getVersion(release)
+          let current = this.$root.versions.app
+          let compare = this.$git.compareVersion(current, version)
+          // console.log("Autocheck for latest updates on startup", compare)
+
+          if(compare == -1){
+              this.newVersionAvailable = true
+              this.$refs.LatestVersionInfo.open(release)
+          }
+          else {
+              this.newVersionAvailable = false
+          }
+      },
+
   }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+
 </style>

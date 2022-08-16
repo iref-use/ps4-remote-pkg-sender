@@ -4,14 +4,77 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
-
-    <el-timeline-item timestamp="2.6.0" placement="top">
+    <el-timeline-item timestamp="2.8.0" placement="top">
         <h4>Update</h4>
+        <p>
+          Adding security policies to components. <br>
+          Adding custom window handler and component to download remote items. <br>
+          Adding animation to download window. <br>
+          Server Tab can change server path path now directly. <br>
+          Adding reload files notification. <br>
+          Disable deprecated Legacy Mode for HB-Store component. <br>
+          Added new misc download links and extend the list with the rpi port of njzydark. <br>
+          Add back to top scroll button, to easly jump back. <br>
+          Add latest version check with custom dialog component. <br>
+          Add auto check for latest release on startup. <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.7.2" placement="top">
+        <h4>Optimization</h4>
+        <p>
+          Add custom TitleBar Settings to choose specific Style. <br>
+          Refactor TitleBar Buttons to work on Windows. <br>
+          Add opening methods to access specific view directly. <br>
+          Add new logo to the info view. <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.7.1" placement="top">
+        <h4>Prefinings</h4>
+        <p>
+          Add System Wide Notification Settings and Notification. <br>
+          Enable PS4 App RPI OOP with custom port. <br>
+          Add callback for Queue Scanner to continue if a file exists. <br>
+          Add Custom TitleBar with coloring based on the Style settings. <br>
+          Add Window operation buttons for linux and windows. <br>
+          Add close application button to the header menu.  <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.7.0" placement="top">
+        <h4>Queue Scanner</h4>
+        <p>
+          Prepare Queue Scanner settings. <br>
+          Put operation buttons together as button group. <br>
+          Sync Queue Sanner Button on the Process Center. <br>
+          Add Autostart Button. <br>
+          Add Linux deb package with x64, ia32 and amvl7 architecture. <br>
+          Handle Queue Scanner process, one by one (more performance instead of batch). <br>
+          Extend PS4 API error logging. <br>
+          Add a message when everything is done and there are no items in the queue left. <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.6.1" placement="top">
+        <h4>HB-Store direct install</h4>
+        <p>
+          Added autoclose function to close the Downloading window. <br>
+          Refactor HB Store Legacy Component. <br>
+          Create new HB Store Component for the refactored version. <br>
+          Map new HB Store Items data to the app Data. <br>
+          Add coloring schema for the new categories. <br>
+          Fix hb-store item direct install. <br>
+          Update Changelog and Troubleshooting Guide. <br>
+        </p>
+    </el-timeline-item>
+    <el-timeline-item timestamp="2.6.0" placement="top">
+        <h4>Update & Darkmode</h4>
         <p>
           Handle application closing with child process kill after Application Quit. <br>
           Add AppImage, deb and snap to Linux build command. <br>
           Fix static asset paths for developing mode. <br>
-          
+          Add new Logo for Homebrew Store on the Download View. <br>
+          Added Darkmode SCSS styling. <br>
+          Added Style Schematics for the Application Scrollbar. <br>
+          Update Settings View with proper content splitting. <br>
+          Prepare HB-Store Settings for legacy, refactored and custom CDN. <br>
         </p>
     </el-timeline-item>
     <el-timeline-item timestamp="2.5.2" placement="top">

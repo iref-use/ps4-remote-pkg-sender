@@ -1,14 +1,24 @@
 <template>
-<div>
+<div class="ServerView">
 
-    <div style="display: flex; flex-direction: row;">
-
-    </div>
-
-    <el-row>
+    <el-row style="margin-bottom: 20px;">
       <el-col :span="20" style="display: flex">
-          <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px;"> Reload </el-button>
-          <el-tag size="size" effect="light" class="path_input_tag" v-if="server.base_path">{{ server.base_path }}</el-tag>
+          <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px; height: 32px;"> Reload </el-button>
+
+          <el-tag size="size" effect="light" class="path_input_tag" v-if="server.base_path && false">
+              {{ server.base_path }}
+              <el-button size="mini" icon="el-icon-edit" @click.native="enterManuallyBasePath"></el-button>
+              <el-button size="mini" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
+          </el-tag>
+
+          <el-form style="width: 100%; margin-right: 10px;">
+            <el-form-item style="margin: 0px; width: 100%;">
+              <el-input size="small" placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
+                  <el-button size="mini" slot="append" icon="el-icon-edit" @click.native="enterManuallyBasePath"> </el-button>
+                  <el-button size="mini" slot="append" icon="el-icon-folder" @click.native="selectBasePath"> </el-button>
+              </el-input>
+            </el-form-item>
+          </el-form>
       </el-col>
       <el-col :span="4">
           <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -39,7 +49,7 @@
             </template>
         </el-table-column>
 
-        <el-table-column prop="cusa" label="CUSA" width="110" align="center" v-if="showCUSA">
+        <el-table-column prop="cusa" label="Title ID" width="110" align="center" v-if="showCUSA">
             <template slot-scope="scope">
                 <small style="font-size:12px">{{ scope.row.cusa }}</small>
             </template>
@@ -85,7 +95,7 @@
 import fs from 'fs'
 import path from 'path'
 import { get, sync } from 'vuex-pathify'
-import { ipcRenderer } from 'electron'
+import { remote, ipcRenderer } from 'electron'
 
 import express from 'express'
 import http from 'http'
@@ -113,7 +123,7 @@ export default {
     },
 
     computed: {
-        server: get('app/server'),
+        server: sync('app/server'),
         serverFiles: get('server/serverFiles'),
         servingFiles: get('server/servingFiles'),
         queueFiles: get('queue/queue'),
@@ -145,14 +155,16 @@ export default {
 
             console.log("Reload files at base path. Triggered though Server-List")
             // this.$store.dispatch('server/startLoading')
-            this.$store.dispatch('server/loadFiles', this.server.base_path)
+            // this.$store.dispatch('server/loadFiles', this.server.base_path)
+            this.loadFiles()
+
             // this.$store.dispatch('server/stopLoading')
             // setTimeout( () => this.$store.dispatch('server/stopLoading'), 2000)
             // console.log(this.routes)
         },
 
         check(url){
-            window.open(url)
+            this.$root.openWithAutoclose(url)
         },
 
         run(){
@@ -198,6 +210,48 @@ export default {
                     type: 'warning'
                 })
             }
+        },
+
+        enterManuallyBasePath(){
+            this.$prompt('Please input base path', 'Base Path for the Server', {
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+              // inputErrorMessage: 'Invalid Email'
+            }).then(({ value }) => {
+                if(value){
+                    this.server.base_path = value
+                    this.$message({
+                      type: 'success',
+                      message: 'Your base_path has been set to:' + value
+                    });
+                    this.loadFiles()
+                }
+            }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: 'Input canceled'
+                });
+            });
+        },
+
+        selectBasePath(){
+            let path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+
+            if(path){
+              // console.log("Path changed in Server Tab.")
+              this.server.base_path = path[0]
+              this.$store.dispatch('app/setServer', this.server)
+              this.loadFiles()
+            }
+        },
+
+        loadFiles(){
+            this.$store.dispatch('server/loadFiles', this.server.base_path)
+            this.$message({
+              type: 'success',
+              message: 'Files has been reloaded'
+            });
         },
 
     }

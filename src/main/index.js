@@ -28,7 +28,7 @@ let windows = {
 // Create Windows
 function createMainWindow() {
   const window = helper.createWindowInstance('/', {
-    width: 1300, height: 800,
+    width: 1300, height: 800, frame: false,
   }, showMainDevTools)
 
   window.on('close', (event) => {
@@ -37,6 +37,9 @@ function createMainWindow() {
   })
   window.on('closed', () => { windows.main = null })
   // window.webContents.openDevTools()
+
+  // handle download child windows and autoclose
+  helper.autocloseAfterDownload(window)
 
   windows.main = window
 
@@ -94,6 +97,7 @@ function hearthbeat(){
 function registerChannel(){
     ipcMain.on('server', (event, data) => windows.server.webContents.send('server', data) )
     ipcMain.on('server-show', () => windows.server.show() )
+    ipcMain.on('show', (event, data) => showWindow(data) )
 
     ipcMain.on('main', (event, data) => windows.main.webContents.send('main', data) )
     ipcMain.on('main-error', (event, data) => windows.main.webContents.send('main-error', data) )
@@ -102,6 +106,8 @@ function registerChannel(){
     ipcMain.on('ps4', (event, data) => windows.ps4.webContents.send('ps4', data) )
 
     ipcMain.on('error', (event, data) => windows.main.webContents.send('error', data) )
+    ipcMain.on('notify', (event, data) => notify(data) )
+    ipcMain.on('quit', () => app.quit() )
 }
 
 // add Shortcuts
@@ -125,6 +131,22 @@ function createProtocols(){
     ]);
 }
 
+// notifications
+function notify(data){
+    new Notification(data).show()
+}
+
+// show window
+function showWindow(data){
+    if(data == 'ps4')
+      windows.ps4.show()
+
+    if(data == 'server')
+      windows.server.show()
+
+    if(data == 'info')
+      windows.info.show()
+}
 
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
@@ -160,10 +182,7 @@ app.on('before-quit', (event) => {
 
 //  activate hook
 app.on('activate', () => {
-  // on macOS it is common to re-create a window even after all windows have been closed
-  if (windows.main === null) {
-    windows.main = createMainWindow()
-  }
+  windows.main.show()
 })
 
 // create main BrowserWindow when electron is ready
