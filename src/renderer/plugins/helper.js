@@ -129,6 +129,16 @@ let helper = {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     },    
 
+    is(val, a=true, b=false, fb=false){
+        if( val )
+          return a
+
+        if (!val)
+          return b 
+
+        return fb
+    },
+
 }
 
 Vue.prototype.$helper = helper

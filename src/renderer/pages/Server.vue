@@ -1,6 +1,12 @@
 <template>
 <div class="ServerView">
 
+    <el-row style="margin-bottom: 20px">
+        <el-button :type="$helper.is(tab == 'server', 'success active', '')" @click="tab = 'server'"> Base Files </el-button>
+        <el-button :type="$helper.is(tab == 'dragged', 'success active', '')" @click="tab = 'dragged'"> Dragged Files </el-button>
+        <el-button disabled> Upcoming Feature Files from Hosts! </el-button>
+    </el-row>
+
     <el-row style="margin-bottom: 20px;">
       <el-col :span="20" style="display: flex">
           <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px; height: 32px;"> Reload </el-button>
@@ -11,14 +17,19 @@
               <el-button size="mini" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
           </el-tag>
 
-          <el-form style="width: 100%; margin-right: 10px;">
+          <el-form style="width: 100%; margin-right: 10px;" v-if="tab == 'server'">
             <el-form-item style="margin: 0px; width: 100%;">
               <el-input size="small" placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
                   <el-button size="mini" slot="append" icon="el-icon-edit" @click.native="enterManuallyBasePath"> </el-button>
                   <el-button size="mini" slot="append" icon="el-icon-folder" @click.native="selectBasePath"> </el-button>
+                  <el-button size="mini" slot="append" icon="el-icon-plus" @click.native="addAllFilesToQueue"> Add all </el-button>
               </el-input>
             </el-form-item>
+            
           </el-form>
+
+          <el-button size="mini" slot="append" icon="el-icon-plus" @click.native="addAllFilesToQueue"> Add all </el-button>
+
       </el-col>
       <el-col :span="4">
           <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -105,6 +116,7 @@ export default {
 
     data(){ return {
         // files: [],
+        tab: 'server',
         debug: false,
         showExtension: false,
         showCUSA: true,
@@ -124,22 +136,28 @@ export default {
 
     computed: {
         server: sync('app/server'),
-        serverFiles: get('server/serverFiles'),
+        draggedFiles: get('server/draggedFiles'),
+        serverFiles: get('server/serverFiles'),        
         servingFiles: get('server/servingFiles'),
         queueFiles: get('queue/queue'),
         routes: get('server/routes'),
         loading: get('server/loading'),
         files(){ 
             let search = this.search.toLowerCase()
+            let finalFiles = this.servingFiles
+
+            if( this.tab == 'dragged' )
+                finalFiles = this.draggedFiles
 
             if(search.length != 0)
-              return this.servingFiles.filter( file =>
+              return finalFiles.filter( file =>
                   file.name.toLowerCase().includes(search) || 
                   file.cusa.toLowerCase().includes(search) ||
                   file.status.toLowerCase().includes(search)
                 )
 
-            return this.servingFiles
+            // legacy
+            return finalFiles
         },
     },
 
@@ -210,6 +228,10 @@ export default {
                     type: 'warning'
                 })
             }
+        },
+
+        addAllFilesToQueue(){
+
         },
 
         enterManuallyBasePath(){

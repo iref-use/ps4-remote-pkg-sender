@@ -157,7 +157,7 @@ export default {
             .on('error', (e) => {
                 // console.log({ ...e })
                 if(e.errno === 'EADDRINUSE'){
-                  let error = "Port " + this.port + " is already in use. Choose another one and restart the Server"
+                  let error = "Port " + this.port + " is already in use. Choose another Port and restart the Server"
                   this.$root.sendMain(error)
                   this.$store.dispatch('server/addLog', error)
                 }

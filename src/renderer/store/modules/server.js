@@ -4,6 +4,7 @@ import fs from './../../plugins/fs.js'
 export const state = {
     files: [],
     serverFiles: [],
+    draggedFiles: [],
     servingFiles: [],
     routes: [],
     logs: [],
@@ -57,7 +58,6 @@ export const actions = {
     resetLogs({ commit}){
         commit('resetLogs')
     },
-
     startLoading({ commit }){
         commit('loading', true)
     },

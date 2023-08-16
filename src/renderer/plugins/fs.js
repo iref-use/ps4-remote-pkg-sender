@@ -45,6 +45,24 @@ let o = {
         return files
     },
 
+    getFiles,
+
+    getFileName(p=null){
+        if( !p ) return 'n/a'
+
+        return path.basename(p)
+    },
+
+    getFileSize(p=null, d=2, returnBytes=false){
+        if( !p ) return 'n/a'
+
+        let stats = fs.statSync(p)
+        if( stats && stats.size )
+            return returnBytes ? stats.size : this.formatBytes(stats.size, d)
+
+        return 'n/a'
+    },
+
     walk(folder){
         console.log("Walking Directory", folder)
         const files = fs.readdirSync(folder);
@@ -213,7 +231,35 @@ let o = {
         }
     },
 
-    formatBytes(bytes, decimals=2, k=1000) {
+    createItemFromDraggedFile(draggedFilePath){
+        let name            = path.basename(draggedFilePath)
+        let patchedFilename = name.replace(/[^a-zA-Z0-9-_.]/g, '')
+        let size            = this.getFileSize(draggedFilePath, 2, true)
+        let searchCUSA      = name.match(/(CUSA\d{5})/i)
+        let cusa            = searchCUSA ? searchCUSA[0].toUpperCase() : ''        
+        
+        return {
+            name,
+            status: 'Dragged',
+            percentage: 0,
+            rest: 0,
+            task: '',
+            ext: path.extname(draggedFilePath),
+            path: draggedFilePath,
+            url: draggedFilePath,
+            type: 'Dragged',
+            cusa,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size, // stats.size,
+            size: this.formatBytes(size, 2),
+            logs: [],
+            // stats,
+        }
+    },
+
+    formatBytes(bytes=null, decimals=2, k=1000) {
+        if (!bytes) return 'n/a';
         if (bytes === 0) return '0 Bytes';
 
         const dm = decimals < 0 ? 0 : decimals;
