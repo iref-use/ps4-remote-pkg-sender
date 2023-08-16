@@ -62,12 +62,10 @@ export default {
     },
 
     computed: {
-        draggedFiles: sync('server/draggedFiles'),
-
+        draggedFiles: get('server/draggedFiles'),
         isDragged(){
             return this.files && this.files.length 
         },
-
         title(){
             if( this.isDragged )
                 return "Select Files to add"
@@ -79,8 +77,9 @@ export default {
     methods: {
         addFiles(){
             let filesAsItems = this.files.map( file => this.$fs.createItemFromDraggedFile(file) )
-            console.log(filesAsItems)
-            this.draggedFiles = filesAsItems
+            // console.log(filesAsItems)
+            this.$store.dispatch('server/setDraggedFiles', filesAsItems)
+            this.$root.serverTab = 'dragged'
             this.$emit('close')
         },     
     }

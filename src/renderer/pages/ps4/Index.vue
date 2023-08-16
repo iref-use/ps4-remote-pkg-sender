@@ -2,8 +2,10 @@
 <div>
     <h2>PS4 API Logs </h2>
 
-    <el-button size="mini" icon="refresh" @click="reset"> Reset Logs </el-button>
-    <el-button size="mini" icon="eye" @click="showData = !showData"> Toggle Data </el-button>
+    <div class="mb-md">
+        <el-button size="mini" icon="refresh" @click="reset"> Reset Logs </el-button>
+        <el-button size="mini" icon="eye" @click="showData = !showData"> Toggle Data </el-button>
+    </div>
 
     <div v-for="(log,i) in logs" :key="i">
         <div v-if="showData" style="margin-bottom: 20px;">

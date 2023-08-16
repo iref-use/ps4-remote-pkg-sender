@@ -6,9 +6,12 @@
       <el-tab-pane label="Log" name="logs">
           <Logs />
       </el-tab-pane>
-      <el-tab-pane label="Serving Files" name="files">
-          <Files />
+      <el-tab-pane label="Serving Files" name="serverFiles">
+          <Files type="server" />
       </el-tab-pane>
+      <el-tab-pane label="Dragged Files" name="draggedFiles">
+          <Files type="dragged" />
+      </el-tab-pane>      
       <el-tab-pane label="Routes" name="routes">
           <Routes />
       </el-tab-pane>
@@ -70,7 +73,9 @@ export default {
         base_path: get('app/server.base_path'),
         ip: get('app/server.ip'),
         port: get('app/server.port'),
-        serverFiles: get('server/serverFiles'),
+        draggedFiles: get('server/draggedFiles'),
+        draggedServingFiles: get('server/draggedServingFiles'),
+        serverFiles: get('server/serverFiles'),        
         servingFiles: get('server/servingFiles'),
         status: sync('server/status'),
         app: get('server/app'),
@@ -93,6 +98,12 @@ export default {
             this.$store.dispatch('server/addLog', "Server files has been changed. Reload files.")
             this.createPaths()
         },
+
+        'draggedFiles'(o,n){
+            console.log("::server | draggedFiles changed")
+            this.$store.dispatch('server/addLog', "Dragged files has been changed. Reload files.")
+            this.createPaths()
+        }
     },
 
     methods: {
@@ -204,6 +215,8 @@ export default {
             this.$store.dispatch('server/setRoutes', [])
             this.addHearthbeatEndpoint()
             this.addFilesFromBasePath()
+            this.addDraggedFilesToServer()
+            this.$store.dispatch('server/setRoutes', this.getRegisteredRoutes())
         },
 
         getRegisteredRoutes(){
@@ -234,8 +247,26 @@ export default {
             })
 
             this.$store.dispatch('server/addLog', "Serving " + servingFiles.length + " files from base path")
-            this.$store.dispatch('server/setServingFiles', servingFiles)
-            this.$store.dispatch('server/setRoutes', this.getRegisteredRoutes())
+            this.$store.dispatch('server/setServingFiles', servingFiles)            
+        },
+
+        addDraggedFilesToServer(){
+            if( this.draggedFiles.length == 0 ){
+                this.$store.dispatch('server/addLog', "No dragged files found, skipping.")
+                return
+            }
+            
+            this.$store.dispatch('server/addLog', "Found " + this.draggedFiles.length + " dragged Files")
+            let servingFiles = []
+
+            this.draggedFiles.map( file => {
+                file = { ...file, patchedFilename: 'dragged/' + file.patchedFilename }
+                servingFiles.push(this.addFileEndpoint(file))
+            })
+
+            this.$store.dispatch('server/addLog', "Added " + servingFiles.length + " dragged files to the Server.")
+            this.$store.dispatch('server/setDraggedServingFiles', servingFiles)
+            console.log(servingFiles)
         },
 
         addFileEndpoint(file){

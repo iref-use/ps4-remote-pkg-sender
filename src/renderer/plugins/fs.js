@@ -117,9 +117,7 @@ let o = {
         }
 
         let stats = fs.lstatSync(fullPath)
-        // let stats = isFile ? fs.statSync(item) : null
-        // let size = (stats.size / (1024*1024*1024)).toFixed(3)
-        let size = this.formatBytes(stats.size, 2)
+        let size  = this.formatBytes(stats.size, 2)
         let regex = /(CUSA\d{5})/i
 
         // let cusa  = regex.test(fileName) ? fileName.match(regex)[0] : 'not found' // overhead?
@@ -246,12 +244,12 @@ let o = {
             task: '',
             ext: path.extname(draggedFilePath),
             path: draggedFilePath,
-            url: draggedFilePath,
-            type: 'Dragged',
+            url: null,
+            type: 'dragged',
             cusa,
             isFile: true,
             patchedFilename,
-            sizeInBytes: size, // stats.size,
+            sizeInBytes: size,
             size: this.formatBytes(size, 2),
             logs: [],
             // stats,

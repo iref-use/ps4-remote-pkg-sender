@@ -38,7 +38,7 @@
     <div v-if="app.config.showConfigObject">
         <div style="height: 40px" />
         <el-divider content-position="left">Your current settings object</el-divider>
-        <div style="white-space: pre" v-html="prettyPrint(app)" />
+        <div style="white-space: pre" v-html="$helper.prettyPrint(app)" />
     </div>
 
 </div>
@@ -60,25 +60,7 @@ export default {
   },
 
   methods: {
-      prettyPrint(input={}){
-          var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
-          var replacer = function(match, pIndent, pKey, pVal, pEnd) {
-              var key = '<span class="json-key" style="color: brown">',
-                  val = '<span class="json-value" style="color: gray">',
-                  str = '<span class="json-string" style="color: olive">',
-                  r = pIndent || '';
-              if (pKey)
-                  r = r + key + pKey.replace(/[: ]/g, '') + '</span>: ';
-              if (pVal)
-                  r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
-              return r + (pEnd || '');
-          };
 
-          return JSON.stringify(input, null, 3)
-                    .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
-                    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                    .replace(jsonLine, replacer);        
-      }
   }
 }
 </script>

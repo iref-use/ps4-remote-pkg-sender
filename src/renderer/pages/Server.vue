@@ -2,8 +2,8 @@
 <div class="ServerView">
 
     <el-row style="margin-bottom: 20px">
-        <el-button :type="$helper.is(tab == 'server', 'success active', '')" @click="tab = 'server'"> Base Files </el-button>
-        <el-button :type="$helper.is(tab == 'dragged', 'success active', '')" @click="tab = 'dragged'"> Dragged Files </el-button>
+        <el-button :type="$helper.is(tab == 'server', 'success active', '')" @click="$root.serverTab = 'server'"> Base Files </el-button>
+        <el-button :type="$helper.is(tab == 'dragged', 'success active', '')" @click="$root.serverTab = 'dragged'"> Dragged Files </el-button>
         <el-button disabled> Upcoming Feature Files from Hosts! </el-button>
     </el-row>
 
@@ -17,19 +17,17 @@
               <el-button size="mini" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
           </el-tag>
 
-          <el-form style="width: 100%; margin-right: 10px;" v-if="tab == 'server'">
+          <el-form style="width: 100%; margin-right: 10px;" v-if="$root.serverTab == 'server'">
             <el-form-item style="margin: 0px; width: 100%;">
               <el-input size="small" placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
                   <el-button size="mini" slot="append" icon="el-icon-edit" @click.native="enterManuallyBasePath"> </el-button>
                   <el-button size="mini" slot="append" icon="el-icon-folder" @click.native="selectBasePath"> </el-button>
-                  <el-button size="mini" slot="append" icon="el-icon-plus" @click.native="addAllFilesToQueue"> Add all </el-button>
+                  <el-button size="mini" slot="append" icon="el-icon-plus" @click.native="addAllFilesToQueue"> Add all to Queue </el-button>
               </el-input>
-            </el-form-item>
-            
+            </el-form-item>            
           </el-form>
 
-          <el-button size="mini" slot="append" icon="el-icon-plus" @click.native="addAllFilesToQueue"> Add all </el-button>
-
+          <el-button size="mini" icon="el-icon-plus" @click.native="addAllFilesToQueue" v-if="tab == 'dragged'"> Add all to Queue </el-button>
       </el-col>
       <el-col :span="4">
           <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
@@ -116,7 +114,6 @@ export default {
 
     data(){ return {
         // files: [],
-        tab: 'server',
         debug: false,
         showExtension: false,
         showCUSA: true,
@@ -137,6 +134,7 @@ export default {
     computed: {
         server: sync('app/server'),
         draggedFiles: get('server/draggedFiles'),
+        draggedServingFiles: get('server/draggedServingFiles'),
         serverFiles: get('server/serverFiles'),        
         servingFiles: get('server/servingFiles'),
         queueFiles: get('queue/queue'),
@@ -147,7 +145,7 @@ export default {
             let finalFiles = this.servingFiles
 
             if( this.tab == 'dragged' )
-                finalFiles = this.draggedFiles
+                finalFiles = this.draggedServingFiles
 
             if(search.length != 0)
               return finalFiles.filter( file =>
@@ -158,6 +156,9 @@ export default {
 
             // legacy
             return finalFiles
+        },
+        tab(){
+            return this.$root.serverTab
         },
     },
 

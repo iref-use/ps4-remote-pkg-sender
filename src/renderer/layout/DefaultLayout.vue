@@ -101,8 +101,6 @@ export default {
       this.registerChannel()
       this.autoCheckUpdate()
 
-      this.draggedFiles = []
-
       window.addEventListener('scroll', this.scroll)
       window.addEventListener('dragover', this.dragover)
       window.addEventListener('drop', this.drop)

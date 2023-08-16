@@ -18,7 +18,8 @@ export default {
       app: require('./../../package.json').version,
       electron: process.versions.electron,
       electronWebpack: require('electron-webpack/package.json').version
-    }
+    },
+    serverTab: 'server',
   }},
 
   computed: {

@@ -13,7 +13,7 @@ import './crashReporter'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const showServerWindowOnStartUp = false
-const showServerDevtools = false
+const showServerDevtools = true
 const showPS4DevTools = false
 const showMainDevTools = isDevelopment
 

@@ -3,8 +3,9 @@ import fs from './../../plugins/fs.js'
 
 export const state = {
     files: [],
-    serverFiles: [],
     draggedFiles: [],
+    draggedServingFiles: [],
+    serverFiles: [],
     servingFiles: [],
     routes: [],
     logs: [],
