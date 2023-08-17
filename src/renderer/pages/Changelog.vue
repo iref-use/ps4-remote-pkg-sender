@@ -4,6 +4,21 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.9.0" placement="top">
+        <h4>Drag and Drop</h4>
+        <p>
+          Adding Drag and Drop feature to the Main Window. <br>
+          Files or Folders can be dragged to the Main Window. <br>
+          Dragged Files will be checked for uniquenes. <br>
+          Handle proper removing Files from Queue. <br>
+          Added a proper serving of dragged files next to server files. <br>
+          Bulk Add all files from the Server Tab to the Processing Center. <br>
+          Added a Button to clear up the Dragged Files Tab. <br>
+          Added Tabbed Server Locations. Server and Dragged Files. <br>
+          Prepared Upcoming feature for Files from Hosts! <br>
+          
+        </p>
+    </el-timeline-item>  
     <el-timeline-item timestamp="2.8.0" placement="top">
         <h4>Update</h4>
         <p>

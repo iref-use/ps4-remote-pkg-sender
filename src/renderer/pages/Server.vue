@@ -228,8 +228,14 @@ export default {
 
         addAllFilesToQueue(){
             this.files.map( file => {
-                this.addToQueue(file)
+                if( !this.$store.getters['queue/isInQueue'](file) )
+                    this.addToQueue(file)
             })
+
+            this.$message({
+              type: 'success',
+              message: 'All Files has been added to the Queue'
+            });            
         },
 
         enterManuallyBasePath(){
@@ -275,8 +281,8 @@ export default {
         },
 
         removeFilesFromDragged(){
-            this.$store.dispatch('server/setDraggedFiles', [])
-            this.$store.dispatch('server/setDraggedServingFiles', [])
+            let leftFilesWithNoQueue = this.draggedServingFiles.filter( file => file.status == 'in queue')
+            this.$store.dispatch('server/setDraggedFiles', leftFilesWithNoQueue)
         },
 
     }
