@@ -283,6 +283,11 @@ export default {
         removeFilesFromDragged(){
             let leftFilesWithNoQueue = this.draggedServingFiles.filter( file => file.status == 'in queue')
             this.$store.dispatch('server/setDraggedFiles', leftFilesWithNoQueue)
+
+            this.$message({
+              type: 'success',
+              message: 'Not serving Files has been removed'
+            });            
         },
 
     }

@@ -186,6 +186,7 @@ export default {
       queue: get('queue'),
       logs: get('queue/logs'),
       tasks: get('queue/tasks'),
+      draggedServingFiles: sync('server/draggedServingFiles'),
       servingFiles: sync('server/servingFiles'),
       queueFiles: get('queue/queue'),
       installedFiles: sync('queue/installed'),
@@ -526,6 +527,7 @@ export default {
                 .then(() => {
                     this.ints.map( i => clearInterval(i) )
                     this.servingFiles.map( file => file.status = 'serving')
+                    this.draggedServingFiles.map( file => file.status = 'serving')
 
                     this.$store.dispatch('queue/resetAll')
                     this.$message({
