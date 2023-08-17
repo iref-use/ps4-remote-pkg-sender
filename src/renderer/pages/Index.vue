@@ -71,6 +71,7 @@
 
             <el-tag size="small"> Percent: {{ scope.row.percentage }}  </el-tag>
             <el-tag size="small" :type="$helper.getFileStatus(scope.row.status)"> Status: {{ scope.row.status }} </el-tag>
+            <el-tag size="small"> Type: {{ scope.row.type }} </el-tag>
             <el-tag size="small" type="info" v-if="scope.row.cusa"> {{ scope.row.cusa }} </el-tag>
             <el-tag size="small" :type="$helper.getFileSizeType(scope.row.size)"> {{ scope.row.size }} </el-tag>
             <el-tag size="small" type="info"> Task: {{ scope.row.task ? scope.row.task : '-' }} </el-tag>
@@ -84,6 +85,7 @@
 
             <el-tag size="small" type="info" style="margin-bottom: 5px"> File Name: {{ scope.row.name }} </el-tag> <br>
             <el-tag size="small" type="info" style="margin-bottom: 5px"> Patched Name: {{ scope.row.patchedFilename }} </el-tag> <br>
+            <el-tag size="small" type="info" style="margin-bottom: 5px"> Path: {{ scope.row.path }} </el-tag> <br>
             <el-tag size="small" type="info" style="margin-bottom: 5px"> URL: {{ scope.row.url }} </el-tag> <br>
 
 
@@ -551,18 +553,18 @@ export default {
       },
 
       removeFromQueue(file){
-          this.clearInterval(file)
-          let servingFile = this.$store.getters['server/findFile'](file)
+            this.clearInterval(file)
+            let servingFile = this.$store.getters['server/findFile'](file)                 
 
-          if(servingFile && servingFile.status == 'in queue'){
-              servingFile.status = 'serving'
-          }
+            if(servingFile && servingFile.status == 'in queue'){
+                servingFile.status = 'serving'
+            }
 
-          if(file.task){
-              this.stop(file)
-          }
+            if(file.task){
+                this.stop(file)
+            }
 
-          this.$store.dispatch('queue/removeFromQueue', file)
+            this.$store.dispatch('queue/removeFromQueue', file)
       },
 
       openAddFileDialog(){

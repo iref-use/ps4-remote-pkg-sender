@@ -9,28 +9,23 @@
 
     <el-row style="margin-bottom: 20px;">
       <el-col :span="20" style="display: flex">
-          <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px; height: 32px;"> Reload </el-button>
+            <el-button @click="reload" size="small" icon="el-icon-refresh-left" style="margin-right: 10px; height: 32px;" v-if="tab == 'server'"> Reload </el-button>
 
-          <el-tag size="size" effect="light" class="path_input_tag" v-if="server.base_path && false">
-              {{ server.base_path }}
-              <el-button size="mini" icon="el-icon-edit" @click.native="enterManuallyBasePath"></el-button>
-              <el-button size="mini" icon="el-icon-folder" @click.native="selectBasePath"></el-button>
-          </el-tag>
-
-          <el-form style="width: 100%; margin-right: 10px;" v-if="$root.serverTab == 'server'">
+            <el-form class="base_path_input_form" v-if="$root.serverTab == 'server'">
             <el-form-item style="margin: 0px; width: 100%;">
-              <el-input size="small" placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
-                  <el-button size="mini" slot="append" icon="el-icon-edit" @click.native="enterManuallyBasePath"> </el-button>
-                  <el-button size="mini" slot="append" icon="el-icon-folder" @click.native="selectBasePath"> </el-button>
-                  <el-button size="mini" slot="append" icon="el-icon-plus" @click.native="addAllFilesToQueue"> Add all to Queue </el-button>
-              </el-input>
+                <el-input size="small" placeholder="Select your base path of your PKG's" v-model="server.base_path" disabled>
+                    <el-button size="mini" slot="append" icon="el-icon-edit" @click.native="enterManuallyBasePath"> </el-button>
+                    <el-button size="mini" slot="append" icon="el-icon-folder" @click.native="selectBasePath"> </el-button>
+                    <el-button size="mini" slot="append" icon="el-icon-plus" @click.native="addAllFilesToQueue"> Add all to Queue </el-button>
+                </el-input>
             </el-form-item>            
-          </el-form>
+            </el-form>
 
-          <el-button size="mini" icon="el-icon-plus" @click.native="addAllFilesToQueue" v-if="tab == 'dragged'"> Add all to Queue </el-button>
+            <el-button size="small" icon="el-icon-delete" @click.native="removeFilesFromDragged" v-if="tab == 'dragged'"> Remove all files </el-button>
+            <el-button size="small" icon="el-icon-plus" @click.native="addAllFilesToQueue" v-if="tab == 'dragged'"> Add all to Queue </el-button>
       </el-col>
       <el-col :span="4">
-          <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
+            <el-input v-model="search" size="small" placeholder="Search" prefix-icon="fas fa-search" />
       </el-col>
     </el-row>
 
@@ -199,7 +194,7 @@ export default {
         },
 
         addToQueue(file){
-            let find = this.$store.getters['queue/isInQueue'](file)
+            let find = this.$store.getters['queue/isInQueueUnique'](file)
 
             if(!find){
                 file.status = 'in queue'
@@ -232,7 +227,9 @@ export default {
         },
 
         addAllFilesToQueue(){
-
+            this.files.map( file => {
+                this.addToQueue(file)
+            })
         },
 
         enterManuallyBasePath(){
@@ -277,6 +274,11 @@ export default {
             });
         },
 
+        removeFilesFromDragged(){
+            this.$store.dispatch('server/setDraggedFiles', [])
+            this.$store.dispatch('server/setDraggedServingFiles', [])
+        },
+
     }
 }
 </script>
@@ -286,5 +288,15 @@ export default {
   margin-right: 10px;
   max-width: 100%;
   overflow: hidden;
+}
+
+.base_path_input_form {
+    width: 100%; 
+    margin-right: 10px; 
+    margin-bottom: 0px;
+}
+
+.base_path_input_form .el-form-item__content {
+    line-height: 1;
 }
 </style>

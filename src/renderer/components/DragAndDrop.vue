@@ -77,8 +77,20 @@ export default {
     methods: {
         addFiles(){
             let filesAsItems = this.files.map( file => this.$fs.createItemFromDraggedFile(file) )
-            // console.log(filesAsItems)
-            this.$store.dispatch('server/setDraggedFiles', filesAsItems)
+
+            // patch for unique items and remove duplicates
+            let pathMap = new Map()
+
+            for( const obj of this.draggedFiles)
+                pathMap.set(obj.path, obj)
+
+            for( const obj of filesAsItems )
+                pathMap.set(obj.path, obj)
+
+            let finalArray = Array.from(pathMap.values())
+
+            // console.log(finalArray)
+            this.$store.dispatch('server/setDraggedFiles', finalArray)
             this.$root.serverTab = 'dragged'
             this.$emit('close')
         },     
