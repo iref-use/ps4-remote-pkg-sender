@@ -73,7 +73,7 @@ So there you have it. How can you use it?
 ### on PC  
 1.) Start PS4 Package Sender V2   
 2.) Switch to Config and select your Networkinterface (IP Adress)  
-2.1) Choose a Server Port if necessary and apply or restart the server  
+    2.1) Choose a Server Port if necessary and apply or restart the server  
 3.) Choose your base path where your files are settled  
 4.) Switch to Server and add your files to the queue (Processing Center)  
 5.) Start your install process with any of your files.  
