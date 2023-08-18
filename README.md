@@ -57,10 +57,10 @@ The refactored Version provides a better GUI and technicall more ordered feature
 - [ ] Read CUSA from file hex values instead of title  
 - [ ] Preview CUSAxxxxx Game title covers  
 - [ ] Chrome Extension for external usage  
-- [ ] GoldHen Cheats Manager  
+- [ ] GoldHen Cheats Manager  
 - [ ] Integrated FTP Client  
 - [ ] Context Menu on Processing Center  
-- [ ] Group PKG's by TitleID and Type (Base, Update, DLC)  
+- [ ] Group PKG's by TitleID and Type (Base, Update, DLC)  
 - [ ] One click to install all Group based PKG (send all PKGs from TitleID X)  
 
 ## How To  
