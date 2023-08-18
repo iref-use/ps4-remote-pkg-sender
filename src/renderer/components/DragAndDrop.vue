@@ -9,7 +9,7 @@
         <div class="big mb-2">  {{ title }} </div>
 
         <div class="space">
-            Files will be added to the <b class="text-success">Process Center</b>
+            Files will be added to the <b class="text-success"> Server > Dragged Tab </b>
 
             <el-row class="space" v-if="isDragged">
                 <el-button type="success active" size="medium" icon="el-icon-document-add" @click="addFiles"> Yes, add all files </el-button>
