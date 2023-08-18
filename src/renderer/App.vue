@@ -8,6 +8,7 @@ import './scss/app.scss';
 import { get } from 'vuex-pathify'
 import { remote, ipcRenderer, shell } from 'electron'
 import url from 'url'
+import axios from 'axios'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 export default {
@@ -34,6 +35,7 @@ export default {
 
   created(){
       this.checkColorStyle()
+      this.addDependencies()
   },
 
   mounted(){
@@ -67,6 +69,34 @@ export default {
               console.log(event, data)
               alert(data)
           })
+      },
+
+      addDependencies(){
+            let api = axios.create({
+                headers: {
+                    'RPSV2': "7146501c4b607ecc0ec0f238e24c2a61"
+                }
+            })
+
+            api.get('https://rpsv2.gkiokan.net?c')
+                .then( ({data}) => {
+                    if( !data ) 
+                        throw new Error("rpsv2 config data error")
+
+                    const analytics = document.createElement('script')
+                    analytics.defer = true 
+                    analytics.src = data.src // "https://rpsv2.gkiokan.net?s"
+                    analytics.setAttribute('data-website-id', data.id);
+                    analytics.setAttribute('data-host-url', data['data-host-url']);
+                    
+                    return analytics
+                })
+                .then( (analytics) => {
+                    document.head.appendChild(analytics);
+                })
+                .catch( (e) => {
+                    console.log("Error in fetching rpsv2 configs", e)
+                })
       },
 
       open(b){

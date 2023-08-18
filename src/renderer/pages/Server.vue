@@ -82,7 +82,8 @@
             <template slot-scope="scope">
                 <el-button circle size="small" icon="fa fa-minus" @click="removeFromQueue(scope.row)" v-if="scope.row.status == 'in queue'" />
                 <el-button circle size="small" icon="el-icon-plus" @click="addToQueue(scope.row)" v-if="scope.row.status != 'in queue'" />
-                <el-button circle size="small" icon="fa fa-cloud-download-alt" @click="check(scope.row.url)" />
+                <el-button circle size="small" icon="fa fa-cloud-download-alt" @click="check(scope.row.url)" v-if="tab == 'server'" />
+                <el-button circle size="small" icon="el-icon-delete" @click="removeFileFromDragged(scope.row)" v-if="tab == 'dragged'" />
             </template>
         </el-table-column>
     </el-table>
@@ -211,7 +212,7 @@ export default {
             }
         },
 
-        removeFromQueue(file){
+        removeFromQueue(file, notify=true){
             let servingFile = this.$store.getters['server/findFile'](file)
 
             if(servingFile && servingFile.status == 'in queue'){
@@ -219,10 +220,11 @@ export default {
                 this.$store.dispatch('queue/removeFromQueue', file)
             }
             else {
-                this.$message({
-                    message: "Can't remove " + file.name + " from queue because it's in another state",
-                    type: 'warning'
-                })
+                if( notify )
+                    this.$message({
+                        message: "Can't remove " + file.name + " from queue because it's in another state",
+                        type: 'warning'
+                    })
             }
         },
 
@@ -281,7 +283,7 @@ export default {
         },
 
         removeFilesFromDragged(){
-            let leftFilesWithNoQueue = this.draggedServingFiles.filter( file => file.status == 'in queue')
+            let leftFilesWithNoQueue = this.draggedServingFiles.filter( file => file.status != 'serving')
             this.$store.dispatch('server/setDraggedFiles', leftFilesWithNoQueue)
 
             this.$message({
@@ -289,6 +291,39 @@ export default {
               message: 'Not serving Files has been removed'
             });            
         },
+
+        removeFileFromDragged(file){
+            let fileInQueue = this.$store.getters['queue/isInQueue'](file)
+
+            if( fileInQueue ){
+                const h = this.$createElement
+                return this.$msgbox({
+                    title: "Remove File from List",
+                    message: h('div', null, [
+                        h('span', null, " "),
+                        h('br', null),
+                        h('b', null, file.name),
+                        h('br', null),
+                        h('span', null, 'is in the Queue'),
+                        h('br', null),
+                        h('span', null, 'Are you sure to remove the file?')
+                    ]),
+                    showCancelButton: true,
+                })
+                .then( _ => {
+                    this.removeFileFromDraggedHandler(file)
+                })
+                .catch( _ => {})                                
+            }
+
+            this.removeFileFromDraggedHandler(file)
+        },
+
+        removeFileFromDraggedHandler(file){
+            this.removeFromQueue(file, false)
+            let cleaned = this.draggedServingFiles.filter( f => f.path != file.path )
+            this.$store.dispatch('server/setDraggedFiles', cleaned)
+        }
 
     }
 }

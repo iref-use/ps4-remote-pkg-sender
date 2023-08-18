@@ -251,10 +251,10 @@ export default {
         },
 
         addDraggedFilesToServer(){
-            if( this.draggedFiles.length == 0 ){
-                this.$store.dispatch('server/addLog', "No dragged files found, skipping.")
-                return
-            }
+            // if( this.draggedFiles.length == 0 ){
+            //     this.$store.dispatch('server/addLog', "No dragged files found, skipping.")
+            //     return
+            // }
             
             this.$store.dispatch('server/addLog', "Found " + this.draggedFiles.length + " dragged Files")
             let servingFiles = []
