@@ -4,6 +4,8 @@ export const state = {
     time: 0,
     started: 0,
 
+    serial: null,
+
     config: {
         lang: 'en',
         style: 'light',

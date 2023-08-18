@@ -108,6 +108,8 @@ export default {
 
   destroyed(){
       window.removeEventListener('scroll', this.scroll)
+      window.removeEventListener('dragover', this.dragover)
+      window.removeEventListener('drop', this.drop)
   },
 
   methods: {

@@ -7,9 +7,15 @@
     <el-timeline-item timestamp="2.9.1" placement="top">
         <h4>RPSv2 API and User features</h4>
         <p>
-          Integrate RPSV2 API for dynamic configurations. <br>
+          Create RPSV2 Server and API. <br>
+          This allows us to handle configuration changes without new Releases. <br>
+          Integrate RPSV2 API for dynamic configurations. Test Phase.<br>
+          Add a fix for a bug that maybe will never happen on manually DL Item. <br>
+          Add a try catch handler to reading base paths whenever it may throw errors. <br>
+          Extend the forbidden folders to skip to not throw permission error on reading. <br>
+          Each Application will have it's own Serial Number. <br>          
+          Add tracking events to Benchmark Performance and RPSV2 API relyability. <br>
           Add User Guide and writeup for the new features. <br>
-
         </p>
     </el-timeline-item>   
     <el-timeline-item timestamp="2.9.0" placement="top">

@@ -9,36 +9,60 @@ import { get } from 'vuex-pathify'
 import { remote, ipcRenderer, shell } from 'electron'
 import url from 'url'
 import axios from 'axios'
+// import uuid from 'uuid'
+const uuid = require('uuid');
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 export default {
   name: 'App',
 
-  data(){ return {
+  data(){ return {    
     versions: {
       app: require('./../../package.json').version,
       electron: process.versions.electron,
       electronWebpack: require('electron-webpack/package.json').version
     },
     serverTab: 'server',
+    rpsv2: {
+        api: null,
+        id: null,
+    }
   }},
 
   computed: {
+      serial: get('app/serial'),
       style: get('app/getStyle'),
   },
 
   watch: {
       style(){
-          this.checkColorStyle()
-      }
+            this.checkColorStyle()
+      },
+      '$route'(n,o){
+            let data = {
+                os: process.platform,
+                arch: process.arch,
+                hostname: this.serial,
+                title: n.name,                
+                url: n.fullPath,
+                referrer: o ? o.fullPath : '',
+                language: window.navigator.language, // #todo swap to selected language
+                // website: this.rpsv2.id,
+            }
+
+            this.track(data)
+            
+            console.log(data)
+      },
   },
 
-  created(){
+  created(){      
       this.checkColorStyle()
       this.addDependencies()
   },
 
   mounted(){
+      this.checkSerial()
       this.$store.dispatch('app/started')
       this.registerChannel()
   },
@@ -83,11 +107,14 @@ export default {
                     if( !data ) 
                         throw new Error("rpsv2 config data error")
 
+                    this.rpsv2.id = data.id
+
                     const analytics = document.createElement('script')
-                    analytics.defer = true 
+                    analytics.defer = false 
                     analytics.src = data.src // "https://rpsv2.gkiokan.net?s"
-                    analytics.setAttribute('data-website-id', data.id);
-                    analytics.setAttribute('data-host-url', data['data-host-url']);
+                    analytics.setAttribute('data-website-id', data.id)
+                    analytics.setAttribute('data-host-url', data['data-host-url'])
+                    analytics.setAttribute('data-auto-track', false)
                     
                     return analytics
                 })
@@ -159,7 +186,23 @@ export default {
           document.getElementsByTagName('html')[0].classList.remove('light')
           document.getElementsByTagName('html')[0].classList.remove('pureblack')
           document.getElementsByTagName('html')[0].classList.add(this.style)
-      }
+      },
+
+      checkSerial(){
+            if( !this.serial ){
+                let newHostSerial = uuid.v4()
+                console.log("No Application Serial found. Creating one", newHostSerial)
+                this.$store.dispatch('app/setSerial', newHostSerial)
+            }        
+            else {
+                console.log("Application Serial " + this.serial)
+            }
+      },
+
+      track(data={}){
+            if( window.umami )
+                window.umami.track( props => ({ ...props, ...data }) )
+      },
 
   },
 }

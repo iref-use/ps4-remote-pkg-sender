@@ -2,8 +2,8 @@
 <div class="ServerView">
 
     <el-row style="margin-bottom: 20px">
-        <el-button :type="$helper.is(tab == 'server', 'success active', '')" @click="$root.serverTab = 'server'"> Base Files </el-button>
-        <el-button :type="$helper.is(tab == 'dragged', 'success active', '')" @click="$root.serverTab = 'dragged'"> Dragged Files </el-button>
+        <el-button :type="$helper.is(tab == 'server', 'success active', '')" data-umami-event="tab.server" @click="$root.serverTab = 'server'"> Base Files </el-button>
+        <el-button :type="$helper.is(tab == 'dragged', 'success active', '')" data-umami-event="tab.dragged"  @click="$root.serverTab = 'dragged'"> Dragged Files </el-button>
         <el-button disabled> Upcoming Feature Files from Hosts! </el-button>
     </el-row>
 
@@ -200,6 +200,7 @@ export default {
             if(!find){
                 file.status = 'in queue'
                 this.$store.dispatch('queue/addToQueue', file)
+                this.$root.track({ name: 'addToQueue', data: { name: 'Added to Queue', value: file.name } })
             }
             else {
                 if(file.status == 'serving')
@@ -218,6 +219,7 @@ export default {
             if(servingFile && servingFile.status == 'in queue'){
                 servingFile.status = 'serving'
                 this.$store.dispatch('queue/removeFromQueue', file)
+                this.$root.track({ name: 'removeFromQueue', data: { name: 'Removed from Queue', value: file.name } })
             }
             else {
                 if( notify )
@@ -237,7 +239,8 @@ export default {
             this.$message({
               type: 'success',
               message: 'All Files has been added to the Queue'
-            });            
+            });        
+            this.$root.track({ name: 'addAllFilesToQueue', data: { name: 'Add all files to the Queue' } })    
         },
 
         enterManuallyBasePath(){
@@ -276,10 +279,12 @@ export default {
 
         loadFiles(){
             this.$store.dispatch('server/loadFiles', this.server.base_path)
+            
             this.$message({
-              type: 'success',
+                type: 'success',
               message: 'Files has been reloaded'
             });
+            this.$root.track({ name: 'reload', data: { name: 'Reload Server files from base Path' } })
         },
 
         removeFilesFromDragged(){
@@ -287,9 +292,10 @@ export default {
             this.$store.dispatch('server/setDraggedFiles', leftFilesWithNoQueue)
 
             this.$message({
-              type: 'success',
+                type: 'success',
               message: 'Not serving Files has been removed'
             });            
+            this.$root.track({ name: 'removeFilesFromDragged', data: { name: 'Remove all dragged Items' } })
         },
 
         removeFileFromDragged(file){
@@ -323,6 +329,7 @@ export default {
             this.removeFromQueue(file, false)
             let cleaned = this.draggedServingFiles.filter( f => f.path != file.path )
             this.$store.dispatch('server/setDraggedFiles', cleaned)
+            this.$root.track({ name: 'removeFileFromDraggedHandler', data: { name: 'Remove dragged File from List', value: file.name } })
         }
 
     }

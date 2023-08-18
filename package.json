@@ -46,6 +46,7 @@
     "os": "^0.1.2",
     "source-map-support": "^0.5.16",
     "uaup-js": "0.0.22",
+    "uuid": "^9.0.0",
     "webtorrent": "^0.102.4"
   },
   "build": {
@@ -58,25 +59,35 @@
       "target": [
         {
           "target": "zip",
-          "arch": [ "x64", "ia32" ]
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         },
         {
           "target": "portable",
-          "arch": [ "x64", "ia32" ]
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         }
       ]
     },
     "linux": {
       "target": [
         {
-            "target": "AppImage",
-            "arch": [ "x64", "ia32", "armv7l" ]
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "ia32",
+            "armv7l"
+          ]
         },
         {
-            "target": "snap"
+          "target": "snap"
         },
         {
-            "target": "deb"
+          "target": "deb"
         }
       ]
     },

@@ -7,22 +7,29 @@ import store from './../store'
 
 const getFiles = (folder, deep=false) => {
     const files = []
-    for (const file of fs.readdirSync(folder, { widthFileTypes: true }) ) {
-        // fix permission error on external drives for darwin
-        let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes', '.Trash'].includes(file)
 
-        if(forbidden){
-            continue
-        }
+    try {
+        for (const file of fs.readdirSync(folder, { withFileTypes: true }) ) {
+            // fix permission error on external drives for darwin
+            let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes', '.Trash', 'Thumbs.db', '.DS_Store'].includes(file)
 
-        const fullPath = path.join(folder, file)
-        if(fs.lstatSync(fullPath).isDirectory() && deep){
-            getFiles(fullPath, deep).forEach( x => files.push(x) )
-        }
-        else {
-            files.push(fullPath)
+            if(forbidden){
+                continue
+            }
+
+            const fullPath = path.join(folder, file)
+            if(fs.lstatSync(fullPath).isDirectory() && deep){
+                getFiles(fullPath, deep).forEach( x => files.push(x) )
+            }
+            else {
+                files.push(fullPath)
+            }
         }
     }
+    catch( e ){
+        console.log("Error reading folder", folder)
+    }
+
     return files
 }
 

@@ -282,12 +282,14 @@ export default {
                       this.setStatus(file, 'installing')
                       this.sendNotification({ title: "Installing", body: file.name + " is installing" })
                       this.startInterval(file)
+                      this.$root.track({ name: 'install.success', data: { name: 'Install Request success', value: file.name } })
 
                       this.log(file.name + ' has been started installing with Task ID ' + data.task_id, data)
                   }
                   else {
                       console.log(file.name + " error on install", data)
                       this.log(file.name + " error on install", data)
+                      this.$root.track({ name: 'install.error', data: { name: 'Install Request failed', value: file.name } })
                       // 2157510677 error on double install?
                       // 2157510663 already installed?
                       // 2157510681 task doesn't exist
@@ -505,6 +507,7 @@ export default {
           this.setTask(file, '')
           this.sendNotification({ title: "Finished", body: file.name + " is finished installing" })
           this.$store.dispatch('queue/installed', file)
+          this.$root.track({ name: 'installed', data: { name: 'File installed', value: file.name } })
 
 
           // queue scanner hook
@@ -530,6 +533,8 @@ export default {
                     this.draggedServingFiles.map( file => file.status = 'serving')
 
                     this.$store.dispatch('queue/resetAll')
+                    this.$root.track({ name: 'resetAll', data: { name: 'Processing Center reset' } })
+
                     this.$message({
                       type: 'success',
                       message: 'Queue, Tasks and Installed state has been resetted'
@@ -548,10 +553,12 @@ export default {
                 .filter( file => file.status == 'installed')
                 .map( file => file.status = 'serving')
           this.$store.dispatch('queue/setInstalled', [])
+          this.$root.track({ name: 'resetInstalled', data: { name: 'Reset installed Files' } })
       },
 
       clearFinishedFiles(){
           this.finishedFiles.map( file => this.removeFromQueue(file))
+          this.$root.track({ name: 'clearFinishedFiles', data: { name: 'Clear finished Files' } })
       },
 
       removeFromQueue(file){
@@ -567,6 +574,7 @@ export default {
             }
 
             this.$store.dispatch('queue/removeFromQueue', file)
+            this.$root.track({ name: 'removeFromQueue', data: { name: 'Removed from Queue', value: file.name } })
       },
 
       openAddFileDialog(){
@@ -579,6 +587,7 @@ export default {
 
       toggleQueueScanner(){
           this.$store.dispatch('app/toggleQueueScanner')
+          this.$root.track({ name: 'QueueScanner.toggle', data: { name: 'Toggle QueueScanner', value: this.queueScanner } })
       },
 
       handleQueueScannerNextItem(){
@@ -601,6 +610,7 @@ export default {
                 type: 'success',
                 message: 'Found next File in the Queue. <br>' + file.name,
               });
+              this.$root.track({ name: 'QueueScanner.next', data: { name: 'QueueScanner handle next item in List', value: file.name } })
               this.start(file)
           }
       },
