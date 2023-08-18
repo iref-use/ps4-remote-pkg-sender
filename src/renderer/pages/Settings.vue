@@ -7,6 +7,9 @@
 
     <el-row>
       <el-col :span="8">
+        <div>
+          <img :src="$root.getImage('assets/rpsV2.svg')" style="width: 230px; margin-bottom: 20px;" />
+        </div>
         <img :src="$root.getImage('assets/buymeashisha.svg')" class="cursor-pointer" @click="$root.open(links.kofi)" />
         <img :src="$root.getImage('assets/platform.svg')" class="cursor-pointer" @click="$root.open(links.github_releases)" />
         <br>

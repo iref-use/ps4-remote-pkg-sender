@@ -52,7 +52,7 @@ export default {
 
             this.track(data)
             
-            console.log(data)
+            // console.log(data)
       },
   },
 
@@ -203,6 +203,17 @@ export default {
             if( window.umami )
                 window.umami.track( props => ({ ...props, ...data }) )
       },
+
+      move(params){
+         let from  = this.$route.fullPath
+         let to    = this.$router.resolve(params).route.fullPath
+
+         if(from === to) {
+             return
+         }
+
+         this.$router.push(params)
+      },      
 
   },
 }

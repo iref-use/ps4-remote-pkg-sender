@@ -1,7 +1,33 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.9.1
+#### RPSv2 API and User features
+        Create RPSV2 Server and API.  
+        This allows us to handle configuration changes without new Releases.  
+        Integrate RPSV2 API for dynamic configurations. Test Phase. 
+        Add a fix for a bug that maybe will never happen on manually DL Item.  
+        Add a try catch handler to reading base paths whenever it may throw errors.  
+        Extend the forbidden folders to skip to not throw permission error on reading.  
+        Each Application will have it's own Serial Number.            
+        Add tracking events to Benchmark Performance and RPSV2 API relyability.  
+        Add User Guide and writeup for the new features.  
+        Extend the Download View with the HB-Store CDN Server.   
+
+### v2.9.0
+#### RPSv2 API and User features  
+        Adding Drag and Drop feature to the Main Window.  
+        Files or Folders can be dragged to the Main Window.  
+        Dragged Files will be checked for uniquenes.  
+        Handle proper removing Files from Queue.  
+        Added a proper serving of dragged files next to server files.  
+        Bulk Add all files from the Server Tab to the Processing Center.  
+        Added a Button to clear up the Dragged Files Tab.  
+        Added Tabbed Server Locations for Server and Dragged Files.  
+        Prepared Upcoming feature for Files from Hosts!  
+        Added Notifications for Bulk actions as reply.  
+
 ### v2.8.0
-#### Update
+#### Bulk Actions, Drag and Drop 
         Adding security policies to components.   
         Adding custom window handler and component to download remote items.   
         Adding animation to download window.   

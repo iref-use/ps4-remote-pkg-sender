@@ -1,7 +1,7 @@
 <template >
 <div>
-
-    <el-divider content-position="left"> Upcoming User Feature and more in 2.10.x </el-divider>
+    <h2>Upcoming User Feature and more in 2.10.x</h2>
+    <el-divider content-position="left" v-if="false"> Upcoming User Feature and more in 2.10.x </el-divider>
 
     Hello Ladies and Gentlemen! <br>
     <br>
@@ -9,10 +9,12 @@
     With 53k Download as of August 2023, that's quite impressive. <br>
     Thank you for using the Application. Any Support is appreciated and don't forget to check out my channels. <br>
     <br>
-    I will talk about a couple big changes that will come soon or later (depending on your support). <br>
-    This particular update has been delayed almost over one year (last update August 2022). <br>
+    I will talk about a couple big changes that will come soon or later, depending on your support. <br>
+    This particular update (v2.9.1) has been delayed almost over one year (last update August 2022). <br>
     I've put a <el-tag size="mini" type="danger" class="cursor-pointer" @click="$root.open('https://ko-fi.com/gkiokan/goal?g=0')" target="_blank">Ko-Fi Goal</el-tag> out there, so anyone who wants to donate are welcome! <br>
     The faster the Goal hits, the more time I can spend on the updates - choice is yours :) <br>
+    <br>
+    Note: This View will became the User Profile Center after the update<br>
     
     <el-divider />
 
@@ -70,6 +72,9 @@
 
     <el-row>
       <el-col :span="8">
+        <div>
+          <img :src="$root.getImage('assets/rpsV2.svg')" style="width: 230px; margin-bottom: 20px;" />
+        </div>      
         <img :src="$root.getImage('assets/buymeashisha.svg')" class="cursor-pointer" @click="$root.open(links.kofi)" />
         <img :src="$root.getImage('assets/platform.svg')" class="cursor-pointer" @click="$root.open(links.github_releases)" />
         <br>

@@ -16,10 +16,11 @@
           Each Application will have it's own Serial Number. <br>          
           Add tracking events to Benchmark Performance and RPSV2 API relyability. <br>
           Add User Guide and writeup for the new features. <br>
+          Extend the Download View with the HB-Store CDN Server. <br>          
         </p>
     </el-timeline-item>   
     <el-timeline-item timestamp="2.9.0" placement="top">
-        <h4>Drag and Drop</h4>
+        <h4>Bulk Actions, Drag and Drop </h4>
         <p>
           Adding Drag and Drop feature to the Main Window. <br>
           Files or Folders can be dragged to the Main Window. <br>
@@ -30,6 +31,7 @@
           Added a Button to clear up the Dragged Files Tab. <br>
           Added Tabbed Server Locations for Server and Dragged Files. <br>
           Prepared Upcoming feature for Files from Hosts! <br>
+          Added Notifications for Bulk actions as reply. <br>
         </p>
     </el-timeline-item>  
     <el-timeline-item timestamp="2.8.0" placement="top">
