@@ -12,7 +12,7 @@ Based on Electron, Webpack, Vue, Express, Axios, Element-UI and Node this does n
 dependencies. With this we can createa a cross platform application that works on mac, linux and Windows
 and provides a nice GUI.  
 
-![PS4 Package Sender Main Application Windows](https://media.discordapp.net/attachments/933730584721780806/959908370565959750/new_cover_ported.jpg)
+![PS4 Package Sender Main Application Windows](https://github.com/Gkiokan/ps4-remote-pkg-sender/blob/master/screenshot.jpg)
 
 [![Full Changelog](https://img.shields.io/badge/Checkout%20-All%20Changelogs-yellow)](Changelog.md)
 
