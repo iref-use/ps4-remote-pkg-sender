@@ -221,15 +221,31 @@ export default {
           })
       },
 
-      checkPS4(){
-          this.$ps4.checkPS4().then( (res) => {
-              this.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
-              this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
-          })
-          .catch( e => {
-              this.log("Check Playstation: PS4 is not accessible", e)
-              // this.$message({ message: "PS4 is not accessible.", type: 'error' })
-          })
+      async checkPS4(){
+            // ps5 check
+            if( this.$store.getters['app/isPS5'] ){
+                console.log("We have PS5 check going on")
+                await this.$ps5.checkPS5().then( (data) => {
+                    this.log(data)
+                    this.$message({ message: data, type: 'success' })
+                })
+                .catch( (e) => {
+                    console.log("PS5 check failed")
+                    this.log(e)
+                    this.$message({ message: e, type: 'error' })
+                })
+                return;
+            }
+
+            // backwardscompatibility for ps4
+            this.$ps4.checkPS4().then( (res) => {
+                this.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
+                this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
+            })
+            .catch( e => {
+                this.log("Check Playstation: PS4 is not accessible", e)
+                this.$message({ message: "PS4 is not accessible.", type: 'error' })
+            })
       },
 
       test(){

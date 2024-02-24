@@ -37,6 +37,7 @@ export const state = {
         port_rpi: 12800,
         port_rpiOOP: 12800,
         port_ftp: 2121,
+        port_etaHEN: 9090,
         timeout: 2500,
         update: 2200,
     },
@@ -139,6 +140,10 @@ export const actions = {
 export const getters = {
   // make all getters (optional)
   ...make.getters(state),
+
+  isPS5(state){
+        return state.ps4.app == 'etaHEN'
+  },
 
   getPS4IP(state){
       return state.ps4.ip + ':' + state.ps4.port

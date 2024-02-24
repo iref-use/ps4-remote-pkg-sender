@@ -40,11 +40,11 @@ window.onerror = function(message=null, source=null, lineno=null, colno=null, er
   console.log(message, source, lineno, colno, error)
 
   if(error != null)
-  alert('Message ' + message +
-        '\nSource ' + source +
-        '\nLine ' + lineno +
-        '\nColNo'  + colno +
-        '\nError ' + error)
+      alert('Message ' + message +
+          '\nSource ' + source +
+          '\nLine ' + lineno +
+          '\nColNo'  + colno +
+          '\nError ' + error)    
 };
 
 window.addEventListener('unhandledrejection', function(event) {

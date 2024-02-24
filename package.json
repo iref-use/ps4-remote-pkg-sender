@@ -1,10 +1,10 @@
 {
   "private": true,
-  "version": "2.9.1",
+  "version": "2.10.0",
   "name": "PS4RemotePKGSenderV2",
   "productName": "PS4 Remote PKG Sender V2",
   "author": "Gkiokan <support@gkiokan.net>",
-  "description": "Manage and send PKG files to your ps4",
+  "description": "Manage and send PKG files to your PS4 and PS5",
   "scripts": {
     "build": "electron-webpack && electron-builder --dir",
     "build:mac": "electron-webpack && electron-builder --mac",
@@ -43,6 +43,7 @@
     "axios": "^0.24.0",
     "debounce": "^1.2.1",
     "express": "^4.17.1",
+    "net": "^1.0.2",
     "os": "^0.1.2",
     "source-map-support": "^0.5.16",
     "uaup-js": "0.0.22",

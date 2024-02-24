@@ -159,7 +159,7 @@ export default {
       },
 
       sendPS4(msg){
-          console.log('sending to ps4', msg)
+          console.log('sending to ps', msg)
           ipcRenderer.send('ps4', msg)
       },
 
@@ -218,5 +218,3 @@ export default {
   },
 }
 </script>
-<style lang="css" scoped>
-</style>
