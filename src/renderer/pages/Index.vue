@@ -225,16 +225,26 @@ export default {
             // ps5 check
             if( this.$store.getters['app/isPS5'] ){
                 console.log("We have PS5 check going on")
-                await this.$ps5.checkPS5().then( (data) => {
-                    this.log(data)
-                    this.$message({ message: data, type: 'success' })
+                // working but not refactored
+                // await this.$ps5.checkPS5().then( (data) => {
+                //     this.log(data)
+                //     this.$message({ message: data, type: 'success' })
+                // })
+                // .catch( (e) => {
+                //     console.log("PS5 check failed")
+                //     this.log(e)
+                //     this.$message({ message: e, type: 'error' })
+                // })
+
+                return await this.$ps5.request().then( () => {
+                    this.log("PS5 Connection available")
+                    this.$message({ message: "PS5 Connection available", type: 'success' })
                 })
-                .catch( (e) => {
-                    console.log("PS5 check failed")
+                .catch( e => {
+                    console.log(e)
                     this.log(e)
-                    this.$message({ message: e, type: 'error' })
+                    this.$message({ message: "PS5 Connection failed", type: 'error' })                    
                 })
-                return;
             }
 
             // backwardscompatibility for ps4

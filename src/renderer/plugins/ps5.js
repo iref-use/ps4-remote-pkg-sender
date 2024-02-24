@@ -35,11 +35,43 @@ let ps5 = {
         return timeout < min ? min : timeout
     },
 
-    request(url, data, options={}){
+    request( onSuccess=null ){
+        console.log("Build up TCP Connection")
 
-        console.log("Build up TCP Connection", url, data, options)
+        return new Promise( (resolve, reject) => {
+            // get URI parts from url 
+            let url = this.getURL('ps')                
+            let parts = url.split(':')
+            let connectTo = { host: parts[0], port: parts[1] }
 
-        // #todo build socket 
+            // Set up a timeout function
+            const handleTimeout = () => {
+                console.error("PS5 API connection timed out");
+                reject("PS5 Connection timed out. PS5 not available on " + url);
+                socket.destroy(); // Destroy the socket
+            };
+
+            // Start the timeout timer
+            let connectionTimeout = setTimeout(handleTimeout, this.getTimeout());            
+
+            console.log("PS5 Connection to ", connectTo)    
+            const socket = new net.Socket()
+            socket.connect(connectTo, () => {
+                clearTimeout(connectionTimeout)
+                console.log("PS5:api Connection available")
+
+                if( typeof onSuccess == 'function' )
+                    onSuccess(socket)
+                else 
+                    resolve(true)
+            })
+    
+            socket.on('error', (err) => {
+                clearTimeout(connectionTimeout)
+                console.log("PS5:api connection failed on " + url)
+                reject(err)
+            })
+        })
     },
 
     getErrorCodeMessage(code=''){
@@ -60,22 +92,14 @@ let ps5 = {
         return message
     },
 
-    checkServer(){
-        let url = this.getURL('server')
-        
-    },
-
     checkPS5(){
+        // #todo probably refactor it to the default request
+        // lets stay here for reference 
         return new Promise( (resolve, reject) => {
-            let url = this.getURL('ps')            
-    
             // get URI parts from url 
+            let url = this.getURL('ps')                
             let parts = url.split(':')
             let connectTo = { host: parts[0], port: parts[1] }
-
-            // Set a timeout for the connection attempt
-            const timeout = 2000
-            let connectionTimeout
 
             // Set up a timeout function
             const handleTimeout = () => {
@@ -85,7 +109,7 @@ let ps5 = {
             };
 
             // Start the timeout timer
-            connectionTimeout = setTimeout(handleTimeout, timeout);            
+            let connectionTimeout = setTimeout(handleTimeout, this.getTimeout());            
 
             console.log("PS5 Connection to ", connectTo)    
             const socket = new net.Socket()
