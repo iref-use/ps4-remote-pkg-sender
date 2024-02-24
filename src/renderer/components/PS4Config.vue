@@ -133,7 +133,7 @@ export default {
         async checkPS4(){
             this.testingConnection = true
 
-            if( this.$store.getters['app/isPS5'])
+            if( this.$store.getters['app/isPS5'] )
                 return await this.$ps5.checkPS5()
                     .then( () => {
                         this.testingConnection = false

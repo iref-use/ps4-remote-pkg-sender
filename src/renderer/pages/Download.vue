@@ -32,6 +32,7 @@
         <br>
         Fork of the RPI OOP by Njzydark with latest updates. <br>
         Check GitHub repositories to compare the updates. <br>
+        If flatZ RPI doesn't work for you, you should test this one out. <br>
         <br>
         <el-button @click="$root.open(links.ps4_rpioop_njzydark)"> Download </el-button>
         <el-button @click="$root.open(links.ps4_rpioop_github_njzydark)"> GitHub </el-button>
@@ -89,7 +90,7 @@
         an ease to the HB-Store. It supports name fixing and sub directory scans <br>
         based on a base Path, and is also cross plattform available.<br>
         <br>
-        There is also a CLI-Version that is even used officially on RetroNAS!<br>
+        <i style="font-style: italic;">There is also a CLI-Version that is even supported officially by <b>RetroNAS</b>!</i> <br>
         <br>
         <el-button @click="$root.open(links.hb_store_cdn_server_latest)"> Download </el-button>
         <el-button @click="$root.open(links.hb_store_cdn_server_repo)" > CDN Server </el-button>

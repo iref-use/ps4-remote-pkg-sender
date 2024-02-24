@@ -228,14 +228,15 @@ export default {
             
 
             // backwardscompatibility for ps4
-            this.$ps4.checkPS4().then( (res) => {
-                this.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
-                this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
-            })
-            .catch( e => {
-                this.log("Check Playstation: PS4 is not accessible", e)
-                this.$message({ message: "PS4 is not accessible.", type: 'error' })
-            })
+            this.$ps4.checkPS4()
+                .then( (res) => {
+                    this.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
+                    this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
+                })
+                .catch( e => {
+                    this.log("Check Playstation: PS4 is not accessible", e)
+                    this.$message({ message: "PS4 is not accessible.", type: 'error' })
+                })
       },
 
       test(){
@@ -244,10 +245,8 @@ export default {
       },
 
       isInstalled(file){
-            if( this.$store.getters['app/isPS5'] ){
-                this.$message({ message: "Not implemented for PS5 yet", type: "info" })
-                return
-            }
+            if( this.isPS5 )
+                return this.$message({ message: "'Is Installed' feature is not implemented for PS5 yet", type: "info" })                
 
             this.$ps4.isInstalled(file)
                     .then( ({ data }) => {
@@ -483,7 +482,7 @@ export default {
 
       find(file){
           if( this.isPS5 ){
-              this.$message({ message: "Not implemented for PS5 yet", type: "info" })
+              this.$message({ message: "'Find file' is not implemented for PS5 yet", type: "info" })
               return
           }
 

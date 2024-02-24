@@ -188,7 +188,7 @@ let o = {
         let size = item.size ? this.formatBytes(item.size) : 'n/a'
         // patch file url to stream
         // let filePath = item.file.replace('attachments/', 'attachments/stream/')
-        let filePath = item.file.replace('https', 'http')
+        let filePath = item.file ? item.file.replace('https', 'http') : item.file
 
         return {
             name: item.name,
