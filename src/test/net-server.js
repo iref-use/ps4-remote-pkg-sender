@@ -16,7 +16,9 @@ var server = net.createServer( function(socket){
 
         // dynamic response
         let response = {
-            res: "0", // (new Date).getTime()
+            res: "0", 
+            // res: (new Date).getTime()
+            // nope: true,
         }
 
         // send response back

@@ -268,13 +268,34 @@ export default {
             if( this.isPS5 ){                            
                 return await this.$ps5.install(file)
                     .then( (data) => {
-                        this.$message({ message: file.name + ' send to PS5', file, type: "info" })
-                        
+                        // this.$message({ message: file.name + ' send to PS5', file, type: "info" })                        
                         console.log(data)
                         this.log(data)
 
-                        this.setStatus(file, "Sent to PS5")                                 
-                        this.$message({ message: "Install Request Success for " + file.name, type: "success" })                            
+                        // validate install response 
+                        if( data && data.res ){
+                            // set the state here 
+                            this.setStatus(file, "Sent to PS5")                                 
+
+                            // success
+                            if( parseInt(data.res) == 0 )                                
+                                this.$message({ 
+                                    dangerouslyUseHTMLString: true,
+                                    message: `Install Request Success for <br>${file.name}`,
+                                    type: "success" 
+                                })
+                            
+                            // something else, maybe in queue, maybe full storage, maybe whatever
+                            else 
+                                this.$message({ 
+                                    dangerouslyUseHTMLString: true,
+                                    message: `Response Code ${data.res} for <br>${file.name}`, 
+                                    type: "info" 
+                                })
+                        }
+                        else {
+                            this.$message({ message: `Unknown Response. Please check Logs.`, type: "warning" })                            
+                        }
                     })
                     .catch( e => {
                         console.log(e)
