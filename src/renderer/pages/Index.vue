@@ -3,15 +3,6 @@
 
   <el-row style="margin-bottom: 20px;">
     <el-col :span="20">
-        <div v-if="false">
-            <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
-            <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
-            <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
-
-            <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
-            <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
-        </div>
-
         <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
           <el-button size="small" icon="el-icon-refresh-left" >
               Reset Options <i class="el-icon-arrow-down el-icon--right"></i>
@@ -23,14 +14,13 @@
           </el-dropdown-menu>
         </el-dropdown>
 
-
         <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
           <el-button size="small" icon="el-icon-check" >
               Check Options <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="fa fa-server" command="checkHB">Check Local Server</el-dropdown-item>
-              <el-dropdown-item icon="fab fa-playstation" command="checkPS4">Check PS4</el-dropdown-item>
+              <el-dropdown-item icon="fab fa-playstation" command="checkPS4">Check Playstation</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
 
@@ -194,6 +184,7 @@ export default {
       updateInterval: get('app/ps4.update'),
       queueScanner: get('app/server.enableQueueScanner'),
       notify: get('app/config.enableSystemNotifications'),
+      isPS5: get('app/isPS5'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -223,20 +214,8 @@ export default {
 
       async checkPS4(){
             // ps5 check
-            if( this.$store.getters['app/isPS5'] ){
-                console.log("We have PS5 check going on")
-                // working but not refactored
-                // await this.$ps5.checkPS5().then( (data) => {
-                //     this.log(data)
-                //     this.$message({ message: data, type: 'success' })
-                // })
-                // .catch( (e) => {
-                //     console.log("PS5 check failed")
-                //     this.log(e)
-                //     this.$message({ message: e, type: 'error' })
-                // })
-
-                return await this.$ps5.request().then( () => {
+            if( this.isPS5 ){
+                return await this.$ps5.checkPS5().then( () => {
                     this.log("PS5 Connection available")
                     this.$message({ message: "PS5 Connection available", type: 'success' })
                 })
@@ -286,23 +265,40 @@ export default {
 
       async start(file){
           // ps5 version 
-            if( this.$store.getters['app/isPS5'] ){
+            if( this.isPS5 ){                
                 
-                return await this.$ps5.install( file, (socket) => {
-                    this.setStatus(file, "Send to PS5")
-                    this.$message({ message: file.name + ' send to PS5', file, type: "success" })
-                })
-                .then( (data) => {
-                    this.log({ type: 'PS5 Response', response: data })
-                    console.log(data)
+                return await this.$ps5.install(file)
+                    .then( (data) => {
+                        this.$message({ message: file.name + ' send to PS5', file, type: "info" })
+                        
+                        console.log(data)
+                        this.log(data)
 
-                    this.$message({ message: data, type: "info" })
-                })
-                .catch( e => {
-                    console.log("Error in Install Request", e)
-                    this.log(e.msg)
-                    this.$message({ message: e.msg, type: 'error' })
-                })
+                        this.setStatus(file, "Sent to PS5")                                 
+                        this.$message({ message: "Install Request Success for " + file.name, type: "success" })                            
+                    })
+                    .catch( e => {
+                        console.log(e)
+                        this.log(e)
+                        this.$message({ message: e, type: 'error' })
+                    })
+                
+                // Previous work, but meh
+                // return await this.$ps5.install( file, (socket) => {
+                //     this.setStatus(file, "Sent to PS5")
+                //     this.$message({ message: file.name + ' send to PS5', file, type: "success" })
+                // })
+                // .then( (data) => {
+                //     this.log({ type: 'PS5 Response', response: data })
+                //     console.log(data)
+
+                //     this.$message({ message: data, type: "info" })
+                // })
+                // .catch( e => {
+                //     console.log("Error in Install Request", e)
+                //     this.log(e.msg)
+                //     this.$message({ message: e.msg, type: 'error' })
+                // })
             }          
 
           // ps4 version
@@ -503,6 +499,11 @@ export default {
       },
 
       find(file){
+          if( this.isPS5 ){
+              this.$message({ message: "Not implemented for PS5 yet", type: "info" })
+              return
+          }
+
           this.$ps4.find(file)
                   .then( ({ data }) => {
                       this.log(file.name + ' find', data)

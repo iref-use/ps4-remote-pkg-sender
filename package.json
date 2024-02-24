@@ -92,6 +92,10 @@
         }
       ]
     },
+    "portable": {
+      "artifactName": "${productName}.exe",
+      "unpackDirName": "PS4RemotePKGSenderV2"
+    },    
     "dmg": {
       "title": "${productName} - ${version}",
       "background": "build/background.png",

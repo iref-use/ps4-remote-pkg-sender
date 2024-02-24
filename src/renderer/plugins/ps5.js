@@ -8,6 +8,7 @@
 
 import Vue from 'vue'
 import store from '../store'
+import { connect } from 'http2'
 // import net from 'net'
 const net = require('net')
 
@@ -21,8 +22,11 @@ let ps5 = {
     // #todo refactor to ps5
     getURL(of='ps'){      
 
-        if(of == 'ps')
-          return store.getters['app/getPS4IP']
+        if(of == 'ps'){
+            let url = store.getters['app/getPS4IP']
+            let parts = url.split(':')
+            return { host: parts[0], port: parts[1] }             
+        }
 
         if(of == 'server')
           return store.getters['app/getServerIP']
@@ -36,30 +40,23 @@ let ps5 = {
     },
 
     request( onSuccess=null, onResponse=null ){
-        console.log("Build up TCP Connection")
-
         return new Promise( (resolve, reject) => {
-            // get URI parts from url 
-            let url = this.getURL('ps')                
-            let parts = url.split(':')
-            let connectTo = { host: parts[0], port: parts[1] }
-
             // Set up a timeout function
             const handleTimeout = () => {
                 console.error("PS5 API connection timed out");
-                reject("PS5 Connection timed out. PS5 not available on " + url);
-                socket.destroy(); // Destroy the socket
+                reject("PS5 Connection timed out. PS5 not available on " + this.getURL('url') )
+                socket.destroy()
             };
 
             // Start the timeout timer
             let connectionTimeout = setTimeout(handleTimeout, this.getTimeout());            
 
-            console.log("PS5 Connection to ", connectTo)    
+            // console.log("PS5 Connection to ", connectTo)    
             const socket = new net.Socket()
 
-            socket.connect(connectTo, () => {
+            // Connect to the Server
+            socket.connect(this.getURL('ps'), () => {
                 clearTimeout(connectionTimeout)
-                console.log("PS5:api Connection available")
 
                 if( typeof onSuccess == 'function' ){
                     onSuccess(socket)
@@ -69,32 +66,83 @@ let ps5 = {
                 }
             })
 
+            // Listen for data from the Server
             socket.on('data', (r) => {
                 let response = r.toString()
                 let json =  null
-
-                // console.log(response)
-                
+            
                 try {
-                    json = JSON.parse(response)
+                    console.log(json)
+                    json = JSON.parse(r)
+                    resolve(json, response)
                 }
                 catch(jsonError) {
                     reject(jsonError)
                 }
-
-                if( typeof onResponse == 'function'){
-                    onResponse(json, response)
-                    resolve(json, response)
-                }
-                else {
-                    resolve(json, response)
-                }
             })
     
+            // Handle errors
             socket.on('error', (err) => {
                 clearTimeout(connectionTimeout)
-                console.log("PS5:api connection failed on " + url)
                 reject(err)
+            })
+        })
+    },
+
+    send(requestObject={}){
+        return new Promise((resolve, reject) => {        
+            const client = new net.Socket();
+    
+            // Set up a timeout function
+            const timeoutId = setTimeout(() => {
+                client.destroy()
+                reject( new Error('PS5 Connection timed out at ' + this.getURL('url') ) )
+            }, this.getTimeout());
+    
+            // Connect to the server
+            client.connect(this.getURL('ps'), () => {
+                console.log('Connected to PS5');
+
+                if( !requestObject ){
+                    client.destroy()
+                    resolve(true)
+                    return
+                }
+
+                const jsonString = JSON.stringify(requestObject);
+                client.write(jsonString);
+            });
+    
+            // Listen for data from the server
+            client.on('data', (data) => {
+                clearTimeout(timeoutId);
+                console.log('Received data from server:', data.toString());
+
+                try {
+                    const receivedObject = JSON.parse(data);
+                    resolve(receivedObject);
+                    client.end();
+                }
+                catch(e){
+                    reject(e)
+                }    
+            });
+    
+            // Handle errors
+            client.on('error', (error) => {
+                clearTimeout(timeoutId);
+                console.error('Socket error:', error);
+
+                if( error.code == 'ECONNREFUSED' )
+                    return reject("PS5 Connection failed at " + this.getURL('url') )
+
+                reject(error);
+            });
+    
+            // Handle socket closure
+            client.on('close', () => {
+                console.log("Close Connection to PS5")
+                clearTimeout(timeoutId);
             })
         })
     },
@@ -118,38 +166,7 @@ let ps5 = {
     },
 
     checkPS5(){
-        // #todo probably refactor it to the default request
-        // lets stay here for reference 
-        return new Promise( (resolve, reject) => {
-            // get URI parts from url 
-            let url = this.getURL('ps')                
-            let parts = url.split(':')
-            let connectTo = { host: parts[0], port: parts[1] }
-
-            // Set up a timeout function
-            const handleTimeout = () => {
-                console.error("PS5 API connection timed out");
-                reject("PS5 Connection timed out. PS5 not available on " + url);
-                socket.destroy(); // Destroy the socket
-            };
-
-            // Start the timeout timer
-            let connectionTimeout = setTimeout(handleTimeout, this.getTimeout());            
-
-            console.log("PS5 Connection to ", connectTo)    
-            const socket = new net.Socket()
-            socket.connect(connectTo, () => {
-                clearTimeout(connectionTimeout)
-                console.log("PS5:api Connection available")
-                resolve("PS5 Connection available")
-            })
-    
-            socket.on('error', (err) => {
-                clearTimeout(connectionTimeout)
-                console.log("PS5:api connection failed on " + url)
-                reject("PS5 Connetion failed on " + url)
-            })
-        })
+        return this.send(null)
     },
 
     install(file, cb=null){
@@ -157,18 +174,19 @@ let ps5 = {
             return console.log("Cannot find path for file " + file.name )
         }
 
-        return this.request( 
-                (socket) => {
-                    socket.write(JSON.stringify({ url: file.url }))
-                    
-                    if( typeof cb == 'function')
-                        cb()
-                },
+        return this.send({ url: file.url })
 
-                (json, response) => {
+        // #notstatisfying 
+        // Previous work, but not statisfying for me
+        // keep it for further improvements or flashbacks
+        // return this.request( 
+        //         (socket) => {
+        //             socket.write(JSON.stringify({ url: file.url }))
                     
-                }
-            )
+        //             if( typeof cb == 'function')
+        //                 cb()
+        //         }
+        //     )
     },
 
 }

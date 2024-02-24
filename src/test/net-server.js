@@ -1,23 +1,33 @@
 const net = require('net')
 
-// console.log("Test net-server.js\\rn")
+// header
+console.log("--------------------------------")
+console.log(" Starting Test net-server.js")
+console.log("--------------------------------")
 
+// create server
 var server = net.createServer( function(socket){
     // socket.write('NET Client Server\r\n')
-    socket.pipe(socket)
+    // socket.pipe(socket)
 
     socket.on('data', (data) => {
-        data = data.toString()            
-        data = JSON.parse(data)    
-        console.log( JSON.stringify(data) )
+        // console.log(`[Request at ${(new Date).toISOString()}]`)
+        console.log( data.toString() )
 
-        // let response = {
-        //     res: (new Date).getTime()
-        // }
-        // socket.write(JSON.stringify(data))
+        // dynamic response
+        let response = {
+            res: "0", // (new Date).getTime()
+        }
+
+        // send response back
+        socket.write( JSON.stringify(response) )
+
+        // static response
+        // socket.write( JSON.stringify({ res: 0 }) )
     })
 })
 
+// handle errors 
 server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
         console.log('Port is already in use. Abording')
@@ -26,4 +36,5 @@ server.on('error', (err) => {
     }
 })
 
+// listen to port 
 server.listen(9090, '127.0.0.1')
