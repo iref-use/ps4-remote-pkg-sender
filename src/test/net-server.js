@@ -17,6 +17,7 @@ var server = net.createServer( function(socket){
         // dynamic response
         let response = {
             res: "0", 
+            // res: "-2135809020",
             // res: (new Date).getTime()
             // nope: true,
         }

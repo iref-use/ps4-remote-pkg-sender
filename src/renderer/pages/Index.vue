@@ -277,23 +277,34 @@ export default {
                         // validate install response 
                         if( data && data.res ){
                             // set the state here 
-                            this.setStatus(file, "Sent to PS5")                                 
+                            this.setStatus(file, "Sent to PS5")         
+                            let code = parseInt(data.res)                        
 
                             // success
-                            if( parseInt(data.res) == 0 )                                
-                                this.$message({ 
+                            if( code == 0 ){
+                                this.log(file.name + ' install request successfull', file.url)
+                                return this.$message({ 
                                     dangerouslyUseHTMLString: true,
                                     message: `Install Request Success for <br>${file.name}`,
                                     type: "success" 
                                 })
+                            }
+
+                            if( code == -2135809020 ){
+                                this.log(file.name + ' file at URL not found', file.url)
+                                return this.$message({ 
+                                    dangerouslyUseHTMLString: true,
+                                    message: `Error ${code} | PKG file response 404. Check Server heartbeat. <br>${file.name}`,
+                                    type: "error" 
+                                })                    
+                            }        
                             
                             // something else, maybe in queue, maybe full storage, maybe whatever
-                            else 
-                                this.$message({ 
-                                    dangerouslyUseHTMLString: true,
-                                    message: `Response Code ${data.res} for <br>${file.name}`, 
-                                    type: "info" 
-                                })
+                            this.$message({ 
+                                dangerouslyUseHTMLString: true,
+                                message: `Response Code ${data.res} for <br>${file.name}`, 
+                                type: "info" 
+                            })
                         }
                         else {
                             this.$message({ message: `Unknown Response. Please check Logs.`, type: "warning" })                            
