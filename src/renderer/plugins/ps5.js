@@ -60,10 +60,13 @@ let ps5 = {
                 clearTimeout(connectionTimeout)
                 console.log("PS5:api Connection available")
 
-                if( typeof onSuccess == 'function' )
+                if( typeof onSuccess == 'function' ){
                     onSuccess(socket)
-                else 
                     resolve(true)
+                }
+                else {
+                    resolve(true)
+                }
             })
     
             socket.on('error', (err) => {
@@ -127,12 +130,17 @@ let ps5 = {
         })
     },
 
-    install(file){
+    install(file, cb=null){
         if(!file.url){
             return console.log("Cannot find path for file " + file.name )
         }
 
-        // #todo send install requests
+        return this.request( (socket) => {
+            socket.write(JSON.stringify({ url: file.url }))
+            socket.end()
+            if( typeof cb == 'function')
+                cb()
+        })
     },
 
 }

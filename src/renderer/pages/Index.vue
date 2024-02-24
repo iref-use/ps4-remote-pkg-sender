@@ -264,22 +264,41 @@ export default {
       },
 
       isInstalled(file){
-          this.$ps4.isInstalled(file)
-                  .then( ({ data }) => {
-                      if(data.exists == true)
-                        file.status = 'installed'
+            if( this.$store.getters['app/isPS5'] ){
+                this.$message({ message: "Not implemented for PS5 yet", type: "info" })
+                return
+            }
 
-                      let { exists, size, type } = data
-                      this.log(data.message, { exists, size, type })
-                      this.$message({ message: data.message, type: data.type })
-                  })
-                  .catch( e => {
-                      this.clearInterval(file)
-                      console.log(e)
-                  })
+            this.$ps4.isInstalled(file)
+                    .then( ({ data }) => {
+                        if(data.exists == true)
+                            file.status = 'installed'
+
+                        let { exists, size, type } = data
+                        this.log(data.message, { exists, size, type })
+                        this.$message({ message: data.message, type: data.type })
+                    })
+                    .catch( e => {
+                        this.clearInterval(file)
+                        console.log(e)
+                    })
       },
 
-      start(file){
+      async start(file){
+          // ps5 version 
+            if( this.$store.getters['app/isPS5'] ){
+                
+                return await this.$ps5.install( file, (socket) => {
+                    this.setStatus(file, "Send to PS5")
+                    this.$message({ message: file.name + ' send to PS5', file, type: "success" })
+                }).
+                catch( e => {
+                    this.log(e)
+                    this.$message({ message: e, type: 'error' })
+                })
+            }          
+
+          // ps4 version
           if(file.task && ['pause', 'stop'].includes(file.status) ){
               console.log(file.name + ' found task id ' + file.task)
               return this.resume(file)
