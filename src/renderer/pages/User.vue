@@ -6,7 +6,7 @@
     Hello Ladies and Gentlemen! <br>
     <br>
     It has been a long journey so far, and you have done well! <br>
-    With 53k Download as of August 2023, that's quite impressive. <br>
+    With 53k Downloads as of August 2023, that's quite impressive <small style="font-size: 90%">(67k Downloads as of February 2024) </small><br>
     Thank you for using the Application. Any Support is appreciated and don't forget to check out my channels. <br>
     <br>
     I will talk about a couple big changes that will come soon or later, depending on your support. <br>
@@ -19,14 +19,20 @@
     <el-divider />
 
     <h2 style="font-size: 20px"> What is coming up? </h2>
+    <b>0) PS5 Support </b> [beta/kinda works/semi-done]<br>
+    With 2.10.0+ we are the first application that supports PKG Install though application requests. <br>
+    First prototyping works fine, but still we might need more feedback on this to mark it stable. <br>
+    Thanks to etaHEN (@LM) and all the devs who was working on this - huge step forward. <br>
+    
+    <div class="space-50" />
 
-    <b>1) Application Serial Numbers </b><br>
+    <b>1) Application Serial Numbers </b> [Done] <br>
     Every Application in version 2.9.0+ will have it's own Serial number now. <br>
     This will be required for later encryption and decryption of messages and data for the features. <br>
     
     <div class="space-50" />
 
-    <b>2) RPSV2 API Service </b> <br>
+    <b>2) RPSV2 API Service </b> [prepared] <br>
     With the RPSV2 API Service we will be able to handle dynamic configurations in the future. <br>
     I've created a first configuration api and will benchmark in version 2.9.1 on how good this goes for <br>
     all the users. This brings us many benefits like expanding Themes or Languages without the need <br>
@@ -37,13 +43,13 @@
     
     <div class="space-50" />
 
-    <b>3) Translation </b> <br>
+    <b>3) Translation </b> [WIP] <br>
     So long requested and still not here. The reason beeing I wasn't happy about a native implementation <br>
     of the translation files. But based on the RPSV2 API Service this will be done quite soon. <br>
 
     <div class="space-50" />
 
-    <b>4) Files from Remote Hosts </b> <br>
+    <b>4) Files from Remote Hosts </b> [planed] <br>
     This will be really huge. Users can share their PKG files between Users. <br>
     This feature will be possible because of Point 1 and 2. The RPSV2 API Service will handle all the <br>
     configuration and communication where as the Serial numbers will act as a handshake encryption <br>

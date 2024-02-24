@@ -4,6 +4,19 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.10.1" placement="top">
+        <h4>Welcome PS5 Support</h4>
+        <p>
+          With the new Features from etaHEN we are finally able to be the first application <br>
+          that does support Installing PKG files on your Konsole. This is a huge step forward.<br>   
+          To use that feature, you have to select <b>Config > Playstation App > etaHEN</b>. <br>
+          <br>       
+          Due the ongoing Platform rewrite for PKG-zone there was a bug in the HB-Store view, it's fixed now. <br>
+          The PKG-Zone will be updated soon anyway, so there is a bigger rework planed for the Feature here. <br>
+          Based on that I've added proper HB-Store PS5 PKG Support for now, so you can download it at least correctly.<br>
+          There are also other improvements here and there and a bunch of refactoring. <br>      
+        </p>
+    </el-timeline-item>     
     <el-timeline-item timestamp="2.9.1" placement="top">
         <h4>RPSv2 API and User features</h4>
         <p>
