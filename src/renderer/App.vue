@@ -9,6 +9,7 @@ import { get } from 'vuex-pathify'
 import { remote, ipcRenderer, shell } from 'electron'
 import url from 'url'
 import axios from 'axios'
+import path from 'path'
 // import uuid from 'uuid'
 const uuid = require('uuid');
 const isDevelopment = process.env.NODE_ENV !== 'production'

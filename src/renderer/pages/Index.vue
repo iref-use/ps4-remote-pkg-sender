@@ -94,11 +94,11 @@
           </template>
       </el-table-column>
 
-      <el-table-column prop="task" label="Task" width="105" v-if="showTask"></el-table-column>
+      <el-table-column prop="task" label="Task" width="105" v-if="showTask && !isPS5"></el-table-column>
       <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
       <el-table-column prop="cusa" label="Version" width="100" v-if="showVersion"></el-table-column>
 
-      <el-table-column prop="rest" label="Rest" width="150" align="center">
+      <el-table-column prop="rest" label="Rest" width="150" align="center" v-if="!isPS5">
         <template slot-scope="scope">
             <el-tag size="small" plain v-if="scope.row.rest && scope.row.rest != 0"> {{ $helper.secondsToString(scope.row.rest) }} </el-tag>
         </template>
