@@ -116,7 +116,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="Progress" width="100px" v-if="showPercentage">
+      <el-table-column label="Progress" width="100px" v-if="showPercentage && !isPS5">
           <template slot-scope="scope">
               <el-progress :stroke-width="25" :percentage="scope.row.percentage" :text-inside="true" stroke-linecap="square"></el-progress>
           </template>
