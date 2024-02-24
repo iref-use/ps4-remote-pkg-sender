@@ -93,7 +93,7 @@
       ]
     },
     "portable": {
-      "artifactName": "${productName} - ${version}.exe",
+      "artifactName": "${productName}-${version}.exe",
       "unpackDirName": "PS4RemotePKGSenderV2"
     },    
     "dmg": {
