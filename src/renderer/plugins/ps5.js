@@ -21,6 +21,9 @@ let ps5 = {
 
     // #todo refactor to ps5
     getURL(of='ps'){      
+        if(of == 'url'){
+            return store.getters['app/getPS4IP']
+        }
 
         if(of == 'ps'){
             let url = store.getters['app/getPS4IP']
@@ -134,7 +137,7 @@ let ps5 = {
                 console.error('Socket error:', error);
 
                 if( error.code == 'ECONNREFUSED' )
-                    return reject("PS5 Connection failed at " + this.getURL('url') )
+                    return reject(`PS5 Connection failed at ${this.getURL('url')}`)
 
                 reject(error);
             });
@@ -171,7 +174,7 @@ let ps5 = {
 
     install(file, cb=null){
         if(!file.url){
-            return console.log("Cannot find path for file " + file.name )
+            return new Promise( (resolve, reject) => reject("Can't find file URL for " + file.name) )
         }
 
         return this.send({ url: file.url })

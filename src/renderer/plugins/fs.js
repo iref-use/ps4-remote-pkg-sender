@@ -190,6 +190,17 @@ let o = {
         // let filePath = item.file.replace('attachments/', 'attachments/stream/')
         let filePath = item.file ? item.file.replace('https', 'http') : item.file
 
+        // file url if we have missing ps4 default pacakage but file_ps5 given instead
+        // so fallback to file_ps5 if file is empty
+        if( !item.file && item.file_ps5){
+            filePath = item.file_ps5 ? item.file_ps5.replace('https', 'http') : item.file_ps5
+        }
+
+        // if we have ps5 selected enforce ps5 file
+        if( store.getters['app/isPS5'] && item.file_ps5 ){
+            filePath = item.file_ps5 ? item.file_ps5.replace('https', 'http') : item.file_ps5
+        }
+
         return {
             name: item.name,
             status: 'remote',

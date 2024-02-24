@@ -265,7 +265,9 @@ export default {
 
       async start(file){
           // ps5 version 
-            if( this.isPS5 ){                            
+            if( this.isPS5 ){            
+                this.log(file.name + ' install request')                
+
                 return await this.$ps5.install(file)
                     .then( (data) => {
                         // this.$message({ message: file.name + ' send to PS5', file, type: "info" })                        
