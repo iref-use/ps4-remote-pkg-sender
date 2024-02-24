@@ -214,17 +214,18 @@ export default {
 
       async checkPS4(){
             // ps5 check
-            if( this.isPS5 ){
-                return await this.$ps5.checkPS5().then( () => {
-                    this.log("PS5 Connection available")
-                    this.$message({ message: "PS5 Connection available", type: 'success' })
-                })
-                .catch( e => {
-                    console.log(e)
-                    this.log(e)
-                    this.$message({ message: "PS5 Connection failed", type: 'error' })                    
-                })
-            }
+            if( this.isPS5 )
+                return await this.$ps5.checkPS5()
+                    .then( () => {
+                        this.log("PS5 Connection available")
+                        this.$message({ message: "PS5 Connection available", type: 'success' })
+                    })
+                    .catch( e => {
+                        console.log(e)
+                        this.log(e)
+                        this.$message({ message: "PS5 Connection failed", type: 'error' })                    
+                    })
+            
 
             // backwardscompatibility for ps4
             this.$ps4.checkPS4().then( (res) => {
@@ -265,8 +266,7 @@ export default {
 
       async start(file){
           // ps5 version 
-            if( this.isPS5 ){                
-                
+            if( this.isPS5 ){                            
                 return await this.$ps5.install(file)
                     .then( (data) => {
                         this.$message({ message: file.name + ' send to PS5', file, type: "info" })
@@ -281,24 +281,7 @@ export default {
                         console.log(e)
                         this.log(e)
                         this.$message({ message: e, type: 'error' })
-                    })
-                
-                // Previous work, but meh
-                // return await this.$ps5.install( file, (socket) => {
-                //     this.setStatus(file, "Sent to PS5")
-                //     this.$message({ message: file.name + ' send to PS5', file, type: "success" })
-                // })
-                // .then( (data) => {
-                //     this.log({ type: 'PS5 Response', response: data })
-                //     console.log(data)
-
-                //     this.$message({ message: data, type: "info" })
-                // })
-                // .catch( e => {
-                //     console.log("Error in Install Request", e)
-                //     this.log(e.msg)
-                //     this.$message({ message: e.msg, type: 'error' })
-                // })
+                    })            
             }          
 
           // ps4 version
