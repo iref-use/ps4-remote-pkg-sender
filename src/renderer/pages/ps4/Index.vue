@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h2>PS4 API Logs </h2>
+    <h2>Playstation API Logs </h2>
 
     <div class="mb-md">
         <el-button size="mini" icon="refresh" @click="reset"> Reset Logs </el-button>

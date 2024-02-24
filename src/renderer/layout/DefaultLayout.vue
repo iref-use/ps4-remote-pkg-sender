@@ -43,7 +43,7 @@
                     <i class="el-icon-files" />
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="server"> Open Local Server </el-dropdown-item>
-                      <el-dropdown-item command="ps4"> Open PS4 API Logs </el-dropdown-item>
+                      <el-dropdown-item command="ps4"> Open Playstation API Logs </el-dropdown-item>
                       <el-dropdown-item command="info"> Info </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
