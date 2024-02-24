@@ -1,16 +1,20 @@
 const net = require('net')
 
-console.log("Test net-server.js\\rn")
+// console.log("Test net-server.js\\rn")
 
 var server = net.createServer( function(socket){
-    socket.write('NET Client Server\r\n')
+    // socket.write('NET Client Server\r\n')
     socket.pipe(socket)
 
     socket.on('data', (data) => {
         data = data.toString()            
-        data = JSON.parse(data)
-        
-        console.log( data )
+        data = JSON.parse(data)    
+        console.log( JSON.stringify(data) )
+
+        // let response = {
+        //     res: (new Date).getTime()
+        // }
+        // socket.write(JSON.stringify(data))
     })
 })
 

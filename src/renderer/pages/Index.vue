@@ -291,10 +291,17 @@ export default {
                 return await this.$ps5.install( file, (socket) => {
                     this.setStatus(file, "Send to PS5")
                     this.$message({ message: file.name + ' send to PS5', file, type: "success" })
-                }).
-                catch( e => {
-                    this.log(e)
-                    this.$message({ message: e, type: 'error' })
+                })
+                .then( (data) => {
+                    this.log({ type: 'PS5 Response', response: data })
+                    console.log(data)
+
+                    this.$message({ message: data, type: "info" })
+                })
+                .catch( e => {
+                    console.log("Error in Install Request", e)
+                    this.log(e.msg)
+                    this.$message({ message: e.msg, type: 'error' })
                 })
             }          
 

@@ -35,7 +35,7 @@ let ps5 = {
         return timeout < min ? min : timeout
     },
 
-    request( onSuccess=null ){
+    request( onSuccess=null, onResponse=null ){
         console.log("Build up TCP Connection")
 
         return new Promise( (resolve, reject) => {
@@ -56,16 +56,38 @@ let ps5 = {
 
             console.log("PS5 Connection to ", connectTo)    
             const socket = new net.Socket()
+
             socket.connect(connectTo, () => {
                 clearTimeout(connectionTimeout)
                 console.log("PS5:api Connection available")
 
                 if( typeof onSuccess == 'function' ){
                     onSuccess(socket)
-                    resolve(true)
                 }
                 else {
                     resolve(true)
+                }
+            })
+
+            socket.on('data', (r) => {
+                let response = r.toString()
+                let json =  null
+
+                // console.log(response)
+                
+                try {
+                    json = JSON.parse(response)
+                }
+                catch(jsonError) {
+                    reject(jsonError)
+                }
+
+                if( typeof onResponse == 'function'){
+                    onResponse(json, response)
+                    resolve(json, response)
+                }
+                else {
+                    resolve(json, response)
                 }
             })
     
@@ -135,12 +157,18 @@ let ps5 = {
             return console.log("Cannot find path for file " + file.name )
         }
 
-        return this.request( (socket) => {
-            socket.write(JSON.stringify({ url: file.url }))
-            socket.end()
-            if( typeof cb == 'function')
-                cb()
-        })
+        return this.request( 
+                (socket) => {
+                    socket.write(JSON.stringify({ url: file.url }))
+                    
+                    if( typeof cb == 'function')
+                        cb()
+                },
+
+                (json, response) => {
+                    
+                }
+            )
     },
 
 }
