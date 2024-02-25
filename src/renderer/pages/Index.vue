@@ -751,6 +751,9 @@ export default {
                     }
 
                     this.$message({ message: "Queue Scanner finished. Check your PS5 download/installation", type: 'success' })
+
+                    if( this.notify )
+                        this.$root.notify({ title: "Queue Scanner", body: "Bulk Requests finished for " + total + " files."})
                 })
                 .catch(() => {})
       },
