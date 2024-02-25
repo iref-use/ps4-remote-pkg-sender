@@ -39,12 +39,14 @@ The refactored Version provides a better GUI and technicall more ordered feature
 - [x] Add a FAQ and Troubleshooting Area  
 - [x] Configuration values for timeout and heartbeat  
 - [x] Implement HB Store and direct install fPKG's  
-- [x] Queue scanner (start next file in the queue after one is finished)  
+- [x] Queue Scanner (start next file in the queue after one is finished)  
 - [x] Scroll To Top  
 - [x] Auto update checker for latest release version 
 - [x] Bulk Action for adding to Queue
 - [x] Drag & Drop files and folders 
 - [x] RPSV2 API Service for dynamic configurations
+- [x] Add PS5 Support  
+- [x] Add Queue Scanner Bulk Request Support for PS5  
 
 ## ToDo's for the future (Comming into v2.10+)
 - [ ] Add Translations though RPSV2 API
