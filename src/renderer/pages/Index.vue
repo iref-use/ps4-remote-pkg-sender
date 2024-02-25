@@ -699,36 +699,60 @@ export default {
       },
 
       async handleQueueScannerNextItemPS5(files=[]){
-            this.$message({
-                dangerouslyUseHTMLString: true,
-                type: 'success',
-                message: `Found ${files.length} files to be send as Bulk Requests to the PS5. <br>Attention: Files will be send with a delay in between for all files that are 'in queue' from the Queue.`
-            });
+          this.$confirm(
+                    `Queue Scanner can currently only Bulk Request` +
+                    `all files because there is no Process Handling` +
+                    `Response yet to track the progress. <br><br>`+ 
+                    `Means the Queue handler will send all files in `+ 
+                    `the Queue with the status of 'in queue' ` + 
+                    `automatically to the PS5 with a delay in ` + 
+                    `between. ${files.length} files to be send.`, 
+                    'Bulk Install Request to PS5',
+                {
+                    dangerouslyUseHTMLString: true,
+                    confirmButtonText: 'OK, Continue',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning',
+                    center: true,
+                })
+                .then( async () => {
+                    // first check the connection 
+                    await this.$ps5.checkPS5()
+                        .then( async () => {
+                            this.log("PS5 Connection is ready for Bulk Requests")
+                            this.$message({ message: "PS5 Connection is Ready for Bulk Requests", type: 'success' })
+                            await new Promise( (resolve => setTimeout( () => resolve(), 200)) )
+                        })
+                        .catch( e => {
+                            console.log(e)
+                            this.log(e)
+                            this.$message({ message: "PS5 Connection failed. Bulk Request can't proceed.", type: 'error' })                                                
+                            throw new Error('PS5 Connection failed')
+                        })
 
-            await new Promise( (resolve => setTimeout( () => resolve(), 3000)) )
+                    // warn the user 
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        type: 'success',
+                        timeout: 3000,
+                        message: `Found ${files.length} files to be send as Bulk Requests to the PS5. <br>`+
+                                 `Attention: Files will be send with a delay in between ` 
+                                 // + `for <br>` +  `all files that are 'in queue' from the Queue.`
+                    })                    
 
-            let total = files.length 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i]
+                    // countdown 
+                    await new Promise( (resolve => setTimeout( () => resolve(), 3000)) )
 
-                await this.start(file)
+                    // bulk request handling 
+                    let total = files.length 
+                    for (let i = 0; i < files.length; i++) {
+                        await this.start(files[i])
+                        await new Promise(resolve => setTimeout(resolve, 2000))
+                    }
 
-                // for custom calls and Notification messages but well, leave it for now
-                // because we have already a warning Notification before
-                // this.$ps5.install(file)
-                //     .then( () => {
-                //         this.$message({
-                //             dangerouslyUseHTMLString: true,
-                //             type: 'success',
-                //             message: `Request ${i + 1}/${total} ${file.name}`
-                //         })
-                //     })
-                //     .catch( e => {
-
-                //     })
-
-                await new Promise(resolve => setTimeout(resolve, 2000))
-            }
+                    this.$message({ message: "Queue Scanner finished. Check your PS5 download/installation", type: 'success' })
+                })
+                .catch(() => {})
       },
 
       handleStartInstallError(file, e){
