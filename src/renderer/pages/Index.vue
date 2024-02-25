@@ -10,7 +10,7 @@
           <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="el-icon-refresh-left" command="resetAll">Reset Queue, Tasks and Installed</el-dropdown-item>
               <el-dropdown-item icon="el-icon-refresh-left" command="resetInstalled">Reset Installed</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-refresh-left" command="clearFinishedFiles">Clear finished</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-refresh-left" command="clearFinishedFiles">Remove finished files from Queue</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
 
@@ -198,7 +198,7 @@ export default {
           return this.queueFiles
       },
       finishedFiles(){
-          return this.queueFiles.filter( file => file.status == 'finish' )
+          return this.queueFiles.filter( file => ['finish', 'Sent to PS5'].includes(file.status) )
       }
   },
 
@@ -329,7 +329,7 @@ export default {
 
           this.log("Install Request", { type : 'direct', packages: [file.url] })
 
-          this.$ps4.install(file)
+          await this.$ps4.install(file)
               .then( ({ data }) => {
                   this.log(file.name + ' install', data)
 
@@ -618,9 +618,20 @@ export default {
       },
 
       resetInstalled(){
+          console.log(this.servingFiles)
+
+          this.queueFiles
+                .filter( file => ['installed', 'Sent to PS5'].includes(file.status))
+                .map( file => file.status = 'in queue')
+
           this.servingFiles
-                .filter( file => file.status == 'installed')
+                .filter( file => ['installed', 'Sent to PS5'].includes(file.status))
                 .map( file => file.status = 'serving')
+
+          this.draggedServingFiles
+                .filter( file => ['installed', 'Sent to PS5'].includes(file.status))
+                .map( file => file.status = 'serving')
+
           this.$store.dispatch('queue/setInstalled', [])
           this.$root.track({ name: 'resetInstalled', data: { name: 'Reset installed Files' } })
       },
@@ -659,17 +670,20 @@ export default {
           this.$root.track({ name: 'QueueScanner.toggle', data: { name: 'Toggle QueueScanner', value: this.queueScanner } })
       },
 
-      handleQueueScannerNextItem(){
+      async handleQueueScannerNextItem(){
           let findNextFile = this.queueFiles.filter( f => f.status == 'in queue')
           console.log(findNextFile, findNextFile.length)
 
           // no items
-          if(findNextFile.length == 0){
+          if(findNextFile.length == 0)
               return this.$message({
                 type: 'success',
                 message: 'There are no items to be installed in the queue'
-              });
-          }
+              });          
+
+          // handle ps5 bulk action
+          if( this.isPS5 )
+            return await this.handleQueueScannerNextItemPS5(findNextFile)
 
           // we have a file in the queue
           if(findNextFile.length > 0){
@@ -680,8 +694,41 @@ export default {
                 message: 'Found next File in the Queue. <br>' + file.name,
               });
               this.$root.track({ name: 'QueueScanner.next', data: { name: 'QueueScanner handle next item in List', value: file.name } })
-              this.start(file)
+              await this.start(file)
           }
+      },
+
+      async handleQueueScannerNextItemPS5(files=[]){
+            this.$message({
+                dangerouslyUseHTMLString: true,
+                type: 'success',
+                message: `Found ${files.length} files to be send as Bulk Requests to the PS5. <br>Attention: Files will be send with a delay in between for all files that are 'in queue' from the Queue.`
+            });
+
+            await new Promise( (resolve => setTimeout( () => resolve(), 3000)) )
+
+            let total = files.length 
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i]
+
+                await this.start(file)
+
+                // for custom calls and Notification messages but well, leave it for now
+                // because we have already a warning Notification before
+                // this.$ps5.install(file)
+                //     .then( () => {
+                //         this.$message({
+                //             dangerouslyUseHTMLString: true,
+                //             type: 'success',
+                //             message: `Request ${i + 1}/${total} ${file.name}`
+                //         })
+                //     })
+                //     .catch( e => {
+
+                //     })
+
+                await new Promise(resolve => setTimeout(resolve, 2000))
+            }
       },
 
       handleStartInstallError(file, e){
