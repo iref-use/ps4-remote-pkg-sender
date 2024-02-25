@@ -213,7 +213,8 @@ let ps4 = {
 
     install(file){
         if(!file.url){
-            return console.log("Cannot find path for file " + file.name )
+            return new Promise( (resolve, reject) => reject("Can't find file URL for " + file.name) )
+            // return console.log("Cannot find path for file " + file.name )
         }
 
         return this.request(this.getURL() + '/api/install', { type : 'direct', packages: [file.url] }, { timeout: this.getTimeout() })

@@ -1,10 +1,13 @@
 <template>
 <div>
 
-  <el-button size="mini" @click="$store.dispatch('server/resetLogs')"> Reset Logs </el-button>
-  <div v-for="log in logs">
-      {{ log.time }} | {{ log.message }}
-  </div>
+    <div class="mb-md">
+        <el-button size="mini" @click="$store.dispatch('server/resetLogs')"> Reset Logs </el-button>
+    </div>
+  
+    <div class="log" v-for="log in logs">
+        {{ log.time }} | {{ log.message }}
+    </div>
 
 </div>
 </template>
@@ -21,5 +24,9 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+.log {
+    display: block;
+    margin-bottom: 2px;
+}
 </style>

@@ -10,9 +10,11 @@
         downloading...
     </div>
 
-    <div class="header">
+    <div class="header text-center">
         <el-button round @click="close"> Close Downloading Window <i class="el-icon-close" /> </el-button>
+        <div class="url" v-if="false">{{ url }}</div>
     </div>
+    
     <webview :src="url" v-if="url" useragent="StoreHAX" style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 5; width: 100vw; height: 100vh;" />
 
 </div>
@@ -55,8 +57,15 @@ export default {
 }
 
 .header {
-  position: relative; z-index: 5;
+  position: relative; z-index: 10;
   border: 0px solid red;
+  width: calc(100vw - 50px);
+
+  .url {
+      padding: 20px;
+      white-space: pre;
+      word-break: break-all;
+  }
 }
 
 .bg {
@@ -65,7 +74,7 @@ export default {
   background-image: linear-gradient(-60deg, rgba(20,20,20,.2) 50%, rgba(50,0,0,.5) 50%);
   bottom:0;
   left:-50%;
-  opacity:.5;
+  opacity:1;
   position:fixed;
   right:-50%;
   top:0;

@@ -109,11 +109,16 @@ export const getters = {
   ...make.getters(state),
 
   isInQueue: (state) => (file) => {
-    return state.queue.find( x => x.name == file.name)
+    // return state.queue.find( x => x.name == file.name)
+    return state.queue.find( x => x.path == file.path)
+  },
+
+  isInQueueUnique: (state) => (file) => {
+    return state.queue.find( x => x.path == file.path)
   },
 
   isInstalled: (state) => (file) => {
-    return state.installed.find( x => x.name == file.name)
+    return state.installed.find( x => x.path == file.path)
   }
 
   // overwrite default `items` getter

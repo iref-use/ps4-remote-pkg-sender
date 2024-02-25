@@ -3,6 +3,8 @@ import fs from './../../plugins/fs.js'
 
 export const state = {
     files: [],
+    draggedFiles: [],
+    draggedServingFiles: [],
     serverFiles: [],
     servingFiles: [],
     routes: [],
@@ -57,7 +59,6 @@ export const actions = {
     resetLogs({ commit}){
         commit('resetLogs')
     },
-
     startLoading({ commit }){
         commit('loading', true)
     },
@@ -90,7 +91,10 @@ export const getters = {
   ...make.getters(state),
 
   findFile: (state) => (file) => {
-    return state.servingFiles.find( x => x.name == file.name)
+    if( file.type == 'dragged')
+        return state.draggedServingFiles.find( x => x.path == file.path)    
+
+    return state.servingFiles.find( x => x.path == file.path)
   }
   // overwrite default `items` getter
   // allFiles: state => {

@@ -45,6 +45,18 @@ $titleBarColorDark: #0c0c0c;
     }
 }
 
+.dark {
+    .top_right_header {
+        i {
+            color: #bbb;
+        }
+
+        // .close_application i {
+        //     color: maroon;
+        // }
+    }
+}
+
 
 .alternative_title_bar {
     position: relative; z-index: 2;

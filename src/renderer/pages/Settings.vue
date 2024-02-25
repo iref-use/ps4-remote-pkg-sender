@@ -7,6 +7,9 @@
 
     <el-row>
       <el-col :span="8">
+        <div>
+          <img :src="$root.getImage('assets/rpsV2.svg')" style="width: 230px; margin-bottom: 20px;" />
+        </div>
         <img :src="$root.getImage('assets/buymeashisha.svg')" class="cursor-pointer" @click="$root.open(links.kofi)" />
         <img :src="$root.getImage('assets/platform.svg')" class="cursor-pointer" @click="$root.open(links.github_releases)" />
         <br>
@@ -38,7 +41,7 @@
     <div v-if="app.config.showConfigObject">
         <div style="height: 40px" />
         <el-divider content-position="left">Your current settings object</el-divider>
-        <pre>{{ app }}</pre>
+        <div style="white-space: pre" v-html="$helper.prettyPrint(app)" />
     </div>
 
 </div>
@@ -57,6 +60,10 @@ export default {
 
   computed: {
       app: get('app'),
+  },
+
+  methods: {
+
   }
 }
 </script>

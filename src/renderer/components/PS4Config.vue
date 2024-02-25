@@ -2,13 +2,13 @@
 <div id='server_config'>
 
 
-  <el-divider content-position="left">PS4 Configuration</el-divider>
+  <el-divider content-position="left">Playstation Configuration</el-divider>
 
   <div class="q-pl-md">
   <el-form :inline="true" label-width="150px" size="mini" label-position="left" @submit.native.prevent>
       <el-row :gutter="20">
           <el-col :span="10">
-              <el-form-item label="PS4 IP">
+              <el-form-item label="Playstation IP">
                 <el-input v-model="ps4.ip"></el-input>
               </el-form-item>
           </el-col>
@@ -20,7 +20,7 @@
 
       <el-row :gutter="20">
           <el-col :span="10">
-              <el-form-item label="PS4 App">
+              <el-form-item label="Playstation App">
                   <el-select v-model="ps4.app" placeholder="Target App" default-first-option>
                       <el-option :label="app.value" :value="app.key" :disabled="app.disabled" v-for="app in ps4Apps" :key="app.key" />
                   </el-select>
@@ -85,25 +85,32 @@ export default {
     data(){ return {
         testingConnection: false,
         ps4Apps: [
-            { value: 'RPI (flatZ)', key: 'rpi', disabled: false },
-            { value: 'RPI (OOP)', key: 'rpiOOP', disabled: false },
-            { value: 'IPI', key: 'ipi', disabled: true },
-            { value: 'HB-Store', key: 'hbstore', disabled: true },
+            { value: 'PS4 RPI (flatZ)', key: 'rpi', disabled: false },
+            { value: 'PS4 RPI (OOP)', key: 'rpiOOP', disabled: false },
+            { value: 'PS4 IPI', key: 'ipi', disabled: true },
+            { value: 'PS4 HB-Store', key: 'hbstore', disabled: true },
+            { value: 'PS5 etaHEN', key: 'etaHEN', disabled: false },
         ]
     }},
 
     computed: {
         ps4: sync('app/ps4'),
+        server: sync('app/server'),
     },
 
     watch: {
         'ps4.ip'(){ this.save() },
         'ps4.app'(val){ 
             if(val == 'rpi')
-              this.ps4.port = this.ps4.port_rpi
+                this.ps4.port = this.ps4.port_rpi
 
             if(val == 'rpiOOP')
-              this.ps4.port = this.ps4.port_rpiOOP
+                this.ps4.port = this.ps4.port_rpiOOP
+
+            if(val == 'etaHEN'){
+                this.ps4.port = this.ps4.port_etaHEN ?? 9090
+                this.server.enableQueueScanner = false
+            }
 
             this.save()
         },
@@ -123,18 +130,34 @@ export default {
             this.$store.dispatch('app/setPs4', this.ps4)
         },
 
-        checkPS4(){
+        async checkPS4(){
             this.testingConnection = true
-            this.$ps4.checkPS4().then( (res) => {
-                this.testingConnection = false
-                this.$root.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
-                this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
-            })
-            .catch( e => {
-                this.testingConnection = false
-                this.$root.log("Check Playstation: PS4 is not accessible", e)
-                // this.$message({ message: "PS4 is not accessible.", type: 'error' })
-            })
+
+            if( this.$store.getters['app/isPS5'] )
+                return await this.$ps5.checkPS5()
+                    .then( () => {
+                        this.testingConnection = false
+                        this.$root.log("PS5 is accessible", null)
+                        this.$message({ message: "PS5 is accessible", type: 'success' })
+                    })
+                    .catch( e => {
+                        this.testingConnection = false
+                        console.log(e)
+                        this.$root.log("Check Playstation: PS5 is not accessible", e)
+                        this.$message({ message: "PS5 is not accessible", type: 'error' })                    
+                    })
+            
+            this.$ps4.checkPS4()
+                .then( (res) => {
+                    this.testingConnection = false
+                    this.$root.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
+                    this.$message({ message: "Playstation check. PS4 is accessible", type: 'success' })
+                })
+                .catch( e => {
+                    this.testingConnection = false
+                    this.$root.log("Check Playstation: PS4 is not accessible", e)
+                    this.$message({ message: "PS4 is not accessible.", type: 'error' })
+                })
         },
 
     }
