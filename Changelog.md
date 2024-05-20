@@ -1,5 +1,16 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.10.3
+#### Welcome PS5 Support        
+        With the new Features from etaHEN we are finally able to be the first application
+        that does support Installing PKG files on your Konsole. This is a huge step forward.
+        To use that feature, you have to select Config > Playstation App > etaHEN.
+
+        Due the ongoing Platform rewrite for PKG-zone there was a bug in the HB-Store view, it's fixed now.
+        The PKG-Zone will be updated soon anyway, so there is a bigger rework planed for the Feature here.
+        Based on that I've added proper HB-Store PS5 PKG Support for now, so you can download it at least correctly.
+        There are also other improvements here and there and a bunch of refactoring.
+
 ### v2.9.1
 #### RPSv2 API and User features
         Create RPSV2 Server and API.  

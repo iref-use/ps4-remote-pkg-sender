@@ -119,10 +119,13 @@
                   <b>Legacy Mode</b> is for the current working HB-Store API <br>
               </p>
               <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'refactored'">
-                  <b>Refactored Mode</b> allows you to search and see your favorite apps <br>
+                  <b>Refactored Mode</b> allows you to connect to the new HB-Store API <br>
               </p>
+              <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'pkg-zone'">
+                  <b>PKG-Zone</b> connects to the official HB-Store API from pkg-zone.com <br>
+              </p>              
               <p style="font-style: italic; font-size: 13px; color: #888; padding-top: 5px" v-if="config.useHBMode == 'custom'">
-                  <b>Custom Mode</b> allows you to gather information from your own cdn store hosting <br>
+                  <b>Custom Mode</b> allows you to connect to your own HB-Store CDN Server <br>
               </p>
           </el-col>
       </el-row>
@@ -130,7 +133,8 @@
       <el-row v-if="config.useHB && config.useHBMode">
           <el-col :span="8">
               <el-form-item label="HB-Store CDN" class="full-width full-width-150">
-                  <el-input v-model="config.useHBRoot" style="width: 100%;"> </el-input>
+                  <el-input v-model="config.useHBRoot" style="width: 100%;" v-if="config.useHBMode != 'custom'" :disabled="config.useHBMode == 'pkg-zone'"> </el-input>
+                  <el-input v-model="config.useHBCustomRoot" style="width: 100%;" v-if="config.useHBMode == 'custom'"> </el-input>
               </el-form-item>
           </el-col>
 
@@ -178,9 +182,10 @@ export default {
         ],
 
         HBModes: [
-            { key: 'legacy', value: 'Legacy', disabled: true},
+            // { key: 'legacy', value: 'Legacy', disabled: true},  // #deprecated        
             { key: 'refactored', value: 'Refactored', disabled: false },
-            { key: 'custom', value: 'Custom CDN', disabled: true },
+            { key: 'pkg-zone', value: 'PKG-Zone', disabled: false },
+            { key: 'custom', value: 'Custom CDN', disabled: false },
         ]
     }},
 
@@ -197,8 +202,14 @@ export default {
         'config.style'(){ this.save() },
         'config.titleBar'(){ this.save() },
         'config.useHB'(){ this.save() },
-        'config.useHBMode'(){ this.save() },
+        'config.useHBMode'(){ 
+            if( this.config.useHBMode == 'pkg-zone' )
+                this.config.useHBRoot = 'http://api.pkg-zone.com/'
+
+            this.save() 
+        },
         'config.useHBRoot'(){ this.save() },
+        'config.useHBCustomRoot'(){ this.save() },
         'config.showConfigObject'(){ this.save() },
         'config.enableExternalLinks'(){ this.save() },
         'config.enableSystemNotifications'(){ this.save() },

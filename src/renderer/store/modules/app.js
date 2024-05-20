@@ -89,6 +89,7 @@ export const mutations = {
             useHB: false,
             useHBMode: 'refactored',
             useHBRoot: 'http://api.pkg-zone.com/',
+            useHBCustomRoot: '',
             showConfigObject: false,
             enableExternalLinks: false,
             enableSystemNotifications: false,

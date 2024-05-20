@@ -9,13 +9,19 @@ const getFiles = (folder, deep=false) => {
     const files = []
 
     try {
-        for (const file of fs.readdirSync(folder, { withFileTypes: true }) ) {
+        for (const fileObject of fs.readdirSync(folder, { withFileTypes: true }) ) {
+
+            // fix for new path ?
+            let file = fileObject.name
+
             // fix permission error on external drives for darwin
             let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes', '.Trash', 'Thumbs.db', '.DS_Store'].includes(file)
 
             if(forbidden){
                 continue
             }
+
+            // console.log("Reading File " + JSON.stringify(file))
 
             const fullPath = path.join(folder, file)
             if(fs.lstatSync(fullPath).isDirectory() && deep){
@@ -28,6 +34,7 @@ const getFiles = (folder, deep=false) => {
     }
     catch( e ){
         console.log("Error reading folder", folder)
+        console.log(e)
     }
 
     return files

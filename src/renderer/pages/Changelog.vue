@@ -4,7 +4,7 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
-    <el-timeline-item timestamp="2.10.1" placement="top">
+    <el-timeline-item timestamp="2.10.3" placement="top">
         <h4>Welcome PS5 Support</h4>
         <p>
           With the new Features from etaHEN we are finally able to be the first application <br>

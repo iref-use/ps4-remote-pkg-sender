@@ -7,7 +7,7 @@ import menu from './menu'
 import tray from './tray'
 import store from './../renderer/store/index.js'
 
-import './crashReporter'
+// import './crashReporter'
 
 // set vars
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -36,7 +36,7 @@ function createMainWindow() {
     window.hide()
   })
   window.on('closed', () => { windows.main = null })
-  // window.webContents.openDevTools()
+  window.webContents.openDevTools()
 
   // handle download child windows and autoclose
   helper.autocloseAfterDownload(window)
