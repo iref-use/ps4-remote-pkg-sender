@@ -66,7 +66,7 @@ export default {
             this.item = item
             this.version = version
 
-            this.current = this.$root.versions.app
+            this.current = "2.8.1" // this.$root.versions.app
             this.version = this.$git.getVersion(item)
             this.compare = this.$git.compareVersion(this.current, this.version) // -1 new version available
         },

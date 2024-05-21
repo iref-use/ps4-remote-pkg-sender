@@ -132,7 +132,11 @@ export default {
       },
 
       openWithAutoclose(url){
-          // window.open(url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true') // deprecated
+          console.log("Open with Autoclose ", url)
+          
+          // straight open a new window with the url
+        //   return window.open(url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true') // deprecated
+          
           // proxy though application view
           if (isDevelopment) {
             window.open(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}` + '#window.loader?q=' + url, 'Download', 'width=200,height=30,backgroundColor=black,frame=false,hide=true')

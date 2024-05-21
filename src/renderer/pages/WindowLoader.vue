@@ -5,14 +5,16 @@
     <div class="bg bg2"></div>
     <div class="bg bg3"></div>
     <div class="bg logo">
-        <img :src="$root.getImage('assets/rpsV2.png')" style="width: 180px; margin: 0 auto;" />
-        <br>
-        downloading...
+        <img :src="$root.getImage('assets/rpsV2.png')" style="width: 180px; margin: 0 auto; margin-top: 200px" />
     </div>
 
     <div class="header text-center">
         <el-button round @click="close"> Close Downloading Window <i class="el-icon-close" /> </el-button>
-        <div class="url" v-if="false">{{ url }}</div>
+
+        <div class="url" style="text-align: left; margin-top: 30px;">
+          <div style="margin-bottom: 10px; display:block; font-weight:bold;">Downloading </div>
+          <div v-if="true">{{ url }}</div>
+        </div>
     </div>
     
     <webview :src="url" v-if="url" useragent="StoreHAX" style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 5; width: 100vw; height: 100vh;" />
@@ -36,6 +38,10 @@ export default {
       init(){
           if(this.$route.query.q)
             this.url = this.$route.query.q
+          else {
+            alert("No Query parameter given.")
+            this.close()
+          }
       },
 
       close(){
@@ -47,24 +53,33 @@ export default {
 
 <style lang="scss" scoped>
 .WindowLoader {
-  position: relative;
+    position: relative;
+    height: calc(100vh - 60px);
+
+    padding: 0px;
+    top:0px; left: 0px; right: 0px; bottom: 0px;
+    border: 10px solid maroon;  
+    overflow: hidden;
 }
 
 .inlineWebView {
     position: relative;
-    height: 100vh;
-    width: 100vw;
+    height: auto;
+    width: auto;
 }
 
 .header {
   position: relative; z-index: 10;
   border: 0px solid red;
+  margin-top: 20px;
   width: calc(100vw - 50px);
 
   .url {
       padding: 20px;
-      white-space: pre;
+      white-space: normal;
       word-break: break-all;
+      text-align: left;
+      max-width: 600px;
   }
 }
 
@@ -101,10 +116,10 @@ export default {
 
 @keyframes slide {
   0% {
-    transform:translateX(-25%);
+    transform:translateX(3%);
   }
   100% {
-    transform:translateX(25%);
+    transform:translateX(30%);
   }
 }
 </style>

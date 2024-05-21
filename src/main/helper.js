@@ -63,7 +63,7 @@ export default {
             height: 600,
             width: 900,
             // frame: false,
-            title: 'PS4 Remote Package Sender',
+            title: 'PS4 Remote Package Sender v2',
             icon: nativeImage.createFromDataURL(this.getAppIconPath()),
             // titleBarStyle: 'hiddenInset',
             webPreferences: {
@@ -107,17 +107,33 @@ export default {
         // })
 
         window.webContents.on('new-window', (event, url) => {
-            console.log("new window")
+            console.log("Open New Window with autoclose after download")
             event.preventDefault()
 
-            var win = new BrowserWindow({ show: false, frame: false })
+            var win = new BrowserWindow({ 
+                show: true, 
+                frame: false,
+                icon: nativeImage.createFromDataURL(this.getAppIconPath()),
+                webPreferences: {
+                    allowRunningInsecureContent: false,
+                    nodeIntegration: true,
+                    enableRemoteModule: true,
+                    webviewTag: true,
+                }
+            })
+
             win.webContents.setUserAgent("StoreHAX")
             win.once('ready-to-show', () => win.show())
             win.loadURL(url)
+            // win.webContents.downloadURL(url)
+            // win.openDevTools()
+
+            console.log("Set New Window url to ", url)
 
             win.webContents.session.on('will-download', (event, item, webContents) => {
+                // console.log("Download started for ", item)
                 item.once('done', (event, state) => {
-                    console.log("item download done", state)
+                    console.log("Item download state ", state)
                     win.destroy()
                 })
             })
