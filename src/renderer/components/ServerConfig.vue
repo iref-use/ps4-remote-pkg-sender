@@ -167,7 +167,7 @@ export default {
             this.$message({
                 type: 'success',
                 message: 'Files has been reloaded'
-            });            
+            });
         },
 
         async save(){
@@ -186,7 +186,7 @@ export default {
                     this.server.base_path = value
                     this.$message({
                         type: 'success',
-                        message: 'Your base_path has been set to:' + value
+                        message: 'Your base_path has been set to: ' + value
                     });
                 }
             }).catch(() => {
