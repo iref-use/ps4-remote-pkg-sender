@@ -133,11 +133,11 @@ export default {
             this.save()
             this.loadFiles()
         },
-        'server.scan_subdir'(){
+        async 'server.scan_subdir'(){
             this.save()
             this.loadFiles()
         },
-        'server.prependFullPath'(){
+        async 'server.prependFullPath'(){
             this.save()
             this.loadFiles()
         },
@@ -155,44 +155,44 @@ export default {
             }
         },
 
-        selectBasePath(){
-            let path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+        async selectBasePath(){
+            let path = await remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
 
-            if(path)
-            this.server.base_path = path[0]
+            if( path && !path.canceled )
+                this.server.base_path = path.filePaths[0]
         },
 
         loadFiles(){
             this.$store.dispatch('server/loadFiles', this.server.base_path)
             this.$message({
-              type: 'success',
-              message: 'Files has been reloaded'
+                type: 'success',
+                message: 'Files has been reloaded'
             });            
         },
 
-        save(){
+        async save(){
             console.log("Saving Local Server Configuration")
-            this.$store.dispatch('app/setServer', this.server)
+            await this.$store.dispatch('app/setServer', this.server)
         },
 
         enterManuallyBasePath(){
             this.$prompt('Please input base path', 'Base Path for the Server', {
-              confirmButtonText: 'OK',
-              cancelButtonText: 'Cancel',
-              // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-              // inputErrorMessage: 'Invalid Email'
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+                // inputErrorMessage: 'Invalid Email'
             }).then(({ value }) => {
                 if(value){
                     this.server.base_path = value
                     this.$message({
-                      type: 'success',
-                      message: 'Your base_path has been set to:' + value
+                        type: 'success',
+                        message: 'Your base_path has been set to:' + value
                     });
                 }
             }).catch(() => {
                 this.$message({
-                  type: 'info',
-                  message: 'Input canceled'
+                    type: 'info',
+                    message: 'Input canceled'
                 });
             });
         }

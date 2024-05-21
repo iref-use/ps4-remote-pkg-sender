@@ -266,14 +266,14 @@ export default {
             });
         },
 
-        selectBasePath(){
-            let path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+        async selectBasePath(){
+            let path = await remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
 
-            if(path){
-              // console.log("Path changed in Server Tab.")
-              this.server.base_path = path[0]
-              this.$store.dispatch('app/setServer', this.server)
-              this.loadFiles()
+            if( path && !path.canceled ){
+                // console.log("Path changed in Server Tab.")
+                this.server.base_path = path.filePaths[0]
+                this.$store.dispatch('app/setServer', this.server)
+                this.loadFiles()
             }
         },
 
