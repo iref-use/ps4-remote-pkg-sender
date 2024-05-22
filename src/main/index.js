@@ -36,7 +36,7 @@ function createMainWindow() {
     window.hide()
   })
   window.on('closed', () => { windows.main = null })
-  window.webContents.openDevTools()
+  // window.webContents.openDevTools()
 
   // handle download child windows and autoclose
   helper.autocloseAfterDownload(window)
