@@ -460,8 +460,8 @@ export default {
                       //   "rest_sec_total": 1116,
                       //   "preparing_percent": 100,
                       //   "local_copy_percent": 0
-                      // }
-
+                      // }                                        
+                      
                       if(data.status && data.status == 'success'){
                           let length = Math.round(parseInt(data.length))
                           let done   = Math.round(parseInt(data.transferred))

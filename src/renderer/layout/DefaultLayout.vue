@@ -31,7 +31,7 @@
               <el-menu-item index="settings">Settings</el-menu-item>
 
               <div class='top_right_header'>
-                  <el-button size="mini" icon="el-icon-user" round @click="move({ name: 'user' })"> User </el-button>
+                  <el-button size="mini" icon="el-icon-user" round @click="move({ name: 'user' })"> Support for more upcoming Features </el-button>
 
                   <el-badge :is-dot="true" value="new" :hidden="!newVersionAvailable" class="sync_icon">
                       <div class="" @click="checkUpdate">

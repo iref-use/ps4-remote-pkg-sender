@@ -5,6 +5,14 @@
 
   <el-timeline>
     <el-timeline-item timestamp="2.10.3" placement="top">
+        <h4>macOS 14.4+ fixes</h4>
+        <p>
+        The latest mac OS Version 14.4+ has had a couple dependency that break the application.  <br>
+        Fixed the dependencies and deprecations. <br>
+        Added HB-Store setting values as of a custom adress. <br>
+        </p>
+    </el-timeline-item>    
+    <el-timeline-item timestamp="2.10.3" placement="top">
         <h4>Welcome PS5 Support</h4>
         <p>
           With the new Features from etaHEN we are finally able to be the first application <br>

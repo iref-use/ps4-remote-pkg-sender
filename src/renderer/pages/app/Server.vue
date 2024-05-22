@@ -109,7 +109,8 @@ export default {
     methods: {
         registerChannel(){
             ipcRenderer.on('server', (event, data) => {
-                console.log("ipc channel | server ", data)
+                console.log("ipc channel | server ", data)                
+
                 if(data == 'refresh')
                   this.restartServer()
 
@@ -144,6 +145,7 @@ export default {
         },
 
         restartServer(){
+            this.$root.sendMain("Restarting Server")
             this.stopServer()
             this.startServer()
         },

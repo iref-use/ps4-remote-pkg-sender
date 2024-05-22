@@ -1,5 +1,11 @@
 # PS4 Remote PKG Sender v2  - Changelog
 
+### v2.10.4
+#### macOS 14.4+ fixes
+        The latest mac OS Version 14.4+ has a couple dependency changes that break the application.  
+        Fixed the dependencies and deprecations.  
+        Added HB-Store setting values as of a custom adress.                
+
 ### v2.10.3
 #### Welcome PS5 Support        
         With the new Features from etaHEN we are finally able to be the first application

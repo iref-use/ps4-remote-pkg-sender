@@ -1,12 +1,19 @@
 <template >
 <div>
+
+    <div style="margin-bottom: 20px;">
+      <img :src="$root.getImage('assets/kofi.svg')" class="cursor-pointer" @click="$root.open(links.kofi)" />
+    </div>
+
     <h2>Upcoming User Feature and more in 2.10.x</h2>
     <el-divider content-position="left" v-if="false"> Upcoming User Feature and more in 2.10.x </el-divider>
 
     Hello Ladies and Gentlemen! <br>
     <br>
     It has been a long journey so far, and you have done well! <br>
-    With 53k Downloads as of August 2023, that's quite impressive <small style="font-size: 90%">(67k Downloads as of February 2024) </small><br>
+    With 53k Downloads as of August 2023, that's quite impressive <br>
+    <small style="font-size: 90%">(67k Downloads as of February 2024) </small><br>
+    <small style="font-size: 90%">(79k Downloads as of May 2024) </small><br>
     Thank you for using the Application. Any Support is appreciated and don't forget to check out my channels. <br>
     <br>
     I will talk about a couple big changes that will come soon or later, depending on your support. <br>
@@ -19,7 +26,7 @@
     <el-divider />
 
     <h2 style="font-size: 20px"> What is coming up? </h2>
-    <b>0) PS5 Support </b> [beta/kinda works/semi-done]<br>
+    <b>0) PS5 Support </b> [Done]<br>
     With 2.10.0+ we are the first application that supports PKG Install though application requests. <br>
     First prototyping works fine, but still we might need more feedback on this to mark it stable. <br>
     Thanks to etaHEN (@LM) and all the devs who was working on this - huge step forward. <br>
