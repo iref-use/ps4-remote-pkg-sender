@@ -7,9 +7,10 @@
     <el-timeline-item timestamp="2.10.3" placement="top">
         <h4>macOS 14.4+ fixes</h4>
         <p>
-        The latest mac OS Version 14.4+ has had a couple dependency that break the application.  <br>
+        The latest mac OS Version 14.4+ has a couple dependency changes that break the application.  <br>
         Fixed the dependencies and deprecations. <br>
         Added HB-Store setting values as of a custom adress. <br>
+        Fixed Release links in the Update checker View. 
         </p>
     </el-timeline-item>    
     <el-timeline-item timestamp="2.10.3" placement="top">

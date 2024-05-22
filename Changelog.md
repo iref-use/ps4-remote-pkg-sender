@@ -5,6 +5,7 @@
         The latest mac OS Version 14.4+ has a couple dependency changes that break the application.  
         Fixed the dependencies and deprecations.  
         Added HB-Store setting values as of a custom adress.                
+        Fixed Release links in the Update checker View.  
 
 ### v2.10.3
 #### Welcome PS5 Support        
