@@ -1,8 +1,12 @@
 <template>
 <div>
-    {{ serverFiles.length }} files found <br>
-    {{ servingFiles.length }} files serving <br>
+    <div class="mb-md">
+        {{ serverFiles.length }} files found <br>
+        {{ servingFiles.length }} files serving <br>
+    </div>
+
     Server is <el-tag size="mini" :type="$helper.getServerStatusType(running)" >{{ running }}</el-tag> on {{ ip }}:{{ port }}<br>
+    
     <br>
     <el-button size="mini" @click="$emit('hearthbeat')"> check hearthbeat </el-button> {{ hb }} <br>
     <br>

@@ -1,7 +1,7 @@
 <template>
 <div>
 
-  <div v-for="route in routes">
+  <div class="route" v-for="route in routes">
       {{ route }}
   </div>
 
@@ -20,5 +20,9 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+.route {
+    display: block;
+    margin-bottom: 2px;
+}
 </style>

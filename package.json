@@ -1,10 +1,10 @@
 {
   "private": true,
-  "version": "2.8.0",
+  "version": "2.10.4",
   "name": "PS4RemotePKGSenderV2",
   "productName": "PS4 Remote PKG Sender V2",
   "author": "Gkiokan <support@gkiokan.net>",
-  "description": "Manage and send PKG files to your ps4",
+  "description": "Manage and send PKG files to your PS4 and PS5",
   "scripts": {
     "build": "electron-webpack && electron-builder --dir",
     "build:mac": "electron-webpack && electron-builder --mac",
@@ -17,9 +17,12 @@
     "watch": "electron-webpack dev"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.5",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/preset-env": "^7.24.5",
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "electron": "^3.1.13",
-    "electron-builder": "^22.14.5",
+    "electron": "^8.5.5",
+    "electron-builder": "^23.0.3",
     "electron-devtools-installer": "^3.2.0",
     "electron-packager": "^12.2.0",
     "electron-webpack": "^2.8.2",
@@ -43,11 +46,21 @@
     "axios": "^0.24.0",
     "debounce": "^1.2.1",
     "express": "^4.17.1",
+    "net": "^1.0.2",
     "os": "^0.1.2",
     "source-map-support": "^0.5.16",
     "uaup-js": "0.0.22",
+    "uuid": "^9.0.0",
     "webtorrent": "^0.102.4"
   },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-nullish-coalescing-operator"
+    ]
+  },  
   "build": {
     "appId": "gkiokan.net.ps4remotepkgsenderv2",
     "asar": true,
@@ -58,30 +71,40 @@
       "target": [
         {
           "target": "zip",
-          "arch": [ "x64", "ia32" ]
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         },
         {
           "target": "portable",
-          "arch": [ "x64", "ia32" ]
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         }
       ]
     },
     "linux": {
       "target": [
         {
-            "target": "AppImage",
-            "arch": [ "x64", "ia32", "armv7l" ]
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "ia32",
+            "armv7l"
+          ]
         },
         {
-            "target": "snap"
+          "target": "snap"
         },
         {
-            "target": "deb"
+          "target": "deb"
         }
       ]
     },
     "portable": {
-      "artifactName": "${productName}.exe",
+      "artifactName": "${productName}-${version}.exe",
       "unpackDirName": "PS4RemotePKGSenderV2"
     },
     "dmg": {

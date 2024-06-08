@@ -32,6 +32,7 @@
         <br>
         Fork of the RPI OOP by Njzydark with latest updates. <br>
         Check GitHub repositories to compare the updates. <br>
+        If flatZ RPI doesn't work for you, you should test this one out. <br>
         <br>
         <el-button @click="$root.open(links.ps4_rpioop_njzydark)"> Download </el-button>
         <el-button @click="$root.open(links.ps4_rpioop_github_njzydark)"> GitHub </el-button>
@@ -76,6 +77,27 @@
     </el-col>
   </el-row>
 
+  <div style="height: 40px" />  
+
+  <el-row>
+    <el-col style="width: 240px;">
+        <img :src="$root.getImage('assets/hb-store-cdn-server.jpeg')" class="icon0" />
+    </el-col>
+    <el-col :span="12">
+        <b>HB-Store CDN Server</b> by Gkiokan <br>
+        <br>
+        With the CDN Server you can host all your local PKG files with <br>
+        an ease to the HB-Store. It supports name fixing and sub directory scans <br>
+        based on a base Path, and is also cross plattform available.<br>
+        <br>
+        <i style="font-style: italic;">There is also a CLI-Version that is even supported officially by <b>RetroNAS</b>!</i> <br>
+        <br>
+        <el-button @click="$root.open(links.hb_store_cdn_server_latest)"> Download </el-button>
+        <el-button @click="$root.open(links.hb_store_cdn_server_repo)" > CDN Server </el-button>
+        <el-button @click="$root.open(links.hb_store_cdn_server_cli_repo)" > CDN Server CLI Version </el-button>
+    </el-col>
+  </el-row>
+
   <div style="height: 40px" />
 
   <el-row>
@@ -86,7 +108,7 @@
         <b>Your App here?</b> <br>
         <br>
         If you would like to add your Homebrew App to the Downloads Area <br>
-        message me on Discord at Gkiokan#0735 <br>
+        message me on Discord at <el-tag size="mini">Gkiokan#0735</el-tag> <small style="font-size: 13px">(legacy)</small> or <el-tag size="mini">gkiokan</el-tag><br>
 
     </el-col>
   </el-row>

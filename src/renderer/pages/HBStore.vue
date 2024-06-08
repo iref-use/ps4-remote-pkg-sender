@@ -21,7 +21,14 @@ export default {
     computed: {
         app: get('app'),
         mode: get('app/config.useHBMode'),
-        api: get('app/config.useHBRoot'),
+        hb_root: get('app/config.useHBRoot'),
+        hb_custom: get('app/config.useHBCustomRoot'),
+        api(){
+            if( this.mode == 'custom' )
+                return this.hb_custom 
+                
+            return this.hb_root
+        },
     },
 
 }

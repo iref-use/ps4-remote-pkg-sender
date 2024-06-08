@@ -31,17 +31,19 @@
               <el-menu-item index="settings">Settings</el-menu-item>
 
               <div class='top_right_header'>
+                  <el-button size="mini" icon="el-icon-user" round @click="move({ name: 'user' })"> Support for more upcoming Features </el-button>
+
                   <el-badge :is-dot="true" value="new" :hidden="!newVersionAvailable" class="sync_icon">
-                      <div class="close_application" @click="checkUpdate">
+                      <div class="" @click="checkUpdate">
                           <i class="el-icon-refresh" />
                       </div>
                   </el-badge>
 
                   <el-dropdown class="window_dropdown" @command="handleViewCallback">
-                    <i class="el-icon-files" off-style="color: #bbb" />
+                    <i class="el-icon-files" />
                     <el-dropdown-menu slot="dropdown">
                       <el-dropdown-item command="server"> Open Local Server </el-dropdown-item>
-                      <el-dropdown-item command="ps4"> Open PS4 API Logs </el-dropdown-item>
+                      <el-dropdown-item command="ps4"> Open Playstation API Logs </el-dropdown-item>
                       <el-dropdown-item command="info"> Info </el-dropdown-item>
                     </el-dropdown-menu>
                   </el-dropdown>
@@ -54,8 +56,11 @@
           </el-menu>
       </el-header>
 
-      <el-main class="main_view">
+      <el-main class="main_view" ref="main">
           <div class="main_content_offset" />
+
+          <DragAndDrop :files="draggedFiles" @close="showDragAndDropOverlay = false" v-if="showDragAndDropOverlay" />
+
           <router-view />
 
           <div style="margin-top: 100px; display:block;">
@@ -84,20 +89,27 @@ export default {
       scrollOffset: 500,
       scrollPosition: 0,
       newVersionAvailable: true,
+      showDragAndDropOverlay: false,
+      draggedFiles: [],
   }},
 
   computed: {
-      config: get('app/config'),
+      config: get('app/config'),      
   },
 
   mounted(){
       this.registerChannel()
-      window.addEventListener('scroll', this.scroll)
       this.autoCheckUpdate()
+
+      window.addEventListener('scroll', this.scroll)
+      window.addEventListener('dragover', this.dragover)
+      window.addEventListener('drop', this.drop)
   },
 
   destroyed(){
       window.removeEventListener('scroll', this.scroll)
+      window.removeEventListener('dragover', this.dragover)
+      window.removeEventListener('drop', this.drop)
   },
 
   methods: {
@@ -169,6 +181,9 @@ export default {
           let release = await this.$git.getLatestRelease()
           if(!release) return
 
+          // patch root app version for debug purpose
+          // this.$root.versions.app = "2.7.3"
+
           let version = this.$git.getVersion(release)
           let current = this.$root.versions.app
           let compare = this.$git.compareVersion(current, version)
@@ -180,7 +195,44 @@ export default {
           }
           else {
               this.newVersionAvailable = false
-          }
+          }                    
+      },
+
+      dragover(e){
+        e.preventDefault();
+        e.stopPropagation();        
+        
+        this.showDragAndDropOverlay = true
+        this.draggedFiles = []
+      },
+
+      drop(e){
+        e.preventDefault();
+        e.stopPropagation();        
+
+        let files = [];
+        for (const f of event.dataTransfer.files) {            
+            // console.log('File Object of dragged files: ', f)
+
+            if( f.path.includes('.pkg') ){
+                files.push(f.path);
+            }
+            else {
+                let filesInFolder = this.$fs.getFiles(f.path, true).filter( file => this.$fs.isPKG(file) )
+                // console.log("Files in Folder", f.path, filesInFolder)
+                files.push(...filesInFolder)
+            }
+        }
+        
+        if( files.length == 0 ){
+            this.showDragAndDropOverlay = false    
+            this.draggedFiles = []
+            this.$root.sendMain("No PKG Files found in the Drag and Drop")
+            return    
+        }
+        
+        this.showDragAndDropOverlay = true
+        this.draggedFiles = files    
       },
 
   }

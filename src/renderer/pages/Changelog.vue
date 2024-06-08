@@ -4,6 +4,58 @@
   <h2 style="margin-bottom: 20px;">You are on version {{ $root.versions.app }}</h2>
 
   <el-timeline>
+    <el-timeline-item timestamp="2.10.3" placement="top">
+        <h4>macOS 14.4+ fixes</h4>
+        <p>
+        The latest mac OS Version 14.4+ has a couple dependency changes that break the application.  <br>
+        Fixed the dependencies and deprecations. <br>
+        Added HB-Store setting values as of a custom adress. <br>
+        Fixed Release links in the Update checker View. 
+        </p>
+    </el-timeline-item>    
+    <el-timeline-item timestamp="2.10.3" placement="top">
+        <h4>Welcome PS5 Support</h4>
+        <p>
+          With the new Features from etaHEN we are finally able to be the first application <br>
+          that does support Installing PKG files on your Konsole. This is a huge step forward.<br>   
+          To use that feature, you have to select <b>Config > Playstation App > etaHEN</b>. <br>
+          <br>       
+          Due the ongoing Platform rewrite for PKG-zone there was a bug in the HB-Store view, it's fixed now. <br>
+          The PKG-Zone will be updated soon anyway, so there is a bigger rework planed for the Feature here. <br>
+          Based on that I've added proper HB-Store PS5 PKG Support for now, so you can download it at least correctly.<br>
+          There are also other improvements here and there and a bunch of refactoring. <br>      
+        </p>
+    </el-timeline-item>     
+    <el-timeline-item timestamp="2.9.1" placement="top">
+        <h4>RPSv2 API and User features</h4>
+        <p>
+          Create RPSV2 Server and API. <br>
+          This allows us to handle configuration changes without new Releases. <br>
+          Integrate RPSV2 API for dynamic configurations. Test Phase.<br>
+          Add a fix for a bug that maybe will never happen on manually DL Item. <br>
+          Add a try catch handler to reading base paths whenever it may throw errors. <br>
+          Extend the forbidden folders to skip to not throw permission error on reading. <br>
+          Each Application will have it's own Serial Number. <br>          
+          Add tracking events to Benchmark Performance and RPSV2 API relyability. <br>
+          Add User Guide and writeup for the new features. <br>
+          Extend the Download View with the HB-Store CDN Server. <br>          
+        </p>
+    </el-timeline-item>   
+    <el-timeline-item timestamp="2.9.0" placement="top">
+        <h4>Bulk Actions, Drag and Drop </h4>
+        <p>
+          Adding Drag and Drop feature to the Main Window. <br>
+          Files or Folders can be dragged to the Main Window. <br>
+          Dragged Files will be checked for uniquenes. <br>
+          Handle proper removing Files from Queue. <br>
+          Added a proper serving of dragged files next to server files. <br>
+          Bulk Add all files from the Server Tab to the Processing Center. <br>
+          Added a Button to clear up the Dragged Files Tab. <br>
+          Added Tabbed Server Locations for Server and Dragged Files. <br>
+          Prepared Upcoming feature for Files from Hosts! <br>
+          Added Notifications for Bulk actions as reply. <br>
+        </p>
+    </el-timeline-item>  
     <el-timeline-item timestamp="2.8.0" placement="top">
         <h4>Update</h4>
         <p>

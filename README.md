@@ -12,7 +12,7 @@ Based on Electron, Webpack, Vue, Express, Axios, Element-UI and Node this does n
 dependencies. With this we can createa a cross platform application that works on mac, linux and Windows
 and provides a nice GUI.  
 
-![PS4 Package Sender Main Application Windows](https://media.discordapp.net/attachments/933730584721780806/959908370565959750/new_cover_ported.jpg)
+![PS4 Package Sender Main Application Windows](https://github.com/Gkiokan/ps4-remote-pkg-sender/blob/master/screenshot.jpg)
 
 [![Full Changelog](https://img.shields.io/badge/Checkout%20-All%20Changelogs-yellow)](Changelog.md)
 
@@ -20,43 +20,50 @@ and provides a nice GUI.
 
 ## New features in v2.*
 The refactored Version provides a better GUI and technicall more ordered features.  
-[x] Configure your server with your base path  
-[x] Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
-[x] Controll the Server application by click and have it running in the background  
-[x] Closing windows doesn't stop the Server but stops if you quit the application.   
-[x] Show a list of all Server side listed PKG's  
-[x] Miscs download link to flatZ PS4 Remote Package Installer homebrew  
-[x] Extended Menu and Tray Icon  
-[x] Separate Server Window (Logs, Server Routes, Controls)  
-[x] Separate PS4 API Logs Window  
-[x] Catch any possible Error on Request or Response with the RPI on your PS4  
-[x] Scan base path (deep scan support) directory for fPKG's and serve them with the server  
-[x] Search for titles through your found files    
-[x] Add Served files to your Queue and install them on your PS4  
-[x] Processing Center reflects any status changes in your server list, too     
-[x] Set custom timeout and update interval with a slider  
-[x] Added Seperate Changelog file and Troubleshooting Guide
-[x] Add a FAQ and Troubleshooting Area  
-[x] Configuration values for timeout and heartbeat  
-[x] Implement HB Store and direct install fPKG's  
-[x] Queue scanner (start next file in the queue after one is finished)  
-[x] Scroll To Top  
-[x] Auto update checker for latest release version 
+- [x] Configure your server with your base path  
+- [x] Prepare Custom Server Configuration (build-in express, apache, nginx, custom, ...)  
+- [x] Controll the Server application by click and have it running in the background  
+- [x] Closing windows doesn't stop the Server but stops if you quit the application.   
+- [x] Show a list of all Server side listed PKG's  
+- [x] Miscs download link to flatZ PS4 Remote Package Installer homebrew  
+- [x] Extended Menu and Tray Icon  
+- [x] Separate Server Window (Logs, Server Routes, Controls)  
+- [x] Separate PS4 API Logs Window  
+- [x] Catch any possible Error on Request or Response with the RPI on your PS4  
+- [x] Scan base path (deep scan support) directory for fPKG's and serve them with the server  
+- [x] Search for titles through your found files    
+- [x] Add Served files to your Queue and install them on your PS4  
+- [x] Processing Center reflects any status changes in your server list, too     
+- [x] Set custom timeout and update interval with a slider  
+- [x] Added Seperate Changelog file and Troubleshooting Guide
+- [x] Add a FAQ and Troubleshooting Area  
+- [x] Configuration values for timeout and heartbeat  
+- [x] Implement HB Store and direct install fPKG's  
+- [x] Queue Scanner (start next file in the queue after one is finished)  
+- [x] Scroll To Top  
+- [x] Auto update checker for latest release version 
+- [x] Bulk Action for adding to Queue
+- [x] Drag & Drop files and folders 
+- [x] RPSV2 API Service for dynamic configurations
+- [x] Add PS5 Support  
+- [x] Add Queue Scanner Bulk Request Support for PS5  
 
-## ToDo's for the future (Comming into v2.9+)
-[ ] Search your PS4 automatically in the current network  
-[ ] Implement Auto-updater  
-[ ] Import / Export Configuration  
-[ ] Serve as global Server Host and provide Server Files over Internet   
-[ ] Save PS4 (local, wlan, wan, internet) and make them chooseable  
-[ ] Read CUSA from file hex values instead of title  
-[ ] Preview CUSAxxxxx Game title covers  
-[ ] Chrome Extension for external usage  
-[ ] GoldHen Cheats Manager  
-[ ] Integrated FTP Client  
-[ ] Context Menu on Processing Center  
-[ ] Group PKG's by TitleID and Type (Base, Update, DLC)  
-[ ] One click to install all Group based PKG (send all PKGs from TitleID X)  
+## ToDo's for the future (Comming into v2.10+)
+- [ ] Add Translations though RPSV2 API
+- [ ] Search your PS4 automatically in the current network  
+- [ ] Implement Auto-updater  
+- [ ] Import / Export Configuration  
+- [ ] Serve as global Server Host and provide Server Files over Internet   
+- [ ] Show files from Hosts / Users
+- [ ] Save PS4 (local, wlan, wan, internet) and make them chooseable  
+- [ ] Read CUSA from file hex values instead of title  
+- [ ] Preview CUSAxxxxx Game title covers  
+- [ ] Chrome Extension for external usage  
+- [ ] GoldHen Cheats Manager  
+- [ ] Integrated FTP Client  
+- [ ] Context Menu on Processing Center  
+- [ ] Group PKG's by TitleID and Type (Base, Update, DLC)  
+- [ ] One click to install all Group based PKG (send all PKGs from TitleID X)  
 
 ## How To  
 So there you have it. How can you use it?  
@@ -68,7 +75,7 @@ So there you have it. How can you use it?
 ### on PC  
 1.) Start PS4 Package Sender V2   
 2.) Switch to Config and select your Networkinterface (IP Adress)  
-2.1) Choose a Server Port if necessary and apply or restart the server  
+    2.1) Choose a Server Port if necessary and apply or restart the server  
 3.) Choose your base path where your files are settled  
 4.) Switch to Server and add your files to the queue (Processing Center)  
 5.) Start your install process with any of your files.  

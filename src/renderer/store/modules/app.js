@@ -4,6 +4,8 @@ export const state = {
     time: 0,
     started: 0,
 
+    serial: null,
+
     config: {
         lang: 'en',
         style: 'light',
@@ -35,6 +37,7 @@ export const state = {
         port_rpi: 12800,
         port_rpiOOP: 12800,
         port_ftp: 2121,
+        port_etaHEN: 9090,
         timeout: 2500,
         update: 2200,
     },
@@ -86,6 +89,7 @@ export const mutations = {
             useHB: false,
             useHBMode: 'refactored',
             useHBRoot: 'http://api.pkg-zone.com/',
+            useHBCustomRoot: '',
             showConfigObject: false,
             enableExternalLinks: false,
             enableSystemNotifications: false,
@@ -137,6 +141,10 @@ export const actions = {
 export const getters = {
   // make all getters (optional)
   ...make.getters(state),
+
+  isPS5(state){
+        return state.ps4.app == 'etaHEN'
+  },
 
   getPS4IP(state){
       return state.ps4.ip + ':' + state.ps4.port

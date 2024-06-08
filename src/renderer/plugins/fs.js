@@ -7,22 +7,36 @@ import store from './../store'
 
 const getFiles = (folder, deep=false) => {
     const files = []
-    for (const file of fs.readdirSync(folder, { widthFileTypes: true }) ) {
-        // fix permission error on external drives for darwin
-        let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes', '.Trash'].includes(file)
 
-        if(forbidden){
-            continue
-        }
+    try {
+        for (const fileObject of fs.readdirSync(folder, { withFileTypes: true }) ) {
 
-        const fullPath = path.join(folder, file)
-        if(fs.lstatSync(fullPath).isDirectory() && deep){
-            getFiles(fullPath, deep).forEach( x => files.push(x) )
-        }
-        else {
-            files.push(fullPath)
+            // fix for new path ?
+            let file = fileObject.name
+
+            // fix permission error on external drives for darwin
+            let forbidden = ['$RECYCLE.BIN', 'desktop.ini', '.Spotlight', '.Spotlight-V100', '.Trashes', '.Trash', 'Thumbs.db', '.DS_Store'].includes(file)
+
+            if(forbidden){
+                continue
+            }
+
+            // console.log("Reading File " + JSON.stringify(file))
+
+            const fullPath = path.join(folder, file)
+            if(fs.lstatSync(fullPath).isDirectory() && deep){
+                getFiles(fullPath, deep).forEach( x => files.push(x) )
+            }
+            else {
+                files.push(fullPath)
+            }
         }
     }
+    catch( e ){
+        console.log("Error reading folder", folder)
+        console.log(e)
+    }
+
     return files
 }
 
@@ -43,6 +57,24 @@ let o = {
 
         console.log("Found files " + files.length)
         return files
+    },
+
+    getFiles,
+
+    getFileName(p=null){
+        if( !p ) return 'n/a'
+
+        return path.basename(p)
+    },
+
+    getFileSize(p=null, d=2, returnBytes=false){
+        if( !p ) return 'n/a'
+
+        let stats = fs.statSync(p)
+        if( stats && stats.size )
+            return returnBytes ? stats.size : this.formatBytes(stats.size, d)
+
+        return 'n/a'
     },
 
     walk(folder){
@@ -99,9 +131,7 @@ let o = {
         }
 
         let stats = fs.lstatSync(fullPath)
-        // let stats = isFile ? fs.statSync(item) : null
-        // let size = (stats.size / (1024*1024*1024)).toFixed(3)
-        let size = this.formatBytes(stats.size, 2)
+        let size  = this.formatBytes(stats.size, 2)
         let regex = /(CUSA\d{5})/i
 
         // let cusa  = regex.test(fileName) ? fileName.match(regex)[0] : 'not found' // overhead?
@@ -165,7 +195,18 @@ let o = {
         let size = item.size ? this.formatBytes(item.size) : 'n/a'
         // patch file url to stream
         // let filePath = item.file.replace('attachments/', 'attachments/stream/')
-        let filePath = item.file.replace('https', 'http')
+        let filePath = item.file ? item.file.replace('https', 'http') : item.file
+
+        // file url if we have missing ps4 default pacakage but file_ps5 given instead
+        // so fallback to file_ps5 if file is empty
+        if( !item.file && item.file_ps5){
+            filePath = item.file_ps5 ? item.file_ps5.replace('https', 'http') : item.file_ps5
+        }
+
+        // if we have ps5 selected enforce ps5 file
+        if( store.getters['app/isPS5'] && item.file_ps5 ){
+            filePath = item.file_ps5 ? item.file_ps5.replace('https', 'http') : item.file_ps5
+        }
 
         return {
             name: item.name,
@@ -213,7 +254,35 @@ let o = {
         }
     },
 
-    formatBytes(bytes, decimals=2, k=1000) {
+    createItemFromDraggedFile(draggedFilePath){
+        let name            = path.basename(draggedFilePath)
+        let patchedFilename = name.replace(/[^a-zA-Z0-9-_.]/g, '')
+        let size            = this.getFileSize(draggedFilePath, 2, true)
+        let searchCUSA      = name.match(/(CUSA\d{5})/i)
+        let cusa            = searchCUSA ? searchCUSA[0].toUpperCase() : ''        
+        
+        return {
+            name,
+            status: 'Dragged',
+            percentage: 0,
+            rest: 0,
+            task: '',
+            ext: path.extname(draggedFilePath),
+            path: draggedFilePath,
+            url: null,
+            type: 'dragged',
+            cusa,
+            isFile: true,
+            patchedFilename,
+            sizeInBytes: size,
+            size: this.formatBytes(size, 2),
+            logs: [],
+            // stats,
+        }
+    },
+
+    formatBytes(bytes=null, decimals=2, k=1000) {
+        if (!bytes) return 'n/a';
         if (bytes === 0) return '0 Bytes';
 
         const dm = decimals < 0 ? 0 : decimals;

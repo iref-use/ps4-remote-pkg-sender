@@ -65,6 +65,7 @@
               <template slot-scope="scope">
                   {{ scope.row.name }} <small>(v{{ scope.row.data.version}})</small>
                   <el-tag size="small" :type="$helper.getAppStoreType(scope.row.data.type)" style="margin-left: 10px; margin-bottom: 3px;">{{ scope.row.data.type }}</el-tag>
+                  <el-tag size="small" style="margin-left: 10px; margin-bottom: 3px; cursor: pointer;" v-if="scope.row.data.file_ps5" @click="check(scope.row.data.file_ps5)"> Download PS5 Version </el-tag>
                   <br>
                   <el-divider style="margin: 3px 0px" v-if="false" />
                   <div v-for="(desc,i) in scope.row.data.description" :key="'desc_' + i" class="text-darken">{{ desc }}</div>
@@ -236,6 +237,9 @@ export default {
         },
 
         isInstalled(file){
+            if( this.$store.getters['app/isPS5'] )
+                return this.$message({ message: "'Is Installed' feature is not implemented for PS5 yet", type: "info" })                
+
             this.$ps4.isInstalled(file)
                     .then( ({ data }) => {
                         if(data.exists == true)
@@ -253,6 +257,10 @@ export default {
         check(url){
             this.$root.openWithAutoclose(url)
             // this.$refs.DownloadItem.open(url)
+        },
+
+        hasPS5Support(item){
+
         },
 
         setCategory(c){

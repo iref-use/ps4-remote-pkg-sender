@@ -3,15 +3,6 @@
 
   <el-row style="margin-bottom: 20px;">
     <el-col :span="20">
-        <div v-if="false">
-            <el-button size="small" icon="el-icon-refresh-left" @click="resetAll"> Reset Queue, Tasks and Installed </el-button>
-            <el-button size="small" icon="el-icon-refresh-left" @click="resetInstalled"> Reset Installed </el-button>
-            <el-button size="small" icon="el-icon-refresh-left" @click="clearFinishedFiles" v-if="finishedFiles.length"> Clear finished </el-button>
-
-            <el-button size="small" icon="fa fa-server" @click="checkHB"> check Server </el-button>
-            <el-button size="small" icon="fab fa-playstation" @click="checkPS4"> check PS4 </el-button>
-        </div>
-
         <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
           <el-button size="small" icon="el-icon-refresh-left" >
               Reset Options <i class="el-icon-arrow-down el-icon--right"></i>
@@ -19,10 +10,9 @@
           <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="el-icon-refresh-left" command="resetAll">Reset Queue, Tasks and Installed</el-dropdown-item>
               <el-dropdown-item icon="el-icon-refresh-left" command="resetInstalled">Reset Installed</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-refresh-left" command="clearFinishedFiles">Clear finished</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-refresh-left" command="clearFinishedFiles">Remove finished files from Queue</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-
 
         <el-dropdown @command="handleDropdownCommand" style="margin-right: 10px">
           <el-button size="small" icon="el-icon-check" >
@@ -30,7 +20,7 @@
           </el-button>
           <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="fa fa-server" command="checkHB">Check Local Server</el-dropdown-item>
-              <el-dropdown-item icon="fab fa-playstation" command="checkPS4">Check PS4</el-dropdown-item>
+              <el-dropdown-item icon="fab fa-playstation" command="checkPS4">Check Playstation</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
 
@@ -71,6 +61,7 @@
 
             <el-tag size="small"> Percent: {{ scope.row.percentage }}  </el-tag>
             <el-tag size="small" :type="$helper.getFileStatus(scope.row.status)"> Status: {{ scope.row.status }} </el-tag>
+            <el-tag size="small"> Type: {{ scope.row.type }} </el-tag>
             <el-tag size="small" type="info" v-if="scope.row.cusa"> {{ scope.row.cusa }} </el-tag>
             <el-tag size="small" :type="$helper.getFileSizeType(scope.row.size)"> {{ scope.row.size }} </el-tag>
             <el-tag size="small" type="info"> Task: {{ scope.row.task ? scope.row.task : '-' }} </el-tag>
@@ -84,6 +75,7 @@
 
             <el-tag size="small" type="info" style="margin-bottom: 5px"> File Name: {{ scope.row.name }} </el-tag> <br>
             <el-tag size="small" type="info" style="margin-bottom: 5px"> Patched Name: {{ scope.row.patchedFilename }} </el-tag> <br>
+            <el-tag size="small" type="info" style="margin-bottom: 5px"> Path: {{ scope.row.path }} </el-tag> <br>
             <el-tag size="small" type="info" style="margin-bottom: 5px"> URL: {{ scope.row.url }} </el-tag> <br>
 
 
@@ -102,11 +94,11 @@
           </template>
       </el-table-column>
 
-      <el-table-column prop="task" label="Task" width="105" v-if="showTask"></el-table-column>
+      <el-table-column prop="task" label="Task" width="105" v-if="showTask && !isPS5"></el-table-column>
       <el-table-column prop="cusa" label="CUSA" width="100" v-if="showCUSA"></el-table-column>
       <el-table-column prop="cusa" label="Version" width="100" v-if="showVersion"></el-table-column>
 
-      <el-table-column prop="rest" label="Rest" width="150" align="center">
+      <el-table-column prop="rest" label="Rest" width="150" align="center" v-if="!isPS5">
         <template slot-scope="scope">
             <el-tag size="small" plain v-if="scope.row.rest && scope.row.rest != 0"> {{ $helper.secondsToString(scope.row.rest) }} </el-tag>
         </template>
@@ -124,7 +116,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="Progress" width="100px" v-if="showPercentage">
+      <el-table-column label="Progress" width="100px" v-if="showPercentage && !isPS5">
           <template slot-scope="scope">
               <el-progress :stroke-width="25" :percentage="scope.row.percentage" :text-inside="true" stroke-linecap="square"></el-progress>
           </template>
@@ -184,6 +176,7 @@ export default {
       queue: get('queue'),
       logs: get('queue/logs'),
       tasks: get('queue/tasks'),
+      draggedServingFiles: sync('server/draggedServingFiles'),
       servingFiles: sync('server/servingFiles'),
       queueFiles: get('queue/queue'),
       installedFiles: sync('queue/installed'),
@@ -191,6 +184,7 @@ export default {
       updateInterval: get('app/ps4.update'),
       queueScanner: get('app/server.enableQueueScanner'),
       notify: get('app/config.enableSystemNotifications'),
+      isPS5: get('app/isPS5'),
       files(){ 
           let search = this.search.toLowerCase()
 
@@ -204,7 +198,7 @@ export default {
           return this.queueFiles
       },
       finishedFiles(){
-          return this.queueFiles.filter( file => file.status == 'finish' )
+          return this.queueFiles.filter( file => ['finish', 'Sent to PS5'].includes(file.status) )
       }
   },
 
@@ -218,15 +212,31 @@ export default {
           })
       },
 
-      checkPS4(){
-          this.$ps4.checkPS4().then( (res) => {
-              this.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
-              this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
-          })
-          .catch( e => {
-              this.log("Check Playstation: PS4 is not accessible", e)
-              // this.$message({ message: "PS4 is not accessible.", type: 'error' })
-          })
+      async checkPS4(){
+            // ps5 check
+            if( this.isPS5 )
+                return await this.$ps5.checkPS5()
+                    .then( () => {
+                        this.log("PS5 Connection available")
+                        this.$message({ message: "PS5 Connection available", type: 'success' })
+                    })
+                    .catch( e => {
+                        console.log(e)
+                        this.log(e)
+                        this.$message({ message: "PS5 Connection failed", type: 'error' })                    
+                    })
+            
+
+            // backwardscompatibility for ps4
+            this.$ps4.checkPS4()
+                .then( (res) => {
+                    this.log("PS4 is accessible", { status: res.status, statusText: res.statusText })
+                    this.$message({ message: "Check Playstation: PS4 is accessible", type: 'success' })
+                })
+                .catch( e => {
+                    this.log("Check Playstation: PS4 is not accessible", e)
+                    this.$message({ message: "PS4 is not accessible.", type: 'error' })
+                })
       },
 
       test(){
@@ -235,22 +245,79 @@ export default {
       },
 
       isInstalled(file){
-          this.$ps4.isInstalled(file)
-                  .then( ({ data }) => {
-                      if(data.exists == true)
-                        file.status = 'installed'
+            if( this.isPS5 )
+                return this.$message({ message: "'Is Installed' feature is not implemented for PS5 yet", type: "info" })                
 
-                      let { exists, size, type } = data
-                      this.log(data.message, { exists, size, type })
-                      this.$message({ message: data.message, type: data.type })
-                  })
-                  .catch( e => {
-                      this.clearInterval(file)
-                      console.log(e)
-                  })
+            this.$ps4.isInstalled(file)
+                    .then( ({ data }) => {
+                        if(data.exists == true)
+                            file.status = 'installed'
+
+                        let { exists, size, type } = data
+                        this.log(data.message, { exists, size, type })
+                        this.$message({ message: data.message, type: data.type })
+                    })
+                    .catch( e => {
+                        this.clearInterval(file)
+                        console.log(e)
+                    })
       },
 
-      start(file){
+      async start(file){
+          // ps5 version 
+            if( this.isPS5 ){            
+                this.log(file.name + ' install request')                
+
+                return await this.$ps5.install(file)
+                    .then( (data) => {
+                        // this.$message({ message: file.name + ' send to PS5', file, type: "info" })                        
+                        console.log(data)
+                        this.log(data)
+
+                        // validate install response 
+                        if( data && data.res ){
+                            // set the state here 
+                            this.setStatus(file, "Sent to PS5")         
+                            let code = parseInt(data.res)                        
+
+                            // success
+                            if( code == 0 ){
+                                this.log(file.name + ' install request successfull', file.url)
+                                return this.$message({ 
+                                    dangerouslyUseHTMLString: true,
+                                    message: `Install Request Success for <br>${file.name}`,
+                                    type: "success" 
+                                })
+                            }
+
+                            if( code == -2135809020 ){
+                                this.log(file.name + ' file at URL not found', file.url)
+                                return this.$message({ 
+                                    dangerouslyUseHTMLString: true,
+                                    message: `Error ${code} | PKG file response 404. Check Server heartbeat. <br>${file.name}`,
+                                    type: "error" 
+                                })                    
+                            }        
+                            
+                            // something else, maybe in queue, maybe full storage, maybe whatever
+                            this.$message({ 
+                                dangerouslyUseHTMLString: true,
+                                message: `Response Code ${data.res} for <br>${file.name}`, 
+                                type: "info" 
+                            })
+                        }
+                        else {
+                            this.$message({ message: `Unknown Response. Please check Logs.`, type: "warning" })                            
+                        }
+                    })
+                    .catch( e => {
+                        console.log(e)
+                        this.log(e)
+                        this.$message({ message: e, type: 'error' })
+                    })            
+            }          
+
+          // ps4 version
           if(file.task && ['pause', 'stop'].includes(file.status) ){
               console.log(file.name + ' found task id ' + file.task)
               return this.resume(file)
@@ -262,7 +329,7 @@ export default {
 
           this.log("Install Request", { type : 'direct', packages: [file.url] })
 
-          this.$ps4.install(file)
+          await this.$ps4.install(file)
               .then( ({ data }) => {
                   this.log(file.name + ' install', data)
 
@@ -279,12 +346,14 @@ export default {
                       this.setStatus(file, 'installing')
                       this.sendNotification({ title: "Installing", body: file.name + " is installing" })
                       this.startInterval(file)
+                      this.$root.track({ name: 'install.success', data: { name: 'Install Request success', value: file.name } })
 
                       this.log(file.name + ' has been started installing with Task ID ' + data.task_id, data)
                   }
                   else {
                       console.log(file.name + " error on install", data)
                       this.log(file.name + " error on install", data)
+                      this.$root.track({ name: 'install.error', data: { name: 'Install Request failed', value: file.name } })
                       // 2157510677 error on double install?
                       // 2157510663 already installed?
                       // 2157510681 task doesn't exist
@@ -391,8 +460,8 @@ export default {
                       //   "rest_sec_total": 1116,
                       //   "preparing_percent": 100,
                       //   "local_copy_percent": 0
-                      // }
-
+                      // }                                        
+                      
                       if(data.status && data.status == 'success'){
                           let length = Math.round(parseInt(data.length))
                           let done   = Math.round(parseInt(data.transferred))
@@ -446,6 +515,11 @@ export default {
       },
 
       find(file){
+          if( this.isPS5 ){
+              this.$message({ message: "'Find file' is not implemented for PS5 yet", type: "info" })
+              return
+          }
+
           this.$ps4.find(file)
                   .then( ({ data }) => {
                       this.log(file.name + ' find', data)
@@ -502,6 +576,7 @@ export default {
           this.setTask(file, '')
           this.sendNotification({ title: "Finished", body: file.name + " is finished installing" })
           this.$store.dispatch('queue/installed', file)
+          this.$root.track({ name: 'installed', data: { name: 'File installed', value: file.name } })
 
 
           // queue scanner hook
@@ -524,8 +599,11 @@ export default {
                 .then(() => {
                     this.ints.map( i => clearInterval(i) )
                     this.servingFiles.map( file => file.status = 'serving')
+                    this.draggedServingFiles.map( file => file.status = 'serving')
 
                     this.$store.dispatch('queue/resetAll')
+                    this.$root.track({ name: 'resetAll', data: { name: 'Processing Center reset' } })
+
                     this.$message({
                       type: 'success',
                       message: 'Queue, Tasks and Installed state has been resetted'
@@ -540,29 +618,43 @@ export default {
       },
 
       resetInstalled(){
+          console.log(this.servingFiles)
+
+          this.queueFiles
+                .filter( file => ['installed', 'Sent to PS5'].includes(file.status))
+                .map( file => file.status = 'in queue')
+
           this.servingFiles
-                .filter( file => file.status == 'installed')
+                .filter( file => ['installed', 'Sent to PS5'].includes(file.status))
                 .map( file => file.status = 'serving')
+
+          this.draggedServingFiles
+                .filter( file => ['installed', 'Sent to PS5'].includes(file.status))
+                .map( file => file.status = 'serving')
+
           this.$store.dispatch('queue/setInstalled', [])
+          this.$root.track({ name: 'resetInstalled', data: { name: 'Reset installed Files' } })
       },
 
       clearFinishedFiles(){
           this.finishedFiles.map( file => this.removeFromQueue(file))
+          this.$root.track({ name: 'clearFinishedFiles', data: { name: 'Clear finished Files' } })
       },
 
       removeFromQueue(file){
-          this.clearInterval(file)
-          let servingFile = this.$store.getters['server/findFile'](file)
+            this.clearInterval(file)
+            let servingFile = this.$store.getters['server/findFile'](file)                 
 
-          if(servingFile && servingFile.status == 'in queue'){
-              servingFile.status = 'serving'
-          }
+            if(servingFile && servingFile.status == 'in queue'){
+                servingFile.status = 'serving'
+            }
 
-          if(file.task){
-              this.stop(file)
-          }
+            if(file.task){
+                this.stop(file)
+            }
 
-          this.$store.dispatch('queue/removeFromQueue', file)
+            this.$store.dispatch('queue/removeFromQueue', file)
+            this.$root.track({ name: 'removeFromQueue', data: { name: 'Removed from Queue', value: file.name } })
       },
 
       openAddFileDialog(){
@@ -575,19 +667,23 @@ export default {
 
       toggleQueueScanner(){
           this.$store.dispatch('app/toggleQueueScanner')
+          this.$root.track({ name: 'QueueScanner.toggle', data: { name: 'Toggle QueueScanner', value: this.queueScanner } })
       },
 
-      handleQueueScannerNextItem(){
+      async handleQueueScannerNextItem(){
           let findNextFile = this.queueFiles.filter( f => f.status == 'in queue')
           console.log(findNextFile, findNextFile.length)
 
           // no items
-          if(findNextFile.length == 0){
+          if(findNextFile.length == 0)
               return this.$message({
                 type: 'success',
                 message: 'There are no items to be installed in the queue'
-              });
-          }
+              });          
+
+          // handle ps5 bulk action
+          if( this.isPS5 )
+            return await this.handleQueueScannerNextItemPS5(findNextFile)
 
           // we have a file in the queue
           if(findNextFile.length > 0){
@@ -597,8 +693,69 @@ export default {
                 type: 'success',
                 message: 'Found next File in the Queue. <br>' + file.name,
               });
-              this.start(file)
+              this.$root.track({ name: 'QueueScanner.next', data: { name: 'QueueScanner handle next item in List', value: file.name } })
+              await this.start(file)
           }
+      },
+
+      async handleQueueScannerNextItemPS5(files=[]){
+          this.$confirm(
+                    `Queue Scanner can currently only Bulk Request` +
+                    `all files because there is no Process Handling` +
+                    `Response yet to track the progress. <br><br>`+ 
+                    `Means the Queue handler will send all files in `+ 
+                    `the Queue with the status of 'in queue' ` + 
+                    `automatically to the PS5 with a delay in ` + 
+                    `between. ${files.length} files to be send.`, 
+                    'Bulk Install Request to PS5',
+                {
+                    dangerouslyUseHTMLString: true,
+                    confirmButtonText: 'OK, Continue',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning',
+                    center: true,
+                })
+                .then( async () => {
+                    // first check the connection 
+                    await this.$ps5.checkPS5()
+                        .then( async () => {
+                            this.log("PS5 Connection is ready for Bulk Requests")
+                            this.$message({ message: "PS5 Connection is Ready for Bulk Requests", type: 'success' })
+                            await new Promise( (resolve => setTimeout( () => resolve(), 200)) )
+                        })
+                        .catch( e => {
+                            console.log(e)
+                            this.log(e)
+                            this.$message({ message: "PS5 Connection failed. Bulk Request can't proceed.", type: 'error' })                                                
+                            throw new Error('PS5 Connection failed')
+                        })
+
+                    // warn the user 
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        type: 'success',
+                        timeout: 3000,
+                        message: `Found ${files.length} files to be send as Bulk Requests to the PS5. <br>`+
+                                 `Attention: Files will be send with a delay in between ` 
+                                 // + `for <br>` +  `all files that are 'in queue' from the Queue.`
+                    })                    
+
+                    // countdown 
+                    await new Promise( (resolve => setTimeout( () => resolve(), 3000)) )
+
+                    // bulk request handling 
+                    let total = files.length 
+                    for (let i = 0; i < files.length; i++) {
+                        await this.start(files[i])
+                        await new Promise(resolve => setTimeout(resolve, 2000))
+                    }
+
+                    this.$message({ message: "Queue Scanner finished. Check your PS5 download/installation", type: 'success' })
+
+                    if( this.notify )
+                        this.$root.notify({ title: "Queue Scanner", body: "Bulk Requests finished for " + total + " files."})
+                })
+                .catch(() => {})
       },
 
       handleStartInstallError(file, e){

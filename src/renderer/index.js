@@ -23,7 +23,6 @@ styles.innerText=`@import url(https://unpkg.com/spectre.css/dist/spectre.min.css
 
 // document.head.appendChild(styles);
 
-
 Vue.config.devtools = process.env.NODE_ENV !== 'production',
 Vue.config.productionTip = false,
 Vue.config.errorHandler = (error, vm, info) => {
@@ -41,11 +40,11 @@ window.onerror = function(message=null, source=null, lineno=null, colno=null, er
   console.log(message, source, lineno, colno, error)
 
   if(error != null)
-  alert('Message ' + message +
-        '\nSource ' + source +
-        '\nLine ' + lineno +
-        '\nColNo'  + colno +
-        '\nError ' + error)
+      alert('Message ' + message +
+          '\nSource ' + source +
+          '\nLine ' + lineno +
+          '\nColNo'  + colno +
+          '\nError ' + error)    
 };
 
 window.addEventListener('unhandledrejection', function(event) {
